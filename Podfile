@@ -12,6 +12,7 @@ target 'PhotoMap' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
   pod 'Alamofire',  '~> 5.2'
+  pod 'ReachabilitySwift',   '~> 5.0.0'
   pod 'SwiftLint',  '~> 0.41'
   pod 'SwiftGen',   '~> 6.4.0'
   pod 'Swinject',   '~> 2.7.1'

@@ -1,0 +1,13 @@
+//
+//  File.swift
+//  PhotoMap
+//
+//  Created by Krystsina Kurytsyna on 4/15/21.
+//
+
+import Foundation
+
+protocol ErrorHelper {
+    var title: String { get }
+    var message: String { get }
+}
