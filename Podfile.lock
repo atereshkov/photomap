@@ -98,13 +98,19 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (1.2.12)
+  - SwiftGen (6.4.0)
+  - SwiftLint (0.43.1)
+  - Swinject (2.7.1)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 5.2)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
   - Firebase/Messaging
+  - SwiftGen (~> 6.4.0)
+  - SwiftLint (~> 0.41)
+  - Swinject (~> 2.7.1)
 
 SPEC REPOS:
   trunk:
@@ -124,6 +130,9 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromisesObjC
+    - SwiftGen
+    - SwiftLint
+    - Swinject
 
 SPEC CHECKSUMS:
   Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
@@ -142,7 +151,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
 
-PODFILE CHECKSUM: 0cd9e282b92dd0a633f67eb579d03343d4f5c924
+PODFILE CHECKSUM: 4b3cc048bf459376c0ab8d0b35f1590e94d5ecec
 
 COCOAPODS: 1.10.1
