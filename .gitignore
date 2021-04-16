@@ -17,6 +17,8 @@ DerivedData
 *.hmap
 UserInterfaceState.xcuserstate
 
+# Cocoapods
+Pods/*
 
 ####
 # Carthage
