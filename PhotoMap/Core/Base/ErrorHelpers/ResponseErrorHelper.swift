@@ -27,7 +27,10 @@ enum ResponseErrorHelper: ErrorHelper {
         case .registrationError:
             return "Registration error. Please try again.".localized
         case .userAlreadyExists:
-            return "User with that email already exists. If it's you, please, sign in or try again with a different email.".localized
+            return """
+                User with that email already exists. \
+                If it's you, please, sign in or try again with a different email.
+                """.localized
         case .other(let message):
             return message.localized
         }

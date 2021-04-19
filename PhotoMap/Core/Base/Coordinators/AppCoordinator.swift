@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AppCoordinator: Coordinator {
     static let shared = AppCoordinator()
@@ -19,11 +20,18 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(LoadingViewController.newInstanse(with: self),
                                                 animated: true)
     }
-
+    
     func changeMainScreen() {
-        OLSystem.shared.isAuthUser ? showLibrary() : showAuth()
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            if user != nil {
+                guard self != nil else { return }
+                self?.showMap()
+            } else {
+                self?.showAuth()
+            }
+        }
     }
-
+    
     private func showMap() {
         let tabBarCoordinator = TabBarCoordinator()
         childCoordinators = [tabBarCoordinator]

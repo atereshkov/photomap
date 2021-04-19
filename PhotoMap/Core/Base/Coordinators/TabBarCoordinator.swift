@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Combine
+import Reachability
 
 class TabBarCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private weak var tabBarController: UITabBarController?
-    private let disposeBag = DisposeBag()
+    
+    private var subscriptions = Set<AnyCancellable>()
 
     @discardableResult
     func start() -> UIViewController {
@@ -19,16 +22,21 @@ class TabBarCoordinator: Coordinator {
         tabBarController.tabBar.barTintColor = .white
         tabBarController.tabBar.tintColor = .black
 
-        let libraryCoordinator = OLLibraryCoordinator()
-        libraryCoordinator.start()
-        childCoordinators.append(libraryCoordinator)
+        let mapCoordinator = MapCoordinator()
+        mapCoordinator.start()
+        childCoordinators.append(mapCoordinator)
+        
+        let timelineCoordinator = TimelineCoordinator()
+        timelineCoordinator.start()
+        childCoordinators.append(timelineCoordinator)
 
-        let accountCoordinator = OLAccountCoordinator()
-        accountCoordinator.start()
-        childCoordinators.append(accountCoordinator)
+        let moreCoordinator = MoreCoordinator()
+        moreCoordinator.start()
+        childCoordinators.append(moreCoordinator)
 
-        tabBarController.viewControllers = [libraryCoordinator.navigationController,
-                                            accountCoordinator.navigationController]
+        tabBarController.viewControllers = [mapCoordinator.navigationController,
+                                            timelineCoordinator.navigationController,
+                                            moreCoordinator.navigationController]
         self.tabBarController = tabBarController
         checkNetworkConnection()
 
@@ -36,25 +44,18 @@ class TabBarCoordinator: Coordinator {
     }
 
     func checkNetworkConnection() {
-        Reachability.rx.isReachable
-            .subscribe(onNext: { [unowned self] isReachable in
+        Reachability.isReachable
+            .sink(receiveValue: { [weak self] isReachable in
                 if !isReachable {
-                    closePresentedModalVC()
-                    showErrorAlert(error: .networtConnection)
+                    self?.closePresentedModalVC()
+                    self?.showErrorAlert(error: .networtConnection)
                 }
             })
-            .disposed(by: disposeBag)
+            .store(in: &subscriptions)
     }
 
-    func showErrorAlert(error: OLAlertErrorHelper) {
+    func showErrorAlert(error: AlertErrorHelper) {
         tabBarController?.selectedViewController?.present(generateErrorAlert(with: error), animated: true)
-    }
-
-    func openDetailBookFromDeepLink(by id: Int) {
-        if let booksCoordinator = childCoordinators[tabBarController!.selectedIndex] as? OLBooksCoordinator {
-            closePresentedModalVC()
-            booksCoordinator.showDetailBook(by: id)
-        }
     }
 
     private func closePresentedModalVC() {

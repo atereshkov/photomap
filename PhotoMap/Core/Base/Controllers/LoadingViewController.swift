@@ -9,11 +9,11 @@ import UIKit
 import Reachability
 
 class LoadingViewController: BaseViewController {
-    //MARK: - Variables
+    // MARK: - Variables
     private var coordinator: AppCoordinator?
     private let reachability: Reachability! = try? Reachability()
 
-    //MARK: - New instanse
+    // MARK: - New instanse
     static func newInstanse(with coordinator: AppCoordinator) -> LoadingViewController {
         let vc = LoadingViewController()
         vc.coordinator = coordinator
@@ -21,7 +21,7 @@ class LoadingViewController: BaseViewController {
         return vc
     }
 
-    //MARK: - Life cycle
+    // MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         coordinator?.changeMainScreen()
