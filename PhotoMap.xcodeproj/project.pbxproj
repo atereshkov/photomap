@@ -33,6 +33,17 @@
 		335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* MoreCoordinator.swift */; };
 		335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C7262DA6DB0057D25F /* TimelineViewController.swift */; };
 		335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881D4262DA82A0057D25F /* MoreViewController.swift */; };
+		335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335882DA262DCFCE0057D25F /* SignInViewController.swift */; };
+		335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335882E2262DCFDD0057D25F /* SignUpViewController.swift */; };
+		335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335882F1262DD0BF0057D25F /* CategoryViewController.swift */; };
+		335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335882F6262DD0D20057D25F /* CategoryViewModel.swift */; };
+		335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335882FB262DD0DF0057D25F /* MapViewModel.swift */; };
+		33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588300262DD12C0057D25F /* MoreViewModel.swift */; };
+		33588306262DD1420057D25F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588305262DD1420057D25F /* SignInViewModel.swift */; };
+		3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358830A262DD14D0057D25F /* SignUpViewModel.swift */; };
+		33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588315262DD1720057D25F /* TimelineViewModel.swift */; };
+		3358831B262DD19E0057D25F /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DependencyInjection.swift */; };
+		33588328262DD1D50057D25F /* DataAccessLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588327262DD1D50057D25F /* DataAccessLayer.swift */; };
 		338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB5FC262D8C020001F530 /* AuthCoordinator.swift */; };
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
@@ -94,6 +105,17 @@
 		335881C2262DA5990057D25F /* MoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		335881C7262DA6DB0057D25F /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		335881D4262DA82A0057D25F /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		335882DA262DCFCE0057D25F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		335882E2262DCFDD0057D25F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		335882F1262DD0BF0057D25F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		335882F6262DD0D20057D25F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		335882FB262DD0DF0057D25F /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		33588300262DD12C0057D25F /* MoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewModel.swift; sourceTree = "<group>"; };
+		33588305262DD1420057D25F /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		3358830A262DD14D0057D25F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		33588315262DD1720057D25F /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
+		3358831A262DD19E0057D25F /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
+		33588327262DD1D50057D25F /* DataAccessLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessLayer.swift; sourceTree = "<group>"; };
 		338BB5FC262D8C020001F530 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
@@ -208,8 +230,7 @@
 		33334AFA2628799900612573 /* Data Access Layer */ = {
 			isa = PBXGroup;
 			children = (
-				33334AFF26287A0300612573 /* EndPoints */,
-				33334AFD262879F000612573 /* Managers */,
+				33588327262DD1D50057D25F /* DataAccessLayer.swift */,
 			);
 			path = "Data Access Layer";
 			sourceTree = "<group>";
@@ -233,20 +254,6 @@
 				33334B0626287BF500612573 /* Map */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		33334AFD262879F000612573 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		33334AFF26287A0300612573 /* EndPoints */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EndPoints;
 			sourceTree = "<group>";
 		};
 		33334B0026287A2200612573 /* Controllers */ = {
@@ -366,6 +373,7 @@
 		335881C1262DA5740057D25F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				33588300262DD12C0057D25F /* MoreViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -404,6 +412,7 @@
 		338BB5E7262D854B0001F530 /* DI */ = {
 			isa = PBXGroup;
 			children = (
+				3358831A262DD19E0057D25F /* DependencyInjection.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -427,6 +436,8 @@
 		338BB5F9262D8BDE0001F530 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				335882DA262DCFCE0057D25F /* SignInViewController.swift */,
+				335882E2262DCFDD0057D25F /* SignUpViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -441,6 +452,8 @@
 		338BB5FB262D8BEF0001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				33588305262DD1420057D25F /* SignInViewModel.swift */,
+				3358830A262DD14D0057D25F /* SignUpViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -471,6 +484,7 @@
 		338BB604262D8D010001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				33588315262DD1720057D25F /* TimelineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -485,6 +499,7 @@
 		338BB606262D8D320001F530 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				335882F1262DD0BF0057D25F /* CategoryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -492,6 +507,7 @@
 		338BB608262D8D4A0001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				335882F6262DD0D20057D25F /* CategoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -522,6 +538,7 @@
 		338BB60C262D8D770001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				335882FB262DD0DF0057D25F /* MapViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -809,26 +826,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
+				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				33334B3026287E0300612573 /* AlertErrorHelper.swift in Sources */,
 				33334B1B26287D0000612573 /* ErrorHelper.swift in Sources */,
+				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
+				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
 				33334B2826287DF300612573 /* ResponseErrorHelper.swift in Sources */,
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
 				33334B5E262882AB00612573 /* LoadingViewController.swift in Sources */,
+				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
+				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
+				3358831B262DD19E0057D25F /* DependencyInjection.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
+				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
+				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				33334B1126287C8E00612573 /* Storyboarded.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
+				33588328262DD1D50057D25F /* DataAccessLayer.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
+				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

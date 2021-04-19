@@ -5,4 +5,8 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
-import Foundation
+import UIKit
+
+class SignInViewController: BaseViewController {
+    
+}
