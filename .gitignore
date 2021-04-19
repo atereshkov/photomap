@@ -17,7 +17,6 @@ DerivedData
 *.hmap
 UserInterfaceState.xcuserstate
 
-
 ####
 # Carthage
 Carthage/Build.rbenv-vars

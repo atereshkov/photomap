@@ -21,8 +21,4 @@ target 'PhotoMap' do
     # Pods for testing
   end
 
-  target 'PhotoMapUITests' do
-    # Pods for testing
-  end
-
 end
