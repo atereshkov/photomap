@@ -1,0 +1,31 @@
+force_cast: warning
+force_try: warning
+
+line_length:
+  warning: 120
+  error: 500
+
+file_length:
+  warning: 600
+  error: 1000
+
+function_body_length:
+  warning: 40
+  error: 140
+
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - legacy_constant
+  - legacy_constructor
+  - private_action
+  - private_outlet
+
+disabled_rules:
+  - trailing_whitespace
+
+line_length:
+  ignores_comments: true
+
+excluded:
+  - Pods
