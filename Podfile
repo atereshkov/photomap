@@ -11,7 +11,7 @@ target 'PhotoMap' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
-  pod 'Alamofire',  '~> 5.2'
+  pod 'Firebase/Firestore'
   pod 'ReachabilitySwift',   '~> 5.0.0'
   pod 'SwiftLint',  '~> 0.41'
   pod 'SwiftGen',   '~> 6.4.0'
@@ -19,10 +19,6 @@ target 'PhotoMap' do
 
   target 'PhotoMapTests' do
     inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'PhotoMapUITests' do
     # Pods for testing
   end
 
