@@ -45,6 +45,11 @@
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
 		338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */; };
+		338F8E25262F13E800267889 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338F8E24262F13E800267889 /* Authentication.storyboard */; };
+		338F8E2A262F1A3200267889 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F8E29262F1A3200267889 /* AuthService.swift */; };
+		338F8E2E262F1A6500267889 /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F8E2D262F1A6500267889 /* CancelBag.swift */; };
+		338F8E32262F1C9300267889 /* AuthServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F8E31262F1C9300267889 /* AuthServiceType.swift */; };
+		338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F8E37262F234C00267889 /* UITextField+Ex.swift */; };
 		4E3B7E2B320A2916316C05C6 /* Pods_PhotoMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */; };
 		CBCA82BC0F830018042CD509 /* Pods_PhotoMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */; };
 /* End PBXBuildFile section */
@@ -104,6 +109,11 @@
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCoordinator.swift; sourceTree = "<group>"; };
+		338F8E24262F13E800267889 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		338F8E29262F1A3200267889 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		338F8E2D262F1A6500267889 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
+		338F8E31262F1C9300267889 /* AuthServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceType.swift; sourceTree = "<group>"; };
+		338F8E37262F234C00267889 /* UITextField+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ex.swift"; sourceTree = "<group>"; };
 		39A12EAD33B979F503BEAC32 /* Pods-PhotoMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.debug.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.debug.xcconfig"; sourceTree = "<group>"; };
 		7BF840C2936D950C3B22C34B /* Pods-PhotoMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.debug.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A1D51F33FEE42E03AEE0CBD9 /* Pods-PhotoMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.release.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -195,6 +205,7 @@
 		33334AFA2628799900612573 /* Data Access Layer */ = {
 			isa = PBXGroup;
 			children = (
+				338F8E28262F19BE00267889 /* Managers */,
 				33588327262DD1D50057D25F /* DataAccessLayer.swift */,
 			);
 			path = "Data Access Layer";
@@ -297,6 +308,7 @@
 				338BB5F8262D8BAF0001F530 /* Coordinators */,
 				338BB5FA262D8BE80001F530 /* Models */,
 				338BB5FB262D8BEF0001F530 /* ViewModels */,
+				338F8E24262F13E800267889 /* Authentication.storyboard */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -359,6 +371,7 @@
 				33334B392628812A00612573 /* Date+Ex.swift */,
 				33334B34262880F400612573 /* String+Ex.swift */,
 				338BB610262D8EAE0001F530 /* Reachability+Ex.swift */,
+				338F8E37262F234C00267889 /* UITextField+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -386,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				33334AB826283CCE00612573 /* GoogleService-Info.plist */,
+				338F8E2D262F1A6500267889 /* CancelBag.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -508,6 +522,15 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		338F8E28262F19BE00267889 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				338F8E29262F1A3200267889 /* AuthService.swift */,
+				338F8E31262F1C9300267889 /* AuthServiceType.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		70054510067212F6756B982F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +640,7 @@
 				33334AA426283B8B00612573 /* Localizable.strings in Resources */,
 				33334AB926283CCE00612573 /* GoogleService-Info.plist in Resources */,
 				33334A472628324D00612573 /* Colors.xcassets in Resources */,
+				338F8E25262F13E800267889 /* Authentication.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,11 +748,13 @@
 				33334B3026287E0300612573 /* AlertErrorHelper.swift in Sources */,
 				33334B1B26287D0000612573 /* ErrorHelper.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
+				338F8E2E262F1A6500267889 /* CancelBag.swift in Sources */,
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
 				33334B2826287DF300612573 /* ResponseErrorHelper.swift in Sources */,
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
 				33334B5E262882AB00612573 /* LoadingViewController.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
+				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
 				3358831B262DD19E0057D25F /* DependencyInjection.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
@@ -743,9 +769,11 @@
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				33588328262DD1D50057D25F /* DataAccessLayer.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
+				338F8E2A262F1A3200267889 /* AuthService.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
+				338F8E32262F1C9300267889 /* AuthServiceType.swift in Sources */,
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
 			);

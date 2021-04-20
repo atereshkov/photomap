@@ -19,4 +19,11 @@ extension String {
 
         return date.toString
     }
+    
+    var isEmail: Bool {
+        let emailRegEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let testEmail = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+
+        return testEmail.evaluate(with: self)
+    }
 }
