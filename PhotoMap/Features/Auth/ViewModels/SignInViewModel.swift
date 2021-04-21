@@ -21,7 +21,7 @@ class SignInViewModel {
         return $email
             .map { email in
                 
-                guard email.count != 0 else {
+                guard email.isEmpty else {
                     
                     self.emailMessagePublisher.send("Email can't be blank")
                     return nil
