@@ -15,24 +15,21 @@ enum ResponseErrorHelper: GeneralErrorType {
     case other(message: String)
 
     var title: String {
-        "Error".localized
+        L10n.error
     }
 
     var message: String {
         switch self {
         case .incorrectCredentials:
-            return "Incorrect login or password".localized
+            return L10n.SignUp.ErrorAlert.Title.incorrectPassword
         case .networtConnection:
-            return "No network connection".localized
+            return L10n.InternetError.ErrorAlert.Title.noNetworkConnection
         case .registrationError:
-            return "Registration error. Please try again.".localized
+            return L10n.SignUp.ErrorAlert.Title.registrationError
         case .userAlreadyExists:
-            return """
-                User with that email already exists. \
-                If it's you, please, sign in or try again with a different email.
-                """.localized
+            return L10n.SignUp.ErrorAlert.Title.userAlreadyExists
         case .other(let message):
-            return message.localized
+            return message
         }
     }
 }

@@ -13,17 +13,17 @@ enum AlertErrorHelper: GeneralErrorType {
     case other(message: String)
 
     var title: String {
-        "Error".localized
+        L10n.error
     }
 
     var message: String {
         switch self {
         case .incorrectCredentials:
-            return "Incorrect login or password".localized
+            return L10n.SignUp.ErrorAlert.Title.incorrectPassword
         case .networtConnection:
-            return "No network connection".localized
+            return L10n.InternetError.ErrorAlert.Title.noNetworkConnection
         case .other(let message):
-            return message.localized
+            return message
         }
     }
 }

@@ -18,7 +18,7 @@ extension Coordinator {
                                       message: error.message,
                                       preferredStyle: .alert)
 
-        let cancelAction = UIAlertAction(title: "OK".localized, style: .cancel)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel)
         alert.addAction(cancelAction)
 
         return alert

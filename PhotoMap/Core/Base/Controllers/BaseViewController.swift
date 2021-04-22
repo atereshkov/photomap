@@ -10,12 +10,12 @@ import UIKit
 class BaseViewController: UIViewController, Storyboarded {
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
-            activityIndicator.backgroundColor = UIColor(named: "white")
+            activityIndicator.backgroundColor = Asset.whiteColor.color
             activityIndicator.center = view.center
             activityIndicator.hidesWhenStopped = true
             activityIndicator.style = .large
             activityIndicator.tag = 1
-            activityIndicator.color = UIColor(named: "black")
+            activityIndicator.color = Asset.blackColor.color
             view.addSubview(activityIndicator)
 
         return activityIndicator
@@ -35,11 +35,11 @@ class BaseViewController: UIViewController, Storyboarded {
         navigationController?.navigationBar.prefersLargeTitles = true
 
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(named: "white")
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(named: "black")]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(named: "black")]
+        appearance.backgroundColor = Asset.whiteColor.color
+        appearance.titleTextAttributes = [.foregroundColor: Asset.blackColor.color]
+        appearance.largeTitleTextAttributes = [.foregroundColor: Asset.blackColor.color]
 
-        navigationController?.navigationBar.tintColor = UIColor(named: "black")
+        navigationController?.navigationBar.tintColor = Asset.blackColor.color
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance

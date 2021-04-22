@@ -49,6 +49,9 @@
 		3383662426307272001EF61E /* AuthListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3383662326307272001EF61E /* AuthListener.swift */; };
 		33877C902631543900A227F9 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33877C8F2631543900A227F9 /* Authentication.storyboard */; };
 		33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CAE2631598200A227F9 /* AuthUserService.swift */; };
+		33877CBF2631915C00A227F9 /* storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CBE2631915C00A227F9 /* storyboards.swift */; };
+		33877CC32631916200A227F9 /* assets-colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CC22631916100A227F9 /* assets-colors.swift */; };
+		33877CD3263199A500A227F9 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CD2263199A500A227F9 /* strings.swift */; };
 		338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB5FC262D8C020001F530 /* AuthCoordinator.swift */; };
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
@@ -116,6 +119,9 @@
 		3383662326307272001EF61E /* AuthListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListener.swift; sourceTree = "<group>"; };
 		33877C8F2631543900A227F9 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		33877CAE2631598200A227F9 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
+		33877CBE2631915C00A227F9 /* storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboards.swift; sourceTree = SOURCE_ROOT; };
+		33877CC22631916100A227F9 /* assets-colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "assets-colors.swift"; sourceTree = SOURCE_ROOT; };
+		33877CD2263199A500A227F9 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = SOURCE_ROOT; };
 		338BB5FC262D8C020001F530 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
@@ -379,6 +385,9 @@
 		3383661E26306A41001EF61E /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				33877CD2263199A500A227F9 /* strings.swift */,
+				33877CC22631916100A227F9 /* assets-colors.swift */,
+				33877CBE2631915C00A227F9 /* storyboards.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -792,6 +801,7 @@
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
+				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertErrorHelper.swift in Sources */,
@@ -819,9 +829,11 @@
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
+				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
+				33877CD3263199A500A227F9 /* strings.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
