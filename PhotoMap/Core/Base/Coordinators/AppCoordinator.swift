@@ -6,27 +6,27 @@
 //
 
 import UIKit
-import Firebase
 
 class AppCoordinator: Coordinator {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private var authListener: AuthListenerType?
-
-    private init(authListener: AuthListenerType = DIContainer.shared.resolve(type: AuthListenerType.self)!) {
-        self.authListener = authListener
+    private var DIHelper: DIHelperType?
+    
+    init(DIHelper: DIHelperType) {
+        self.authListener = DIHelper.resolve()
+        self.DIHelper = DIHelper
     }
 
     func start() {
-        navigationController.pushViewController(LoadingViewController.newInstanse(with: self),
+        navigationController.pushViewController(LoadingViewController.newInstanse(with: self, DIHelper: DIHelper),
                                                 animated: true)
     }
     
     func changeMainScreen() {
-        authListener?.isUserAuthorized()
-        Auth.auth().addStateDidChangeListener { [weak self] _, user in
-            if user != nil {
+        authListener?.isUserAuthorized { [weak self] isUserAuth in
+            if isUserAuth {
                 self?.showMap()
             } else {
                 self?.showAuth()
@@ -35,7 +35,7 @@ class AppCoordinator: Coordinator {
     }
     
     private func showMap() {
-        let tabBarCoordinator = TabBarCoordinator()
+        let tabBarCoordinator = TabBarCoordinator(DIHelper: DIHelper)
         childCoordinators = [tabBarCoordinator]
         let mainTabBarController = tabBarCoordinator.start()
         mainTabBarController.modalPresentationStyle = .overFullScreen

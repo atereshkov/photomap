@@ -9,23 +9,19 @@ import Foundation
 import FirebaseAuth
 
 protocol AuthListenerType {
-    func isUserAuthorized() -> Bool
+    func isUserAuthorized(completionHandler: @escaping (_ success: Bool) -> Void)
 }
 
 class AuthListener: AuthListenerType {
     
-    func isUserAuthorized() -> Bool {
-        var isUserAuthorized = false
-        
-        Auth.auth().addStateDidChangeListener { _, user in
+    func isUserAuthorized(completionHandler: @escaping (_ success: Bool) -> Void) {
+        Auth.auth().addStateDidChangeListener({ _, user in
             if user != nil {
-                isUserAuthorized = true
+                completionHandler(true)
             } else {
-                isUserAuthorized = false
+                completionHandler(false)
             }
-        }
-        
-        return isUserAuthorized
+        })
     }
     
 }

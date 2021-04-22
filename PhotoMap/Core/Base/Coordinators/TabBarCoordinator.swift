@@ -10,6 +10,7 @@ import Combine
 import Reachability
 
 class TabBarCoordinator: Coordinator {
+    
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private weak var tabBarController: UITabBarController?
@@ -17,8 +18,8 @@ class TabBarCoordinator: Coordinator {
     
     private var subscriptions = Set<AnyCancellable>()
     
-    init(reachabilityService: ReachabilityServiceType = DIContainer.shared.resolve(type: ReachabilityService.self)!) {
-        self.reachabilityService = reachabilityService
+    init(DIHelper: DIHelperType?) {
+        self.reachabilityService = DIHelper?.resolve()
     }
 
     @discardableResult
@@ -68,4 +69,5 @@ class TabBarCoordinator: Coordinator {
             childVC.dismiss(animated: true, completion: nil)
         }
     }
+    
 }

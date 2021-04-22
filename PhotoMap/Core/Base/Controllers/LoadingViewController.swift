@@ -8,15 +8,16 @@
 import UIKit
 
 class LoadingViewController: BaseViewController {
+    
     // MARK: - Variables
     private var coordinator: AppCoordinator?
     private var rechabilityService: ReachabilityServiceType?
     
     // MARK: - New instanse
     static func newInstanse(with coordinator: AppCoordinator,
-                            reachabilityService: ReachabilityServiceType = DIContainer.shared.resolve(type: ReachabilityService.self)!) -> LoadingViewController {
+                            DIHelper: DIHelperType?) -> LoadingViewController {
         let vc = LoadingViewController()
-        vc.rechabilityService = reachabilityService
+        vc.rechabilityService = DIHelper?.resolve()
         vc.coordinator = coordinator
 
         return vc

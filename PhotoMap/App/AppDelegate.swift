@@ -7,19 +7,26 @@
 
 import UIKit
 import Firebase
+import Swinject
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+        
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        
+                
+        let diHelper = DIHelper()
+        let appCoordinator = AppCoordinator(DIHelper: diHelper)
+
         window = UIWindow()
-        window?.rootViewController = UIViewController()
+        window?.rootViewController = appCoordinator.navigationController
         window?.makeKeyAndVisible()
+        
+        appCoordinator.start()
+        
         return true
     }
 

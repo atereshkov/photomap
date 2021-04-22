@@ -39,7 +39,7 @@
 		33588306262DD1420057D25F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588305262DD1420057D25F /* SignInViewModel.swift */; };
 		3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358830A262DD14D0057D25F /* SignUpViewModel.swift */; };
 		33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588315262DD1720057D25F /* TimelineViewModel.swift */; };
-		3358831B262DD19E0057D25F /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DIContainer.swift */; };
+		3358831B262DD19E0057D25F /* DIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DIHelper.swift */; };
 		338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364B1263018F0001EF61E /* ReachabilityService.swift */; };
 		338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364BB26302FD5001EF61E /* DateFormatterHelper.swift */; };
 		338365622630565F001EF61E /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365612630565F001EF61E /* Map.storyboard */; };
@@ -48,6 +48,7 @@
 		3383658C2630575C001EF61E /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3383658B2630575C001EF61E /* More.storyboard */; };
 		3383662426307272001EF61E /* AuthListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3383662326307272001EF61E /* AuthListener.swift */; };
 		33877C902631543900A227F9 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33877C8F2631543900A227F9 /* Authentication.storyboard */; };
+		33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CAE2631598200A227F9 /* AuthUserService.swift */; };
 		338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB5FC262D8C020001F530 /* AuthCoordinator.swift */; };
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
@@ -105,7 +106,7 @@
 		33588305262DD1420057D25F /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		3358830A262DD14D0057D25F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		33588315262DD1720057D25F /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
-		3358831A262DD19E0057D25F /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		3358831A262DD19E0057D25F /* DIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIHelper.swift; sourceTree = "<group>"; };
 		338364B1263018F0001EF61E /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		338364BB26302FD5001EF61E /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
 		338365612630565F001EF61E /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 		3383658B2630575C001EF61E /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		3383662326307272001EF61E /* AuthListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListener.swift; sourceTree = "<group>"; };
 		33877C8F2631543900A227F9 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		33877CAE2631598200A227F9 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
 		338BB5FC262D8C020001F530 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
@@ -171,7 +173,6 @@
 				33334A4B2628324D00612573 /* Info.plist */,
 				338BB5E4262D84C80001F530 /* App */,
 				33334AFB262879B000612573 /* Core */,
-				33334AFA2628799900612573 /* Data Access Layer */,
 				338BB5E5262D84F70001F530 /* Extensions */,
 				33334AFC262879BF00612573 /* Features */,
 				33334A8C262836B300612573 /* Resources */,
@@ -208,16 +209,10 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		33334AFA2628799900612573 /* Data Access Layer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Data Access Layer";
-			sourceTree = "<group>";
-		};
 		33334AFB262879B000612573 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				33877CA9263158EA00A227F9 /* State */,
 				338BB5E7262D854B0001F530 /* DI */,
 				338BB5E6262D85450001F530 /* Base */,
 			);
@@ -368,6 +363,7 @@
 			children = (
 				338364B1263018F0001EF61E /* ReachabilityService.swift */,
 				3383662326307272001EF61E /* AuthListener.swift */,
+				33877CAE2631598200A227F9 /* AuthUserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -385,6 +381,13 @@
 			children = (
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		33877CA9263158EA00A227F9 /* State */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 		338BB5E4262D84C80001F530 /* App */ = {
@@ -421,7 +424,7 @@
 		338BB5E7262D854B0001F530 /* DI */ = {
 			isa = PBXGroup;
 			children = (
-				3358831A262DD19E0057D25F /* DIContainer.swift */,
+				3358831A262DD19E0057D25F /* DIHelper.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -801,9 +804,10 @@
 				33334B5E262882AB00612573 /* LoadingViewController.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
-				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
+				3358831B262DD19E0057D25F /* DIHelper.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
+				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
