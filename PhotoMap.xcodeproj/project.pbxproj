@@ -16,7 +16,6 @@
 		33334AB926283CCE00612573 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33334AB826283CCE00612573 /* GoogleService-Info.plist */; };
 		33334ABD26283CD200612573 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33334AB826283CCE00612573 /* GoogleService-Info.plist */; };
 		33334B0C26287C6900612573 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B0B26287C6900612573 /* Coordinator.swift */; };
-		33334B1126287C8E00612573 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1026287C8E00612573 /* Storyboarded.swift */; };
 		33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1526287CCC00612573 /* TabBarCoordinator.swift */; };
 		33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1A26287D0000612573 /* GeneralErrorType.swift */; };
 		33334B2326287DB600612573 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B2226287DB600612573 /* AppCoordinator.swift */; };
@@ -86,7 +85,6 @@
 		33334AAB26283BC800612573 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		33334AB826283CCE00612573 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33334B0B26287C6900612573 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = PhotoMap/Coordinator.swift; sourceTree = SOURCE_ROOT; };
-		33334B1026287C8E00612573 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		33334B1526287CCC00612573 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		33334B1A26287D0000612573 /* GeneralErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralErrorType.swift; sourceTree = "<group>"; };
 		33334B2226287DB600612573 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 			children = (
 				33334B2226287DB600612573 /* AppCoordinator.swift */,
 				33334B0B26287C6900612573 /* Coordinator.swift */,
-				33334B1026287C8E00612573 /* Storyboarded.swift */,
 				33334B1526287CCC00612573 /* TabBarCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -824,7 +821,6 @@
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
-				33334B1126287C8E00612573 /* Storyboarded.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, Storyboarded {
+class BaseViewController: UIViewController {
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
             activityIndicator.backgroundColor = Asset.whiteColor.color
