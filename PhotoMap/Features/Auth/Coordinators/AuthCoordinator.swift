@@ -26,7 +26,7 @@ class AuthCoordinator: Coordinator {
                                       message: error.message,
                                       preferredStyle: .alert)
 
-        let cancelAction = UIAlertAction(title: "OK".localized,
+        let cancelAction = UIAlertAction(title: "OK",
                                          style: .cancel) { [unowned self] _ in
             if case .networtConnection = error { self.navigationController.popViewController(animated: true) }
         }
