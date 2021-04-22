@@ -13,8 +13,13 @@ class TabBarCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private weak var tabBarController: UITabBarController?
+    private var reachabilityService: ReachabilityServiceType?
     
     private var subscriptions = Set<AnyCancellable>()
+    
+    init(reachabilityService: ReachabilityServiceType = DIContainer.shared.resolve(type: ReachabilityService.self)!) {
+        self.reachabilityService = reachabilityService
+    }
 
     @discardableResult
     func start() -> UIViewController {
@@ -44,7 +49,7 @@ class TabBarCoordinator: Coordinator {
     }
 
     func checkNetworkConnection() {
-        Reachability.isReachable
+        reachabilityService?.checkNetworkConnection()
             .sink(receiveValue: { [weak self] isReachable in
                 if !isReachable {
                     self?.closePresentedModalVC()

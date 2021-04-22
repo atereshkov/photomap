@@ -9,12 +9,14 @@ import UIKit
 import Firebase
 
 class AppCoordinator: Coordinator {
-    static let shared = AppCoordinator()
-
+    
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
+    private var authListener: AuthListenerType?
 
-    private init() { }
+    private init(authListener: AuthListenerType = DIContainer.shared.resolve(type: AuthListenerType.self)!) {
+        self.authListener = authListener
+    }
 
     func start() {
         navigationController.pushViewController(LoadingViewController.newInstanse(with: self),
@@ -22,9 +24,9 @@ class AppCoordinator: Coordinator {
     }
     
     func changeMainScreen() {
+        authListener?.isUserAuthorized()
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             if user != nil {
-                guard self != nil else { return }
                 self?.showMap()
             } else {
                 self?.showAuth()
@@ -41,10 +43,11 @@ class AppCoordinator: Coordinator {
     }
 
     private func showAuth() {
-        let authCoordinator = AuthCoordinator()
+        let authCoordinator = AuthCoordinator(appCoordinator: self)
         childCoordinators = [authCoordinator]
         let authViewController = authCoordinator.start()
         authViewController.modalPresentationStyle = .overFullScreen
         navigationController.present(authViewController, animated: true, completion: nil)
     }
+    
 }

@@ -18,7 +18,7 @@
 		33334B0C26287C6900612573 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B0B26287C6900612573 /* Coordinator.swift */; };
 		33334B1126287C8E00612573 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1026287C8E00612573 /* Storyboarded.swift */; };
 		33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1526287CCC00612573 /* TabBarCoordinator.swift */; };
-		33334B1B26287D0000612573 /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1A26287D0000612573 /* ErrorHelper.swift */; };
+		33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1A26287D0000612573 /* GeneralErrorType.swift */; };
 		33334B2326287DB600612573 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B2226287DB600612573 /* AppCoordinator.swift */; };
 		33334B2826287DF300612573 /* ResponseErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B2726287DF300612573 /* ResponseErrorHelper.swift */; };
 		33334B3026287E0300612573 /* AlertErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B2F26287E0300612573 /* AlertErrorHelper.swift */; };
@@ -39,8 +39,15 @@
 		33588306262DD1420057D25F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588305262DD1420057D25F /* SignInViewModel.swift */; };
 		3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358830A262DD14D0057D25F /* SignUpViewModel.swift */; };
 		33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588315262DD1720057D25F /* TimelineViewModel.swift */; };
-		3358831B262DD19E0057D25F /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DependencyInjection.swift */; };
-		33588328262DD1D50057D25F /* DataAccessLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588327262DD1D50057D25F /* DataAccessLayer.swift */; };
+		3358831B262DD19E0057D25F /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DIContainer.swift */; };
+		338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364B1263018F0001EF61E /* ReachabilityService.swift */; };
+		338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364BB26302FD5001EF61E /* DateFormatterHelper.swift */; };
+		338365622630565F001EF61E /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365612630565F001EF61E /* Map.storyboard */; };
+		338365662630566C001EF61E /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365652630566C001EF61E /* Category.storyboard */; };
+		3383656A26305678001EF61E /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3383656926305678001EF61E /* Timeline.storyboard */; };
+		3383658C2630575C001EF61E /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3383658B2630575C001EF61E /* More.storyboard */; };
+		3383662426307272001EF61E /* AuthListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3383662326307272001EF61E /* AuthListener.swift */; };
+		33877C902631543900A227F9 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33877C8F2631543900A227F9 /* Authentication.storyboard */; };
 		338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB5FC262D8C020001F530 /* AuthCoordinator.swift */; };
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
@@ -77,7 +84,7 @@
 		33334B0B26287C6900612573 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = PhotoMap/Coordinator.swift; sourceTree = SOURCE_ROOT; };
 		33334B1026287C8E00612573 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		33334B1526287CCC00612573 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
-		33334B1A26287D0000612573 /* ErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHelper.swift; sourceTree = "<group>"; };
+		33334B1A26287D0000612573 /* GeneralErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralErrorType.swift; sourceTree = "<group>"; };
 		33334B2226287DB600612573 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		33334B2726287DF300612573 /* ResponseErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseErrorHelper.swift; sourceTree = "<group>"; };
 		33334B2F26287E0300612573 /* AlertErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertErrorHelper.swift; sourceTree = "<group>"; };
@@ -98,8 +105,15 @@
 		33588305262DD1420057D25F /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		3358830A262DD14D0057D25F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		33588315262DD1720057D25F /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
-		3358831A262DD19E0057D25F /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
-		33588327262DD1D50057D25F /* DataAccessLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessLayer.swift; sourceTree = "<group>"; };
+		3358831A262DD19E0057D25F /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		338364B1263018F0001EF61E /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
+		338364BB26302FD5001EF61E /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
+		338365612630565F001EF61E /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		338365652630566C001EF61E /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
+		3383656926305678001EF61E /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
+		3383658B2630575C001EF61E /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
+		3383662326307272001EF61E /* AuthListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListener.swift; sourceTree = "<group>"; };
+		33877C8F2631543900A227F9 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		338BB5FC262D8C020001F530 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
@@ -161,6 +175,7 @@
 				338BB5E5262D84F70001F530 /* Extensions */,
 				33334AFC262879BF00612573 /* Features */,
 				33334A8C262836B300612573 /* Resources */,
+				338364B0263018D0001EF61E /* Service */,
 				338BB5E8262D856E0001F530 /* Utils */,
 			);
 			path = PhotoMap;
@@ -178,7 +193,8 @@
 		33334A8C262836B300612573 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				33334A462628324D00612573 /* Colors.xcassets */,
+				3383661E26306A41001EF61E /* Generated */,
+				33836596263057F3001EF61E /* Colors */,
 				33334A8D262836ED00612573 /* Localization */,
 			);
 			path = Resources;
@@ -195,7 +211,6 @@
 		33334AFA2628799900612573 /* Data Access Layer */ = {
 			isa = PBXGroup;
 			children = (
-				33588327262DD1D50057D25F /* DataAccessLayer.swift */,
 			);
 			path = "Data Access Layer";
 			sourceTree = "<group>";
@@ -244,7 +259,7 @@
 		33334B0426287A7D00612573 /* ErrorHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				33334B1A26287D0000612573 /* ErrorHelper.swift */,
+				33334B1A26287D0000612573 /* GeneralErrorType.swift */,
 				33334B2726287DF300612573 /* ResponseErrorHelper.swift */,
 				33334B2F26287E0300612573 /* AlertErrorHelper.swift */,
 			);
@@ -265,6 +280,7 @@
 				338BB60A262D8D690001F530 /* Coordinators */,
 				338BB60B262D8D710001F530 /* Models */,
 				338BB60C262D8D770001F530 /* ViewModels */,
+				338365612630565F001EF61E /* Map.storyboard */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -275,6 +291,7 @@
 				338BB606262D8D320001F530 /* Controllers */,
 				338BB605262D8D0F0001F530 /* Models */,
 				338BB608262D8D4A0001F530 /* ViewModels */,
+				338365652630566C001EF61E /* Category.storyboard */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -286,6 +303,7 @@
 				338BB601262D8CE60001F530 /* Coordinators */,
 				338BB603262D8CF80001F530 /* Models */,
 				338BB604262D8D010001F530 /* ViewModels */,
+				3383656926305678001EF61E /* Timeline.storyboard */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -297,6 +315,7 @@
 				338BB5F8262D8BAF0001F530 /* Coordinators */,
 				338BB5FA262D8BE80001F530 /* Models */,
 				338BB5FB262D8BEF0001F530 /* ViewModels */,
+				33877C8F2631543900A227F9 /* Authentication.storyboard */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -308,6 +327,7 @@
 				335881BF262DA5640057D25F /* Coordinators */,
 				335881C0262DA56E0057D25F /* Models */,
 				335881C1262DA5740057D25F /* ViewModels */,
+				3383658B2630575C001EF61E /* More.storyboard */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -341,6 +361,30 @@
 				33588300262DD12C0057D25F /* MoreViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		338364B0263018D0001EF61E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				338364B1263018F0001EF61E /* ReachabilityService.swift */,
+				3383662326307272001EF61E /* AuthListener.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		33836596263057F3001EF61E /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				33334A462628324D00612573 /* Colors.xcassets */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		3383661E26306A41001EF61E /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		338BB5E4262D84C80001F530 /* App */ = {
@@ -377,7 +421,7 @@
 		338BB5E7262D854B0001F530 /* DI */ = {
 			isa = PBXGroup;
 			children = (
-				3358831A262DD19E0057D25F /* DependencyInjection.swift */,
+				3358831A262DD19E0057D25F /* DIContainer.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -386,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				33334AB826283CCE00612573 /* GoogleService-Info.plist */,
+				338364BB26302FD5001EF61E /* DateFormatterHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -537,6 +582,7 @@
 			buildPhases = (
 				A6DBA13A7C1A00F4E6F39386 /* [CP] Check Pods Manifest.lock */,
 				3358829C262DB7BD0057D25F /* ShellScript */,
+				338364C5263041C3001EF61E /* SwiftGen */,
 				33334A362628324C00612573 /* Sources */,
 				33334A372628324C00612573 /* Frameworks */,
 				33334A382628324C00612573 /* Resources */,
@@ -613,10 +659,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				338365662630566C001EF61E /* Category.storyboard in Resources */,
+				3383658C2630575C001EF61E /* More.storyboard in Resources */,
 				33334A4A2628324D00612573 /* LaunchScreen.storyboard in Resources */,
+				338365622630565F001EF61E /* Map.storyboard in Resources */,
 				33334AA426283B8B00612573 /* Localizable.strings in Resources */,
 				33334AB926283CCE00612573 /* GoogleService-Info.plist in Resources */,
+				33877C902631543900A227F9 /* Authentication.storyboard in Resources */,
 				33334A472628324D00612573 /* Colors.xcassets in Resources */,
+				3383656A26305678001EF61E /* Timeline.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +698,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		338364C5263041C3001EF61E /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/SwiftGen/bin/swiftgen\"\n";
 		};
 		601849C3B1D06D66C44D437D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -721,27 +790,29 @@
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
+				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertErrorHelper.swift in Sources */,
-				33334B1B26287D0000612573 /* ErrorHelper.swift in Sources */,
+				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
 				33334B2826287DF300612573 /* ResponseErrorHelper.swift in Sources */,
+				338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */,
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
 				33334B5E262882AB00612573 /* LoadingViewController.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
-				3358831B262DD19E0057D25F /* DependencyInjection.swift in Sources */,
+				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
+				338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				33334B1126287C8E00612573 /* Storyboarded.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
-				33588328262DD1D50057D25F /* DataAccessLayer.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,

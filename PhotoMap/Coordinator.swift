@@ -13,13 +13,12 @@ protocol Coordinator {
 }
 
 extension Coordinator {
-    func generateErrorAlert(with error: ErrorHelper) -> UIAlertController {
+    func generateErrorAlert(with error: GeneralErrorType) -> UIAlertController {
         let alert = UIAlertController(title: error.title,
                                       message: error.message,
                                       preferredStyle: .alert)
 
-        let cancelAction = UIAlertAction(title: "OK".localized,
-                                         style: .cancel)
+        let cancelAction = UIAlertAction(title: "OK".localized, style: .cancel)
         alert.addAction(cancelAction)
 
         return alert

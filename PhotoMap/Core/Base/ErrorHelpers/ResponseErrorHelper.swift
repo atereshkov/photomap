@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ResponseErrorHelper: ErrorHelper {
+enum ResponseErrorHelper: GeneralErrorType {
     case incorrectCredentials
     case networtConnection
     case registrationError

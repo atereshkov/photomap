@@ -11,6 +11,11 @@ class AuthCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
+    private var appCoordinator: AppCoordinator?
+    
+    init(appCoordinator: AppCoordinator) {
+        self.appCoordinator = appCoordinator
+    }
 
     @discardableResult
     func start() -> UIViewController {
@@ -37,7 +42,7 @@ class AuthCoordinator: Coordinator {
 
     func closeScreen() {
         navigationController.dismiss(animated: true, completion: nil)
-        AppCoordinator.shared.changeMainScreen()
+        appCoordinator?.changeMainScreen()
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AlertErrorHelper: ErrorHelper {
+enum AlertErrorHelper: GeneralErrorType {
     case incorrectCredentials
     case networtConnection
     case other(message: String)

@@ -6,16 +6,17 @@
 //
 
 import UIKit
-import Reachability
 
 class LoadingViewController: BaseViewController {
     // MARK: - Variables
     private var coordinator: AppCoordinator?
-    private let reachability: Reachability! = try? Reachability()
-
+    private var rechabilityService: ReachabilityServiceType?
+    
     // MARK: - New instanse
-    static func newInstanse(with coordinator: AppCoordinator) -> LoadingViewController {
+    static func newInstanse(with coordinator: AppCoordinator,
+                            reachabilityService: ReachabilityServiceType = DIContainer.shared.resolve(type: ReachabilityService.self)!) -> LoadingViewController {
         let vc = LoadingViewController()
+        vc.rechabilityService = reachabilityService
         vc.coordinator = coordinator
 
         return vc
@@ -25,12 +26,12 @@ class LoadingViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         coordinator?.changeMainScreen()
-        try? reachability.startNotifier()
+        rechabilityService?.startNotifier()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        reachability.stopNotifier()
+        rechabilityService?.stopNotifier()
     }
 
     override func viewDidLoad() {
@@ -39,4 +40,5 @@ class LoadingViewController: BaseViewController {
         activityIndicator.startAnimating()
         setOpacityBackgroundNavigationBar()
     }
+    
 }
