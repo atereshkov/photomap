@@ -13,8 +13,10 @@ class MapCoordinator: Coordinator {
 
     @discardableResult
     func start() -> UIViewController {
-        let vc = MapViewController()
-        navigationController.pushViewController(vc, animated: true)
+        let viewModel = MapViewModel(coordinator: self)
+        let mapVC = MapViewController
+                        .newInstanse(viewModel: viewModel)
+        navigationController.pushViewController(mapVC, animated: true)
 
         return navigationController
     }
