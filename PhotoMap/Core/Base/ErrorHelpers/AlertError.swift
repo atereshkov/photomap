@@ -8,6 +8,7 @@
 import Foundation
 
 enum AlertError: GeneralErrorType {
+    
     case incorrectCredentials
     case networtConnection
     case other(message: String)
@@ -26,4 +27,5 @@ enum AlertError: GeneralErrorType {
             return message
         }
     }
+    
 }

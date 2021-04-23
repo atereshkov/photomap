@@ -5,21 +5,23 @@
 //  Created by Krystsina Kurytsyna on 4/21/21.
 //
 
-import Foundation
 import FirebaseAuth
+import Combine
 
 protocol AuthListenerType {
-    func isUserAuthorized(completionHandler: @escaping (_ success: Bool) -> Void)
+    func startListening()
 }
 
 class AuthListener: AuthListenerType {
     
-    func isUserAuthorized(completionHandler: @escaping (_ success: Bool) -> Void) {
-        Auth.auth().addStateDidChangeListener({ _, user in
+    var isUserAuthoried: PassthroughSubject<Bool, Error>?
+    
+    func startListening() {
+        Auth.auth().addStateDidChangeListener({ [weak self] _, user in
             if user != nil {
-                completionHandler(true)
+                self?.isUserAuthoried?.send(true)
             } else {
-                completionHandler(false)
+                self?.isUserAuthoried?.send(false)
             }
         })
     }

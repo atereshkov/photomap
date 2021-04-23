@@ -20,18 +20,7 @@ class AppCoordinator: Coordinator {
     }
 
     func start() {
-        navigationController.pushViewController(InitialViewController.newInstanse(with: self, diContainer: diContainer),
-                                                animated: true)
-    }
-    
-    func changeMainScreen() {
-        authListener?.isUserAuthorized { [weak self] isUserAuth in
-            if isUserAuth {
-                self?.showMap()
-            } else {
-                self?.showAuth()
-            }
-        }
+        authListener?.startListening()
     }
     
     private func showMap() {

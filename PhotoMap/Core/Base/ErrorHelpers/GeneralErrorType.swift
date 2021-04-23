@@ -8,6 +8,8 @@
 import Foundation
 
 protocol GeneralErrorType {
+    
     var title: String { get }
     var message: String { get }
+    
 }
