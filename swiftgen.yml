@@ -3,7 +3,7 @@ strings:
   inputs: 'PhotoMap/Resources/Localization/en.lproj/Localizable.strings'
   outputs:
     templateName: structured-swift5
-    output: PhotoMap/strings.swift
+    output: strings.swift
 xcassets:
   inputs: [
     'PhotoMap/Resources/Colors/Colors.xcassets'

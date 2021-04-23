@@ -11,8 +11,6 @@ import Combine
 
 protocol ReachabilityServiceType: class {
     
-    var reachability: Reachability! { get }
-    
     func startNotifier()
     func stopNotifier()
     func checkNetworkConnection() -> AnyPublisher<Bool, Never>

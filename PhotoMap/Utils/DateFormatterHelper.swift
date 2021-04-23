@@ -7,20 +7,24 @@
 
 import Foundation
 
-class DateFormatterHelper {
+class CachedDateFormatter {
 
     // MARK: - Shared
 
-    static let shared = DateFormatterHelper()
-
+    private(set) static var cache: [String: DateFormatter] = [:]
+    
     // MARK: - Formatters
 
-    let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "y/MM/dd @ HH:mm"
-
-        return dateFormatter
-    }()
+    static func with(format: String) -> DateFormatter {
+        if let formatter = cache[format] {
+            return formatter
+        }
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate(format)
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Locale.current
+        cache[format] = formatter
+        return formatter
+    }
     
 }

@@ -14,7 +14,7 @@ class MoreCoordinator: Coordinator {
     private(set) var navigationController = UINavigationController()
     
     func start() {
-        navigationController.tabBarItem.title = "More".localized
+        navigationController.tabBarItem.title = L10n.Main.TabBar.More.title
         navigationController.tabBarItem.image = UIImage(named: "pencil.circle")
         navigationController.navigationBar.prefersLargeTitles = true
 

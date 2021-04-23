@@ -8,15 +8,13 @@
 import Foundation
 
 extension String {
-    var localized: String {
-        NSLocalizedString(self, comment: "")
-    }
-
+    
     var toPrettyDateString: String {
-        let dateFormatter = DateFormatterHelper.shared.dateFormatter
+        let dateFormatter = CachedDateFormatter.with(format: self)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        guard let date = dateFormatter.date(from: self) else { return "No date".localized }
+        guard let date = dateFormatter.date(from: self) else { return "No date" }
 
         return date.toString
     }
+    
 }

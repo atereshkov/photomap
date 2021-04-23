@@ -7,11 +7,11 @@
 
 import Swinject
 
-protocol DIHelperType {
+protocol DIContainerType {
     func resolve<T>() -> T
 }
 
-class DIHelper: DIHelperType {
+class DIContainer: DIContainerType {
     
     private let container: Container = Container()
     

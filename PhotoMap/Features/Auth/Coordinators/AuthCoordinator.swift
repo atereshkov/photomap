@@ -23,15 +23,15 @@ class AuthCoordinator: Coordinator {
     }
 
     func openSignUpScreen() {
-       
+        
     }
 
-    func showErrorAlert(error: ResponseErrorHelper) {
+    func showErrorAlert(error: ResponseError) {
         let alert = UIAlertController(title: error.title,
                                       message: error.message,
                                       preferredStyle: .alert)
 
-        let cancelAction = UIAlertAction(title: "OK".localized,
+        let cancelAction = UIAlertAction(title: L10n.ok,
                                          style: .cancel) { [unowned self] _ in
             if case .networtConnection = error { self.navigationController.popViewController(animated: true) }
         }
