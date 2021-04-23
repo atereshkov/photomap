@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import Reachability
 
 class TabBarCoordinator: Coordinator {
     
@@ -18,8 +17,8 @@ class TabBarCoordinator: Coordinator {
     
     private var subscriptions = Set<AnyCancellable>()
     
-    init(DIHelper: DIHelperType?) {
-        self.reachabilityService = DIHelper?.resolve()
+    init(diContainer: DIContainerType?) {
+        self.reachabilityService = diContainer?.resolve()
     }
 
     @discardableResult
@@ -60,7 +59,7 @@ class TabBarCoordinator: Coordinator {
             .store(in: &subscriptions)
     }
 
-    func showErrorAlert(error: AlertErrorHelper) {
+    func showErrorAlert(error: AlertError) {
         tabBarController?.selectedViewController?.present(generateErrorAlert(with: error), animated: true)
     }
 

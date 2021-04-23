@@ -26,7 +26,7 @@ class AuthCoordinator: Coordinator {
         
     }
 
-    func showErrorAlert(error: ResponseErrorHelper) {
+    func showErrorAlert(error: ResponseError) {
         let alert = UIAlertController(title: error.title,
                                       message: error.message,
                                       preferredStyle: .alert)

@@ -12,15 +12,15 @@ class AppCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private var authListener: AuthListenerType?
-    private var DIHelper: DIHelperType?
+    private var diContainer: DIContainerType?
     
-    init(DIHelper: DIHelperType) {
-        self.authListener = DIHelper.resolve()
-        self.DIHelper = DIHelper
+    init(diContainer: DIContainerType) {
+        self.authListener = diContainer.resolve()
+        self.diContainer = diContainer
     }
 
     func start() {
-        navigationController.pushViewController(LoadingViewController.newInstanse(with: self, DIHelper: DIHelper),
+        navigationController.pushViewController(InitialViewController.newInstanse(with: self, diContainer: diContainer),
                                                 animated: true)
     }
     
@@ -35,7 +35,7 @@ class AppCoordinator: Coordinator {
     }
     
     private func showMap() {
-        let tabBarCoordinator = TabBarCoordinator(DIHelper: DIHelper)
+        let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
         childCoordinators = [tabBarCoordinator]
         let mainTabBarController = tabBarCoordinator.start()
         mainTabBarController.modalPresentationStyle = .overFullScreen

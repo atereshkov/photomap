@@ -10,7 +10,7 @@ import Foundation
 extension String {
     
     var toPrettyDateString: String {
-        let dateFormatter = DateFormatterHelper.shared.dateFormatter
+        let dateFormatter = CachedDateFormatter.with(format: self)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         guard let date = dateFormatter.date(from: self) else { return "No date" }
 

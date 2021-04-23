@@ -21,10 +21,6 @@ class BaseViewController: UIViewController {
         return activityIndicator
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     func setOpacityBackgroundNavigationBar() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()

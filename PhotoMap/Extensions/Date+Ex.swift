@@ -8,10 +8,11 @@
 import Foundation
 
 extension Date {
+    
     var toString: String {
-        let formatter = DateFormatterHelper.shared.dateFormatter
-        formatter.dateFormat = "dd MMM YYYY HH:mm"
+        let formatter = CachedDateFormatter.with(format: "dd MMM YYYY HH:mm")
 
         return formatter.string(from: self)
     }
+    
 }

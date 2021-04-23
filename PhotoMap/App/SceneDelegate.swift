@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         FirebaseApp.configure()
         
-        let diHelper = DIHelper()
-        let appCoordinator = AppCoordinator(DIHelper: diHelper)
+        let diContainer = DIContainer()
+        let appCoordinator = AppCoordinator(diContainer: diContainer)
         
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = appCoordinator.navigationController

@@ -1,5 +1,5 @@
 //
-//  LoadingViewController.swift
+//  InitialViewController.swift
 //  PhotoMap
 //
 //  Created by Krystsina Kurytsyna on 4/15/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoadingViewController: BaseViewController {
+class InitialViewController: BaseViewController {
     
     // MARK: - Variables
     
@@ -17,9 +17,9 @@ class LoadingViewController: BaseViewController {
     // MARK: - New instanse
     
     static func newInstanse(with coordinator: AppCoordinator,
-                            DIHelper: DIHelperType?) -> LoadingViewController {
-        let vc = LoadingViewController()
-        vc.reachabilityService = DIHelper?.resolve()
+                            diContainer: DIContainerType?) -> InitialViewController {
+        let vc = InitialViewController()
+        vc.reachabilityService = diContainer?.resolve()
         vc.coordinator = coordinator
 
         return vc
