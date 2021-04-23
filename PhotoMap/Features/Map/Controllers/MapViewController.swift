@@ -7,20 +7,20 @@
 
 import UIKit
 import MapKit
-import CoreLocation
+import Combine
 
 class MapViewController: BaseViewController, MKMapViewDelegate {
     // MARK: - Variables
-    private let locationManager = CLLocationManager()
     private var viewModel: MapViewModel?
+    private var cancellable = Set<AnyCancellable>()
 
     @IBOutlet private weak var mapView: MKMapView!
-
+    @IBOutlet private weak var followModeButton: UIButton!
+    
     static func newInstanse(viewModel: MapViewModel) -> MapViewController {
-        // init Map.storyboard -- MapViewController.instantiate()
-        let mapVC = MapViewController()
-        mapVC.setOpacityBackgroundNavigationBar()
+        let mapVC = StoryboardScene.Map.mapViewController.instantiate()
         mapVC.viewModel = viewModel
+        mapVC.tabBarItem.image = .actions
 
         return mapVC
     }
@@ -28,36 +28,40 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView.delegate = self
-        checkLocationServices()
+        setOpacityBackgroundNavigationBar()
+        mapView?.delegate = self
+
+        bind()
     }
-    
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            checkLocationAuthorization()
-        } else {
-            // Show alert letting the user know they have to turn this on.
-        }
+
+    private func bind() {
+        guard let viewModel = viewModel else { return }
+
+        viewModel.$tabTitle
+            .sink(receiveValue: { [weak self] title in
+                self?.tabBarItem.title = title
+            })
+            .store(in: &cancellable)
+
+        viewModel.$isShowUserLocation
+            .sink(receiveValue: {[weak self] isShow in
+                self?.mapView?.showsUserLocation = isShow
+            })
+            .store(in: &cancellable)
+
+//        followModeButton.tapPublisher
+//            .assign(to: &viewModel.followModeButtonTapped)
     }
-    
-    func checkLocationAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            mapView.showsUserLocation = true
-        case .denied:
-            // Show alert telling users how to turn on permissions
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            mapView.showsUserLocation = true
-        case .restricted:
-            // Show an alert letting them know what’s up
-            break
-        case .authorizedAlways:
-            break
-        @unknown default:
-            fatalError()
-        }
+
+    @IBAction private func findMyLocation(_ sender: Any) {
+/*
+        guard let location = location else { return }
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+        let region = MKCoordinateRegion(center: center, span: span)
+        self.mapView.setRegion(region, animated: true)
+ */
     }
-    
+
 }

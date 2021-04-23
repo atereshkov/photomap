@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,10 +21,21 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="con-EB-4hb">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-GJ-qIS">
+                                <rect key="frame" x="369" y="106" width="25" height="24"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="location.circle" catalog="system" symbolScale="large" renderingMode="template"/>
+                                </state>
+                                <connections>
+                                    <action selector="findMyLocation:" destination="faU-hR-CXR" eventType="touchUpInside" id="O1k-DF-GdJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LeX-6U-nxQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Zz9-GJ-qIS" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="62" id="LhL-cA-ohO"/>
+                            <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="Zz9-GJ-qIS" secondAttribute="trailing" constant="20" id="OT8-NP-gaC"/>
                             <constraint firstItem="con-EB-4hb" firstAttribute="leading" secondItem="LeX-6U-nxQ" secondAttribute="leading" id="fDe-a6-Nkq"/>
                             <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="con-EB-4hb" secondAttribute="trailing" id="iWk-Cx-MIZ"/>
                             <constraint firstItem="con-EB-4hb" firstAttribute="top" secondItem="EGV-a0-fOZ" secondAttribute="top" id="qrC-li-5ax"/>
@@ -31,6 +43,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="followModeButton" destination="Zz9-GJ-qIS" id="fZR-Ed-ARb"/>
                         <outlet property="mapView" destination="con-EB-4hb" id="UqV-k1-FWD"/>
                     </connections>
                 </viewController>
@@ -40,6 +53,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="location.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

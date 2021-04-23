@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01AEED632633288600BB4E68 /* UIControl+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AEED622633288600BB4E68 /* UIControl+Ex.swift */; };
+		01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AEED662633292900BB4E68 /* UIButton+Ex.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
@@ -70,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01AEED622633288600BB4E68 /* UIControl+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Ex.swift"; sourceTree = "<group>"; };
+		01AEED662633292900BB4E68 /* UIButton+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +416,8 @@
 				33334B392628812A00612573 /* Date+Ex.swift */,
 				33334B34262880F400612573 /* String+Ex.swift */,
 				338BB610262D8EAE0001F530 /* Reachability+Ex.swift */,
+				01AEED622633288600BB4E68 /* UIControl+Ex.swift */,
+				01AEED662633292900BB4E68 /* UIButton+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -802,6 +808,7 @@
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
+				01AEED632633288600BB4E68 /* UIControl+Ex.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
@@ -818,6 +825,7 @@
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
+				01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
