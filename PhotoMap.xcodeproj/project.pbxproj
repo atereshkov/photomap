@@ -38,6 +38,7 @@
 		3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358830A262DD14D0057D25F /* SignUpViewModel.swift */; };
 		33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588315262DD1720057D25F /* TimelineViewModel.swift */; };
 		3358831B262DD19E0057D25F /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DIContainer.swift */; };
+		33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33810EB926331B6800BFC67C /* CancelBag.swift */; };
 		338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364B1263018F0001EF61E /* ReachabilityService.swift */; };
 		338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364BB26302FD5001EF61E /* CachedDateFormatter.swift */; };
 		338365622630565F001EF61E /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365612630565F001EF61E /* Map.storyboard */; };
@@ -106,6 +107,7 @@
 		3358830A262DD14D0057D25F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		33588315262DD1720057D25F /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		3358831A262DD19E0057D25F /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		33810EB926331B6800BFC67C /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		338364B1263018F0001EF61E /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		338364BB26302FD5001EF61E /* CachedDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedDateFormatter.swift; sourceTree = "<group>"; };
 		338365612630565F001EF61E /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 			children = (
 				33334AB826283CCE00612573 /* GoogleService-Info.plist */,
 				338364BB26302FD5001EF61E /* CachedDateFormatter.swift */,
+				33810EB926331B6800BFC67C /* CancelBag.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -796,6 +799,7 @@
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
+				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,

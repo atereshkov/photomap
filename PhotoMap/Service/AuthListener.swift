@@ -9,19 +9,20 @@ import FirebaseAuth
 import Combine
 
 protocol AuthListenerType {
+    var isUserAuthoried: PassthroughSubject<Bool, Never> { get }
     func startListening()
 }
 
 class AuthListener: AuthListenerType {
     
-    var isUserAuthoried: PassthroughSubject<Bool, Error>?
+    var isUserAuthoried = PassthroughSubject<Bool, Never>()
     
     func startListening() {
         Auth.auth().addStateDidChangeListener({ [weak self] _, user in
             if user != nil {
-                self?.isUserAuthoried?.send(true)
+                self?.isUserAuthoried.send(true)
             } else {
-                self?.isUserAuthoried?.send(false)
+                self?.isUserAuthoried.send(false)
             }
         })
     }

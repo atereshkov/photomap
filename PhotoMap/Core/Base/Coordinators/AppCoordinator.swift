@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class AppCoordinator: Coordinator {
     
@@ -14,13 +15,29 @@ class AppCoordinator: Coordinator {
     private var authListener: AuthListenerType?
     private var diContainer: DIContainerType?
     
+    private var cancelBag = CancelBag()
+    
     init(diContainer: DIContainerType) {
         self.authListener = diContainer.resolve()
         self.diContainer = diContainer
+        
+        authListener?.isUserAuthoried
+            .sink { [weak self] isUserAuth in
+                self?.startMainScreen(isUserAuthorized: isUserAuth)
+            }
+            .store(in: cancelBag)
     }
-
+    
     func start() {
         authListener?.startListening()
+    }
+    
+    func startMainScreen(isUserAuthorized: Bool) {
+        if isUserAuthorized {
+            self.showMap()
+        } else {
+            self.showAuth()
+        }
     }
     
     private func showMap() {
@@ -30,7 +47,7 @@ class AppCoordinator: Coordinator {
         mainTabBarController.modalPresentationStyle = .overFullScreen
         navigationController.present(mainTabBarController, animated: true, completion: nil)
     }
-
+    
     private func showAuth() {
         let authCoordinator = AuthCoordinator(appCoordinator: self)
         childCoordinators = [authCoordinator]
