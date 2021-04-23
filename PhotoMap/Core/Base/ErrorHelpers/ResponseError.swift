@@ -8,6 +8,7 @@
 import Foundation
 
 enum ResponseError: GeneralErrorType {
+    
     case incorrectCredentials
     case networtConnection
     case registrationError
@@ -32,4 +33,5 @@ enum ResponseError: GeneralErrorType {
             return message
         }
     }
+    
 }

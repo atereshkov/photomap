@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class AppCoordinator: Coordinator {
     
@@ -14,23 +15,28 @@ class AppCoordinator: Coordinator {
     private var authListener: AuthListenerType?
     private var diContainer: DIContainerType?
     
+    private var cancelBag = CancelBag()
+    
     init(diContainer: DIContainerType) {
         self.authListener = diContainer.resolve()
         self.diContainer = diContainer
-    }
-
-    func start() {
-        navigationController.pushViewController(InitialViewController.newInstanse(with: self, diContainer: diContainer),
-                                                animated: true)
+        
+        authListener?.isUserAuthoried
+            .sink { [weak self] isUserAuth in
+                self?.startMainScreen(isUserAuthorized: isUserAuth)
+            }
+            .store(in: cancelBag)
     }
     
-    func changeMainScreen() {
-        authListener?.isUserAuthorized { [weak self] isUserAuth in
-            if isUserAuth {
-                self?.showMap()
-            } else {
-                self?.showAuth()
-            }
+    func start() {
+        authListener?.startListening()
+    }
+    
+    func startMainScreen(isUserAuthorized: Bool) {
+        if isUserAuthorized {
+            self.showMap()
+        } else {
+            self.showAuth()
         }
     }
     
@@ -41,7 +47,7 @@ class AppCoordinator: Coordinator {
         mainTabBarController.modalPresentationStyle = .overFullScreen
         navigationController.present(mainTabBarController, animated: true, completion: nil)
     }
-
+    
     private func showAuth() {
         let authCoordinator = AuthCoordinator(appCoordinator: self)
         childCoordinators = [authCoordinator]

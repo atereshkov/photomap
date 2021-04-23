@@ -26,7 +26,6 @@
 		33334B35262880F400612573 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B34262880F400612573 /* String+Ex.swift */; };
 		33334B3A2628812A00612573 /* Date+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B392628812A00612573 /* Date+Ex.swift */; };
 		33334B592628829D00612573 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B582628829D00612573 /* BaseViewController.swift */; };
-		33334B5E262882AB00612573 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B5D262882AB00612573 /* InitialViewController.swift */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* MoreCoordinator.swift */; };
 		335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C7262DA6DB0057D25F /* TimelineViewController.swift */; };
@@ -41,8 +40,9 @@
 		3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358830A262DD14D0057D25F /* SignUpViewModel.swift */; };
 		33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588315262DD1720057D25F /* TimelineViewModel.swift */; };
 		3358831B262DD19E0057D25F /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DIContainer.swift */; };
+		33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33810EB926331B6800BFC67C /* CancelBag.swift */; };
 		338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364B1263018F0001EF61E /* ReachabilityService.swift */; };
-		338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364BB26302FD5001EF61E /* DateFormatterHelper.swift */; };
+		338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364BB26302FD5001EF61E /* CachedDateFormatter.swift */; };
 		338365622630565F001EF61E /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365612630565F001EF61E /* Map.storyboard */; };
 		338365662630566C001EF61E /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365652630566C001EF61E /* Category.storyboard */; };
 		3383656A26305678001EF61E /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3383656926305678001EF61E /* Timeline.storyboard */; };
@@ -97,7 +97,6 @@
 		33334B34262880F400612573 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		33334B392628812A00612573 /* Date+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ex.swift"; sourceTree = "<group>"; };
 		33334B582628829D00612573 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		33334B5D262882AB00612573 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* MoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		335881C7262DA6DB0057D25F /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -112,8 +111,9 @@
 		3358830A262DD14D0057D25F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		33588315262DD1720057D25F /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		3358831A262DD19E0057D25F /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		33810EB926331B6800BFC67C /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		338364B1263018F0001EF61E /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
-		338364BB26302FD5001EF61E /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
+		338364BB26302FD5001EF61E /* CachedDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedDateFormatter.swift; sourceTree = "<group>"; };
 		338365612630565F001EF61E /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		338365652630566C001EF61E /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
 		3383656926305678001EF61E /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
@@ -243,7 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				33334B582628829D00612573 /* BaseViewController.swift */,
-				33334B5D262882AB00612573 /* InitialViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -445,7 +444,8 @@
 			isa = PBXGroup;
 			children = (
 				33334AB826283CCE00612573 /* GoogleService-Info.plist */,
-				338364BB26302FD5001EF61E /* DateFormatterHelper.swift */,
+				338364BB26302FD5001EF61E /* CachedDateFormatter.swift */,
+				33810EB926331B6800BFC67C /* CancelBag.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -805,6 +805,7 @@
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
+				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
@@ -815,7 +816,6 @@
 				33334B2826287DF300612573 /* ResponseError.swift in Sources */,
 				338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */,
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
-				33334B5E262882AB00612573 /* InitialViewController.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
@@ -827,7 +827,7 @@
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
 				01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
-				338364BC26302FD5001EF61E /* DateFormatterHelper.swift in Sources */,
+				338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,

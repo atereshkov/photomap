@@ -8,6 +8,7 @@
 import UIKit
 
 class MapCoordinator: Coordinator {
+    
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
 
@@ -19,4 +20,5 @@ class MapCoordinator: Coordinator {
 
         return navigationController
     }
+    
 }
