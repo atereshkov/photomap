@@ -12,7 +12,7 @@ import Combine
 class MapViewController: BaseViewController, MKMapViewDelegate {
     // MARK: - Variables
     private var viewModel: MapViewModel?
-    private var cancellable = Set<AnyCancellable>()
+    private let cancelBag = CancelBag()
 
     @IBOutlet private weak var mapView: MKMapView!
     @IBOutlet private weak var followModeButton: UIButton!
@@ -41,27 +41,19 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
             .sink(receiveValue: { [weak self] title in
                 self?.tabBarItem.title = title
             })
-            .store(in: &cancellable)
+            .store(in: cancelBag)
 
         viewModel.$isShowUserLocation
-            .sink(receiveValue: {[weak self] isShow in
-                self?.mapView?.showsUserLocation = isShow
-            })
-            .store(in: &cancellable)
+            .assign(to: \.showsUserLocation, on: mapView)
+            .store(in: cancelBag)
 
-//        followModeButton.tapPublisher
-//            .assign(to: &viewModel.followModeButtonTapped)
-    }
-
-    @IBAction private func findMyLocation(_ sender: Any) {
-/*
-        guard let location = location else { return }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
-                                            longitude: location.coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
-        let region = MKCoordinateRegion(center: center, span: span)
-        self.mapView.setRegion(region, animated: true)
- */
+        followModeButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self,
+                      let region = viewModel.findMyLocation() else { return }
+                self.mapView.setRegion(region, animated: true)
+            }
+            .store(in: cancelBag)
     }
 
 }

@@ -5,14 +5,18 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
-import Foundation
+import UIKit
 import Combine
 import CoreLocation
+import MapKit
 
 class MapViewModel: NSObject {
     // MARK: - Variables
+    private let cancelBag = CancelBag()
     private var coordinator: MapCoordinator
     private var location: CLLocation!
+    private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -22,22 +26,23 @@ class MapViewModel: NSObject {
     }()
 
     // MARK: - Input
-    @Published var tabTitle: String = "Map"
-    @Published var followModeButtonTapped: Void = ()
 
     // MARK: - Output
+    @Published var tabTitle: String
     @Published var isShowUserLocation: Bool = false
 
     init(coordinator: MapCoordinator) {
         self.coordinator = coordinator
+        self.tabTitle = "Map"
+
         super.init()
 
         transform()
-
-        locationManager.startUpdatingLocation()
     }
 
     private func transform() {
+        locationManager.startUpdatingLocation()
+
         isShowUserLocation = checkLocationAuthorization()
     }
     
@@ -59,6 +64,14 @@ class MapViewModel: NSObject {
         @unknown default:
             fatalError()
         }
+    }
+
+    func findMyLocation() -> MKCoordinateRegion? {
+        guard let location = location else { return nil }
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude)
+
+        return MKCoordinateRegion(center: center, span: coordinateSpan)
     }
 }
 

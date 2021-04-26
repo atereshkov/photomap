@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIButton {
-    var tapPublisher: EventPublisher {
+    var tapPublisher: UIControlPublisher<UIControl> {
         publisher(for: .touchUpInside)
     }
 }

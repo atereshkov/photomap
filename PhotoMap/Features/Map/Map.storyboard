@@ -26,9 +26,6 @@
                                 <state key="normal">
                                     <imageReference key="image" image="location.circle" catalog="system" symbolScale="large" renderingMode="template"/>
                                 </state>
-                                <connections>
-                                    <action selector="findMyLocation:" destination="faU-hR-CXR" eventType="touchUpInside" id="O1k-DF-GdJ"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LeX-6U-nxQ"/>

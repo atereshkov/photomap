@@ -8,73 +8,61 @@
 import UIKit
 import Combine
 
-extension UIControl {
-    struct EventPublisher: Publisher {
-        // Declaring that our publisher doesn't emit any values,
-        // and that it can never fail:
-        typealias Output = Void
-        typealias Failure = Never
+/// A custom subscription to capture UIControl target events.
+final class UIControlSubscription<SubscriberType: Subscriber,
+                                  Control: UIControl>: Subscription where SubscriberType.Input == Control {
+    private var subscriber: SubscriberType?
+    private let control: Control
 
-        fileprivate var control: UIControl
-        fileprivate var event: Event
+    init(subscriber: SubscriberType, control: Control, event: UIControl.Event) {
+        self.subscriber = subscriber
+        self.control = control
+        control.addTarget(self, action: #selector(eventHandler), for: event)
+    }
 
-        // Combine will call this method on our publisher whenever
-        // a new object started observing it. Within this method,
-        // we'll need to create a subscription instance and
-        // attach it to the new subscriber:
-        func receive<S: Subscriber>(
-            subscriber: S
-        ) where S.Input == Output, S.Failure == Failure {
-            // Creating our custom subscription instance:
-            let subscription = EventSubscription<S>()
-            subscription.target = subscriber
-            
-            // Attaching our subscription to the subscriber:
-            subscriber.receive(subscription: subscription)
+    func request(_ demand: Subscribers.Demand) {
+        // We do nothing here as we only want to send events when they occur.
+        // See, for more info: https://developer.apple.com/documentation/combine/subscribers/demand
+    }
 
-            // Connecting our subscription to the control that's
-            // being observed:
-            control.addTarget(subscription,
-                action: #selector(subscription.trigger),
-                for: event
-            )
-        }
+    func cancel() {
+        subscriber = nil
+    }
+
+    @objc private func eventHandler() {
+        _ = subscriber?.receive(control)
     }
 }
 
-private extension UIControl {
-    class EventSubscription<Target: Subscriber>: Subscription
-        where Target.Input == Void {
-        
-        var target: Target?
+/// A custom `Publisher` to work with our custom `UIControlSubscription`.
+struct UIControlPublisher<Control: UIControl>: Publisher {
 
-        // This subscription doesn't respond to demand, since it'll
-        // simply emit events according to its underlying UIControl
-        // instance, but we still have to implement this method
-        // in order to conform to the Subscription protocol:
-        func request(_ demand: Subscribers.Demand) {}
+    typealias Output = Control
+    typealias Failure = Never
 
-        func cancel() {
-            // When our subscription was cancelled, we'll release
-            // the reference to our target to prevent any
-            // additional events from being sent to it:
-            target = nil
-        }
+    let control: Control
+    let controlEvents: UIControl.Event
 
-        @objc func trigger() {
-            // Whenever an event was triggered by the underlying
-            // UIControl instance, we'll simply pass Void to our
-            // target to emit that event:
-            target?.receive(())
-        }
+    init(control: Control, events: UIControl.Event) {
+        self.control = control
+        self.controlEvents = events
+    }
+    
+    func receive<S>(subscriber: S) where S : Subscriber,
+                                         S.Failure == UIControlPublisher.Failure,
+                                         S.Input == UIControlPublisher.Output {
+        let subscription = UIControlSubscription(subscriber: subscriber, control: control, event: controlEvents)
+        subscriber.receive(subscription: subscription)
     }
 }
 
-extension UIControl {
-    func publisher(for event: Event) -> EventPublisher {
-        EventPublisher(
-            control: self,
-            event: event
-        )
+/// Extending the `UIControl` types to be able to produce a `UIControl.Event` publisher.
+protocol CombineCompatible { }
+
+extension UIControl: CombineCompatible { }
+
+extension CombineCompatible where Self: UIControl {
+    func publisher(for events: UIControl.Event) -> UIControlPublisher<UIControl> {
+        return UIControlPublisher(control: self, events: events)
     }
 }
