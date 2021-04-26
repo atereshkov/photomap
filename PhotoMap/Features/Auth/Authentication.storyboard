@@ -17,22 +17,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3q9-Cy-KkD">
-                                <rect key="frame" x="20" y="119" width="41.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3q9-Cy-KkD">
+                                <rect key="frame" x="20" y="119" width="95.5" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d9M-rp-0IK" userLabel="E-mail Adress Text Field" customClass="ATCTextField" customModule="FirebaseStarterApp" customModuleProvider="target">
-                                <rect key="frame" x="25" y="179.5" width="364" height="40"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d9M-rp-0IK" userLabel="E-mail Adress Text Field" customClass="ATCTextField" customModule="PhotoMap" customModuleProvider="target">
+                                <rect key="frame" x="25" y="195" width="364" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="OeI-jO-u2n"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HzB-n6-6Zl" userLabel="E-mail Adress Text Field" customClass="ATCTextField" customModule="FirebaseStarterApp" customModuleProvider="target">
-                                <rect key="frame" x="25" y="239.5" width="364" height="40"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HzB-n6-6Zl" userLabel="E-mail Adress Text Field" customClass="ATCTextField" customModule="PhotoMap" customModuleProvider="target">
+                                <rect key="frame" x="25" y="255" width="364" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="vXs-Ad-pwi"/>
                                 </constraints>
@@ -40,14 +40,15 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WwD-Gm-oyT" userLabel="Login Button">
-                                <rect key="frame" x="50" y="309.5" width="314" height="55"/>
+                                <rect key="frame" x="50" y="325" width="314" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="dNO-vd-hoj"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Sign In"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="Ixy-pf-TBK">
-                                <rect key="frame" x="53" y="394.5" width="308" height="30"/>
+                                <rect key="frame" x="53" y="410" width="308" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chE-N2-N2u" userLabel="Separator Label">
                                         <rect key="frame" x="0.0" y="0.0" width="179" height="30"/>

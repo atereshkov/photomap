@@ -5,8 +5,13 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
-import Foundation
+import FirebaseAuth
 import Combine
+
+protocol SignInViewModelType: class {
+    var authService: FirebaseAuthRepository { get }
+    func signIn(with email: String, password: String) -> AnyPublisher<User, Error>
+}
 
 class SignInViewModel {
     
