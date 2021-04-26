@@ -7,7 +7,9 @@
 
 import Foundation
 
-protocol ErrorHelper {
+protocol GeneralErrorType {
+    
     var title: String { get }
     var message: String { get }
+    
 }

@@ -14,7 +14,7 @@ class TimelineCoordinator: Coordinator {
     private(set) var navigationController = UINavigationController()
     
     func start() {
-        navigationController.tabBarItem.title = "Timeline".localized
+        navigationController.tabBarItem.title = L10n.Main.TabBar.Timeline.title
         navigationController.tabBarItem.image = UIImage(named: "calendar")
         navigationController.navigationBar.prefersLargeTitles = true
 

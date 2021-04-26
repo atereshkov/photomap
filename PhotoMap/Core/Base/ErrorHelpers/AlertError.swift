@@ -1,5 +1,5 @@
 //
-//  AlertErrorHelper.swift
+//  AlertError.swift
 //  PhotoMap
 //
 //  Created by Krystsina Kurytsyna on 4/15/21.
@@ -7,23 +7,25 @@
 
 import Foundation
 
-enum AlertErrorHelper: ErrorHelper {
+enum AlertError: GeneralErrorType {
+    
     case incorrectCredentials
     case networtConnection
     case other(message: String)
 
     var title: String {
-        "Error".localized
+        L10n.error
     }
 
     var message: String {
         switch self {
         case .incorrectCredentials:
-            return "Incorrect login or password".localized
+            return L10n.SignUp.ErrorAlert.Title.incorrectPassword
         case .networtConnection:
-            return "No network connection".localized
+            return L10n.InternetError.ErrorAlert.Title.noNetworkConnection
         case .other(let message):
-            return message.localized
+            return message
         }
     }
+    
 }

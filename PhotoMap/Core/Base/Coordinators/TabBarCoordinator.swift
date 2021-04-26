@@ -7,20 +7,25 @@
 
 import UIKit
 import Combine
-import Reachability
 
 class TabBarCoordinator: Coordinator {
+    
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private weak var tabBarController: UITabBarController?
+    private var reachabilityService: ReachabilityServiceType?
     
     private var subscriptions = Set<AnyCancellable>()
+    
+    init(diContainer: DIContainerType?) {
+        self.reachabilityService = diContainer?.resolve()
+    }
 
     @discardableResult
     func start() -> UIViewController {
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.barTintColor = .white
-        tabBarController.tabBar.tintColor = .black
+        tabBarController.tabBar.barTintColor = Asset.tabBarBarTintColor.color
+        tabBarController.tabBar.tintColor = Asset.tabBarTintColor.color
 
         let mapCoordinator = MapCoordinator()
         mapCoordinator.start()
@@ -44,7 +49,7 @@ class TabBarCoordinator: Coordinator {
     }
 
     func checkNetworkConnection() {
-        Reachability.isReachable
+        reachabilityService?.checkNetworkConnection()
             .sink(receiveValue: { [weak self] isReachable in
                 if !isReachable {
                     self?.closePresentedModalVC()
@@ -54,7 +59,7 @@ class TabBarCoordinator: Coordinator {
             .store(in: &subscriptions)
     }
 
-    func showErrorAlert(error: AlertErrorHelper) {
+    func showErrorAlert(error: AlertError) {
         tabBarController?.selectedViewController?.present(generateErrorAlert(with: error), animated: true)
     }
 
@@ -63,4 +68,5 @@ class TabBarCoordinator: Coordinator {
             childVC.dismiss(animated: true, completion: nil)
         }
     }
+    
 }

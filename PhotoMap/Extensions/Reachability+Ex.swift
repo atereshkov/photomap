@@ -42,6 +42,7 @@ public extension Reachability {
             .map { _ in }
             .eraseToAnyPublisher()
     }
+    
 }
 
 public extension Reachability {
@@ -77,4 +78,5 @@ public extension Reachability {
             .map { _ in }
             .eraseToAnyPublisher()
     }
+    
 }

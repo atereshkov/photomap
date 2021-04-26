@@ -13,6 +13,13 @@ function_body_length:
   warning: 40
   error: 140
 
+variable_name:
+  max_length:
+    warning: 45
+    error: 60
+  min_length:
+    warning: 2
+    
 opt_in_rules:
   - empty_count
   - force_unwrapping

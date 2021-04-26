@@ -6,45 +6,54 @@
 //
 
 import UIKit
-import Firebase
+import Combine
 
 class AppCoordinator: Coordinator {
-    static let shared = AppCoordinator()
-
+    
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
-
-    private init() { }
-
-    func start() {
-        navigationController.pushViewController(LoadingViewController.newInstanse(with: self),
-                                                animated: true)
+    private var authListener: AuthListenerType?
+    private var diContainer: DIContainerType?
+    
+    private var cancelBag = CancelBag()
+    
+    init(diContainer: DIContainerType) {
+        self.authListener = diContainer.resolve()
+        self.diContainer = diContainer
+        
+        authListener?.isUserAuthoried
+            .sink { [weak self] isUserAuth in
+                self?.startMainScreen(isUserAuthorized: isUserAuth)
+            }
+            .store(in: cancelBag)
     }
     
-    func changeMainScreen() {
-        Auth.auth().addStateDidChangeListener { [weak self] _, user in
-            if user != nil {
-                guard self != nil else { return }
-                self?.showMap()
-            } else {
-                self?.showAuth()
-            }
+    func start() {
+        authListener?.startListening()
+    }
+    
+    func startMainScreen(isUserAuthorized: Bool) {
+        if isUserAuthorized {
+            self.showMap()
+        } else {
+            self.showAuth()
         }
     }
     
     private func showMap() {
-        let tabBarCoordinator = TabBarCoordinator()
+        let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
         childCoordinators = [tabBarCoordinator]
         let mainTabBarController = tabBarCoordinator.start()
         mainTabBarController.modalPresentationStyle = .overFullScreen
         navigationController.present(mainTabBarController, animated: true, completion: nil)
     }
-
+    
     private func showAuth() {
-        let authCoordinator = AuthCoordinator()
+        let authCoordinator = AuthCoordinator(appCoordinator: self)
         childCoordinators = [authCoordinator]
         let authViewController = authCoordinator.start()
         authViewController.modalPresentationStyle = .overFullScreen
         navigationController.present(authViewController, animated: true, completion: nil)
     }
+    
 }

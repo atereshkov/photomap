@@ -7,41 +7,38 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, Storyboarded {
+class BaseViewController: UIViewController {
+    
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
-            activityIndicator.backgroundColor = .white
-            activityIndicator.center = view.center
-            activityIndicator.hidesWhenStopped = true
-            activityIndicator.style = .large
-            activityIndicator.tag = 1
-            activityIndicator.color = .black
-            view.addSubview(activityIndicator)
+        activityIndicator.backgroundColor = Asset.activityIndicatorBackgroundColor.color
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .large
+        activityIndicator.tag = 1
+        activityIndicator.color = Asset.activityIndicatorIndicatorColor.color
 
         return activityIndicator
     }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
+    
     func setOpacityBackgroundNavigationBar() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
     }
-
+    
     func setupNavigationBar(isLargeTitle: Bool = true) {
         navigationController?.navigationBar.prefersLargeTitles = true
-
+        
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-
-        navigationController?.navigationBar.tintColor = .black
+        appearance.backgroundColor = Asset.baseVCAppearanceBackgroundColor.color
+        appearance.titleTextAttributes = [.foregroundColor: Asset.baseVCAppearanceTitleTextAttributes.color]
+        appearance.largeTitleTextAttributes = [.foregroundColor: Asset.baseVCAppearanceLargeTitleTextAttributes.color]
+        
+        navigationController?.navigationBar.tintColor = Asset.navBarTintColor.color
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
+    
 }

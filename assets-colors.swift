@@ -20,13 +20,20 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
-  internal static let blackColor = ColorAsset(name: "blackColor")
+  internal static let activityIndicatorBackgroundColor = ColorAsset(name: "activityIndicator.backgroundColor")
+  internal static let activityIndicatorIndicatorColor = ColorAsset(name: "activityIndicator.indicatorColor")
+  internal static let baseVCAppearanceBackgroundColor = ColorAsset(name: "baseVC.appearance.backgroundColor")
+  internal static let baseVCAppearanceLargeTitleTextAttributes = ColorAsset(name: "baseVC.appearance.largeTitleTextAttributes")
+  internal static let baseVCAppearanceTitleTextAttributes = ColorAsset(name: "baseVC.appearance.titleTextAttributes")
+  internal static let initialVCBackgroundColor = ColorAsset(name: "initialVC.backgroundColor")
+  internal static let tabBarBarTintColor = ColorAsset(name: "TabBar.barTintColor")
+  internal static let tabBarTintColor = ColorAsset(name: "TabBar.tintColor")
   internal static let defaultColor = ColorAsset(name: "defaultColor")
   internal static let discoverModeColor = ColorAsset(name: "discoverModeColor")
   internal static let followModeColor = ColorAsset(name: "followModeColor")
   internal static let friendsColor = ColorAsset(name: "friendsColor")
   internal static let natureColor = ColorAsset(name: "natureColor")
-  internal static let whiteColor = ColorAsset(name: "whiteColor")
+  internal static let navBarTintColor = ColorAsset(name: "NavBar.tintColor")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

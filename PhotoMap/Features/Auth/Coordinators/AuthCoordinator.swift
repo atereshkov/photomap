@@ -5,12 +5,18 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
+
 import UIKit
 
 class AuthCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
+    private var appCoordinator: AppCoordinator?
+    
+    init(appCoordinator: AppCoordinator) {
+        self.appCoordinator = appCoordinator
+    }
 
     @discardableResult
     func start() -> UIViewController {
@@ -18,15 +24,15 @@ class AuthCoordinator: Coordinator {
     }
 
     func openSignUpScreen() {
-       
+        
     }
 
-    func showErrorAlert(error: ResponseErrorHelper) {
+    func showErrorAlert(error: ResponseError) {
         let alert = UIAlertController(title: error.title,
                                       message: error.message,
                                       preferredStyle: .alert)
 
-        let cancelAction = UIAlertAction(title: "OK",
+        let cancelAction = UIAlertAction(title: L10n.ok,
                                          style: .cancel) { [unowned self] _ in
             if case .networtConnection = error { self.navigationController.popViewController(animated: true) }
         }
@@ -37,7 +43,6 @@ class AuthCoordinator: Coordinator {
 
     func closeScreen() {
         navigationController.dismiss(animated: true, completion: nil)
-        AppCoordinator.shared.changeMainScreen()
     }
     
 }
