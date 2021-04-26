@@ -16,9 +16,10 @@ protocol AuthListenerType {
 class AuthListener: AuthListenerType {
     
     var isUserAuthoried = PassthroughSubject<Bool, Never>()
+    var handle: AuthStateDidChangeListenerHandle?
     
     func startListening() {
-        Auth.auth().addStateDidChangeListener({ [weak self] _, user in
+        handle = Auth.auth().addStateDidChangeListener({ [weak self] _, user in
             if user != nil {
                 self?.isUserAuthoried.send(true)
             } else {

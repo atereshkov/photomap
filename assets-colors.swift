@@ -26,14 +26,14 @@ internal enum Asset {
   internal static let baseVCAppearanceLargeTitleTextAttributes = ColorAsset(name: "baseVC.appearance.largeTitleTextAttributes")
   internal static let baseVCAppearanceTitleTextAttributes = ColorAsset(name: "baseVC.appearance.titleTextAttributes")
   internal static let initialVCBackgroundColor = ColorAsset(name: "initialVC.backgroundColor")
-  internal static let navBarTintColor = ColorAsset(name: "navBar.tintColor")
-  internal static let tabBarBarTintColor = ColorAsset(name: "tabBar.barTintColor")
-  internal static let tabBarTintColor = ColorAsset(name: "tabBar.tintColor")
+  internal static let tabBarBarTintColor = ColorAsset(name: "TabBar.barTintColor")
+  internal static let tabBarTintColor = ColorAsset(name: "TabBar.tintColor")
   internal static let defaultColor = ColorAsset(name: "defaultColor")
   internal static let discoverModeColor = ColorAsset(name: "discoverModeColor")
   internal static let followModeColor = ColorAsset(name: "followModeColor")
   internal static let friendsColor = ColorAsset(name: "friendsColor")
   internal static let natureColor = ColorAsset(name: "natureColor")
+  internal static let navBarTintColor = ColorAsset(name: "NavBar.tintColor")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
