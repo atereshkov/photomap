@@ -5,3 +5,35 @@
   Created by Krystsina Kurytsyna on 4/15/21.
   
 */
+
+// MARK: - Buttons
+
+"login.button.title.sign-in" = "Войти";
+"login.button.title.sign-up" = "Регистрация";
+"logout.button.title.log-out" = "Выйти";
+
+// Mark: - Main Tab Bar
+
+"main.tab-bar.main.title" = "Дополнитнельно";
+"main.tab-bar.map.title" = "Карта";
+"main.tab-bar.timeline.title" = "История";
+
+// Mark: - Main Nav Bar
+
+"main.nav-bar.category.title" = "Категории";
+"main.nav-bar.search.title" = "Поиск";
+
+// MARK: - Messages
+
+"cancel" = "Войти";
+"profile.logout-alert.button.title" = "Подтвердите выход";
+"logout.logout-alert.title" = "Вы действительно хотите выйти?";
+"error" = "Ошибка";
+"sign-up.error-alert.title.incorrect-password" = "Неверный имейл или пароль";
+"internet-error.error-alert.title.no-network-connection" = "Отсутствует интернет соединение";
+"ok" = "OK";
+"sign-up.error-alert.title.registration-error" = "Ошибка регистрации. Пожалуйста, попробуйте еще раз.";
+"sign-up.error-alert.title.user-already-exists" = "Аккаунт с такой почтой уже существует.";
+"close" = "Закрыть";
+"internet-error.error-alert.button.ok" = "Пожалуйста, попробуйте позже";
+

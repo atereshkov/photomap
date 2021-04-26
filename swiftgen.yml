@@ -1,0 +1,27 @@
+#output_dir: PhotoMap/Resources/Generated/
+strings:
+  inputs: 'PhotoMap/Resources/Localization/en.lproj/Localizable.strings'
+  outputs:
+    templateName: structured-swift5
+    output: strings.swift
+xcassets:
+  inputs: [
+    'PhotoMap/Resources/Colors/Colors.xcassets'
+  ]
+  outputs:
+    templateName: swift5
+    output: assets-colors.swift
+ib:
+  inputs: [
+    'PhotoMap/Features/More/More.storyboard',
+    'PhotoMap/Features/Auth/Authentication.storyboard',
+    'PhotoMap/Features/Map/Map.storyboard',
+    'PhotoMap/Features/Timeline/Timeline.storyboard',
+    'PhotoMap/Features/Category/Category.storyboard'
+  ]
+  outputs:
+    templateName: scenes-swift5
+    output: storyboards.swift
+    params:
+      ignoreTargetModule: true
+      module: PhotoMap

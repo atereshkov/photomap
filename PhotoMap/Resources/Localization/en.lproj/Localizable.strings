@@ -5,3 +5,34 @@
   Created by Krystsina Kurytsyna on 4/15/21.
   
 */
+
+// Mark: - Main Tab Bar
+
+"main.tab-bar.more.title" = "More";
+"main.tab-bar.map.title" = "Map";
+"main.tab-bar.timeline.title" = "Timeline";
+
+// Mark: - Main Nav Bar
+
+"main.nav-bar.category.title" = "Category";
+"main.nav-bar.search.title" = "Search";
+
+// MARK: - Buttons
+
+"login.button.title.sign-in" = "Sign In";
+"login.button.title.sign-up" = "Sign Up";
+"logout.button.title.log-out" = "Logout";
+
+// MARK: - Messages
+
+"cancel" = "Cancel";
+"profile.logout-alert.button.title" = "Conform logout";
+"logout.logout-alert.title" = "Are you sure you want to logout?";
+"error" = "Error";
+"sign-up.error-alert.title.incorrect-password" = "Incorrect login or password";
+"internet-error.error-alert.title.no-network-connection" = "No network connection";
+"ok" = "OK";
+"sign-up.error-alert.title.registration-error" = "Registration error. Please try again.";
+"sign-up.error-alert.title.user-already-exists" = "User with that email already exists.";
+"close" = "Close";
+"internet-error.error-alert.button.ok" = "Please, try again later";
