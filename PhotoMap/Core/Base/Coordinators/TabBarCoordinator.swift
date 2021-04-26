@@ -24,8 +24,8 @@ class TabBarCoordinator: Coordinator {
     @discardableResult
     func start() -> UIViewController {
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.barTintColor = .white
-        tabBarController.tabBar.tintColor = .black
+        tabBarController.tabBar.barTintColor = Asset.tabBarBarTintColor.color
+        tabBarController.tabBar.tintColor = Asset.tabBarTintColor.color
 
         let mapCoordinator = MapCoordinator()
         mapCoordinator.start()
