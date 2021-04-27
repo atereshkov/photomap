@@ -8,7 +8,42 @@
 import FirebaseAuth
 import Combine
 
-class SignInViewModel {
+protocol SignInViewModelInput {
+    var email: String { get set }
+    var password: String { get set }
+    
+    func signInButtonTapped()
+}
+
+protocol SignInViewModelOutput {
+    var validatedEmail: PassthroughSubject<Bool, EmailValidationError> { get set }
+    var validatedPassword: PassthroughSubject<Bool, PasswordValidationError> { get set }
+    
+    var isAuthEnabled: PassthroughSubject<Bool, Error> { get set }
+}
+
+protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {
+    
+}
+
+class SignInViewModel: SignInViewModelType {
+  
+    private(set) var coordinator: AuthCoordinator
+    
+    private let cancelBag = CancelBag()
+    private let authUserService: AuthUserServiceType
+    
+    init(diContainer: DIContainer, coordinator: AuthCoordinator) {
+        self.authUserService = diContainer.resolve()
+        
+        self.coordinator = coordinator
+    }
+    
+    var validatedEmail: PassthroughSubject<Bool, EmailValidationError>
+    
+    var validatedPassword: PassthroughSubject<Bool, PasswordValidationError>
+    
+    var isAuthEnabled: PassthroughSubject<Bool, Error>
     
     @Published var email = ""
     @Published var password = ""
@@ -16,62 +51,24 @@ class SignInViewModel {
     let emailMessagePublisher = PassthroughSubject<String, Never>()
     let passwordMessagePublisher = PassthroughSubject<String, Never>()
     
-    var validatedEmail: AnyPublisher<String?, Never> {
-        
-        return $email
-            .map { email in
-                
-                guard email.isEmpty else {
-                    
-                    self.emailMessagePublisher.send("Email can't be blank")
-                    return nil
+}
+
+extension SignInViewModel: SignInViewModelInput {
+    
+    func signInButtonTapped() {
+        authUserService
+            .signIn(email: email, password: password)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    self?.isAuthEnabled.send(false)
+                    self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
+                case .finished:
+                    self?.isAuthEnabled.send(true)
                 }
-                
-                guard email.count > 2 else {
-                    
-                    self.emailMessagePublisher.send("Minimum of 3 characters required")
-                    return nil
-                }
-                
-                guard email.isEmail else {
-                    
-                    self.emailMessagePublisher.send("Please enter a valid email")
-                    return nil
-                }
-                
-                self.emailMessagePublisher.send("")
-                return email
-        }
-        .eraseToAnyPublisher()
+            }, receiveValue: { _ in })
+            .store(in: cancelBag)
     }
     
-    var validatedPassword: AnyPublisher<String?, Never> {
-        
-        return $password
-            .map { password in
-                
-                guard password.count > 4 else {
-                    
-                    self.emailMessagePublisher.send("Minimum of 4 characters required")
-                    return nil
-                }
-                
-                self.passwordMessagePublisher.send("")
-                return password
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    var readyToSubmit: AnyPublisher<(String, String)?, Never> {
-        
-        return Publishers.CombineLatest(validatedEmail, validatedPassword)
-            .map { email, password in
-                
-                guard let email = email, let password = password else {
-                    return nil
-                }
-                return (email, password)
-        }
-        .eraseToAnyPublisher()
-    }
 }
