@@ -27,16 +27,23 @@ protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {
 }
 
 class SignInViewModel: SignInViewModelType {
-  
+    
     private(set) var coordinator: AuthCoordinator
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
     
-    init(diContainer: DIContainer, coordinator: AuthCoordinator) {
+    private let emailValidator: EmailValidator
+    private let passwordValidator: PasswordValidator
+    
+    init(diContainer: DIContainer,
+         coordinator: AuthCoordinator,
+         emailValidator: EmailValidator,
+         passwordValidator: PasswordValidator) {
         self.authUserService = diContainer.resolve()
-        
         self.coordinator = coordinator
+        self.emailValidator = emailValidator
+        self.passwordValidator = passwordValidator
     }
     
     var validatedEmail: PassthroughSubject<Bool, EmailValidationError>
@@ -48,9 +55,20 @@ class SignInViewModel: SignInViewModelType {
     @Published var email = ""
     @Published var password = ""
     
-    let emailMessagePublisher = PassthroughSubject<String, Never>()
-    let passwordMessagePublisher = PassthroughSubject<String, Never>()
-    
+}
+
+extension SignInViewModel {
+    func transform() {
+        let credentials = Publishers.CombineLatest($email, $password)
+            .eraseToAnyPublisher()
+        
+        validatedEmail = $email
+            .map { email in
+                return emailValidator.isValidEmail(email)
+            }.eraseToAnyPublisher()
+        
+        
+    }
 }
 
 extension SignInViewModel: SignInViewModelInput {
@@ -61,7 +79,7 @@ extension SignInViewModel: SignInViewModelInput {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
-                case .failure(let error):
+                case .failure:
                     self?.isAuthEnabled.send(false)
                     self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
                 case .finished:
