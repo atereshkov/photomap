@@ -47,11 +47,19 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
             .assign(to: \.showsUserLocation, on: mapView)
             .store(in: cancelBag)
 
+        viewModel.$region
+            .sink { [weak self] region in
+                guard let region = region else { return }
+                self?.mapView.setRegion(region, animated: true)
+            }.store(in: cancelBag)
+
+        viewModel.$modeButtonCollor
+            .assign(to: \.tintColor, on: followModeButton)
+            .store(in: cancelBag)
+
         followModeButton.publisher(for: .touchUpInside)
-            .sink { [weak self] _ in
-                guard let self = self,
-                      let region = viewModel.findMyLocation() else { return }
-                self.mapView.setRegion(region, animated: true)
+            .sink { _ in
+                viewModel.switchFollowDiscoveryMode()
             }
             .store(in: cancelBag)
     }

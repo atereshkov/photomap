@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,16 +21,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-GJ-qIS">
-                                <rect key="frame" x="369" y="106" width="25" height="24"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="location.circle" catalog="system" symbolScale="large" renderingMode="template"/>
-                                </state>
+                                <rect key="frame" x="354" y="52.5" width="40" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="nOd-0v-jtE"/>
+                                    <constraint firstAttribute="height" constant="40" id="wz3-9u-ERA"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="location.circle" catalog="system"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LeX-6U-nxQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Zz9-GJ-qIS" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="62" id="LhL-cA-ohO"/>
+                            <constraint firstItem="Zz9-GJ-qIS" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="8" id="LhL-cA-ohO"/>
                             <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="Zz9-GJ-qIS" secondAttribute="trailing" constant="20" id="OT8-NP-gaC"/>
                             <constraint firstItem="con-EB-4hb" firstAttribute="leading" secondItem="LeX-6U-nxQ" secondAttribute="leading" id="fDe-a6-Nkq"/>
                             <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="con-EB-4hb" secondAttribute="trailing" id="iWk-Cx-MIZ"/>
