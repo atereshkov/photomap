@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import Combine
 
-class MapViewController: BaseViewController, MKMapViewDelegate {
+class MapViewController: BaseViewController {
     // MARK: - Variables
     private var viewModel: MapViewModel?
     private let cancelBag = CancelBag()
@@ -29,8 +29,6 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
         super.viewDidLoad()
 
         setOpacityBackgroundNavigationBar()
-        mapView?.delegate = self
-
         bind()
     }
 

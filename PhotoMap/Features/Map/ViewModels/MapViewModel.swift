@@ -14,19 +14,11 @@ class MapViewModel: NSObject, MapViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapCoordinator
-    private var location: CLLocation!
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
-
-    private lazy var locationManager: CLLocationManager = {
-        let locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-
-        return locationManager
-    }()
+    private let locationService: LocationServiceType
+    @Published private var isFollowModeOn: Bool = true
 
     // MARK: - Input
-    @Published private(set) var isFollowModeOn: Bool = true
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
@@ -34,61 +26,43 @@ class MapViewModel: NSObject, MapViewModelType {
     @Published private(set) var region: MKCoordinateRegion?
     @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
 
-    init(coordinator: MapCoordinator) {
+    init(coordinator: MapCoordinator,
+         locationService: LocationServiceType = LocationService()) {
         self.coordinator = coordinator
+        self.locationService = locationService
         super.init()
 
         transform()
     }
 
     private func transform() {
-        locationManager.startUpdatingLocation()
+        locationService.isEnable
+            .assign(to: \.isShowUserLocation, on: self)
+            .store(in: cancelBag)
 
-        isShowUserLocation = checkLocationAuthorization()
         $isFollowModeOn
             .filter { $0 }
             .sink { [weak self] _ in
-                guard let self = self,
-                      let location = self.location else { return }
+                guard let self = self else { return }
 
-                self.region = MKCoordinateRegion(center: location.coordinate, span: self.coordinateSpan)
+                self.region = MKCoordinateRegion(center: self.locationService.currentCoordinate,
+                                                 span: self.coordinateSpan)
             }
             .store(in: cancelBag)
-    }
-    
-    private func checkLocationAuthorization() -> Bool {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            return true
-        case .denied:
-            // Show alert telling users how to turn on permissions
-            return false
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            return true
-        case .restricted:
-            // Show an alert letting them know what’s up
-            return false
-        case .authorizedAlways:
-            return true
-        @unknown default:
-            fatalError()
-        }
+
+        locationService.location
+            .sink { [weak self] location in
+                guard let self = self,
+                      self.isFollowModeOn else { return }
+
+                self.region = MKCoordinateRegion(center: location.coordinate,
+                                          span: self.coordinateSpan)
+            }
+            .store(in: cancelBag)
     }
 
     func switchFollowDiscoveryMode() {
         isFollowModeOn = !isFollowModeOn
         modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
-    }
-}
-
-extension MapViewModel: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.location = locations.last as CLLocation?
-
-        if isFollowModeOn {
-            region = MKCoordinateRegion(center: location.coordinate,
-                                        span: coordinateSpan)
-        }
     }
 }

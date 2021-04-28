@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 protocol MapViewModelInput {
-    var isFollowModeOn: Bool { get }
+    func switchFollowDiscoveryMode()
 }
 
 protocol MapViewModelOutput {
@@ -19,6 +19,4 @@ protocol MapViewModelOutput {
     var modeButtonCollor: UIColor { get }
 }
 
-protocol MapViewModelType: MapViewModelInput, MapViewModelOutput {
-    func switchFollowDiscoveryMode()
-}
+protocol MapViewModelType: MapViewModelInput, MapViewModelOutput {}

@@ -2,11 +2,10 @@
 //  PhotoMapTests.swift
 //  PhotoMapTests
 //
-//  Created by Krystsina Kurytsyna on 4/15/21.
+//  Created by Dzmitry Makarevich on 4/28/21.
 //
 
 import XCTest
-@testable import PhotoMap
 
 class PhotoMapTests: XCTestCase {
 
@@ -25,7 +24,7 @@ class PhotoMapTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
