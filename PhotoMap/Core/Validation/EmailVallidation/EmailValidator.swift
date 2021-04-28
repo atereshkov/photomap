@@ -9,22 +9,25 @@ import Combine
 
 class EmailValidator {
     
-    static func isEmailValid(input: String) -> AnyPublisher<Bool, EmailValidationError?> {
+    var isEmailValid: Bool = false
+    var errorMessage: EmailValidationError?
+    
+     func isEmailValid(input: String) -> AnyPublisher<Bool, EmailValidationError> {
         return input
-            .map { email in
+            .map { email -> (Bool, EmailValidationError) in
                 guard email.isEmpty else {
-                    return EmailValidationError.isEmpty>
+                    return (false, EmailValidationError.emptyEmail)
                 }
                 
                 guard email.count > 2 else {
-                    EmailValidationError.shortEmail
+                    return (false, EmailValidationError.shortEmail)
                 }
                 
                 guard email.isEmail else {
-                    return EmailValidationError.invalidEmail
+                    return (false, EmailValidationError.invalidEmail)
                 }
                 
-                return true
+                return (true, nil)
             }
             .eraseToAnyPublisher()
     }

@@ -8,24 +8,6 @@
 import FirebaseAuth
 import Combine
 
-protocol SignInViewModelInput {
-    var email: String { get set }
-    var password: String { get set }
-    
-    func signInButtonTapped()
-}
-
-protocol SignInViewModelOutput {
-    var validatedEmail: PassthroughSubject<Bool, EmailValidationError> { get set }
-    var validatedPassword: PassthroughSubject<Bool, PasswordValidationError> { get set }
-    
-    var isAuthEnabled: PassthroughSubject<Bool, Error> { get set }
-}
-
-protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {
-    
-}
-
 class SignInViewModel: SignInViewModelType {
     
     private(set) var coordinator: AuthCoordinator
@@ -59,14 +41,6 @@ class SignInViewModel: SignInViewModelType {
 
 extension SignInViewModel {
     func transform() {
-        let credentials = Publishers.CombineLatest($email, $password)
-            .eraseToAnyPublisher()
-        
-        validatedEmail = $email
-            .map { email in
-                return emailValidator.isValidEmail(email)
-            }.eraseToAnyPublisher()
-        
         
     }
 }
@@ -80,13 +54,23 @@ extension SignInViewModel: SignInViewModelInput {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure:
-                    self?.isAuthEnabled.send(false)
                     self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
                 case .finished:
-                    self?.isAuthEnabled.send(true)
+                    break
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
     }
     
+}
+
+extension SignInViewModel {
+    private func validateEmail(email: String) -> AnyPublisher<Bool, EmailValidationError> {
+      
+    }
+    private func validatePassword(password: String) -> AnyPublisher<Bool, PasswordValidationError> {}
+    
+    private func isAuthenticationEnabled() -> AnyPublisher<Bool, Error> {
+        
+    }
 }

@@ -46,6 +46,8 @@
 		338365662630566C001EF61E /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 338365652630566C001EF61E /* Category.storyboard */; };
 		3383658C2630575C001EF61E /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3383658B2630575C001EF61E /* More.storyboard */; };
 		3383662426307272001EF61E /* AuthListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3383662326307272001EF61E /* AuthListener.swift */; };
+		3384B79526394C9C006E05BD /* SignUpViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3384B79426394C9C006E05BD /* SignUpViewModelType.swift */; };
+		3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3384B79A26394CAB006E05BD /* SignInViewModelType.swift */; };
 		33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CAE2631598200A227F9 /* AuthUserService.swift */; };
 		33877CBF2631915C00A227F9 /* storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CBE2631915C00A227F9 /* storyboards.swift */; };
 		33877CC32631916200A227F9 /* assets-colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CC22631916100A227F9 /* assets-colors.swift */; };
@@ -120,6 +122,8 @@
 		3383656926305678001EF61E /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		3383658B2630575C001EF61E /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		3383662326307272001EF61E /* AuthListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListener.swift; sourceTree = "<group>"; };
+		3384B79426394C9C006E05BD /* SignUpViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelType.swift; sourceTree = "<group>"; };
+		3384B79A26394CAB006E05BD /* SignInViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelType.swift; sourceTree = "<group>"; };
 		33877C8F2631543900A227F9 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		33877CAE2631598200A227F9 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
 		33877CBE2631915C00A227F9 /* storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboards.swift; sourceTree = SOURCE_ROOT; };
@@ -416,6 +420,24 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		3384B79226394C6F006E05BD /* SignInViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				33588305262DD1420057D25F /* SignInViewModel.swift */,
+				3384B79A26394CAB006E05BD /* SignInViewModelType.swift */,
+			);
+			path = SignInViewModel;
+			sourceTree = "<group>";
+		};
+		3384B79326394C80006E05BD /* SignUpViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3358830A262DD14D0057D25F /* SignUpViewModel.swift */,
+				3384B79426394C9C006E05BD /* SignUpViewModelType.swift */,
+			);
+			path = SignUpViewModel;
+			sourceTree = "<group>";
+		};
 		33877CA9263158EA00A227F9 /* State */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,8 +547,8 @@
 		338BB5FB262D8BEF0001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				33588305262DD1420057D25F /* SignInViewModel.swift */,
-				3358830A262DD14D0057D25F /* SignUpViewModel.swift */,
+				3384B79326394C80006E05BD /* SignUpViewModel */,
+				3384B79226394C6F006E05BD /* SignInViewModel */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -855,6 +877,7 @@
 				3387F0FD2637F10B005DCFA0 /* EmailValidator.swift in Sources */,
 				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
+				3384B79526394C9C006E05BD /* SignUpViewModelType.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
@@ -864,6 +887,7 @@
 				338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */,
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
 				3387F1072637F16D005DCFA0 /* EmailValidationError.swift in Sources */,
+				3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
