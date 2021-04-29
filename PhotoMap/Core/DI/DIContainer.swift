@@ -27,6 +27,10 @@ class DIContainer: DIContainerType {
         container.register(AuthUserServiceType.self) { _ -> AuthUserServiceType in
             return AuthUserService()
         }.inObjectScope(.container)
+
+        container.register(LocationServiceType.self) { _ -> LocationServiceType in
+            return LocationService()
+        }.inObjectScope(.container)
     }
     
     func resolve<T>() -> T {

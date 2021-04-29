@@ -30,6 +30,7 @@ class AppCoordinator: Coordinator {
     
     func start() {
         authListener?.startListening()
+        showMap()
     }
     
     func startMainScreen(isUserAuthorized: Bool) {

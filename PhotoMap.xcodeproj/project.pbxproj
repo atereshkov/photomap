@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		017296A226380F6D00693952 /* MapViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017296A126380F6D00693952 /* MapViewModelType.swift */; };
+		01776AA32639679A0058EDA7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AA22639679A0058EDA7 /* LocationService.swift */; };
+		01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */; };
+		01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01735842263851EF0035C3D5 /* MapViewModelTests.swift */; };
+		01AEED632633288600BB4E68 /* UIControl+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AEED622633288600BB4E68 /* UIControl+Ex.swift */; };
+		01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AEED662633292900BB4E68 /* UIButton+Ex.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
 		33334A4A2628324D00612573 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33334A482628324D00612573 /* LaunchScreen.storyboard */; };
-		33334A552628324D00612573 /* PhotoMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A542628324D00612573 /* PhotoMapTests.swift */; };
 		33334AA426283B8B00612573 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 33334AA626283B8B00612573 /* Localizable.strings */; };
 		33334AB926283CCE00612573 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33334AB826283CCE00612573 /* GoogleService-Info.plist */; };
-		33334ABD26283CD200612573 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33334AB826283CCE00612573 /* GoogleService-Info.plist */; };
 		33334B0C26287C6900612573 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B0B26287C6900612573 /* Coordinator.swift */; };
 		33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1526287CCC00612573 /* TabBarCoordinator.swift */; };
 		33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B1A26287D0000612573 /* GeneralErrorType.swift */; };
@@ -55,12 +59,11 @@
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
 		338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */; };
-		4E3B7E2B320A2916316C05C6 /* Pods_PhotoMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */; };
 		CBCA82BC0F830018042CD509 /* Pods_PhotoMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		33334A512628324D00612573 /* PBXContainerItemProxy */ = {
+		01776AB4263996FF0058EDA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33334A322628324C00612573 /* Project object */;
 			proxyType = 1;
@@ -70,6 +73,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		017296A126380F6D00693952 /* MapViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelType.swift; sourceTree = "<group>"; };
+		01735842263851EF0035C3D5 /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
+		01776AA22639679A0058EDA7 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		01776AAF263996FF0058EDA7 /* PhotoMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMapTests.swift; sourceTree = "<group>"; };
+		01776AB3263996FF0058EDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01AEED622633288600BB4E68 /* UIControl+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Ex.swift"; sourceTree = "<group>"; };
+		01AEED662633292900BB4E68 /* UIButton+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,9 +88,6 @@
 		33334A462628324D00612573 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		33334A492628324D00612573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33334A4B2628324D00612573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		33334A502628324D00612573 /* PhotoMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		33334A542628324D00612573 /* PhotoMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMapTests.swift; sourceTree = "<group>"; };
-		33334A562628324D00612573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33334A95262839A800612573 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		33334AA526283B8B00612573 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		33334AAB26283BC800612573 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -132,6 +140,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		01776AAC263996FF0058EDA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33334A372628324C00612573 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -140,22 +155,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		33334A4D2628324D00612573 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4E3B7E2B320A2916316C05C6 /* Pods_PhotoMapTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01776AB0263996FF0058EDA7 /* PhotoMapTests */ = {
+			isa = PBXGroup;
+			children = (
+				01776AC2263998440058EDA7 /* ViewModels */,
+				01735842263851EF0035C3D5 /* MapViewModelTests.swift */,
+				01776AB3263996FF0058EDA7 /* Info.plist */,
+			);
+			path = PhotoMapTests;
+			sourceTree = "<group>";
+		};
+		01776AC2263998440058EDA7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		33334A312628324C00612573 = {
 			isa = PBXGroup;
 			children = (
 				33334A3C2628324C00612573 /* PhotoMap */,
-				33334A532628324D00612573 /* PhotoMapTests */,
+				01776AB0263996FF0058EDA7 /* PhotoMapTests */,
 				33334A3B2628324C00612573 /* Products */,
 				70054510067212F6756B982F /* Pods */,
 				F317D6E2F14D6601FEEDEFAF /* Frameworks */,
@@ -166,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				33334A3A2628324C00612573 /* PhotoMap.app */,
-				33334A502628324D00612573 /* PhotoMapTests.xctest */,
+				01776AAF263996FF0058EDA7 /* PhotoMapTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,15 +209,6 @@
 				338BB5E8262D856E0001F530 /* Utils */,
 			);
 			path = PhotoMap;
-			sourceTree = "<group>";
-		};
-		33334A532628324D00612573 /* PhotoMapTests */ = {
-			isa = PBXGroup;
-			children = (
-				33334A542628324D00612573 /* PhotoMapTests.swift */,
-				33334A562628324D00612573 /* Info.plist */,
-			);
-			path = PhotoMapTests;
 			sourceTree = "<group>";
 		};
 		33334A8C262836B300612573 /* Resources */ = {
@@ -366,6 +382,7 @@
 				338364B1263018F0001EF61E /* ReachabilityService.swift */,
 				3383662326307272001EF61E /* AuthListener.swift */,
 				33877CAE2631598200A227F9 /* AuthUserService.swift */,
+				01776AA22639679A0058EDA7 /* LocationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -411,6 +428,8 @@
 				33334B392628812A00612573 /* Date+Ex.swift */,
 				33334B34262880F400612573 /* String+Ex.swift */,
 				338BB610262D8EAE0001F530 /* Reachability+Ex.swift */,
+				01AEED622633288600BB4E68 /* UIControl+Ex.swift */,
+				01AEED662633292900BB4E68 /* UIButton+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -558,6 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				335882FB262DD0DF0057D25F /* MapViewModel.swift */,
+				017296A126380F6D00693952 /* MapViewModelType.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -585,6 +605,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		01776AAE263996FF0058EDA7 /* PhotoMapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01776AB6263996FF0058EDA7 /* Build configuration list for PBXNativeTarget "PhotoMapTests" */;
+			buildPhases = (
+				01776AAB263996FF0058EDA7 /* Sources */,
+				01776AAC263996FF0058EDA7 /* Frameworks */,
+				01776AAD263996FF0058EDA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				01776AB5263996FF0058EDA7 /* PBXTargetDependency */,
+			);
+			name = PhotoMapTests;
+			productName = PhotoMapTests;
+			productReference = 01776AAF263996FF0058EDA7 /* PhotoMapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		33334A392628324C00612573 /* PhotoMap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 33334A642628324D00612573 /* Build configuration list for PBXNativeTarget "PhotoMap" */;
@@ -606,25 +644,6 @@
 			productReference = 33334A3A2628324C00612573 /* PhotoMap.app */;
 			productType = "com.apple.product-type.application";
 		};
-		33334A4F2628324D00612573 /* PhotoMapTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 33334A672628324D00612573 /* Build configuration list for PBXNativeTarget "PhotoMapTests" */;
-			buildPhases = (
-				D700BF583E98A71B5313262C /* [CP] Check Pods Manifest.lock */,
-				33334A4C2628324D00612573 /* Sources */,
-				33334A4D2628324D00612573 /* Frameworks */,
-				33334A4E2628324D00612573 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				33334A522628324D00612573 /* PBXTargetDependency */,
-			);
-			name = PhotoMapTests;
-			productName = PhotoMapTests;
-			productReference = 33334A502628324D00612573 /* PhotoMapTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -634,12 +653,12 @@
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
-					33334A392628324C00612573 = {
-						CreatedOnToolsVersion = 12.4;
-					};
-					33334A4F2628324D00612573 = {
+					01776AAE263996FF0058EDA7 = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 33334A392628324C00612573;
+					};
+					33334A392628324C00612573 = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
@@ -658,12 +677,19 @@
 			projectRoot = "";
 			targets = (
 				33334A392628324C00612573 /* PhotoMap */,
-				33334A4F2628324D00612573 /* PhotoMapTests */,
+				01776AAE263996FF0058EDA7 /* PhotoMapTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		01776AAD263996FF0058EDA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33334A382628324C00612573 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -677,14 +703,6 @@
 				33877C902631543900A227F9 /* Authentication.storyboard in Resources */,
 				33334A472628324D00612573 /* Colors.xcassets in Resources */,
 				3383656A26305678001EF61E /* Timeline.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		33334A4E2628324D00612573 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				33334ABD26283CD200612573 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,31 +783,18 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D700BF583E98A71B5313262C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PhotoMapTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		01776AAB263996FF0058EDA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */,
+				01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33334A362628324C00612573 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -803,6 +808,7 @@
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
+				01AEED632633288600BB4E68 /* UIControl+Ex.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
@@ -814,16 +820,19 @@
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
+				017296A226380F6D00693952 /* MapViewModelType.swift in Sources */,
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
+				01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
+				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
@@ -834,21 +843,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		33334A4C2628324D00612573 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				33334A552628324D00612573 /* PhotoMapTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		33334A522628324D00612573 /* PBXTargetDependency */ = {
+		01776AB5263996FF0058EDA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 33334A392628324C00612573 /* PhotoMap */;
-			targetProxy = 33334A512628324D00612573 /* PBXContainerItemProxy */;
+			targetProxy = 01776AB4263996FF0058EDA7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -874,6 +875,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		01776AB7263996FF0058EDA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PhotoMapTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.itechart-group.PhotoMapTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhotoMap.app/PhotoMap";
+			};
+			name = Debug;
+		};
+		01776AB8263996FF0058EDA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PhotoMapTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.itechart-group.PhotoMapTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhotoMap.app/PhotoMap";
+			};
+			name = Release;
+		};
 		33334A622628324D00612573 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1030,53 +1071,18 @@
 			};
 			name = Release;
 		};
-		33334A682628324D00612573 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7BF840C2936D950C3B22C34B /* Pods-PhotoMapTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PhotoMapTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.itechart-group.PhotoMapTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhotoMap.app/PhotoMap";
-			};
-			name = Debug;
-		};
-		33334A692628324D00612573 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A1D51F33FEE42E03AEE0CBD9 /* Pods-PhotoMapTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PhotoMapTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.itechart-group.PhotoMapTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhotoMap.app/PhotoMap";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		01776AB6263996FF0058EDA7 /* Build configuration list for PBXNativeTarget "PhotoMapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01776AB7263996FF0058EDA7 /* Debug */,
+				01776AB8263996FF0058EDA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		33334A352628324C00612573 /* Build configuration list for PBXProject "PhotoMap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1091,15 +1097,6 @@
 			buildConfigurations = (
 				33334A652628324D00612573 /* Debug */,
 				33334A662628324D00612573 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		33334A672628324D00612573 /* Build configuration list for PBXNativeTarget "PhotoMapTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				33334A682628324D00612573 /* Debug */,
-				33334A692628324D00612573 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

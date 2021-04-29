@@ -1,7 +1,59 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Map View Controller-->
+        <scene sceneID="xbj-rt-pbR">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="faU-hR-CXR" customClass="MapViewController" customModule="PhotoMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EGV-a0-fOZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="con-EB-4hb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-GJ-qIS">
+                                <rect key="frame" x="354" y="52.5" width="40" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="nOd-0v-jtE"/>
+                                    <constraint firstAttribute="height" constant="40" id="wz3-9u-ERA"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="location.circle" catalog="system"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LeX-6U-nxQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zz9-GJ-qIS" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="8" id="LhL-cA-ohO"/>
+                            <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="Zz9-GJ-qIS" secondAttribute="trailing" constant="20" id="OT8-NP-gaC"/>
+                            <constraint firstItem="con-EB-4hb" firstAttribute="leading" secondItem="LeX-6U-nxQ" secondAttribute="leading" id="fDe-a6-Nkq"/>
+                            <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="con-EB-4hb" secondAttribute="trailing" id="iWk-Cx-MIZ"/>
+                            <constraint firstItem="con-EB-4hb" firstAttribute="top" secondItem="EGV-a0-fOZ" secondAttribute="top" id="qrC-li-5ax"/>
+                            <constraint firstItem="LeX-6U-nxQ" firstAttribute="bottom" secondItem="con-EB-4hb" secondAttribute="bottom" id="sKV-P8-fIw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="followModeButton" destination="Zz9-GJ-qIS" id="fZR-Ed-ARb"/>
+                        <outlet property="mapView" destination="con-EB-4hb" id="UqV-k1-FWD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jbh-SM-CRb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140.57971014492756" y="47.544642857142854"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="location.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
