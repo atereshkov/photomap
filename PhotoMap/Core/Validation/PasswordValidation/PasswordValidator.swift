@@ -9,8 +9,8 @@ import Combine
 
 class PasswordValidator {
     
-    static func isPasswordValid(input: String) -> AnyPublisher<Bool, PasswordValidationError?> {
-    
-    }
+//    static func isPasswordValid(input: String) -> AnyPublisher<Bool, PasswordValidationError> {
+//    
+//    }
     
 }

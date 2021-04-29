@@ -9,27 +9,31 @@ import Combine
 
 class EmailValidator {
     
-    var isEmailValid: Bool = false
-    var errorMessage: EmailValidationError?
+//    func isEmailValid(input: String) -> AnyPublisher<Bool, EmailValidationError> {
+//        guard !input.isEmpty else {
+//            return Fail(error: .emptyEmail).eraseToAnyPublisher()
+//        }
+//        guard input.count > 2 else {
+//            return Fail(error: .shortEmail).eraseToAnyPublisher()
+//        }
+//        guard input.isEmail else {
+//            return Fail(error: .invalidEmail).eraseToAnyPublisher()
+//        }
+//        return Result.success(true).publisher.eraseToAnyPublisher()
+//    }
     
-    func isEmailValid(input: String) -> AnyPublisher<Bool, EmailValidationError> {
-        return input
-            .map { email -> (Bool, EmailValidationError) in
-                guard email.isEmpty else {
-                    return (false, EmailValidationError.emptyEmail)
-                }
-                
-                guard email.count > 2 else {
-                    return (false, EmailValidationError.shortEmail)
-                }
-                
-                guard email.isEmail else {
-                    return (false, EmailValidationError.invalidEmail)
-                }
-                
-                return (true, nil)
-            }
-            .eraseToAnyPublisher()
+    func isEmailValid(_ input: String) -> AnyPublisher<EmailValidationResult, Never> {
+        guard !input.isEmpty else {
+            return Just(.empty).eraseToAnyPublisher()
+        }
+        guard input.count > 2 else {
+            return Just(.short).eraseToAnyPublisher()
+        }
+        guard input.isEmail else {
+            return Just(.invalid).eraseToAnyPublisher()
+        }
+//        return Result.success(.valid).publisher.eraseToAnyPublisher()
+        return Just(.valid).eraseToAnyPublisher()
     }
     
 }

@@ -18,16 +18,16 @@ class SignInViewModel: SignInViewModelType {
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
     
+    // MARK: - Input
+    
     @Published var email = ""
     @Published var password = ""
     
-    @Published var emailValidationMessage: String = ""
-    @Published var passwordValidationMessage: String = ""
+    // MARK: Output
     
-    var isAuthEnabled = PassthroughSubject<Bool, Error>()
-    
-    var emailValidationMessagePublisher: Published<String>.Publisher { $emailValidationMessage}
-    var passwordValidationMessagePublisher: Published<String>.Publisher { $passwordValidationMessage }
+    @Published var emailError: String?
+    @Published var passwordError: String?
+    var isAuthEnabled = CurrentValueSubject<Bool, Error>(false)
 
     init(diContainer: DIContainer,
          coordinator: AuthCoordinator,
@@ -41,14 +41,45 @@ class SignInViewModel: SignInViewModelType {
     
 }
 
+func isEmailValid(email: String) -> Bool {
+    return email.isEmpty ? false : true
+}
+
 extension SignInViewModel {
     func transform() {
-        $email.map { [weak self] email in
-            self?.emailValidator.isEmailValid(input: email)
+        // 1
+        $email.map { email in
+            return isEmailValid(email: email)
         }
-        .sink{ [weak self] message in
-            guard let self = self else { return }
-            self.emailValidationMessage = message
+        .sink { result in
+            Swift.print(result)
+        }
+        .store(in: cancelBag)
+        
+        // 2 - combine based
+        
+        $email.flatMap { email in
+            return self.emailValidator.isEmailValid(email)
+        }
+        // EmailValidationError
+        .map { result in
+            return result.localized
+        }
+        // String
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.emailError, on: self)
+        .store(in: cancelBag)
+        
+        // isAuthEnabled pseudo language
+        
+        Publishers.CombineLatest(emailError.publisher, passwordError.publisher)
+        .map { emailError, passwordError in
+            return emailError == nil & passwordError == nil
+        }
+        // Bool
+        .assign(to: \.isAuthEnabled, on: self) // Published
+        .sink { result
+            isAuthEnabled.value = result // CurrentValueSubject
         }
     }
 }
