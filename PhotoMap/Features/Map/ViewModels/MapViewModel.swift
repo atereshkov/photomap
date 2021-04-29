@@ -71,8 +71,8 @@ class MapViewModel: MapViewModelType {
             .store(in: cancelBag)
 
         $photoButtonPublisher
-            .sink { _ in
-                print("Photo Button Tapped!")
+            .sink { [weak self] _ in
+                self?.coordinator.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
 
