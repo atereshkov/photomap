@@ -15,10 +15,10 @@ protocol SignInViewModelInput {
 }
 
 protocol SignInViewModelOutput {
-    var validatedEmail: PassthroughSubject<Bool, EmailValidationError> { get set }
-    var validatedPassword: PassthroughSubject<Bool, PasswordValidationError> { get set }
+    var emailError: String? { get set }
+    var passwordError: String? { get set }
     
-    var isAuthEnabled: PassthroughSubject<Bool, Error> { get set }
+    var isAuthEnabled: CurrentValueSubject<Bool, Error> { get set }
 }
 
 protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {

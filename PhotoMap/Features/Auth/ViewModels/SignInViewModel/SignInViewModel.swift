@@ -18,6 +18,17 @@ class SignInViewModel: SignInViewModelType {
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
     
+    @Published var email = ""
+    @Published var password = ""
+    
+    @Published var emailValidationMessage: String = ""
+    @Published var passwordValidationMessage: String = ""
+    
+    var isAuthEnabled = PassthroughSubject<Bool, Error>()
+    
+    var emailValidationMessagePublisher: Published<String>.Publisher { $emailValidationMessage}
+    var passwordValidationMessagePublisher: Published<String>.Publisher { $passwordValidationMessage }
+
     init(diContainer: DIContainer,
          coordinator: AuthCoordinator,
          emailValidator: EmailValidator,
@@ -28,20 +39,17 @@ class SignInViewModel: SignInViewModelType {
         self.passwordValidator = passwordValidator
     }
     
-    var validatedEmail: PassthroughSubject<Bool, EmailValidationError>
-    
-    var validatedPassword: PassthroughSubject<Bool, PasswordValidationError>
-    
-    var isAuthEnabled: PassthroughSubject<Bool, Error>
-    
-    @Published var email = ""
-    @Published var password = ""
-    
 }
 
 extension SignInViewModel {
     func transform() {
-        
+        $email.map { [weak self] email in
+            self?.emailValidator.isEmailValid(input: email)
+        }
+        .sink{ [weak self] message in
+            guard let self = self else { return }
+            self.emailValidationMessage = message
+        }
     }
 }
 
@@ -62,15 +70,4 @@ extension SignInViewModel: SignInViewModelInput {
             .store(in: cancelBag)
     }
     
-}
-
-extension SignInViewModel {
-    private func validateEmail(email: String) -> AnyPublisher<Bool, EmailValidationError> {
-      
-    }
-    private func validatePassword(password: String) -> AnyPublisher<Bool, PasswordValidationError> {}
-    
-    private func isAuthenticationEnabled() -> AnyPublisher<Bool, Error> {
-        
-    }
 }

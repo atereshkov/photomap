@@ -12,7 +12,7 @@ class EmailValidator {
     var isEmailValid: Bool = false
     var errorMessage: EmailValidationError?
     
-     func isEmailValid(input: String) -> AnyPublisher<Bool, EmailValidationError> {
+    func isEmailValid(input: String) -> AnyPublisher<Bool, EmailValidationError> {
         return input
             .map { email -> (Bool, EmailValidationError) in
                 guard email.isEmpty else {
