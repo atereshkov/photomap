@@ -38,6 +38,9 @@
 		3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358830A262DD14D0057D25F /* SignUpViewModel.swift */; };
 		33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33588315262DD1720057D25F /* TimelineViewModel.swift */; };
 		3358831B262DD19E0057D25F /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358831A262DD19E0057D25F /* DIContainer.swift */; };
+		3374D0E6263B1AEE00A03E78 /* ATCTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374D0E5263B1AEE00A03E78 /* ATCTextField.swift */; };
+		3374D0EC263B1BFF00A03E78 /* UIControl+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */; };
+		3374D0F0263B1C2500A03E78 /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */; };
 		337A7F09263707020071F6ED /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 337A7F08263707020071F6ED /* Authentication.storyboard */; };
 		33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33810EB926331B6800BFC67C /* CancelBag.swift */; };
 		338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338364B1263018F0001EF61E /* ReachabilityService.swift */; };
@@ -113,6 +116,9 @@
 		3358830A262DD14D0057D25F /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		33588315262DD1720057D25F /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		3358831A262DD19E0057D25F /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		3374D0E5263B1AEE00A03E78 /* ATCTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCTextField.swift; sourceTree = "<group>"; };
+		3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Ex.swift"; sourceTree = "<group>"; };
+		3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
 		337A7F08263707020071F6ED /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		33810EB926331B6800BFC67C /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		338364B1263018F0001EF61E /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
@@ -234,8 +240,8 @@
 		33334AFB262879B000612573 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3374D0E4263B1ACC00A03E78 /* Views */,
 				3387F0FB2637F0F8005DCFA0 /* Validation */,
-				33877CA9263158EA00A227F9 /* State */,
 				338BB5E7262D854B0001F530 /* DI */,
 				338BB5E6262D85450001F530 /* Base */,
 			);
@@ -282,13 +288,6 @@
 				3387F10C2637F182005DCFA0 /* PasswordValidationError.swift */,
 			);
 			path = ErrorHelpers;
-			sourceTree = "<group>";
-		};
-		33334B0526287B9C00612573 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		33334B0626287BF500612573 /* Map */ = {
@@ -381,6 +380,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		3374D0E4263B1ACC00A03E78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3374D0E5263B1AEE00A03E78 /* ATCTextField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		337A7EC5263704D90071F6ED /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,13 +445,6 @@
 			path = SignUpViewModel;
 			sourceTree = "<group>";
 		};
-		33877CA9263158EA00A227F9 /* State */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = State;
-			sourceTree = "<group>";
-		};
 		3387F0FB2637F0F8005DCFA0 /* Validation */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +487,8 @@
 				33334B34262880F400612573 /* String+Ex.swift */,
 				338BB610262D8EAE0001F530 /* Reachability+Ex.swift */,
 				338F8E37262F234C00267889 /* UITextField+Ex.swift */,
+				3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */,
+				3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -497,7 +499,6 @@
 				33334B0026287A2200612573 /* Controllers */,
 				33334B0126287A3400612573 /* Coordinators */,
 				33334B0426287A7D00612573 /* ErrorHelpers */,
-				33334B0526287B9C00612573 /* Models */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -871,6 +872,7 @@
 			files = (
 				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
+				3374D0EC263B1BFF00A03E78 /* UIControl+Ex.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
@@ -903,11 +905,13 @@
 				3387F1012637F119005DCFA0 /* PasswordValidator.swift in Sources */,
 				338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
+				3374D0E6263B1AEE00A03E78 /* ATCTextField.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
+				3374D0F0263B1C2500A03E78 /* UIButton+Ex.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,

@@ -7,6 +7,25 @@
 
 import Foundation
 
+enum PasswordValidationResult {
+    
+    case empty
+    case short
+    case valid
+    
+    var localized: String? {
+        switch self {
+        case .empty:
+            return L10n.PasswordValidation.ErrorAlert.emptyPassword
+        case .short:
+            return L10n.PasswordValidation.ErrorAlert.shortPassword
+        case .valid:
+            return nil
+        }
+    }
+    
+}
+
 enum PasswordValidationError: GeneralErrorType {
     
     case emptyPassword
@@ -26,3 +45,4 @@ enum PasswordValidationError: GeneralErrorType {
     }
     
 }
+

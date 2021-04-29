@@ -46,6 +46,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signInButtonDidTap:" destination="WHV-d4-c5H" eventType="touchUpInside" id="3H5-t4-F9V"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="Ixy-pf-TBK">
                                 <rect key="frame" x="53" y="410" width="308" height="30"/>
@@ -81,6 +84,12 @@
                             <constraint firstItem="WwD-Gm-oyT" firstAttribute="top" secondItem="HzB-n6-6Zl" secondAttribute="bottom" constant="30" id="zFZ-qr-QYY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="d9M-rp-0IK" id="dNe-bl-iYR"/>
+                        <outlet property="loginButton" destination="WwD-Gm-oyT" id="zMJ-nm-PRE"/>
+                        <outlet property="passwordTextField" destination="HzB-n6-6Zl" id="I6E-V9-lsE"/>
+                        <outlet property="signUpButton" destination="AjK-DI-KCI" id="85p-Oh-v5t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bC-lA-0Z9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -18,7 +18,7 @@ protocol SignInViewModelOutput {
     var emailError: String? { get set }
     var passwordError: String? { get set }
     
-    var isAuthEnabled: CurrentValueSubject<Bool, Error> { get set }
+    var isAuthEnabled: Bool { get set }
 }
 
 protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {
