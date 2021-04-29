@@ -9,7 +9,9 @@ import Foundation
 import MapKit
 
 protocol MapViewModelInput {
-    func switchFollowDiscoveryMode()
+    var categoryButtonPublisher: Void { get set }
+    var navigationButtonPublisher: Void { get set }
+    var photoButtonPublisher: Void { get set }
 }
 
 protocol MapViewModelOutput {

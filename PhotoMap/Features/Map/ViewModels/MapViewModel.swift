@@ -10,29 +10,31 @@ import Combine
 import CoreLocation
 import MapKit
 
-class MapViewModel: NSObject, MapViewModelType {
+class MapViewModel: MapViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapCoordinator
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let locationService: LocationServiceType
     private let diContainer: DIContainerType
-    @Published private var isFollowModeOn: Bool = true
+    @Published private var isFollowModeOn: Bool = false
 
     // MARK: - Input
+    @Published var categoryButtonPublisher: Void = ()
+    @Published var navigationButtonPublisher: Void = ()
+    @Published var photoButtonPublisher: Void = ()
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
     @Published private(set) var isShowUserLocation: Bool = true
     @Published private(set) var region: MKCoordinateRegion?
-    @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
+    @Published private(set) var modeButtonCollor: UIColor = Asset.discoverModeColor.color
 
     init(coordinator: MapCoordinator,
          diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.diContainer = diContainer
         self.locationService = diContainer.resolve()
-        super.init()
 
         transform()
     }
@@ -61,9 +63,27 @@ class MapViewModel: NSObject, MapViewModelType {
                                           span: self.coordinateSpan)
             }
             .store(in: cancelBag)
+
+        $categoryButtonPublisher
+            .sink { _ in
+                print("Category Button Tapped!")
+            }
+            .store(in: cancelBag)
+
+        $photoButtonPublisher
+            .sink { _ in
+                print("Photo Button Tapped!")
+            }
+            .store(in: cancelBag)
+
+        $navigationButtonPublisher
+            .sink { [weak self] _ in
+                self?.switchFollowDiscoveryMode()
+            }
+            .store(in: cancelBag)
     }
 
-    func switchFollowDiscoveryMode() {
+    private func switchFollowDiscoveryMode() {
         isFollowModeOn = !isFollowModeOn
         modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
     }
