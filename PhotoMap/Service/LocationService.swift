@@ -63,7 +63,7 @@ class LocationService: NSObject, LocationServiceType {
                     // Show alert telling users how to turn on permissions
                     self.isEnable.send(false)
                 @unknown default:
-                    fatalError()
+                    return
                 }
             }
             .store(in: cancelBag)

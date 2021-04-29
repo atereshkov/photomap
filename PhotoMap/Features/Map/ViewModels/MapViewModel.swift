@@ -16,6 +16,7 @@ class MapViewModel: NSObject, MapViewModelType {
     private let coordinator: MapCoordinator
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let locationService: LocationServiceType
+    private let diContainer: DIContainerType
     @Published private var isFollowModeOn: Bool = true
 
     // MARK: - Input
@@ -27,9 +28,10 @@ class MapViewModel: NSObject, MapViewModelType {
     @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
 
     init(coordinator: MapCoordinator,
-         locationService: LocationServiceType = LocationService()) {
+         diContainer: DIContainerType) {
         self.coordinator = coordinator
-        self.locationService = locationService
+        self.diContainer = diContainer
+        self.locationService = diContainer.resolve()
         super.init()
 
         transform()
