@@ -15,7 +15,9 @@ class MapViewController: BaseViewController {
     private let cancelBag = CancelBag()
 
     @IBOutlet private weak var mapView: MKMapView!
-    @IBOutlet private weak var followModeButton: UIButton!
+    @IBOutlet private weak var navigationButton: UIButton!
+    @IBOutlet private weak var photoButton: UIButton!
+    @IBOutlet private weak var categoryButton: UIButton!
     
     static func newInstanse(viewModel: MapViewModel) -> MapViewController {
         let mapVC = StoryboardScene.Map.mapViewController.instantiate()
@@ -49,17 +51,37 @@ class MapViewController: BaseViewController {
             .sink { [weak self] region in
                 guard let region = region else { return }
                 self?.mapView.setRegion(region, animated: true)
-            }.store(in: cancelBag)
-
-        viewModel.$modeButtonCollor
-            .assign(to: \.tintColor, on: followModeButton)
-            .store(in: cancelBag)
-
-        followModeButton.publisher(for: .touchUpInside)
-            .sink { _ in
-                viewModel.switchFollowDiscoveryMode()
             }
             .store(in: cancelBag)
+
+        viewModel.$modeButtonCollor
+            .assign(to: \.tintColor, on: navigationButton)
+            .store(in: cancelBag)
+
+        if #available(iOS 14.0, *) {
+            categoryButton.tapPublisher
+                .map { _ in () }
+                .assign(to: &viewModel.$categoryButtonPublisher)
+            navigationButton.tapPublisher
+                .map { _ in () }
+                .assign(to: &viewModel.$navigationButtonPublisher)
+            photoButton.tapPublisher
+                .map { _ in () }
+                .assign(to: &viewModel.$photoButtonPublisher)
+        } else {
+            categoryButton.tapPublisher
+                .map { _ in () }
+                .assign(to: \.categoryButtonPublisher, on: viewModel)
+                .store(in: cancelBag)
+            navigationButton.tapPublisher
+                .map { _ in () }
+                .assign(to: \.navigationButtonPublisher, on: viewModel)
+                .store(in: cancelBag)
+            photoButton.tapPublisher
+                .map { _ in () }
+                .assign(to: \.photoButtonPublisher, on: viewModel)
+                .store(in: cancelBag)
+        }
     }
 
 }

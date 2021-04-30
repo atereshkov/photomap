@@ -11,6 +11,9 @@
 "login.button.title.sign-in" = "Войти";
 "login.button.title.sign-up" = "Регистрация";
 "logout.button.title.log-out" = "Выйти";
+"main.photo-alert.button.title.cancel" = "Отмена";
+"main.photo-alert.button.title.takePicture" = "Сделать Фото";
+"main.photo-alert.button.title.chooseFromLibrary" = "Выбрать из Галереи";
 
 // Mark: - Main Tab Bar
 
