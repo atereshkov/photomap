@@ -8,13 +8,15 @@
 import Combine
 
 protocol SignUpViewModelInput {
+    var username: String { get set }
     var email: String { get set }
     var password: String { get set }
-    
+
     func signUpButtonTapped()
 }
 
 protocol SignUpViewModelOutput {
+    var usernameError: String? { get set }
     var emailError: String? { get set }
     var passwordError: String? { get set }
     

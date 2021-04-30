@@ -20,7 +20,10 @@ class AuthCoordinator: Coordinator {
     
     @discardableResult
     func start() -> UIViewController {
-        let viewModel = SignInViewModel(diContainer: DIContainer(), coordinator: self, emailValidator: EmailValidator(), passwordValidator: PasswordValidator())
+        let viewModel = SignInViewModel(diContainer: DIContainer(),
+                                        coordinator: self,
+                                        emailValidator: EmailValidator(),
+                                        passwordValidator: PasswordValidator())
         let signInVC = SignInViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(signInVC, animated: true)
         
@@ -28,7 +31,12 @@ class AuthCoordinator: Coordinator {
     }
     
     func openSignUpScreen() {
-        
+        let viewModel = SignUpViewModel(diContainer: DIContainer(),
+                                        coordinator: self, usernamevalidator: UsernameValidator(),
+                                        emailValidator: EmailValidator(),
+                                        passwordValidator: PasswordValidator())
+        let signUpVC = SignUpViewController.newInstanse(viewModel: viewModel)
+        navigationController.pushViewController(signUpVC, animated: true)
     }
     
     func showErrorAlert(error: ResponseError) {

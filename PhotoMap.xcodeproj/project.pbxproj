@@ -64,6 +64,8 @@
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
 		338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */; };
 		338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F8E37262F234C00267889 /* UITextField+Ex.swift */; };
+		33AC447C263C3B9E007B2444 /* UsernameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC447B263C3B9E007B2444 /* UsernameValidator.swift */; };
+		33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC447D263C3BDC007B2444 /* UsernameValidationError.swift */; };
 		4E3B7E2B320A2916316C05C6 /* Pods_PhotoMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */; };
 		CBCA82BC0F830018042CD509 /* Pods_PhotoMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */; };
 /* End PBXBuildFile section */
@@ -147,6 +149,8 @@
 		338F8E2D262F1A6500267889 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		338F8E31262F1C9300267889 /* AuthServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceType.swift; sourceTree = "<group>"; };
 		338F8E37262F234C00267889 /* UITextField+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ex.swift"; sourceTree = "<group>"; };
+		33AC447B263C3B9E007B2444 /* UsernameValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidator.swift; sourceTree = "<group>"; };
+		33AC447D263C3BDC007B2444 /* UsernameValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidationError.swift; sourceTree = "<group>"; };
 		39A12EAD33B979F503BEAC32 /* Pods-PhotoMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.debug.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.debug.xcconfig"; sourceTree = "<group>"; };
 		7BF840C2936D950C3B22C34B /* Pods-PhotoMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.debug.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A1D51F33FEE42E03AEE0CBD9 /* Pods-PhotoMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.release.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				33334B2F26287E0300612573 /* AlertError.swift */,
 				3387F1062637F16D005DCFA0 /* EmailValidationError.swift */,
 				3387F10C2637F182005DCFA0 /* PasswordValidationError.swift */,
+				33AC447D263C3BDC007B2444 /* UsernameValidationError.swift */,
 			);
 			path = ErrorHelpers;
 			sourceTree = "<group>";
@@ -330,7 +335,6 @@
 			children = (
 				338BB5F9262D8BDE0001F530 /* Controllers */,
 				338BB5F8262D8BAF0001F530 /* Coordinators */,
-				338BB5FA262D8BE80001F530 /* Models */,
 				338BB5FB262D8BEF0001F530 /* ViewModels */,
 				337A7F08263707020071F6ED /* Authentication.storyboard */,
 			);
@@ -448,6 +452,7 @@
 		3387F0FB2637F0F8005DCFA0 /* Validation */ = {
 			isa = PBXGroup;
 			children = (
+				33AC447A263C3B85007B2444 /* UsernameValidation */,
 				3387F1052637F144005DCFA0 /* PasswordValidation */,
 				3387F1042637F139005DCFA0 /* EmailVallidation */,
 			);
@@ -536,13 +541,6 @@
 				335882E2262DCFDD0057D25F /* SignUpViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		338BB5FA262D8BE80001F530 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		338BB5FB262D8BEF0001F530 /* ViewModels */ = {
@@ -637,6 +635,14 @@
 				335882FB262DD0DF0057D25F /* MapViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		33AC447A263C3B85007B2444 /* UsernameValidation */ = {
+			isa = PBXGroup;
+			children = (
+				33AC447B263C3B9E007B2444 /* UsernameValidator.swift */,
+			);
+			path = UsernameValidation;
 			sourceTree = "<group>";
 		};
 		70054510067212F6756B982F /* Pods */ = {
@@ -872,6 +878,7 @@
 			files = (
 				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
+				33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */,
 				3374D0EC263B1BFF00A03E78 /* UIControl+Ex.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
@@ -910,6 +917,7 @@
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
+				33AC447C263C3B9E007B2444 /* UsernameValidator.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
 				3374D0F0263B1C2500A03E78 /* UIButton+Ex.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,

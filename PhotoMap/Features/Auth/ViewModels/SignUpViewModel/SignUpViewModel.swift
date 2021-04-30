@@ -5,75 +5,111 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
-import Foundation
+import FirebaseAuth
 import Combine
 
-class SignUpViewModel {
+class SignUpViewModel: SignUpViewModelType {
+   
+    private(set) var coordinator: AuthCoordinator
+    
+    private let cancelBag = CancelBag()
+    private let authUserService: AuthUserServiceType
+    
+    private let usernameValidator: UsernameValidator
+    private let emailValidator: EmailValidator
+    private let passwordValidator: PasswordValidator
+    
+    // MARK: - Input
     
     @Published var email = ""
     @Published var password = ""
+    @Published var username = ""
     
-    let emailMessagePublisher = PassthroughSubject<String, Never>()
-    let passwordMessagePublisher = PassthroughSubject<String, Never>()
+    // MARK: Output
     
-    var validatedEmail: AnyPublisher<String?, Never> {
+    @Published var usernameError: String?
+    @Published var emailError: String?
+    @Published var passwordError: String?
+    @Published var isRegistrationEnabled = false
+
+    init(diContainer: DIContainer,
+         coordinator: AuthCoordinator,
+         usernamevalidator: UsernameValidator,
+         emailValidator: EmailValidator,
+         passwordValidator: PasswordValidator) {
+        self.authUserService = diContainer.resolve()
+        self.coordinator = coordinator
+        self.usernameValidator = usernamevalidator
+        self.emailValidator = emailValidator
+        self.passwordValidator = passwordValidator
         
-        return $email
-            .map { email in
-                
-                guard email.isEmpty else {
-                    
-                    self.emailMessagePublisher.send("Email can't be blank")
-                    return nil
-                }
-                
-                guard email.count > 2 else {
-                    
-                    self.emailMessagePublisher.send("Minimum of 3 characters required")
-                    return nil
-                }
-                
-                guard email.isEmail else {
-                    
-                    self.emailMessagePublisher.send("Please enter a valid email")
-                    return nil
-                }
-                
-                self.emailMessagePublisher.send("")
-                return email
-        }
-        .eraseToAnyPublisher()
+        transform()
     }
     
-    var validatedPassword: AnyPublisher<String?, Never> {
+}
+
+extension SignUpViewModel {
+    
+    func transform() {
         
-        return $password
-            .map { password in
-                
-                guard password.count > 4 else {
-                    
-                    self.emailMessagePublisher.send("Minimum of 4 characters required")
-                    return nil
-                }
-                
-                self.passwordMessagePublisher.send("")
-                return password
+        $username.flatMap { username in
+            return self.usernameValidator.isUsernameValid(username)
         }
-        .eraseToAnyPublisher()
+        .map { result in
+            return result.localized
+        }
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.usernameError, on: self)
+        .store(in: cancelBag)
+        
+        $email.flatMap { email in
+            return self.emailValidator.isEmailValid(email)
+        }
+        .map { result in
+            return result.localized
+        }
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.emailError, on: self)
+        .store(in: cancelBag)
+        
+        $password.flatMap { password in
+            return self.passwordValidator.isPasswordValid(password)
+        }
+        .map { result in
+            return result.localized
+        }
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.passwordError, on: self)
+        .store(in: cancelBag)
+        
+        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
+        
+        credentials.map { emailError, passwordError in
+            return emailError == nil && passwordError == nil
+        }
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.isRegistrationEnabled, on: self)
+        .store(in: cancelBag)
+        
     }
     
-    var readyToSubmit: AnyPublisher<(String, String)?, Never> {
-        
-        return Publishers.CombineLatest(validatedEmail, validatedPassword)
-            .map { email, password in
-                
-                guard let email = email, let password = password else {
-                    return nil
-                }
-                return (email, password)
-        }
-        .eraseToAnyPublisher()
-    }
+}
+
+extension SignUpViewModel: SignUpViewModelInput {
     
+    func signUpButtonTapped() {
+        authUserService
+            .signUp(email: email, password: password)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure:
+                    self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { _ in })
+            .store(in: cancelBag)
+    }
     
 }

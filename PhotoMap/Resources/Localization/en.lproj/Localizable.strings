@@ -47,3 +47,8 @@
 
 "password-validation.error-alert.empty-password" = "Password field can't be blank";
 "password-validation.error-alert.short-password" = "Minimum of 4 characters required";
+
+// MARK: - Username Validation errors
+
+"username-validation.error-alert.empty-username" = "Username field can't be blank";
+"username-validation.error-alert.short-username" = "Minimum of 3 characters required";

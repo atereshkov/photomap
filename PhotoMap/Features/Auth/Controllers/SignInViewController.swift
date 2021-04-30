@@ -36,30 +36,56 @@ class SignInViewController: BaseViewController {
         viewModel?.signInButtonTapped()
     }
     
+    @IBAction func signUpButtonDidTap(_ sender: Any) {
+        viewModel?.signUpButtonTapped()
+    }
+    
+}
+
+// MARK: ViewModel Bind
+
+extension SignInViewController {
+    
     private func bind() {
         guard let viewModel = viewModel else { return }
         
         emailTextField.textPublisher
             .assign(to: \.email, on: viewModel)
-                   .store(in: cancelBag)
+            .store(in: cancelBag)
         
         passwordTextField.textPublisher
             .assign(to: \.password, on: viewModel)
+            .store(in: cancelBag)
+        
+        viewModel.$emailError
+            .receive(on: RunLoop.main)
+            .sink { [weak self] error in
+                guard let `self` = self else {
+                    return
+                }
+                if let error = error {
+                    self.emailTextField.addRightView(txtField: self.emailTextField, str: error)
+                }
+            }
+            .store(in: cancelBag)
+        
+        viewModel.$passwordError
+            .receive(on: RunLoop.main)
+            .sink { [weak self] error in
+                guard let `self` = self else {
+                    return
+                }
+                if let error = error {
+                    self.passwordTextField.addRightView(txtField: self.passwordTextField, str: error)
+                }
+            }
             .store(in: cancelBag)
         
         viewModel.$isAuthEnabled
             .map { $0 }
             .receive(on: RunLoop.main)
             .assign(to: \.isEnabled, on: loginButton)
-//            .sink(receiveValue: { (isEnable) in
-//                if isEnable {
-//                    self.loginButton.backgroundColor = .purple
-//                } else {
-//                    self.loginButton.backgroundColor = .gray
-//                }
-//                self.loginButton.isEnabled = isEnable
-//            })
             .store(in: cancelBag)
-        
     }
+    
 }

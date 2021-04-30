@@ -74,8 +74,8 @@ extension SignInViewModel {
         .receive(on: DispatchQueue.main)
         .assign(to: \.isAuthEnabled, on: self)
         .store(in: cancelBag)
-        
     }
+    
 }
 
 extension SignInViewModel: SignInViewModelInput {
@@ -87,12 +87,16 @@ extension SignInViewModel: SignInViewModelInput {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure:
-                    self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
+                    self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
                 case .finished:
                     break
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
+    }
+    
+    func signUpButtonTapped() {
+        coordinator.openSignUpScreen()
     }
     
 }

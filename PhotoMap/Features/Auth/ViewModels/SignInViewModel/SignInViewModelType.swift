@@ -12,13 +12,13 @@ protocol SignInViewModelInput {
     var password: String { get set }
     
     func signInButtonTapped()
+    func signUpButtonTapped()
 }
 
 protocol SignInViewModelOutput {
     var emailError: String? { get set }
     var passwordError: String? { get set }
     
-    //var isAuthEnabled: AnyPublisher<Bool, Never>? { get set }
     var isAuthEnabled: Bool { get set }
 }
 

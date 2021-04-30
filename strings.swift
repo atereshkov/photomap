@@ -124,6 +124,15 @@ internal enum L10n {
       }
     }
   }
+
+  internal enum UsernameValidation {
+    internal enum ErrorAlert {
+      /// Username field can't be blank
+      internal static let emptyUsername = L10n.tr("Localizable", "username-validation.error-alert.empty-username")
+      /// Minimum of 3 characters required
+      internal static let shortUsername = L10n.tr("Localizable", "username-validation.error-alert.short-username")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
