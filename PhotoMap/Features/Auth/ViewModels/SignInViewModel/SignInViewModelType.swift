@@ -18,6 +18,7 @@ protocol SignInViewModelOutput {
     var emailError: String? { get set }
     var passwordError: String? { get set }
     
+    //var isAuthEnabled: AnyPublisher<Bool, Never>? { get set }
     var isAuthEnabled: Bool { get set }
 }
 

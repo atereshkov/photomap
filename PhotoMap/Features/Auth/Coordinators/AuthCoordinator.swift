@@ -17,16 +17,20 @@ class AuthCoordinator: Coordinator {
     init(appCoordinator: AppCoordinator) {
         self.appCoordinator = appCoordinator
     }
-
+    
     @discardableResult
     func start() -> UIViewController {
-       return UIViewController()
+        let viewModel = SignInViewModel(diContainer: DIContainer(), coordinator: self, emailValidator: EmailValidator(), passwordValidator: PasswordValidator())
+        let signInVC = SignInViewController.newInstanse(viewModel: viewModel)
+        navigationController.pushViewController(signInVC, animated: true)
+        
+        return navigationController
     }
-
+    
     func openSignUpScreen() {
         
     }
-
+    
     func showErrorAlert(error: ResponseError) {
         let alert = UIAlertController(title: error.title,
                                       message: error.message,

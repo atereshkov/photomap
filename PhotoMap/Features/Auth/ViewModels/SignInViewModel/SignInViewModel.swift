@@ -37,6 +37,8 @@ class SignInViewModel: SignInViewModelType {
         self.coordinator = coordinator
         self.emailValidator = emailValidator
         self.passwordValidator = passwordValidator
+        
+        transform()
     }
     
 }
@@ -64,11 +66,12 @@ extension SignInViewModel {
         .assign(to: \.passwordError, on: self)
         .store(in: cancelBag)
         
-        let credentials = Publishers.CombineLatest($emailError, $passwordError)
+        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
         
         credentials.map { emailError, passwordError in
-            return emailError != nil && passwordError != nil
+            return emailError == nil && passwordError == nil
         }
+        .receive(on: DispatchQueue.main)
         .assign(to: \.isAuthEnabled, on: self)
         .store(in: cancelBag)
         

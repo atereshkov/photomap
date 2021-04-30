@@ -50,14 +50,15 @@ class SignInViewController: BaseViewController {
         viewModel.$isAuthEnabled
             .map { $0 }
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { (isEnable) in
-                if isEnable {
-                    self.loginButton.backgroundColor = .purple
-                } else {
-                    self.loginButton.backgroundColor = .gray
-                }
-                self.loginButton.isEnabled = isEnable
-            })
+            .assign(to: \.isEnabled, on: loginButton)
+//            .sink(receiveValue: { (isEnable) in
+//                if isEnable {
+//                    self.loginButton.backgroundColor = .purple
+//                } else {
+//                    self.loginButton.backgroundColor = .gray
+//                }
+//                self.loginButton.isEnabled = isEnable
+//            })
             .store(in: cancelBag)
         
     }
