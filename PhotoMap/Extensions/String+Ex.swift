@@ -24,4 +24,8 @@ extension String {
         return testEmail.evaluate(with: self)
     }
     
+    var isEmptStr: Bool {
+        return self.trimmingCharacters(in: NSCharacterSet.whitespaces).isEmpty
+    }
+    
 }

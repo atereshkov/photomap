@@ -9,11 +9,11 @@ import UIKit
 
 class SignInViewController: BaseViewController {
     
-    @IBOutlet weak var emailTextField: ATCTextField!
-    @IBOutlet weak var passwordTextField: ATCTextField!
+    @IBOutlet weak var emailTextField: ErrorTextField!
+    @IBOutlet weak var passwordTextField: ErrorTextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
-    
+ 
     private var viewModel: SignInViewModel?
     private let cancelBag = CancelBag()
     
@@ -64,7 +64,9 @@ extension SignInViewController {
                     return
                 }
                 if let error = error {
-                    self.emailTextField.addRightView(txtField: self.emailTextField, str: error)
+                    self.emailTextField.showError(error)
+                } else {
+                    self.emailTextField.hideError()
                 }
             }
             .store(in: cancelBag)
@@ -76,7 +78,9 @@ extension SignInViewController {
                     return
                 }
                 if let error = error {
-                    self.passwordTextField.addRightView(txtField: self.passwordTextField, str: error)
+                    self.passwordTextField.showError(error)
+                } else {
+                    self.passwordTextField.hideError()
                 }
             }
             .store(in: cancelBag)

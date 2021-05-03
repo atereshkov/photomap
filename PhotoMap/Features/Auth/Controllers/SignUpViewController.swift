@@ -9,9 +9,9 @@ import UIKit
 
 class SignUpViewController: BaseViewController {
     
-    @IBOutlet weak var usernameTextField: ATCTextField!
-    @IBOutlet weak var emailTextField: ATCTextField!
-    @IBOutlet weak var passwordTextField: ATCTextField!
+    @IBOutlet weak var usernameTextField: ErrorTextField!
+    @IBOutlet weak var emailTextField: ErrorTextField!
+    @IBOutlet weak var passwordTextField: ErrorTextField!
     
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -43,6 +43,7 @@ class SignUpViewController: BaseViewController {
 
 extension SignUpViewController {
     
+    // swiftlint:disable function_body_length
     private func bind() {
         guard let viewModel = viewModel else { return }
         
@@ -65,11 +66,13 @@ extension SignUpViewController {
                     return
                 }
                 if let error = error {
-                    self.usernameTextField.addRightView(txtField: self.usernameTextField, str: error)
+                    self.usernameTextField.showError(error)
+                } else {
+                    self.usernameTextField.hideError()
                 }
             }
             .store(in: cancelBag)
-        
+
         viewModel.$emailError
             .receive(on: RunLoop.main)
             .sink { [weak self] error in
@@ -77,11 +80,13 @@ extension SignUpViewController {
                     return
                 }
                 if let error = error {
-                    self.emailTextField.addRightView(txtField: self.emailTextField, str: error)
+                    self.emailTextField.showError(error)
+                } else {
+                    self.emailTextField.hideError()
                 }
             }
             .store(in: cancelBag)
-        
+
         viewModel.$passwordError
             .receive(on: RunLoop.main)
             .sink { [weak self] error in
@@ -89,7 +94,9 @@ extension SignUpViewController {
                     return
                 }
                 if let error = error {
-                    self.passwordTextField.addRightView(txtField: self.passwordTextField, str: error)
+                    self.passwordTextField.showError(error)
+                } else {
+                    self.passwordTextField.hideError()
                 }
             }
             .store(in: cancelBag)
@@ -99,7 +106,6 @@ extension SignUpViewController {
             .receive(on: RunLoop.main)
             .assign(to: \.isEnabled, on: signUpButton)
             .store(in: cancelBag)
-        
     }
     
 }

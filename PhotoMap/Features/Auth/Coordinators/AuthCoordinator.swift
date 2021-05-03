@@ -5,7 +5,6 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
-
 import UIKit
 
 class AuthCoordinator: Coordinator {
@@ -51,6 +50,10 @@ class AuthCoordinator: Coordinator {
 
         alert.addAction(cancelAction)
         self.navigationController.present(alert, animated: true)
+    }
+    
+    func showMap() {
+        self.appCoordinator?.startMainScreen(isUserAuthorized: true)
     }
 
     func closeScreen() {

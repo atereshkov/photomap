@@ -13,7 +13,7 @@ class PasswordValidator {
         guard !input.isEmpty else {
             return Just(.empty).eraseToAnyPublisher()
         }
-        guard input.count > 2 else {
+        guard input.count > 3 else {
             return Just(.short).eraseToAnyPublisher()
         }
  

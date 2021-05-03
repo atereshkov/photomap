@@ -24,6 +24,12 @@
 		33334B35262880F400612573 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B34262880F400612573 /* String+Ex.swift */; };
 		33334B3A2628812A00612573 /* Date+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B392628812A00612573 /* Date+Ex.swift */; };
 		33334B592628829D00612573 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B582628829D00612573 /* BaseViewController.swift */; };
+		333B82D7263FD74F00AAD56F /* UITextFiled+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82D6263FD74F00AAD56F /* UITextFiled+Ex.swift */; };
+		333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82DA263FFC7500AAD56F /* ErrorTextField.swift */; };
+		333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82DE2640053800AAD56F /* InitialViewController.swift */; };
+		333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82E2264019B100AAD56F /* InitialCoordinator.swift */; };
+		333B82E5264019BF00AAD56F /* InitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82E4264019BF00AAD56F /* InitialViewModel.swift */; };
+		333B82E7264019DB00AAD56F /* Initial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 333B82E6264019DB00AAD56F /* Initial.storyboard */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* MoreCoordinator.swift */; };
 		335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C7262DA6DB0057D25F /* TimelineViewController.swift */; };
@@ -104,6 +110,12 @@
 		33334B34262880F400612573 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		33334B392628812A00612573 /* Date+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ex.swift"; sourceTree = "<group>"; };
 		33334B582628829D00612573 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		333B82D6263FD74F00AAD56F /* UITextFiled+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+Ex.swift"; sourceTree = "<group>"; };
+		333B82DA263FFC7500AAD56F /* ErrorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
+		333B82DE2640053800AAD56F /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		333B82E2264019B100AAD56F /* InitialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinator.swift; sourceTree = "<group>"; };
+		333B82E4264019BF00AAD56F /* InitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModel.swift; sourceTree = "<group>"; };
+		333B82E6264019DB00AAD56F /* Initial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Initial.storyboard; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* MoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		335881C7262DA6DB0057D25F /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +267,7 @@
 		33334AFC262879BF00612573 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				333B82DC264004F500AAD56F /* Initial */,
 				33334B0A26287C3000612573 /* More */,
 				33334B0926287C1800612573 /* Auth */,
 				33334B0826287C0E00612573 /* Timeline */,
@@ -300,7 +313,6 @@
 			children = (
 				338BB609262D8D610001F530 /* Controllers */,
 				338BB60A262D8D690001F530 /* Coordinators */,
-				338BB60B262D8D710001F530 /* Models */,
 				338BB60C262D8D770001F530 /* ViewModels */,
 				338365612630565F001EF61E /* Map.storyboard */,
 			);
@@ -311,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				338BB606262D8D320001F530 /* Controllers */,
-				338BB605262D8D0F0001F530 /* Models */,
 				338BB608262D8D4A0001F530 /* ViewModels */,
 				338365652630566C001EF61E /* Category.storyboard */,
 			);
@@ -323,7 +334,6 @@
 			children = (
 				338BB602262D8CEF0001F530 /* Controllers */,
 				338BB601262D8CE60001F530 /* Coordinators */,
-				338BB603262D8CF80001F530 /* Models */,
 				338BB604262D8D010001F530 /* ViewModels */,
 				3383656926305678001EF61E /* Timeline.storyboard */,
 			);
@@ -346,11 +356,45 @@
 			children = (
 				335881BE262DA5530057D25F /* Controllers */,
 				335881BF262DA5640057D25F /* Coordinators */,
-				335881C0262DA56E0057D25F /* Models */,
 				335881C1262DA5740057D25F /* ViewModels */,
 				3383658B2630575C001EF61E /* More.storyboard */,
 			);
 			path = More;
+			sourceTree = "<group>";
+		};
+		333B82DC264004F500AAD56F /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				333B82E12640054600AAD56F /* ViewModels */,
+				333B82E02640053D00AAD56F /* Coordinators */,
+				333B82DD2640052000AAD56F /* Controllers */,
+				333B82E6264019DB00AAD56F /* Initial.storyboard */,
+			);
+			path = Initial;
+			sourceTree = "<group>";
+		};
+		333B82DD2640052000AAD56F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				333B82DE2640053800AAD56F /* InitialViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		333B82E02640053D00AAD56F /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				333B82E2264019B100AAD56F /* InitialCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		333B82E12640054600AAD56F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				333B82E4264019BF00AAD56F /* InitialViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		335881BE262DA5530057D25F /* Controllers */ = {
@@ -369,13 +413,6 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		335881C0262DA56E0057D25F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		335881C1262DA5740057D25F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				3374D0E5263B1AEE00A03E78 /* ATCTextField.swift */,
+				333B82DA263FFC7500AAD56F /* ErrorTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -494,6 +532,7 @@
 				338F8E37262F234C00267889 /* UITextField+Ex.swift */,
 				3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */,
 				3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */,
+				333B82D6263FD74F00AAD56F /* UITextFiled+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -568,26 +607,12 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		338BB603262D8CF80001F530 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		338BB604262D8D010001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				33588315262DD1720057D25F /* TimelineViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		338BB605262D8D0F0001F530 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		338BB606262D8D320001F530 /* Controllers */ = {
@@ -620,13 +645,6 @@
 				338BB615262D8FA10001F530 /* MapCoordinator.swift */,
 			);
 			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		338BB60B262D8D710001F530 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		338BB60C262D8D770001F530 /* ViewModels */ = {
@@ -751,6 +769,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				333B82E7264019DB00AAD56F /* Initial.storyboard in Resources */,
 				338365662630566C001EF61E /* Category.storyboard in Resources */,
 				3383658C2630575C001EF61E /* More.storyboard in Resources */,
 				33334A4A2628324D00612573 /* LaunchScreen.storyboard in Resources */,
@@ -881,6 +900,7 @@
 				33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */,
 				3374D0EC263B1BFF00A03E78 /* UIControl+Ex.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
+				333B82E5264019BF00AAD56F /* InitialViewModel.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
 				3387F0FD2637F10B005DCFA0 /* EmailValidator.swift in Sources */,
@@ -898,14 +918,17 @@
 				3387F1072637F16D005DCFA0 /* EmailValidationError.swift in Sources */,
 				3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
+				333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */,
 				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
+				333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
+				333B82D7263FD74F00AAD56F /* UITextFiled+Ex.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				3387F10D2637F182005DCFA0 /* PasswordValidationError.swift in Sources */,
@@ -922,6 +945,7 @@
 				3374D0F0263B1C2500A03E78 /* UIButton+Ex.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
+				333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */,
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
 				33877CD3263199A500A227F9 /* strings.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,

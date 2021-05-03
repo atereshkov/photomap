@@ -106,7 +106,7 @@ extension SignUpViewModel: SignUpViewModelInput {
                 case .failure:
                     self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
                 case .finished:
-                    break
+                    self?.coordinator.showMap()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)

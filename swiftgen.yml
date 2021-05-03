@@ -17,7 +17,8 @@ ib:
     'PhotoMap/Features/Auth/Authentication.storyboard',
     'PhotoMap/Features/Map/Map.storyboard',
     'PhotoMap/Features/Timeline/Timeline.storyboard',
-    'PhotoMap/Features/Category/Category.storyboard'
+    'PhotoMap/Features/Category/Category.storyboard',
+    'PhotoMap/Features/Initial/Initial.storyboard'
   ]
   outputs:
     templateName: scenes-swift5

@@ -21,15 +21,16 @@ class AppCoordinator: Coordinator {
         self.authListener = diContainer.resolve()
         self.diContainer = diContainer
         
-        authListener?.isUserAuthoried
-            .sink { [weak self] isUserAuth in
-                self?.startMainScreen(isUserAuthorized: isUserAuth)
-            }
-            .store(in: cancelBag)
+//        authListener?.isUserAuthorized
+//            .sink { [weak self] isUserAuth in
+//                self?.startMainScreen(isUserAuthorized: isUserAuth)
+//            }
+//            .store(in: cancelBag)
     }
     
     func start() {
-        authListener?.startListening()
+        self.showInitial()
+        //authListener?.startListening()
     }
     
     func startMainScreen(isUserAuthorized: Bool) {
@@ -54,6 +55,14 @@ class AppCoordinator: Coordinator {
         let authViewController = authCoordinator.start()
         authViewController.modalPresentationStyle = .overFullScreen
         navigationController.present(authViewController, animated: true, completion: nil)
+    }
+    
+    private func showInitial() {
+        let initCoordinator = InitialCoordinator(appCoordinator: self)
+        childCoordinators = [initCoordinator]
+        let initViewController = initCoordinator.start()
+        initViewController.modalPresentationStyle = .overFullScreen
+        navigationController.present(initViewController, animated: true, completion: nil)
     }
     
 }
