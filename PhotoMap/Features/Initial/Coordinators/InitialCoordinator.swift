@@ -19,8 +19,7 @@ class InitialCoordinator: Coordinator {
     
     @discardableResult
     func start() -> UIViewController {
-        let viewModel = InitialViewModel(coordinator: self, diContainer: DIContainer())
-        let initialVC = InitialViewController.newInstanse(viewModel: viewModel)
+        let initialVC = InitialViewController.newInstanse(with: appCoordinator!, diContainer: DIContainer())
         navigationController.pushViewController(initialVC, animated: true)
         
         return navigationController

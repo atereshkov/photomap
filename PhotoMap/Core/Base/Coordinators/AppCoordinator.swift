@@ -58,11 +58,9 @@ class AppCoordinator: Coordinator {
     }
     
     private func showInitial() {
-        let initCoordinator = InitialCoordinator(appCoordinator: self)
-        childCoordinators = [initCoordinator]
-        let initViewController = initCoordinator.start()
-        initViewController.modalPresentationStyle = .overFullScreen
-        navigationController.present(initViewController, animated: true, completion: nil)
+        let initViewController = InitialViewController.newInstanse(with: self, diContainer: DIContainer())
+        
+        navigationController.pushViewController(initViewController, animated: true)
     }
     
 }

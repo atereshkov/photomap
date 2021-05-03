@@ -58,6 +58,7 @@ class AuthCoordinator: Coordinator {
 
     func closeScreen() {
         navigationController.dismiss(animated: true, completion: nil)
+        self.showMap()
     }
     
 }

@@ -89,7 +89,7 @@ extension SignInViewModel: SignInViewModelInput {
                 case .failure:
                     self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
                 case .finished:
-                    break
+                    self?.coordinator.closeScreen()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
