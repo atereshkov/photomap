@@ -10,6 +10,7 @@ import MapKit
 
 protocol MapViewModelInput {
     var categoryButtonPublisher: Void { get set }
+    var enableDiscoveryModePublisher: Void { get set }
     var navigationButtonPublisher: Void { get set }
     var photoButtonPublisher: Void { get set }
 }

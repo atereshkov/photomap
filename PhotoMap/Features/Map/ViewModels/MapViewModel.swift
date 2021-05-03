@@ -21,6 +21,7 @@ class MapViewModel: MapViewModelType {
 
     // MARK: - Input
     @Published var categoryButtonPublisher: Void = ()
+    @Published var enableDiscoveryModePublisher: Void = ()
     @Published var navigationButtonPublisher: Void = ()
     @Published var photoButtonPublisher: Void = ()
 
@@ -70,8 +71,15 @@ class MapViewModel: MapViewModelType {
             }
             .store(in: cancelBag)
 
+        $enableDiscoveryModePublisher
+            .sink { [weak self] _ in
+                self?.switchFollowDiscoveryMode(disableFolowMode: true)
+            }
+            .store(in: cancelBag)
+
         $photoButtonPublisher
             .sink { [weak self] _ in
+                self?.switchFollowDiscoveryMode(disableFolowMode: true)
                 self?.coordinator.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
@@ -83,8 +91,8 @@ class MapViewModel: MapViewModelType {
             .store(in: cancelBag)
     }
 
-    private func switchFollowDiscoveryMode() {
-        isFollowModeOn = !isFollowModeOn
+    private func switchFollowDiscoveryMode(disableFolowMode: Bool = false) {
+        isFollowModeOn = disableFolowMode ? !disableFolowMode : !isFollowModeOn
         modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
     }
 }

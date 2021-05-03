@@ -32,6 +32,7 @@ class MapViewController: BaseViewController {
 
         setOpacityBackgroundNavigationBar()
         bind()
+        bindMapGestures()
     }
 
     private func bind() {
@@ -84,4 +85,17 @@ class MapViewController: BaseViewController {
         }
     }
 
+    private func bindMapGestures() {
+        guard let viewModel = viewModel else { return }
+
+        mapView.allGestures()
+            .map { _ in () }
+            .assign(to: \.enableDiscoveryModePublisher, on: viewModel)
+            .store(in: cancelBag)
+
+        mapView.gesture(.longPress())
+            .map { _ in () }
+            .assign(to: \.photoButtonPublisher, on: viewModel)
+            .store(in: cancelBag)
+    }
 }
