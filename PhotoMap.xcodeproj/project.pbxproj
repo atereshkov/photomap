@@ -6,11 +6,11 @@
 	objectVersion = 51;
 	objects = {
 
-
 /* Begin PBXBuildFile section */
 		01776AA32639679A0058EDA7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AA22639679A0058EDA7 /* LocationService.swift */; };
 		01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */; };
 		01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01735842263851EF0035C3D5 /* MapViewModelTests.swift */; };
+		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
@@ -26,7 +26,6 @@
 		33334B35262880F400612573 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B34262880F400612573 /* String+Ex.swift */; };
 		33334B3A2628812A00612573 /* Date+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B392628812A00612573 /* Date+Ex.swift */; };
 		33334B592628829D00612573 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B582628829D00612573 /* BaseViewController.swift */; };
-		333B82D7263FD74F00AAD56F /* UITextFiled+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82D6263FD74F00AAD56F /* UITextFiled+Ex.swift */; };
 		333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82DA263FFC7500AAD56F /* ErrorTextField.swift */; };
 		333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82DE2640053800AAD56F /* InitialViewController.swift */; };
 		333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82E2264019B100AAD56F /* InitialCoordinator.swift */; };
@@ -94,6 +93,7 @@
 		01776AAF263996FF0058EDA7 /* PhotoMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMapTests.swift; sourceTree = "<group>"; };
 		01776AB3263996FF0058EDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GestureRecognizer+Combine.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +114,6 @@
 		33334B34262880F400612573 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		33334B392628812A00612573 /* Date+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ex.swift"; sourceTree = "<group>"; };
 		33334B582628829D00612573 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		333B82D6263FD74F00AAD56F /* UITextFiled+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+Ex.swift"; sourceTree = "<group>"; };
 		333B82DA263FFC7500AAD56F /* ErrorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		333B82DE2640053800AAD56F /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		333B82E2264019B100AAD56F /* InitialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinator.swift; sourceTree = "<group>"; };
@@ -546,7 +545,7 @@
 				338F8E37262F234C00267889 /* UITextField+Ex.swift */,
 				3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */,
 				3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */,
-				333B82D6263FD74F00AAD56F /* UITextFiled+Ex.swift */,
+				01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -929,7 +928,6 @@
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
-				333B82D7263FD74F00AAD56F /* UITextFiled+Ex.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				3387F10D2637F182005DCFA0 /* PasswordValidationError.swift in Sources */,
@@ -951,6 +949,7 @@
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
 				33877CD3263199A500A227F9 /* strings.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
+				01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
