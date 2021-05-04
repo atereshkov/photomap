@@ -2,9 +2,8 @@
 //  UIButton+Ex.swift
 //  PhotoMap
 //
-//  Created by Krystsina Kurytsyna on 4/29/21.
+//  Created by Dzmitry Makarevich on 4/23/21.
 //
-
 import UIKit
 
 extension UIButton {

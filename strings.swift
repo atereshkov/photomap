@@ -78,6 +78,18 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "main.nav-bar.search.title")
       }
     }
+    internal enum PhotoAlert {
+      internal enum Button {
+        internal enum Title {
+          /// Cancel
+          internal static let cancel = L10n.tr("Localizable", "main.photo-alert.button.title.cancel")
+          /// Choose From Library
+          internal static let chooseFromLibrary = L10n.tr("Localizable", "main.photo-alert.button.title.chooseFromLibrary")
+          /// Take a Picture
+          internal static let takePicture = L10n.tr("Localizable", "main.photo-alert.button.title.takePicture")
+        }
+      }
+    }
     internal enum TabBar {
       internal enum Map {
         /// Map
