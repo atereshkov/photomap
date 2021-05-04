@@ -6,6 +6,7 @@
 	objectVersion = 51;
 	objects = {
 
+
 /* Begin PBXBuildFile section */
 		01776AA32639679A0058EDA7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AA22639679A0058EDA7 /* LocationService.swift */; };
 		01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */; };
