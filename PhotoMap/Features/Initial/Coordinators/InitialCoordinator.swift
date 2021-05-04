@@ -19,10 +19,10 @@ class InitialCoordinator: Coordinator {
     
     @discardableResult
     func start() -> UIViewController {
-        let initialVC = InitialViewController.newInstanse(with: appCoordinator!, diContainer: DIContainer())
-        navigationController.pushViewController(initialVC, animated: true)
+        let viewModel = InitialViewModel(coordinator: self, diContainer: DIContainer())
+        let initialVC = InitialViewController.newInstanse(viewModel: viewModel)
         
-        return navigationController
+        return initialVC
     }
     
     func changeMainScreen(_ isUserAuth: Bool) {
