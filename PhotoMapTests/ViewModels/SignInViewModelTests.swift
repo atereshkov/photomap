@@ -7,6 +7,7 @@
 
 import XCTest
 import Combine
+@testable import PhotoMap
 
 class SignInViewModelTests: XCTestCase {
     
@@ -22,8 +23,12 @@ class SignInViewModelTests: XCTestCase {
         emailValidator = EmailValidator()
         passwordValidator = PasswordValidator()
         diContainer = DIContainer()
-        let authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer), diContainer: diContainer)
-        viewModel = SignInViewModel(diContainer: diContainer, coordinator: authCoordinator, emailValidator: emailValidator, passwordValidator: passwordValidator)
+        let authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer),
+                                              diContainer: diContainer)
+        viewModel = SignInViewModel(diContainer: diContainer,
+                                    coordinator: authCoordinator,
+                                    emailValidator: emailValidator,
+                                    passwordValidator: passwordValidator)
         cancelBag = CancelBag()
     }
 
@@ -36,26 +41,25 @@ class SignInViewModelTests: XCTestCase {
     
     func testSignInButtonEnabled_WithValidCredentialsProvided() {
 //        var isEnabled = false
-//        @Published var isAuthEnabled = false
 //        let expectationSuccess = self.expectation(description: "'Sign In' button is enabled")
-//        let startVaidation = PublishRelay<Void>()
+//        let startVaidation = PassthroughSubject<Void, Never>()
 //
-//        // Act
-//        startVaidation
-//            .withLatestFrom(viewModel.isAuthEnabled.asObservable())
-//            .subscribe(onNext: { access in
-//                isEnable = access
-//                expectationSuccess.fulfill()
-//            })
-//            .disposed(by: disposeBag)
+//        startVaidation.map {
+//            self.viewModel.isAuthEnabled
+//        }
+//        .sink { access in
+//            isEnabled = access
+//            expectationSuccess.fulfill()
+//        }
+//        .store(in: cancelBag)
 //
-//        viewModel.emailPublishSubject.accept("test@eee.rr")
-//        viewModel.passwordPublishSubject.accept("password")
-//        startVaidation.accept(())
+//        viewModel.email = "example@gmail.com"
+//        viewModel.password = "1234"
+//        startVaidation.send(())
 //
 //        wait(for: [expectationSuccess], timeout: 0.1)
-//
-//        // Assert
-//        XCTAssertTrue(isEnable)
+//        print(isEnabled)
+//        XCTAssertTrue(isEnabled)
     }
+    
 }

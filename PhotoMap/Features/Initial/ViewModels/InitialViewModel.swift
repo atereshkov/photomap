@@ -11,17 +11,19 @@ import UIKit
 class InitialViewModel {
     
     private(set) var coordinator: InitialCoordinator
-    private var authListener: AuthListenerType?
-    private var diContainer: DIContainerType
+    private var authListener: AuthListenerType
     
     private var cancelBag = CancelBag()
     
     init(coordinator: InitialCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.authListener = diContainer.resolve()
-        self.diContainer = diContainer
+    }
+    
+    func viewDidLoad() {
+        authListener.startListening()
         
-        authListener?.isUserAuthorized
+        authListener.isUserAuthorized
             .sink { [weak self] isUserAuth in
                 self?.coordinator.changeMainScreen(isUserAuth)
             }

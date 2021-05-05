@@ -11,7 +11,6 @@ class SignInViewController: BaseViewController {
     
     @IBOutlet weak var emailTextField: ErrorTextField!
     @IBOutlet weak var passwordTextField: ErrorTextField!
-    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
@@ -32,7 +31,7 @@ class SignInViewController: BaseViewController {
         setOpacityBackgroundNavigationBar()
         bind()
     }
-   
+
 }
 
 // MARK: ViewModel Bind
@@ -78,6 +77,12 @@ extension SignInViewController {
             }
             .store(in: cancelBag)
         
+        viewModel.$isAuthEnabled
+            .map { $0 }
+            .receive(on: RunLoop.main)
+            .assign(to: \.isEnabled, on: signInButton)
+            .store(in: cancelBag)
+        
         signUpButton.tapPublisher
             .map { _ in () }
             .assign(to: \.signUpButtonPublisher, on: viewModel)
@@ -86,12 +91,6 @@ extension SignInViewController {
         signInButton.tapPublisher
             .map { _ in () }
             .assign(to: \.signInButtonPublisher, on: viewModel)
-            .store(in: cancelBag)
-        
-        viewModel.$isAuthEnabled
-            .map { $0 }
-            .receive(on: RunLoop.main)
-            .assign(to: \.isEnabled, on: loginButton)
             .store(in: cancelBag)
     }
     

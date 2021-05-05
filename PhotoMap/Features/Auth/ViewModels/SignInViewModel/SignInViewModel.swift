@@ -68,6 +68,15 @@ extension SignInViewModel {
         .assign(to: \.passwordError, on: self)
         .store(in: cancelBag)
         
+        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
+        
+        credentials.map { emailError, passwordError in
+            return emailError == nil && passwordError == nil
+        }
+        .receive(on: DispatchQueue.main)
+        .assign(to: \.isAuthEnabled, on: self)
+        .store(in: cancelBag)
+        
         $signUpButtonPublisher
             .sink { [weak self] _ in
                 self?.signUpButtonTapped()
@@ -79,15 +88,6 @@ extension SignInViewModel {
                 self?.signInButtonTapped()
             }
             .store(in: cancelBag)
-        
-        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
-        
-        credentials.map { emailError, passwordError in
-            return emailError == nil && passwordError == nil
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.isAuthEnabled, on: self)
-        .store(in: cancelBag)
     }
     
 }
