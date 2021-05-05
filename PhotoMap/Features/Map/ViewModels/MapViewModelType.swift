@@ -7,12 +7,13 @@
 
 import Foundation
 import MapKit
+import Combine
 
 protocol MapViewModelInput {
-    var categoryButtonPublisher: Void { get set }
-    var enableDiscoveryModePublisher: Void { get set }
-    var navigationButtonPublisher: Void { get set }
-    var photoButtonPublisher: Void { get set }
+    var categoryButtonSubject: PassthroughSubject<Void, Never> { get set }
+    var enableDiscoveryModeSubject: PassthroughSubject<Void, Never> { get set }
+    var navigationButtonSubject: PassthroughSubject<Void, Never> { get set }
+    var photoButtonSubject: PassthroughSubject<Void, Never> { get set }
 }
 
 protocol MapViewModelOutput {

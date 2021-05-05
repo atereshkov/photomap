@@ -59,43 +59,36 @@ class MapViewController: BaseViewController {
             .assign(to: \.tintColor, on: navigationButton)
             .store(in: cancelBag)
 
-        if #available(iOS 14.0, *) {
-            categoryButton.tapPublisher
-                .map { _ in () }
-                .assign(to: &viewModel.$categoryButtonPublisher)
-            navigationButton.tapPublisher
-                .map { _ in () }
-                .assign(to: &viewModel.$navigationButtonPublisher)
-            photoButton.tapPublisher
-                .map { _ in () }
-                .assign(to: &viewModel.$photoButtonPublisher)
-        } else {
-            categoryButton.tapPublisher
-                .map { _ in () }
-                .assign(to: \.categoryButtonPublisher, on: viewModel)
-                .store(in: cancelBag)
-            navigationButton.tapPublisher
-                .map { _ in () }
-                .assign(to: \.navigationButtonPublisher, on: viewModel)
-                .store(in: cancelBag)
-            photoButton.tapPublisher
-                .map { _ in () }
-                .assign(to: \.photoButtonPublisher, on: viewModel)
-                .store(in: cancelBag)
-        }
+        categoryButton.tapPublisher
+            .sink { _ in
+                viewModel.categoryButtonSubject.send(())
+            }
+            .store(in: cancelBag)
+        navigationButton.tapPublisher
+            .sink { _ in
+                viewModel.navigationButtonSubject.send(())
+            }
+            .store(in: cancelBag)
+        photoButton.tapPublisher
+            .sink { _ in
+                viewModel.photoButtonSubject.send(())
+            }
+            .store(in: cancelBag)
     }
 
     private func bindMapGestures() {
         guard let viewModel = viewModel else { return }
 
         mapView.allGestures()
-            .map { _ in () }
-            .assign(to: \.enableDiscoveryModePublisher, on: viewModel)
+            .sink { _ in
+                viewModel.enableDiscoveryModeSubject.send(())
+            }
             .store(in: cancelBag)
 
         mapView.gesture(.longPress())
-            .map { _ in () }
-            .assign(to: \.photoButtonPublisher, on: viewModel)
+            .sink { _ in
+                viewModel.photoButtonSubject.send(())
+            }
             .store(in: cancelBag)
     }
 }
