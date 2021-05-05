@@ -22,11 +22,6 @@ class InitialViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         activityIndicator.startAnimating()
-        
-        // Alex, 05.05.21: Remote async, just for testing purposes
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.viewModel?.viewDidLoad()
-        }
     }
     
 }

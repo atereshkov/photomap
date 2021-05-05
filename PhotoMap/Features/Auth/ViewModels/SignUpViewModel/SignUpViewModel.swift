@@ -24,6 +24,7 @@ class SignUpViewModel: SignUpViewModelType {
     @Published var email = ""
     @Published var password = ""
     @Published var username = ""
+    @Published var signUpButtonPublisher: Void = ()
     
     // MARK: Output
     
@@ -32,14 +33,14 @@ class SignUpViewModel: SignUpViewModelType {
     @Published var passwordError: String?
     @Published var isRegistrationEnabled = false
 
-    init(diContainer: DIContainer,
+    init(diContainer: DIContainerType,
          coordinator: AuthCoordinator,
-         usernamevalidator: UsernameValidator,
+         usernameValidator: UsernameValidator,
          emailValidator: EmailValidator,
          passwordValidator: PasswordValidator) {
         self.authUserService = diContainer.resolve()
         self.coordinator = coordinator
-        self.usernameValidator = usernamevalidator
+        self.usernameValidator = usernameValidator
         self.emailValidator = emailValidator
         self.passwordValidator = passwordValidator
         
@@ -51,7 +52,6 @@ class SignUpViewModel: SignUpViewModelType {
 extension SignUpViewModel {
     
     func transform() {
-        
         $username.flatMap { username in
             return self.usernameValidator.isUsernameValid(username)
         }
@@ -90,7 +90,6 @@ extension SignUpViewModel {
         .receive(on: DispatchQueue.main)
         .assign(to: \.isRegistrationEnabled, on: self)
         .store(in: cancelBag)
-        
     }
     
 }

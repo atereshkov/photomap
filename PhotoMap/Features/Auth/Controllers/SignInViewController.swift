@@ -13,7 +13,8 @@ class SignInViewController: BaseViewController {
     @IBOutlet weak var passwordTextField: ErrorTextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
- 
+    @IBOutlet weak var signInButton: UIButton!
+    
     private var viewModel: SignInViewModel?
     private let cancelBag = CancelBag()
     
@@ -31,15 +32,7 @@ class SignInViewController: BaseViewController {
         setOpacityBackgroundNavigationBar()
         bind()
     }
-    
-    @IBAction func signInButtonDidTap(_ sender: Any) {
-        viewModel?.signInButtonTapped()
-    }
-    
-    @IBAction func signUpButtonDidTap(_ sender: Any) {
-        viewModel?.signUpButtonTapped()
-    }
-    
+   
 }
 
 // MARK: ViewModel Bind
@@ -83,6 +76,16 @@ extension SignInViewController {
                     self.passwordTextField.hideError()
                 }
             }
+            .store(in: cancelBag)
+        
+        signUpButton.tapPublisher
+            .map { _ in () }
+            .assign(to: \.signUpButtonPublisher, on: viewModel)
+            .store(in: cancelBag)
+        
+        signInButton.tapPublisher
+            .map { _ in () }
+            .assign(to: \.signInButtonPublisher, on: viewModel)
             .store(in: cancelBag)
         
         viewModel.$isAuthEnabled

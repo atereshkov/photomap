@@ -1,25 +1,22 @@
 //
-//  EmailValidator.swift
+//  UsernameValidator.swift
 //  PhotoMap
 //
-//  Created by Krystsina Kurytsyna on 4/27/21.
+//  Created by Krystsina Kurytsyna on 30.04.21.
 //
 
 import Combine
 
-class EmailValidator {
+class UsernameValidator {
   
-    func isEmailValid(_ input: String) -> AnyPublisher<EmailValidationResult, Never> {
+    func isUsernameValid(_ input: String) -> AnyPublisher<UsernameValidationResult, Never> {
         guard !input.isEmpty else {
             return Just(.empty).eraseToAnyPublisher()
         }
         guard input.count > 2 else {
             return Just(.short).eraseToAnyPublisher()
         }
-        guard input.isEmail else {
-            return Just(.invalid).eraseToAnyPublisher()
-        }
-
+ 
         return Just(.valid).eraseToAnyPublisher()
     }
     

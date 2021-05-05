@@ -12,7 +12,7 @@ protocol SignUpViewModelInput {
     var email: String { get set }
     var password: String { get set }
 
-    func signUpButtonTapped()
+    var signUpButtonPublisher: Void { get set }
 }
 
 protocol SignUpViewModelOutput {

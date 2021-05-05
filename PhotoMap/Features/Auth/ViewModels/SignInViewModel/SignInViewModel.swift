@@ -22,6 +22,8 @@ class SignInViewModel: SignInViewModelType {
     
     @Published var email = ""
     @Published var password = ""
+    @Published var signUpButtonPublisher: Void = ()
+    @Published var signInButtonPublisher: Void = ()
     
     // MARK: Output
     
@@ -29,7 +31,7 @@ class SignInViewModel: SignInViewModelType {
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
 
-    init(diContainer: DIContainer,
+    init(diContainer: DIContainerType,
          coordinator: AuthCoordinator,
          emailValidator: EmailValidator,
          passwordValidator: PasswordValidator) {
@@ -66,6 +68,18 @@ extension SignInViewModel {
         .assign(to: \.passwordError, on: self)
         .store(in: cancelBag)
         
+        $signUpButtonPublisher
+            .sink { [weak self] _ in
+                self?.signUpButtonTapped()
+            }
+            .store(in: cancelBag)
+        
+        $signInButtonPublisher
+            .sink { [weak self] _ in
+                self?.signInButtonTapped()
+            }
+            .store(in: cancelBag)
+        
         let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
         
         credentials.map { emailError, passwordError in
@@ -89,7 +103,6 @@ extension SignInViewModel: SignInViewModelInput {
                 case .failure:
                     self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
                 case .finished:
-                    break
                     self?.coordinator.closeScreen()
                 }
             }, receiveValue: { _ in })

@@ -107,5 +107,5 @@ extension SignUpViewController {
             .assign(to: \.isEnabled, on: signUpButton)
             .store(in: cancelBag)
     }
-    
+    // swiftlint:enable function_body_length
 }

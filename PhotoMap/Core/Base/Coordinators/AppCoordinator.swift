@@ -43,7 +43,7 @@ class AppCoordinator: Coordinator {
     }
     
     private func showAuth() {
-        let authCoordinator = AuthCoordinator(appCoordinator: self)
+        let authCoordinator = AuthCoordinator(appCoordinator: self, diContainer: diContainer)
         childCoordinators = [authCoordinator]
         let authViewController = authCoordinator.start()
         authViewController.modalPresentationStyle = .overFullScreen

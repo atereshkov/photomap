@@ -101,6 +101,7 @@
                         <outlet property="emailTextField" destination="d9M-rp-0IK" id="ZDh-db-Bf9"/>
                         <outlet property="loginButton" destination="WwD-Gm-oyT" id="zMJ-nm-PRE"/>
                         <outlet property="passwordTextField" destination="HzB-n6-6Zl" id="0ii-kf-N6v"/>
+                        <outlet property="signInButton" destination="WwD-Gm-oyT" id="mJa-0J-5PY"/>
                         <outlet property="signUpButton" destination="Wug-bT-Fab" id="a3n-gt-0Fz"/>
                     </connections>
                 </viewController>

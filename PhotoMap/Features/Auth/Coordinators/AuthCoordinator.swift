@@ -12,14 +12,16 @@ class AuthCoordinator: Coordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private var appCoordinator: AppCoordinator?
+    private var diContainer: DIContainerType
     
-    init(appCoordinator: AppCoordinator) {
+    init(appCoordinator: AppCoordinator, diContainer: DIContainerType) {
         self.appCoordinator = appCoordinator
+        self.diContainer = diContainer
     }
     
     @discardableResult
     func start() -> UIViewController {
-        let viewModel = SignInViewModel(diContainer: DIContainer(),
+        let viewModel = SignInViewModel(diContainer: diContainer,
                                         coordinator: self,
                                         emailValidator: EmailValidator(),
                                         passwordValidator: PasswordValidator())
@@ -30,8 +32,8 @@ class AuthCoordinator: Coordinator {
     }
     
     func openSignUpScreen() {
-        let viewModel = SignUpViewModel(diContainer: DIContainer(),
-                                        coordinator: self, usernamevalidator: UsernameValidator(),
+        let viewModel = SignUpViewModel(diContainer: diContainer,
+                                        coordinator: self, usernameValidator: UsernameValidator(),
                                         emailValidator: EmailValidator(),
                                         passwordValidator: PasswordValidator())
         let signUpVC = SignUpViewController.newInstanse(viewModel: viewModel)

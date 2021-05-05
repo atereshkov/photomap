@@ -11,8 +11,8 @@ protocol SignInViewModelInput {
     var email: String { get set }
     var password: String { get set }
     
-    func signInButtonTapped()
-    func signUpButtonTapped()
+    var signUpButtonPublisher: Void { get set }
+    var signInButtonPublisher: Void { get set }
 }
 
 protocol SignInViewModelOutput {
