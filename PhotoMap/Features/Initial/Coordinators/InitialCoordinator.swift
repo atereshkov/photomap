@@ -11,22 +11,24 @@ class InitialCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
-    private var appCoordinator: AppCoordinator?
+    private let appCoordinator: AppCoordinator
+    private let diContainer: DIContainerType
     
-    init(appCoordinator: AppCoordinator) {
+    init(appCoordinator: AppCoordinator, diContainer: DIContainerType) {
         self.appCoordinator = appCoordinator
+        self.diContainer = diContainer
     }
     
     @discardableResult
     func start() -> UIViewController {
-        let viewModel = InitialViewModel(coordinator: self, diContainer: DIContainer())
+        let viewModel = InitialViewModel(coordinator: self, diContainer: diContainer)
         let initialVC = InitialViewController.newInstanse(viewModel: viewModel)
         
         return initialVC
     }
     
     func changeMainScreen(_ isUserAuth: Bool) {
-        self.appCoordinator?.startMainScreen(isUserAuthorized: isUserAuth)
+        self.appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
     }
     
 }

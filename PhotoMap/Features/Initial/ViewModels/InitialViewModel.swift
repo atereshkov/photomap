@@ -12,15 +12,16 @@ class InitialViewModel {
     
     private(set) var coordinator: InitialCoordinator
     private var authListener: AuthListenerType?
-    private var diContainer: DIContainerType?
     
     private var cancelBag = CancelBag()
     
     init(coordinator: InitialCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.authListener = diContainer.resolve()
-        self.diContainer = diContainer
-        
+    }
+    
+    // Alex: Better to use reactive approach to handle events from View
+    func viewDidLoad() {
         authListener?.isUserAuthorized
             .sink { [weak self] isUserAuth in
                 self?.coordinator.changeMainScreen(isUserAuth)

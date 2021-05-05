@@ -13,7 +13,7 @@ class AppCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     private var authListener: AuthListenerType?
-    private var diContainer: DIContainerType?
+    private var diContainer: DIContainerType
     
     private var cancelBag = CancelBag()
     
@@ -51,7 +51,7 @@ class AppCoordinator: Coordinator {
     }
     
     private func showInitial() {
-        let initCoordinator = InitialCoordinator(appCoordinator: self)
+        let initCoordinator = InitialCoordinator(appCoordinator: self, diContainer: diContainer)
         childCoordinators = [initCoordinator]
         let initViewController = initCoordinator.start()
         initViewController.modalPresentationStyle = .overFullScreen
