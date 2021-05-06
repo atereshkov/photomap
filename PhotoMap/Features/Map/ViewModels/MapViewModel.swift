@@ -56,8 +56,9 @@ class MapViewModel: MapViewModelType {
             .store(in: cancelBag)
 
         categoryButtonSubject
-            .sink { _ in
+            .sink { [weak self] _ in
                 print("Category Button Tapped!")
+                self?.coordinator.showMapPopup()
             }
             .store(in: cancelBag)
 

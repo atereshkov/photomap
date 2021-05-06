@@ -21,6 +21,8 @@
 		23D6A7F52643FEA6007F7B95 /* UIView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7F42643FEA6007F7B95 /* UIView+Ex.swift */; };
 		23D6A7F8264401D4007F7B95 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7F7264401D4007F7B95 /* CategoryView.swift */; };
 		23D6A7FA264401F8007F7B95 /* CategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23D6A7F9264401F8007F7B95 /* CategoryView.xib */; };
+		23D6A7FC26442438007F7B95 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7FB26442438007F7B95 /* Category.swift */; };
+		23D6A7FE264424EB007F7B95 /* UIColor+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7FD264424EB007F7B95 /* UIColor+Ex.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
@@ -98,6 +100,8 @@
 		23D6A7F42643FEA6007F7B95 /* UIView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ex.swift"; sourceTree = "<group>"; };
 		23D6A7F7264401D4007F7B95 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		23D6A7F9264401F8007F7B95 /* CategoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryView.xib; sourceTree = "<group>"; };
+		23D6A7FB26442438007F7B95 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = PhotoMap/Core/Base/Views/Category.swift; sourceTree = SOURCE_ROOT; };
+		23D6A7FD264424EB007F7B95 /* UIColor+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ex.swift"; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33334A3F2628324C00612573 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 		33334B0526287B9C00612573 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				23D6A7FB26442438007F7B95 /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				01AEED662633292900BB4E68 /* UIButton+Ex.swift */,
 				01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */,
 				23D6A7F42643FEA6007F7B95 /* UIView+Ex.swift */,
+				23D6A7FD264424EB007F7B95 /* UIColor+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -888,6 +894,7 @@
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
+				23D6A7FC26442438007F7B95 /* Category.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
 				017296A226380F6D00693952 /* MapViewModelType.swift in Sources */,
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
@@ -901,6 +908,7 @@
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
+				23D6A7FE264424EB007F7B95 /* UIColor+Ex.swift in Sources */,
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				23D6A7F12643F312007F7B95 /* MapPhotoViewModel.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,

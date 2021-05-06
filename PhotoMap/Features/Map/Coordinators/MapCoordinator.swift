@@ -38,4 +38,9 @@ class MapCoordinator: Coordinator {
 
         navigationController.present(alert, animated: true, completion: nil)
     }
+
+    func showMapPopup() {
+        let vc = MapPhotoCoordinator().start()
+        navigationController.present(vc, animated: true)
+    }
 }

@@ -11,8 +11,8 @@ import UIKit
 class CategoryView: UIView {
     private let selfName = "CategoryView"
 
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var title: UILabel!
+    @IBOutlet private weak var image: UIImageView!
+    @IBOutlet private weak var title: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +24,9 @@ class CategoryView: UIView {
         self.commonInit()
     }
 
-    func set(with category: String) {
+    func set(with category: Category) {
+        image.tintColor = UIColor(hex: category.color)
+        title.text = category.name
     }
 
     private func commonInit() {
