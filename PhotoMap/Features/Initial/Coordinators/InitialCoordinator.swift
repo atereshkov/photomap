@@ -13,7 +13,7 @@ class InitialCoordinator: Coordinator {
     private(set) var navigationController = UINavigationController()
     private let appCoordinator: AppCoordinator
     private let diContainer: DIContainerType
-    
+ 
     init(appCoordinator: AppCoordinator, diContainer: DIContainerType) {
         self.appCoordinator = appCoordinator
         self.diContainer = diContainer

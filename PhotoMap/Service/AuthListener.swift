@@ -28,4 +28,12 @@ class AuthListener: AuthListenerType {
         })
     }
     
+    func checkUserAuthStatus() {
+        if Auth.auth().currentUser != nil {
+            isUserAuthorized.send(false)
+        } else {
+            isUserAuthorized.send(false)
+        }
+    }
+    
 }

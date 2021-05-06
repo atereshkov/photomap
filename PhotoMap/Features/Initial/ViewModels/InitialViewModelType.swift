@@ -9,4 +9,5 @@ import Foundation
 
 protocol InitialViewModelType {
     func viewDidLoad()
+    func viewWillDisappear()
 }

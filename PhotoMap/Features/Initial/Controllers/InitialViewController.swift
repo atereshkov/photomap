@@ -26,4 +26,10 @@ class InitialViewController: BaseViewController {
         self.viewModel?.viewDidLoad()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.viewModel?.viewWillDisappear()
+    }
+
 }

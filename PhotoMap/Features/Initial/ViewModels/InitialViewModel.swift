@@ -11,7 +11,6 @@ class InitialViewModel: InitialViewModelType {
     
     private(set) var coordinator: InitialCoordinator
     private var authListener: AuthListenerType
-    
     private var cancelBag = CancelBag()
     
     init(coordinator: InitialCoordinator, diContainer: DIContainerType) {
@@ -20,13 +19,15 @@ class InitialViewModel: InitialViewModelType {
     }
     
     func viewDidLoad() {
+        authListener.isUserAuthorized.sink { [weak self] isUserAuth in
+            self?.coordinator.changeMainScreen(isUserAuth)
+        }
+        .store(in: cancelBag
+        )
+    }
+    
+    func viewWillDisappear() {
         authListener.startListening()
-        
-        authListener.isUserAuthorized
-            .sink { [weak self] isUserAuth in
-                self?.coordinator.changeMainScreen(isUserAuth)
-            }
-            .store(in: cancelBag)
     }
     
 }
