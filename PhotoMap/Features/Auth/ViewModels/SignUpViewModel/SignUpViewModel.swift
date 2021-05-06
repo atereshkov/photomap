@@ -87,7 +87,6 @@ extension SignUpViewModel {
         credentials.map { emailError, passwordError in
             return emailError == nil && passwordError == nil
         }
-        .receive(on: DispatchQueue.main)
         .assign(to: \.isRegistrationEnabled, on: self)
         .store(in: cancelBag)
     }

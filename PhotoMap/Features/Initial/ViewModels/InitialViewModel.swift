@@ -6,9 +6,8 @@
 //
 
 import Combine
-import UIKit
 
-class InitialViewModel {
+class InitialViewModel: InitialViewModelType {
     
     private(set) var coordinator: InitialCoordinator
     private var authListener: AuthListenerType

@@ -73,7 +73,6 @@ extension SignInViewModel {
         credentials.map { emailError, passwordError in
             return emailError == nil && passwordError == nil
         }
-        .receive(on: DispatchQueue.main)
         .assign(to: \.isAuthEnabled, on: self)
         .store(in: cancelBag)
         

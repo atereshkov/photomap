@@ -8,9 +8,6 @@
 import UIKit
 import Firebase
 
-import UIKit
-import Firebase
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?

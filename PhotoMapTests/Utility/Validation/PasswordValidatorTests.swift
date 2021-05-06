@@ -20,7 +20,7 @@ class PasswordValidatorTests: XCTestCase {
         passwordValidator = PasswordValidator()
     }
     
-    func testIsPasswordValidWithEmptyInput() {
+    func testIsPasswordValid_WithEmptyInput() {
         let expected = PasswordValidationResult.empty
         var actual: PasswordValidationResult?
         
@@ -32,7 +32,7 @@ class PasswordValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsPasswordValidWithShortInput() {
+    func testIsPasswordValid_WithShortInput() {
         let expected = PasswordValidationResult.short
         var actual: PasswordValidationResult?
         
@@ -44,7 +44,7 @@ class PasswordValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsPasswordValidWithValidInput() {
+    func testIsPasswordValid_WithValidInput() {
         let expected = PasswordValidationResult.valid
         var actual: PasswordValidationResult?
         

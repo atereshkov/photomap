@@ -42,6 +42,8 @@
 		333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83042642DED100AAD56F /* EmailValidatorTests.swift */; };
 		333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */; };
 		333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */; };
+		333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */; };
+		333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83102643EBA000AAD56F /* InitialViewModelType.swift */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* MoreCoordinator.swift */; };
 		335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C7262DA6DB0057D25F /* TimelineViewController.swift */; };
@@ -139,6 +141,8 @@
 		333B83042642DED100AAD56F /* EmailValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatorTests.swift; sourceTree = "<group>"; };
 		333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatorTests.swift; sourceTree = "<group>"; };
 		333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidatorTests.swift; sourceTree = "<group>"; };
+		333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
+		333B83102643EBA000AAD56F /* InitialViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModelType.swift; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* MoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		335881C7262DA6DB0057D25F /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 			children = (
 				01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */,
 				333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */,
+				333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -427,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				333B82E926412E7900AAD56F /* InitialViewModel.swift */,
+				333B83102643EBA000AAD56F /* InitialViewModelType.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -986,6 +992,7 @@
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
 				333B82F62641962200AAD56F /* AuthUserService.swift in Sources */,
 				333B82FB264199BD00AAD56F /* CancelBag.swift in Sources */,
+				333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */,
 				01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1019,6 +1026,7 @@
 				3387F1072637F16D005DCFA0 /* EmailValidationError.swift in Sources */,
 				3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
+				333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */,
 				333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */,
 				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
