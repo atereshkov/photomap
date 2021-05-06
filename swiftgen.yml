@@ -16,6 +16,7 @@ ib:
     'PhotoMap/Features/More/More.storyboard',
     'PhotoMap/Features/Auth/Authentication.storyboard',
     'PhotoMap/Features/Map/Map.storyboard',
+    'PhotoMap/Features/MapPhoto/MapPhoto.storyboard',
     'PhotoMap/Features/Timeline/Timeline.storyboard',
     'PhotoMap/Features/Category/Category.storyboard'
   ]

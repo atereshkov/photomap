@@ -14,6 +14,10 @@
 		01AEED632633288600BB4E68 /* UIControl+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AEED622633288600BB4E68 /* UIControl+Ex.swift */; };
 		01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AEED662633292900BB4E68 /* UIButton+Ex.swift */; };
 		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
+		23D6A7ED2643F26C007F7B95 /* MapPhoto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D6A7EC2643F26C007F7B95 /* MapPhoto.storyboard */; };
+		23D6A7EF2643F2A0007F7B95 /* MapPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7EE2643F2A0007F7B95 /* MapPhotoViewController.swift */; };
+		23D6A7F12643F312007F7B95 /* MapPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7F02643F312007F7B95 /* MapPhotoViewModel.swift */; };
+		23D6A7F32643F339007F7B95 /* MapPhotoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7F22643F339007F7B95 /* MapPhotoCoordinator.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
@@ -84,6 +88,10 @@
 		01AEED662633292900BB4E68 /* UIButton+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
 		01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GestureRecognizer+Combine.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
+		23D6A7EC2643F26C007F7B95 /* MapPhoto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapPhoto.storyboard; sourceTree = "<group>"; };
+		23D6A7EE2643F2A0007F7B95 /* MapPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoViewController.swift; sourceTree = "<group>"; };
+		23D6A7F02643F312007F7B95 /* MapPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoViewModel.swift; sourceTree = "<group>"; };
+		23D6A7F22643F339007F7B95 /* MapPhotoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoCoordinator.swift; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33334A3F2628324C00612573 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +186,41 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		23D6A7E82643F1F4007F7B95 /* MapPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				23D6A7EA2643F232007F7B95 /* Controllers */,
+				23D6A7E92643F219007F7B95 /* Coordinators */,
+				23D6A7EB2643F240007F7B95 /* ViewModels */,
+				23D6A7EC2643F26C007F7B95 /* MapPhoto.storyboard */,
+			);
+			path = MapPhoto;
+			sourceTree = "<group>";
+		};
+		23D6A7E92643F219007F7B95 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				23D6A7F22643F339007F7B95 /* MapPhotoCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		23D6A7EA2643F232007F7B95 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				23D6A7EE2643F2A0007F7B95 /* MapPhotoViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		23D6A7EB2643F240007F7B95 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				23D6A7F02643F312007F7B95 /* MapPhotoViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		33334A312628324C00612573 = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +287,7 @@
 		33334AFC262879BF00612573 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				23D6A7E82643F1F4007F7B95 /* MapPhoto */,
 				33334B0A26287C3000612573 /* More */,
 				33334B0926287C1800612573 /* Auth */,
 				33334B0826287C0E00612573 /* Timeline */,
@@ -701,6 +745,7 @@
 				3383658C2630575C001EF61E /* More.storyboard in Resources */,
 				33334A4A2628324D00612573 /* LaunchScreen.storyboard in Resources */,
 				338365622630565F001EF61E /* Map.storyboard in Resources */,
+				23D6A7ED2643F26C007F7B95 /* MapPhoto.storyboard in Resources */,
 				33334AA426283B8B00612573 /* Localizable.strings in Resources */,
 				33334AB926283CCE00612573 /* GoogleService-Info.plist in Resources */,
 				33877C902631543900A227F9 /* Authentication.storyboard in Resources */,
@@ -808,6 +853,7 @@
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
 				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
+				23D6A7F32643F339007F7B95 /* MapPhotoCoordinator.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
@@ -836,7 +882,9 @@
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
+				23D6A7F12643F312007F7B95 /* MapPhotoViewModel.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
+				23D6A7EF2643F2A0007F7B95 /* MapPhotoViewController.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
