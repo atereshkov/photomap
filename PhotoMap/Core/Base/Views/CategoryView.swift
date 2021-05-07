@@ -6,27 +6,42 @@
 //
 
 import UIKit
+import Combine
 
 @IBDesignable
 class CategoryView: UIView {
     private let selfName = "CategoryView"
+    private let cancelBag = CancelBag()
 
     @IBOutlet private weak var image: UIImageView!
     @IBOutlet private weak var title: UILabel!
 
+    private(set) var categorySubject = PassthroughSubject<Category?, Never>()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.commonInit()
+        bind()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.commonInit()
+        bind()
     }
 
     func set(with category: Category) {
         image.tintColor = UIColor(hex: category.color)
         title.text = category.name
+    }
+
+    private func bind() {
+        categorySubject
+            .sink(receiveValue: { [weak self] category in
+                guard let category = category else { return }
+                self?.set(with: category)
+            })
+            .store(in: cancelBag)
     }
 
     private func commonInit() {

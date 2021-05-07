@@ -10,10 +10,10 @@ import MapKit
 import Combine
 
 protocol MapViewModelInput {
-    var categoryButtonSubject: PassthroughSubject<Void, Never> { get set }
-    var enableDiscoveryModeSubject: PassthroughSubject<Void, Never> { get set }
-    var navigationButtonSubject: PassthroughSubject<Void, Never> { get set }
-    var photoButtonSubject: PassthroughSubject<Void, Never> { get set }
+    var categoryButtonSubject: PassthroughSubject<UIControl, Never> { get }
+    var enableDiscoveryModeSubject: PassthroughSubject<GestureType, Never> { get }
+    var navigationButtonSubject: PassthroughSubject<UIControl, Never> { get }
+    var photoButtonSubject: PassthroughSubject<UIControl, Never> { get }
 }
 
 protocol MapViewModelOutput {

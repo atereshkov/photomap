@@ -21,6 +21,8 @@ class MapPhotoViewController: BaseViewController {
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var doneButton: UIButton!
     @IBOutlet private weak var categoryPckerView: UIPickerView!
+    @IBOutlet private weak var pickerToolBar: UIToolbar!
+    @IBOutlet private weak var closeBarButton: UIBarButtonItem!
     
     static func newInstanse(viewModel: MapPhotoViewModel) -> MapPhotoViewController {
         let mapVC = StoryboardScene.MapPhoto.mapPhotoViewController.instantiate()
@@ -36,6 +38,8 @@ class MapPhotoViewController: BaseViewController {
         categoryPckerView.dataSource = viewModel
 
         setOpacityBackgroundNavigationBar()
+        setupToolBar()
+
         bind()
     }
 
@@ -45,14 +49,33 @@ class MapPhotoViewController: BaseViewController {
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: categoryPckerView)
             .store(in: cancelBag)
+        viewModel.$isHiddenCategoryPicker
+            .assign(to: \.isHidden, on: pickerToolBar)
+            .store(in: cancelBag)
+        viewModel.$categoryPublisher
+            .filter { $0 != nil }
+            .subscribe(categoryView.categorySubject)
+            .store(in: cancelBag)
 
-        cancelButton.tapPublisher
-            .map { _ in () }
-            .assign(to: \.cancelPublisher, on: viewModel)
-            .store(in: cancelBag)
         categoryView.gesture(.tap())
-            .map { _ in () }
-            .assign(to: \.categoryPublisher, on: viewModel)
+            .map { _ in false }
+            .assign(to: \.isHiddenCategoryPicker, on: viewModel)
             .store(in: cancelBag)
+
+        closeBarButton.publisher
+            .map { _ in true }
+            .assign(to: \.isHiddenCategoryPicker, on: viewModel)
+            .store(in: cancelBag)
+
+        doneButton.tapPublisher
+            .subscribe(viewModel.doneButtonSubject)
+            .store(in: cancelBag)
+        cancelButton.tapPublisher
+            .subscribe(viewModel.cancelButtonSubject)
+            .store(in: cancelBag)
+    }
+
+    private func setupToolBar() {
+        pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 }

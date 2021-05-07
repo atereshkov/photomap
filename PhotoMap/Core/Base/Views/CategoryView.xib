@@ -21,8 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="octagon.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4r1-oL-d5t">
-                    <rect key="frame" x="0.0" y="0.5" width="36" height="34.5"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4r1-oL-d5t">
+                    <rect key="frame" x="0.0" y="0.5" width="36" height="35"/>
                     <color key="tintColor" name="defaultColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="WWh-H2-tcj"/>
@@ -50,7 +50,7 @@
         </view>
     </objects>
     <resources>
-        <image name="octagon.fill" catalog="system" width="128" height="112"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="defaultColor">
             <color red="0.21199999749660492" green="0.55699998140335083" blue="0.875" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -13,17 +13,18 @@ class MapPhotoViewModel: NSObject {
     private let cancelBag = CancelBag()
     private let coordinator: MapPhotoCoordinator
     private let diContainer: DIContainerType
-    private var categories: [String] = ["DEFAULT", "FRIENDS", "NATURE"]
+    private var categories: [Category] = [Category(id: "0", name: "DEFAULT", color: "#368EDF"),
+                                            Category(id: "1", name: "FRIENDS", color: "#F4A523"),
+                                            Category(id: "2", name: "NATURE", color: "#578E18")]
 
     // MARK: - Input
-    @Published var cancelPublisher: Void?
-    @Published var categoryPublisher: Void = ()
+    private(set) var cancelButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var descriptionSubject = PassthroughSubject<String, Never>()
+    private(set) var doneButtonSubject = PassthroughSubject<UIControl, Never>()
 
     // MARK: - Output
     @Published var isHiddenCategoryPicker: Bool = true
-
-    var descriptionSubject = PassthroughSubject<String, Never>()
-    var doneButtonSubject = PassthroughSubject<Void, Never>()
+    @Published var categoryPublisher: Category?
 
     init(coordinator: MapPhotoCoordinator,
          diContainer: DIContainerType) {
@@ -35,20 +36,25 @@ class MapPhotoViewModel: NSObject {
     }
 
     private func transform() {
-        $cancelPublisher
-            .filter { $0 != nil }
-            .assign(to: \.dismissPublisher, on: coordinator)
+        cancelButtonSubject
+            .subscribe(coordinator.dismissSubject)
             .store(in: cancelBag)
 
-        $categoryPublisher
-            .dropFirst()
-            .map { _ in false }
-            .assign(to: \.isHiddenCategoryPicker, on: self)
+        doneButtonSubject
+            .sink { [weak self] control in
+                print("Done button tapped!")
+                // Save new PhotoMap object in Firebase and close screen
+                self?.coordinator.dismissSubject.send(control)
+            }
             .store(in: cancelBag)
     }
 }
 
-extension MapPhotoViewModel: UIPickerViewDelegate {}
+extension MapPhotoViewModel: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryPublisher = categories[row]
+    }
+}
 
 extension MapPhotoViewModel: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -56,10 +62,10 @@ extension MapPhotoViewModel: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        3
+        categories.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        categories[row]
+        categories[row].name
     }
 }

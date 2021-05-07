@@ -13,7 +13,7 @@ class MapPhotoCoordinator: Coordinator {
     private(set) var navigationController: UINavigationController
 
     private var cancelBag = CancelBag()
-    @Published var dismissPublisher: Void?
+    private(set) var dismissSubject = PassthroughSubject<UIControl, Never>()
 
     init() {
         navigationController = UINavigationController()
@@ -31,8 +31,7 @@ class MapPhotoCoordinator: Coordinator {
     }
 
     private func bind() {
-        $dismissPublisher
-            .filter { $0 != nil }
+        dismissSubject
             .sink { [weak self] _ in
                 self?.navigationController.dismiss(animated: true)
             }

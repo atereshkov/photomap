@@ -20,10 +20,10 @@ class MapViewModel: MapViewModelType {
     @Published private var isFollowModeOn: Bool = true
 
     // MARK: - Input
-    var categoryButtonSubject = PassthroughSubject<Void, Never>()
-    var enableDiscoveryModeSubject = PassthroughSubject<Void, Never>()
-    var navigationButtonSubject = PassthroughSubject<Void, Never>()
-    var photoButtonSubject = PassthroughSubject<Void, Never>()
+    private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var enableDiscoveryModeSubject = PassthroughSubject<GestureType, Never>()
+    private(set) var navigationButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var photoButtonSubject = PassthroughSubject<UIControl, Never>()
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
@@ -58,6 +58,7 @@ class MapViewModel: MapViewModelType {
         categoryButtonSubject
             .sink { [weak self] _ in
                 print("Category Button Tapped!")
+                self?.switchFollowDiscoveryMode(disableFolowMode: true)
                 self?.coordinator.showMapPopup()
             }
             .store(in: cancelBag)
