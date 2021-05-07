@@ -16,19 +16,19 @@ class MapViewModel: MapViewModelType {
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let locationService: LocationServiceType
     private let diContainer: DIContainerType
-    @Published private var isFollowModeOn: Bool = false
+    @Published private var isFollowModeOn: Bool = true
 
     // MARK: - Input
-    @Published var categoryButtonPublisher: Void = ()
-    @Published var enableDiscoveryModePublisher: Void = ()
-    @Published var navigationButtonPublisher: Void = ()
-    @Published var photoButtonPublisher: Void = ()
+    var categoryButtonSubject = PassthroughSubject<Void, Never>()
+    var enableDiscoveryModeSubject = PassthroughSubject<Void, Never>()
+    var navigationButtonSubject = PassthroughSubject<Void, Never>()
+    var photoButtonSubject = PassthroughSubject<Void, Never>()
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
     @Published private(set) var isShowUserLocation: Bool = true
     @Published private(set) var region: MKCoordinateRegion?
-    @Published private(set) var modeButtonCollor: UIColor = Asset.discoverModeColor.color
+    @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
 
     init(coordinator: MapCoordinator,
          diContainer: DIContainerType) {
@@ -44,16 +44,6 @@ class MapViewModel: MapViewModelType {
             .assign(to: \.isShowUserLocation, on: self)
             .store(in: cancelBag)
 
-        $isFollowModeOn
-            .filter { $0 }
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-
-                self.region = MKCoordinateRegion(center: self.locationService.currentCoordinate,
-                                                 span: self.coordinateSpan)
-            }
-            .store(in: cancelBag)
-
         locationService.location
             .sink { [weak self] location in
                 guard let self = self,
@@ -64,26 +54,26 @@ class MapViewModel: MapViewModelType {
             }
             .store(in: cancelBag)
 
-        $categoryButtonPublisher
+        categoryButtonSubject
             .sink { _ in
                 print("Category Button Tapped!")
             }
             .store(in: cancelBag)
 
-        $enableDiscoveryModePublisher
+        enableDiscoveryModeSubject
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode(disableFolowMode: true)
             }
             .store(in: cancelBag)
 
-        $photoButtonPublisher
+        photoButtonSubject
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode(disableFolowMode: true)
                 self?.coordinator.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
 
-        $navigationButtonPublisher
+        navigationButtonSubject
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode()
             }
