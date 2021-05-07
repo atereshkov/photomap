@@ -53,7 +53,7 @@ extension SignUpViewController {
         
         emailTextField.textPublisher
             .assign(to: \.email, on: viewModel)
-                   .store(in: cancelBag)
+            .store(in: cancelBag)
         
         passwordTextField.textPublisher
             .assign(to: \.password, on: viewModel)

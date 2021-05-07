@@ -77,12 +77,14 @@ extension SignInViewModel {
         .store(in: cancelBag)
         
         $signUpButtonPublisher
+            .dropFirst()
             .sink { [weak self] _ in
                 self?.signUpButtonTapped()
             }
             .store(in: cancelBag)
         
         $signInButtonPublisher
+            .dropFirst()
             .sink { [weak self] _ in
                 self?.signInButtonTapped()
             }

@@ -20,7 +20,7 @@ class UsernameValidatorTests: XCTestCase {
         usernameValidator = UsernameValidator()
     }
     
-    func testIsUsernameValid_WithEmptyInput() {
+    func test_UsernameWithEmptyInput_ShouldNotBeValid() {
         let expected = UsernameValidationResult.empty
         var actual: UsernameValidationResult?
         
@@ -32,7 +32,7 @@ class UsernameValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsUsernameValid_WithShortInput() {
+    func test_UsernameWithShortInput_ShouldNotBeValid() {
         let expected = UsernameValidationResult.short
         var actual: UsernameValidationResult?
         
@@ -44,7 +44,7 @@ class UsernameValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsUsernameValid_WithValidInput() {
+    func test_UsernameWithValidInput_ShouldBeValid() {
         let expected = UsernameValidationResult.valid
         var actual: UsernameValidationResult?
         

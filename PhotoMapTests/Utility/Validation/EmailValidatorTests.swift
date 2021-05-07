@@ -20,7 +20,7 @@ class EmailValidatorTests: XCTestCase {
         emailValidator = EmailValidator()
     }
     
-    func testIsEmailValid_WithEmptyInput() {
+    func test_EmailWithEmptyInput_ShouldNotBeValid() {
         let expected = EmailValidationResult.empty
         var actual: EmailValidationResult?
         
@@ -32,7 +32,7 @@ class EmailValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsEmailValid_WithoutAtSign() {
+    func test_EmailWithoutAtSign_ShouldNotBeValid() {
         let expected = EmailValidationResult.invalid
         var actual: EmailValidationResult?
         
@@ -44,7 +44,7 @@ class EmailValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsEmailValid_WithoutDomain() {
+    func test_EmailWithoutDomain_ShouldNotBeValid() {
         let expected = EmailValidationResult.invalid
         var actual: EmailValidationResult?
         
@@ -56,7 +56,7 @@ class EmailValidatorTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func testIsEmailValid_WithValidInput() {
+    func test_EmailWithValidInput_ShouldBeValid() {
         let expected = EmailValidationResult.valid
         var actual: EmailValidationResult?
         
