@@ -24,6 +24,7 @@ class InitialViewController: BaseViewController {
         activityIndicator.startAnimating()
         
         self.viewModel?.viewDidLoad()
+        self.viewModel?.viewWillDisappear()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -19,11 +19,7 @@ class InitialViewModel: InitialViewModelType {
     }
     
     func viewDidLoad() {
-        authListener.isUserAuthorized.sink { [weak self] isUserAuth in
-            self?.coordinator.changeMainScreen(isUserAuth)
-        }
-        .store(in: cancelBag
-        )
+        self.coordinator.changeMainScreen(authListener.checkUserAuthStatus())
     }
     
     func viewWillDisappear() {

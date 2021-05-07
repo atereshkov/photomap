@@ -8,6 +8,7 @@ import UIKit
 import Combine
 import CoreLocation
 import MapKit
+import FirebaseAuth
 
 class MapViewModel: MapViewModelType {
     // MARK: - Variables

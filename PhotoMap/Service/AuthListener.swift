@@ -11,6 +11,7 @@ import Combine
 protocol AuthListenerType {
     var isUserAuthorized: PassthroughSubject<Bool, Never> { get }
     func startListening()
+    func checkUserAuthStatus() -> Bool
 }
 
 class AuthListener: AuthListenerType {
@@ -28,12 +29,9 @@ class AuthListener: AuthListenerType {
         })
     }
     
-    func checkUserAuthStatus() {
-        if Auth.auth().currentUser != nil {
-            isUserAuthorized.send(false)
-        } else {
-            isUserAuthorized.send(false)
-        }
+    func checkUserAuthStatus() -> Bool {
+        let isUserAuth = Auth.auth().currentUser != nil ? true : false
+        return isUserAuth
     }
     
 }

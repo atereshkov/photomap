@@ -23,7 +23,6 @@ class AppCoordinator: Coordinator {
         
         authListener.isUserAuthorized
             .sink { [weak self] isUserAuth in
-                print("--- self?.startMainScreen ---")
                 self?.startMainScreen(isUserAuthorized: isUserAuth)
             }
             .store(in: cancelBag)
