@@ -41,7 +41,6 @@ class MapPhotoViewModel: NSObject {
 
         doneButtonSubject
             .sink { [weak self] control in
-                print("Done button tapped!")
                 // Save new PhotoMap object in Firebase and close screen
                 self?.coordinator.dismissSubject.send(control)
             }
