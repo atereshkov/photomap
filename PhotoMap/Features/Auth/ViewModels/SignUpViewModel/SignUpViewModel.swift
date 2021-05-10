@@ -24,7 +24,8 @@ class SignUpViewModel: SignUpViewModelType {
     @Published var email = ""
     @Published var password = ""
     @Published var username = ""
-    @Published var signUpButtonPublisher: Void = ()
+    
+    private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
     
     // MARK: Output
     
@@ -89,6 +90,12 @@ extension SignUpViewModel {
         }
         .assign(to: \.isRegistrationEnabled, on: self)
         .store(in: cancelBag)
+        
+        signUpButtonSubject
+            .sink { [weak self] _ in
+                self?.signUpButtonTapped()
+            }
+            .store(in: cancelBag)
     }
     
 }

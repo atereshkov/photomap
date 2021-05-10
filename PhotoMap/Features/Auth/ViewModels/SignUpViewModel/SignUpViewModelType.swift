@@ -6,13 +6,14 @@
 //
 
 import Combine
+import UIKit
 
 protocol SignUpViewModelInput {
     var username: String { get set }
     var email: String { get set }
     var password: String { get set }
 
-    var signUpButtonPublisher: Void { get set }
+    var signUpButtonSubject: PassthroughSubject<UIControl, Never> { get }
 }
 
 protocol SignUpViewModelOutput {

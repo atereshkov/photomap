@@ -6,13 +6,14 @@
 //
 
 import Combine
+import UIKit
 
 protocol SignInViewModelInput {
     var email: String { get set }
     var password: String { get set }
     
-    var signUpButtonPublisher: Void { get set }
-    var signInButtonPublisher: Void { get set }
+    var signUpButtonSubject: PassthroughSubject<UIControl, Never> { get }
+    var signInButtonSubject: PassthroughSubject<UIControl, Never> { get }
 }
 
 protocol SignInViewModelOutput {
@@ -20,6 +21,7 @@ protocol SignInViewModelOutput {
     var passwordError: String? { get set }
     
     var isAuthEnabled: Bool { get set }
+    var showLoadingIndicator: CurrentValueSubject<Bool, Never> { get set }
 }
 
 protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {

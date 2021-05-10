@@ -83,14 +83,21 @@ extension SignInViewController {
             .assign(to: \.isEnabled, on: signInButton)
             .store(in: cancelBag)
         
+        viewModel.showLoadingIndicator
+            .receive(on: RunLoop.main)
+            .map { $0 }
+            .sink { [weak self] _ in
+                self?.activityIndicator.isHidden = false
+                self?.activityIndicator.startAnimating()
+            }
+            .store(in: cancelBag)
+        
         signUpButton.tapPublisher
-            .map { _ in () }
-            .assign(to: \.signUpButtonPublisher, on: viewModel)
+            .subscribe(viewModel.signUpButtonSubject)
             .store(in: cancelBag)
         
         signInButton.tapPublisher
-            .map { _ in () }
-            .assign(to: \.signInButtonPublisher, on: viewModel)
+            .subscribe(viewModel.signInButtonSubject)
             .store(in: cancelBag)
     }
     

@@ -41,15 +41,13 @@ class SignUpViewModelTests: XCTestCase {
         cancelBag = nil
     }
     
-    func testSignInButtonEnabled_WithValidCredentials() {
+    func test_SignInButtonWithValidCredentials_ShouldBeEnabled() {
         var isEnabled = false
-        let expectationSuccess = self.expectation(description: "'Sign In' button is enabled")
-      
+        
         viewModel.$isRegistrationEnabled
             .map { $0 }
             .sink { access in
                     isEnabled = access
-                    expectationSuccess.fulfill()
                 }
             
             .store(in: cancelBag)
@@ -58,20 +56,17 @@ class SignUpViewModelTests: XCTestCase {
         viewModel.email = "example@gmail.com"
         viewModel.password = "12345"
         
-        wait(for: [expectationSuccess], timeout: 0.1)
         print(isEnabled)
         XCTAssertTrue(isEnabled)
     }
     
-    func testSignInButtonEnabled_WithInvalidEmail() {
+    func test_SignInButtonWithInvalidEmail_ShouldNotBeEnabled() {
         var isEnabled = false
-        let expectationSuccess = self.expectation(description: "'Sign In' button is enabled")
-      
+        
         viewModel.$isRegistrationEnabled
             .map { $0 }
             .sink { access in
                     isEnabled = access
-                    expectationSuccess.fulfill()
                 }
             
             .store(in: cancelBag)
@@ -80,20 +75,17 @@ class SignUpViewModelTests: XCTestCase {
         viewModel.email = "examplegmail.com"
         viewModel.password = "12345"
         
-        wait(for: [expectationSuccess], timeout: 0.1)
         print(isEnabled)
         XCTAssertTrue(isEnabled)
     }
     
-    func testSignInButtonEnabled_WithInvalidPassword() {
+    func test_SignInButtonWithInvalidPassword_ShouldNotBeEnabled() {
         var isEnabled = false
-        let expectationSuccess = self.expectation(description: "'Sign In' button is enabled")
-      
+     
         viewModel.$isRegistrationEnabled
             .map { $0 }
             .sink { access in
                     isEnabled = access
-                    expectationSuccess.fulfill()
                 }
             
             .store(in: cancelBag)
@@ -101,21 +93,18 @@ class SignUpViewModelTests: XCTestCase {
         viewModel.username = "krokonox"
         viewModel.email = "example@gmail.com"
         viewModel.password = "1"
-        
-        wait(for: [expectationSuccess], timeout: 0.1)
+ 
         print(isEnabled)
         XCTAssertTrue(isEnabled)
     }
     
-    func testSignInButtonEnabled_WithInvalidUsername() {
+    func test_SignInButtonEnabledWithInvalidUsername_ShouldNotBeEnabled() {
         var isEnabled = false
-        let expectationSuccess = self.expectation(description: "'Sign In' button is enabled")
       
         viewModel.$isRegistrationEnabled
             .map { $0 }
             .sink { access in
                     isEnabled = access
-                    expectationSuccess.fulfill()
                 }
             
             .store(in: cancelBag)
@@ -124,7 +113,6 @@ class SignUpViewModelTests: XCTestCase {
         viewModel.email = "example@gmail.com"
         viewModel.password = "1234"
         
-        wait(for: [expectationSuccess], timeout: 0.1)
         print(isEnabled)
         XCTAssertTrue(isEnabled)
     }

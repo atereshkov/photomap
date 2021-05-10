@@ -22,15 +22,18 @@ class SignInViewModel: SignInViewModelType {
     
     @Published var email = ""
     @Published var password = ""
-    @Published var signUpButtonPublisher: Void = ()
-    @Published var signInButtonPublisher: Void = ()
     
+    private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var signInButtonSubject = PassthroughSubject<UIControl, Never>()
+   
     // MARK: Output
     
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
-
+    
+    var showLoadingIndicator = CurrentValueSubject<Bool, Never>(false)
+    
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinator,
          emailValidator: EmailValidator,
@@ -76,15 +79,13 @@ extension SignInViewModel {
         .assign(to: \.isAuthEnabled, on: self)
         .store(in: cancelBag)
         
-        $signUpButtonPublisher
-            .dropFirst()
+        signUpButtonSubject
             .sink { [weak self] _ in
                 self?.signUpButtonTapped()
             }
             .store(in: cancelBag)
         
-        $signInButtonPublisher
-            .dropFirst()
+        signInButtonSubject
             .sink { [weak self] _ in
                 self?.signInButtonTapped()
             }
@@ -96,10 +97,12 @@ extension SignInViewModel {
 extension SignInViewModel: SignInViewModelInput {
     
     func signInButtonTapped() {
+        showLoadingIndicator.send(true)
         authUserService
             .signIn(email: email, password: password)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
+                self?.showLoadingIndicator.send(false)
                 switch completion {
                 case .failure:
                     self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
