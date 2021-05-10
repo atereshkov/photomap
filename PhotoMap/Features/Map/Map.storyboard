@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,14 +13,14 @@
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="faU-hR-CXR" customClass="MapViewController" customModule="PhotoMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EGV-a0-fOZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="con-EB-4hb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-GJ-qIS">
-                                <rect key="frame" x="354" y="52.5" width="40" height="39"/>
+                                <rect key="frame" x="540" y="8.5" width="40" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="nOd-0v-jtE"/>
                                     <constraint firstAttribute="height" constant="40" id="wz3-9u-ERA"/>
@@ -30,7 +28,7 @@
                                 <state key="normal" backgroundImage="location.circle" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBe-qO-7bO">
-                                <rect key="frame" x="20" y="49.5" width="55" height="39.5"/>
+                                <rect key="frame" x="20" y="5.5" width="55" height="39.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="EbM-GF-4dy"/>
                                     <constraint firstAttribute="height" constant="45" id="iNS-cq-TrP"/>
@@ -39,7 +37,7 @@
                                 <state key="normal" backgroundImage="list.bullet" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azD-Rc-SEl">
-                                <rect key="frame" x="264" y="52.5" width="50" height="38"/>
+                                <rect key="frame" x="450" y="8.5" width="50" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="cnd-8p-vfC"/>
                                     <constraint firstAttribute="height" constant="40" id="og1-BA-WCU"/>

@@ -80,12 +80,16 @@ extension SignInViewModel {
         .store(in: cancelBag)
         
         signUpButtonSubject
+            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in
                 self?.signUpButtonTapped()
             }
             .store(in: cancelBag)
         
         signInButtonSubject
+            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in
                 self?.signInButtonTapped()
             }

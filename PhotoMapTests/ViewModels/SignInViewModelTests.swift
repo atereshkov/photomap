@@ -11,7 +11,6 @@ import Combine
 
 class SignInViewModelTests: XCTestCase {
     
-    var expectation: XCTestExpectation!
     var viewModel: SignInViewModel!
     var diContainer: DIContainerType!
     var emailValidator: EmailValidator!
@@ -91,6 +90,14 @@ class SignInViewModelTests: XCTestCase {
         
         print(isEnabled)
         XCTAssertTrue(isEnabled)
+    }
+    
+    func test_SignInFailed() {
+        
+    }
+    
+    func test_SignInSucceeded() {
+        
     }
     
 }
