@@ -10,20 +10,20 @@ import Combine
 
 class MapPhotoCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
-    private(set) var navigationController: UINavigationController
+    private(set) var navigationController = UINavigationController()
 
     private var cancelBag = CancelBag()
+    private let diContainer: DIContainerType
     private(set) var dismissSubject = PassthroughSubject<UIControl, Never>()
 
-    init() {
-        navigationController = UINavigationController()
+    init(diContainer: DIContainerType) {
+        self.diContainer = diContainer
 
         bind()
     }
 
     func start() -> UINavigationController {
-        let viewModel = MapPhotoViewModel(coordinator: self,
-                                          diContainer: DIContainer())
+        let viewModel = MapPhotoViewModel(coordinator: self, diContainer: DIContainer())
         let vc = MapPhotoViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
 

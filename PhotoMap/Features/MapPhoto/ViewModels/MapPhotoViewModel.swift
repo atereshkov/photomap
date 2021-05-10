@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class MapPhotoViewModel: NSObject {
+class MapPhotoViewModel: NSObject, MapPhotoViewModelType {    
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapPhotoCoordinator
@@ -24,7 +24,7 @@ class MapPhotoViewModel: NSObject {
 
     // MARK: - Output
     @Published var isHiddenCategoryPicker: Bool = true
-    @Published var categoryPublisher: Category?
+    @Published private(set) var categoryPublisher: Category?
 
     init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
@@ -50,7 +50,7 @@ class MapPhotoViewModel: NSObject {
 
 extension MapPhotoViewModel: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        categoryPublisher = categories[row]
+        categoryPublisher = categories[safe: row]
     }
 }
 
@@ -64,6 +64,6 @@ extension MapPhotoViewModel: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        categories[row].name
+        categories[safe: row]?.name
     }
 }

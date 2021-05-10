@@ -10,7 +10,6 @@ import Combine
 
 @IBDesignable
 class CategoryView: UIView {
-    private let selfName = "CategoryView"
     private let cancelBag = CancelBag()
 
     @IBOutlet private weak var image: UIImageView!
@@ -46,7 +45,7 @@ class CategoryView: UIView {
 
     private func commonInit() {
         let bundle = Bundle.init(for: CategoryView.self)
-        if let viewsToAdd = bundle.loadNibNamed(self.selfName, owner: self, options: nil),
+        if let viewsToAdd = bundle.loadNibNamed(self.className, owner: self, options: nil),
             let contentView = viewsToAdd.first as? UIView {
             self.addSubview(contentView)
             contentView.frame = self.bounds

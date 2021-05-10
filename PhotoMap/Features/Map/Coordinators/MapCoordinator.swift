@@ -11,10 +11,15 @@ class MapCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
+    private let diContainer: DIContainerType
+
+    init(diContainer: DIContainerType) {
+        self.diContainer = diContainer
+    }
 
     @discardableResult
     func start() -> UIViewController {
-        let viewModel = MapViewModel(coordinator: self, diContainer: DIContainer())
+        let viewModel = MapViewModel(coordinator: self, diContainer: diContainer)
         let mapVC = MapViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(mapVC, animated: true)
 
@@ -40,7 +45,7 @@ class MapCoordinator: Coordinator {
     }
 
     func showMapPopup() {
-        let vc = MapPhotoCoordinator().start()
+        let vc = MapPhotoCoordinator(diContainer: diContainer).start()
         navigationController.present(vc, animated: true)
     }
 }

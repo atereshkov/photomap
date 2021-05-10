@@ -16,6 +16,9 @@
 		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
 		237F2BBA26455DB80049C63F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F2BB926455DB80049C63F /* Category.swift */; };
 		237F2BBC264579540049C63F /* UIBarButtonItem+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F2BBB264579540049C63F /* UIBarButtonItem+Ex.swift */; };
+		23B0FAB926496945000E06ED /* MapPhotoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0FAB826496945000E06ED /* MapPhotoViewModelType.swift */; };
+		23B0FABB26496B9C000E06ED /* NSObject+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0FABA26496B9C000E06ED /* NSObject+Ex.swift */; };
+		23B0FABD26496CD4000E06ED /* Array+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0FABC26496CD4000E06ED /* Array+Ex.swift */; };
 		23D6A7ED2643F26C007F7B95 /* MapPhoto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D6A7EC2643F26C007F7B95 /* MapPhoto.storyboard */; };
 		23D6A7EF2643F2A0007F7B95 /* MapPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7EE2643F2A0007F7B95 /* MapPhotoViewController.swift */; };
 		23D6A7F12643F312007F7B95 /* MapPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D6A7F02643F312007F7B95 /* MapPhotoViewModel.swift */; };
@@ -96,6 +99,9 @@
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
 		237F2BB926455DB80049C63F /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		237F2BBB264579540049C63F /* UIBarButtonItem+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Ex.swift"; sourceTree = "<group>"; };
+		23B0FAB826496945000E06ED /* MapPhotoViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoViewModelType.swift; sourceTree = "<group>"; };
+		23B0FABA26496B9C000E06ED /* NSObject+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Ex.swift"; sourceTree = "<group>"; };
+		23B0FABC26496CD4000E06ED /* Array+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ex.swift"; sourceTree = "<group>"; };
 		23D6A7EC2643F26C007F7B95 /* MapPhoto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapPhoto.storyboard; sourceTree = "<group>"; };
 		23D6A7EE2643F2A0007F7B95 /* MapPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoViewController.swift; sourceTree = "<group>"; };
 		23D6A7F02643F312007F7B95 /* MapPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoViewModel.swift; sourceTree = "<group>"; };
@@ -237,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				23D6A7F02643F312007F7B95 /* MapPhotoViewModel.swift */,
+				23B0FAB826496945000E06ED /* MapPhotoViewModelType.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -502,6 +509,8 @@
 				23D6A7F42643FEA6007F7B95 /* UIView+Ex.swift */,
 				23D6A7FD264424EB007F7B95 /* UIColor+Ex.swift */,
 				237F2BBB264579540049C63F /* UIBarButtonItem+Ex.swift */,
+				23B0FABA26496B9C000E06ED /* NSObject+Ex.swift */,
+				23B0FABC26496CD4000E06ED /* Array+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -906,6 +915,8 @@
 				01AEED672633292900BB4E68 /* UIButton+Ex.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */,
+				23B0FABD26496CD4000E06ED /* Array+Ex.swift in Sources */,
+				23B0FABB26496B9C000E06ED /* NSObject+Ex.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
@@ -914,6 +925,7 @@
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				23D6A7F12643F312007F7B95 /* MapPhotoViewModel.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
+				23B0FAB926496945000E06ED /* MapPhotoViewModelType.swift in Sources */,
 				237F2BBA26455DB80049C63F /* Category.swift in Sources */,
 				23D6A7EF2643F2A0007F7B95 /* MapPhotoViewController.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,

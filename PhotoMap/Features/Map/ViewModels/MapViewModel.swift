@@ -57,7 +57,6 @@ class MapViewModel: MapViewModelType {
 
         categoryButtonSubject
             .sink { [weak self] _ in
-                print("Category Button Tapped!")
                 self?.switchFollowDiscoveryMode(disableFolowMode: true)
                 self?.coordinator.showMapPopup()
             }

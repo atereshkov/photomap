@@ -12,8 +12,8 @@ class AppCoordinator: Coordinator {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
-    private var authListener: AuthListenerType?
-    private var diContainer: DIContainerType?
+    private var authListener: AuthListenerType
+    private var diContainer: DIContainerType
     
     private var cancelBag = CancelBag()
     
@@ -21,7 +21,7 @@ class AppCoordinator: Coordinator {
         self.authListener = diContainer.resolve()
         self.diContainer = diContainer
         
-        authListener?.isUserAuthoried
+        authListener.isUserAuthoried
             .sink { [weak self] isUserAuth in
                 self?.startMainScreen(isUserAuthorized: isUserAuth)
             }
@@ -29,7 +29,7 @@ class AppCoordinator: Coordinator {
     }
     
     func start() {
-        authListener?.startListening()
+        authListener.startListening()
         showMap()
     }
     
