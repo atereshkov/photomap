@@ -7,6 +7,7 @@
 
 import XCTest
 import Combine
+import Swinject
 @testable import PhotoMap
 
 class SignInViewModelTests: XCTestCase {
@@ -17,13 +18,26 @@ class SignInViewModelTests: XCTestCase {
     var passwordValidator: PasswordValidator!
     var cancelBag: CancelBag!
     
+    var mockContainer: Container!
+    var authService: MockAuthUserService!
+    
     override func setUpWithError() throws {
-        expectation = XCTestExpectation()
         emailValidator = EmailValidator()
         passwordValidator = PasswordValidator()
-        diContainer = DIContainer()
-        let authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer),
-                                              diContainer: diContainer)
+        
+        mockContainer = Container()
+        authService = MockAuthUserService()
+        
+        mockContainer = Container()
+        mockContainer.register(AuthUserServiceType.self) { _ -> AuthUserServiceType in
+            self.authService
+        }.inObjectScope(.container)
+        mockContainer.register(AuthListenerType.self) { _ -> AuthListenerType in
+            return AuthListenerMock()
+        }.inObjectScope(.container)
+        diContainer = DIContainerMock(container: mockContainer)
+        
+        let authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer), diContainer: diContainer)
         viewModel = SignInViewModel(diContainer: diContainer,
                                     coordinator: authCoordinator,
                                     emailValidator: emailValidator,
@@ -32,7 +46,6 @@ class SignInViewModelTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        expectation = nil
         emailValidator = nil
         viewModel = nil
         cancelBag = nil
@@ -97,7 +110,18 @@ class SignInViewModelTests: XCTestCase {
     }
     
     func test_SignInSucceeded() {
+        viewModel.email = "example@gmail.com"
+        viewModel.password = "valid"
         
+        XCTAssertFalse(authService.signInCalled)
+        XCTAssertNil(authService.signInEmailParam)
+        XCTAssertNil(authService.signInPasswordParam)
+        
+        viewModel.signInButtonSubject.send(UIButton())
+        
+        XCTAssertTrue(authService.signInCalled)
+        XCTAssertEqual(authService.signInEmailParam, "example@gmail.com")
+        XCTAssertEqual(authService.signInPasswordParam, "valid")
     }
     
 }

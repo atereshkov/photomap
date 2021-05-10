@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "33334A4F2628324D00612573"
+               BlueprintIdentifier = "01776AAE263996FF0058EDA7"
                BuildableName = "PhotoMapTests.xctest"
                BlueprintName = "PhotoMapTests"
                ReferencedContainer = "container:PhotoMap.xcodeproj">
