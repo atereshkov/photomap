@@ -26,8 +26,7 @@ class MapPhotoViewModel: NSObject {
     @Published var isHiddenCategoryPicker: Bool = true
     @Published var categoryPublisher: Category?
 
-    init(coordinator: MapPhotoCoordinator,
-         diContainer: DIContainerType) {
+    init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.diContainer = diContainer
         super.init()
