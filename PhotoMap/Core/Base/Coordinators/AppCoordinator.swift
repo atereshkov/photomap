@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class AppCoordinator: Coordinator {
+class AppCoordinator: AppCoordinatorType {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
@@ -40,7 +40,7 @@ class AppCoordinator: Coordinator {
         }
     }
     
-    private func showMap() {
+    internal func showMap() {
         let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
         childCoordinators = [tabBarCoordinator]
         let mainTabBarController = tabBarCoordinator.start()
@@ -48,7 +48,7 @@ class AppCoordinator: Coordinator {
         navigationController.present(mainTabBarController, animated: true, completion: nil)
     }
     
-    private func showAuth() {
+    internal func showAuth() {
         let authCoordinator = AuthCoordinator(appCoordinator: self, diContainer: diContainer)
         childCoordinators = [authCoordinator]
         let authViewController = authCoordinator.start()
@@ -56,7 +56,7 @@ class AppCoordinator: Coordinator {
         navigationController.present(authViewController, animated: true, completion: nil)
     }
     
-    private func showInitial() {
+    internal func showInitial() {
         let initCoordinator = InitialCoordinator(appCoordinator: self, diContainer: diContainer)
         childCoordinators = [initCoordinator]
         let initViewController = initCoordinator.start()

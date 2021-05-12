@@ -19,28 +19,32 @@ class SignInViewModelTests: XCTestCase {
     var cancelBag: CancelBag!
     
     var mockContainer: Container!
-    var authService: MockAuthUserService!
+
+    var authService: AuthUserServiceMock!
     var authListener: AuthListenerMock!
-    var authCoordinator: AuthCoordinator!
+    var authCoordinator: AuthCoordinatorMock!
     
     override func setUpWithError() throws {
         emailValidator = EmailValidator()
         passwordValidator = PasswordValidator()
-        
-        authService = MockAuthUserService()
+
+        authService = AuthUserServiceMock()
         authListener = AuthListenerMock()
         
         mockContainer = Container()
         mockContainer.register(AuthUserServiceType.self) { _ -> AuthUserServiceType in
             self.authService
         }.inObjectScope(.container)
+
         mockContainer.register(AuthListenerType.self) { _ -> AuthListenerType in
             self.authListener
         }.inObjectScope(.container)
+        
         diContainer = DIContainerMock(container: mockContainer)
         
-        let appCoordinator = AppCoordinator(diContainer: diContainer)
-        authCoordinator = AuthCoordinator(appCoordinator: appCoordinator, diContainer: diContainer)
+        let appCoordinator = AppCoordinatorMock(diContainer: diContainer)
+        authCoordinator = AuthCoordinatorMock(appCoordinator: appCoordinator, diContainer: diContainer)
+
         viewModel = SignInViewModel(diContainer: diContainer,
                                     coordinator: authCoordinator,
                                     emailValidator: emailValidator,
@@ -51,7 +55,10 @@ class SignInViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         emailValidator = nil
         viewModel = nil
+        authCoordinator = nil
         cancelBag = nil
+        
+        super.tearDown()
     }
     
     func testSignInButtonEnabled_WithValidCredentials() {
@@ -109,22 +116,38 @@ class SignInViewModelTests: XCTestCase {
     }
     
     func test_SignInFailed() {
+        viewModel.email = "example.gmail.com"
+        viewModel.password = "valid"
+        authService.signInError = .incorrectCredentials
         
+        XCTAssertFalse(authService.signInCalled)
+        XCTAssertFalse(authCoordinator.showErrorAlertCalled)
+        XCTAssertNil(authService.signInEmailParam)
+        XCTAssertNil(authService.signInPasswordParam)
+        
+        viewModel.signInButtonSubject.send(UIButton())
+
+        XCTAssertTrue(authService.signInCalled)
+        XCTAssertEqual(authService.signInEmailParam, "example.gmail.com")
+        XCTAssertEqual(authService.signInPasswordParam, "valid")
+        XCTAssertTrue(authCoordinator.showErrorAlertCalled)
     }
     
     func test_SignInSucceeded() {
         viewModel.email = "example@gmail.com"
         viewModel.password = "valid"
         
+        XCTAssertFalse(authCoordinator.closeScreenCalled)
         XCTAssertFalse(authService.signInCalled)
         XCTAssertNil(authService.signInEmailParam)
         XCTAssertNil(authService.signInPasswordParam)
         
         viewModel.signInButtonSubject.send(UIButton())
-        
+   
         XCTAssertTrue(authService.signInCalled)
         XCTAssertEqual(authService.signInEmailParam, "example@gmail.com")
         XCTAssertEqual(authService.signInPasswordParam, "valid")
+        XCTAssertTrue(authCoordinator.closeScreenCalled)
     }
     
 }

@@ -19,7 +19,6 @@ target 'PhotoMap' do
 
   target 'PhotoMapTests' do
     inherit! :search_paths
-    pod 'Firebase'
     # Pods for testing
   end
 

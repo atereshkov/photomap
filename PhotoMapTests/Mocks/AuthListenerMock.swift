@@ -14,7 +14,7 @@ class AuthListenerMock: AuthListenerType {
     var isUserAuthorized = PassthroughSubject<Bool, Never>()
     
     func startListening() {
-        
+        print("start listening")
     }
     
     func checkUserAuthStatus() -> Bool {

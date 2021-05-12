@@ -7,8 +7,8 @@
 
 import UIKit
 
-class AuthCoordinator: Coordinator {
-    
+class AuthCoordinator: AuthCoordinatorType {
+   
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private var appCoordinator: AppCoordinator?

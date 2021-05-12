@@ -35,15 +35,18 @@
 		333B82EE26417D5100AAD56F /* EmailValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82ED26417D5100AAD56F /* EmailValidationResult.swift */; };
 		333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82EF26417DAC00AAD56F /* PasswordValidationResult.swift */; };
 		333B82F226417DDB00AAD56F /* UsernameValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82F126417DDB00AAD56F /* UsernameValidationResult.swift */; };
-		333B82F62641962200AAD56F /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33877CAE2631598200A227F9 /* AuthUserService.swift */; };
 		333B82F8264198FB00AAD56F /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */; };
 		333B82FB264199BD00AAD56F /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33810EB926331B6800BFC67C /* CancelBag.swift */; };
-		333B83022642D8E900AAD56F /* MockAuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83012642D8E900AAD56F /* MockAuthUserService.swift */; };
+		333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */; };
 		333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83042642DED100AAD56F /* EmailValidatorTests.swift */; };
 		333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */; };
 		333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */; };
 		333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */; };
 		333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83102643EBA000AAD56F /* InitialViewModelType.swift */; };
+		333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */; };
+		333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83162649913B00AAD56F /* AppCoordinatorMock.swift */; };
+		333B8319264BD47A00AAD56F /* AuthCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B8318264BD47A00AAD56F /* AuthCoordinatorType.swift */; };
+		333B831B264BD4F400AAD56F /* AppCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* MoreCoordinator.swift */; };
 		335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C7262DA6DB0057D25F /* TimelineViewController.swift */; };
@@ -139,12 +142,16 @@
 		333B82EF26417DAC00AAD56F /* PasswordValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidationResult.swift; sourceTree = "<group>"; };
 		333B82F126417DDB00AAD56F /* UsernameValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidationResult.swift; sourceTree = "<group>"; };
 		333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
-		333B83012642D8E900AAD56F /* MockAuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthUserService.swift; sourceTree = "<group>"; };
+		333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserServiceMock.swift; sourceTree = "<group>"; };
 		333B83042642DED100AAD56F /* EmailValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatorTests.swift; sourceTree = "<group>"; };
 		333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatorTests.swift; sourceTree = "<group>"; };
 		333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidatorTests.swift; sourceTree = "<group>"; };
 		333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
 		333B83102643EBA000AAD56F /* InitialViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModelType.swift; sourceTree = "<group>"; };
+		333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorMock.swift; sourceTree = "<group>"; };
+		333B83162649913B00AAD56F /* AppCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorMock.swift; sourceTree = "<group>"; };
+		333B8318264BD47A00AAD56F /* AuthCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorType.swift; sourceTree = "<group>"; };
+		333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorType.swift; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* MoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		335881C7262DA6DB0057D25F /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -334,6 +341,7 @@
 				33334B2226287DB600612573 /* AppCoordinator.swift */,
 				33334B0B26287C6900612573 /* Coordinator.swift */,
 				33334B1526287CCC00612573 /* TabBarCoordinator.swift */,
+				333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -444,9 +452,11 @@
 		333B83002642D8D100AAD56F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				333B83012642D8E900AAD56F /* MockAuthUserService.swift */,
+				333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */,
 				CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */,
 				CBE3230826493D240065F2CC /* DIContainerMock.swift */,
+				333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */,
+				333B83162649913B00AAD56F /* AppCoordinatorMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -645,6 +655,7 @@
 			isa = PBXGroup;
 			children = (
 				338BB5FC262D8C020001F530 /* AuthCoordinator.swift */,
+				333B8318264BD47A00AAD56F /* AuthCoordinatorType.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -990,14 +1001,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				333B83022642D8E900AAD56F /* MockAuthUserService.swift in Sources */,
+				333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */,
+				333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */,
 				333B82F8264198FB00AAD56F /* SignInViewModelTests.swift in Sources */,
 				333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */,
 				01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */,
 				CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */,
 				333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */,
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
-				333B82F62641962200AAD56F /* AuthUserService.swift in Sources */,
+				333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */,
 				333B82FB264199BD00AAD56F /* CancelBag.swift in Sources */,
 				333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */,
 				01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */,
@@ -1025,6 +1037,7 @@
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
+				333B8319264BD47A00AAD56F /* AuthCoordinatorType.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
 				333B82EC264137C700AAD56F /* MapViewModelType.swift in Sources */,
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
@@ -1058,6 +1071,7 @@
 				333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */,
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
+				333B831B264BD4F400AAD56F /* AppCoordinatorType.swift in Sources */,
 				33AC447C263C3B9E007B2444 /* UsernameValidator.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
 				3374D0F0263B1C2500A03E78 /* UIButton+Ex.swift in Sources */,

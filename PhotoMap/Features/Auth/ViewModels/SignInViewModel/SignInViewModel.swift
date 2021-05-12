@@ -10,7 +10,7 @@ import Combine
 
 class SignInViewModel: SignInViewModelType {
 
-    private(set) var coordinator: AuthCoordinator
+    private(set) var coordinator: AuthCoordinatorType
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
@@ -35,7 +35,7 @@ class SignInViewModel: SignInViewModelType {
     var showLoadingIndicator = CurrentValueSubject<Bool, Never>(false)
     
     init(diContainer: DIContainerType,
-         coordinator: AuthCoordinator,
+         coordinator: AuthCoordinatorType,
          emailValidator: EmailValidator,
          passwordValidator: PasswordValidator) {
         self.authUserService = diContainer.resolve()
@@ -102,6 +102,7 @@ extension SignInViewModel: SignInViewModelInput {
     
     func signInButtonTapped() {
         showLoadingIndicator.send(true)
+        print(email, password)
         authUserService
             .signIn(email: email, password: password)
             .receive(on: DispatchQueue.main)

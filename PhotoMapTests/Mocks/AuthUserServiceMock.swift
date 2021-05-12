@@ -8,16 +8,26 @@
 import Combine
 @testable import PhotoMap
 
-class MockAuthUserService: AuthUserServiceType {
+class AuthUserServiceMock: AuthUserServiceType {
     
     var signInCalled = false
     var signInEmailParam: String?
     var signInPasswordParam: String?
-    var signInError: Error?
+    var signInError: ResponseError?
+    
+    var signUpCalled = false
+    var signUpError: Error?
+    var signUpUsernameParam: String?
+    var signUpEmailParam: String?
+    var signUpPasswordParam: String?
     
     func signUp(email: String, password: String) -> Future<Void, Error> {
-        return Future { promise in
-            promise(.success(()))
+        return Future { [weak self] promise in
+            if let error = self?.signUpError {
+                promise(.failure(error))
+            } else {
+                promise(.success(()))
+            }
         }
     }
     

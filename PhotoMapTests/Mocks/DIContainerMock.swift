@@ -6,7 +6,6 @@
 //
 
 import Swinject
-import Foundation
 @testable import PhotoMap
 
 class DIContainerMock: DIContainerType {
