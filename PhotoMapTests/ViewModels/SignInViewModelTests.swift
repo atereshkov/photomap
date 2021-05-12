@@ -20,24 +20,27 @@ class SignInViewModelTests: XCTestCase {
     
     var mockContainer: Container!
     var authService: MockAuthUserService!
+    var authListener: AuthListenerMock!
+    var authCoordinator: AuthCoordinator!
     
     override func setUpWithError() throws {
         emailValidator = EmailValidator()
         passwordValidator = PasswordValidator()
         
-        mockContainer = Container()
         authService = MockAuthUserService()
+        authListener = AuthListenerMock()
         
         mockContainer = Container()
         mockContainer.register(AuthUserServiceType.self) { _ -> AuthUserServiceType in
             self.authService
         }.inObjectScope(.container)
         mockContainer.register(AuthListenerType.self) { _ -> AuthListenerType in
-            return AuthListenerMock()
+            self.authListener
         }.inObjectScope(.container)
         diContainer = DIContainerMock(container: mockContainer)
         
-        let authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer), diContainer: diContainer)
+        let appCoordinator = AppCoordinator(diContainer: diContainer)
+        authCoordinator = AuthCoordinator(appCoordinator: appCoordinator, diContainer: diContainer)
         viewModel = SignInViewModel(diContainer: diContainer,
                                     coordinator: authCoordinator,
                                     emailValidator: emailValidator,

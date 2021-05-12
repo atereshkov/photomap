@@ -5,8 +5,8 @@
 //  Created by Krystsina Kurytsyna on 5.05.21.
 //
 
-import FirebaseAuth
 import Combine
+@testable import PhotoMap
 
 class MockAuthUserService: AuthUserServiceType {
     

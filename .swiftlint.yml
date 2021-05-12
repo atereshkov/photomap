@@ -13,7 +13,7 @@ function_body_length:
   warning: 40
   error: 140
 
-variable_name:
+identifier_name:
   max_length:
     warning: 45
     error: 60
