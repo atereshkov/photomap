@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class AppCoordinator: Coordinator {
+class AppCoordinator: AppCoordinatorType {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
@@ -21,7 +21,7 @@ class AppCoordinator: Coordinator {
         self.authListener = diContainer.resolve()
         self.diContainer = diContainer
         
-        authListener.isUserAuthoried
+        authListener.isUserAuthorized
             .sink { [weak self] isUserAuth in
                 self?.startMainScreen(isUserAuthorized: isUserAuth)
             }
@@ -29,8 +29,7 @@ class AppCoordinator: Coordinator {
     }
     
     func start() {
-        authListener.startListening()
-        showMap()
+        self.showInitial()
     }
     
     func startMainScreen(isUserAuthorized: Bool) {
@@ -41,7 +40,7 @@ class AppCoordinator: Coordinator {
         }
     }
     
-    private func showMap() {
+    internal func showMap() {
         let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
         childCoordinators = [tabBarCoordinator]
         let mainTabBarController = tabBarCoordinator.start()
@@ -49,12 +48,20 @@ class AppCoordinator: Coordinator {
         navigationController.present(mainTabBarController, animated: true, completion: nil)
     }
     
-    private func showAuth() {
-        let authCoordinator = AuthCoordinator(appCoordinator: self)
+    internal func showAuth() {
+        let authCoordinator = AuthCoordinator(appCoordinator: self, diContainer: diContainer)
         childCoordinators = [authCoordinator]
         let authViewController = authCoordinator.start()
         authViewController.modalPresentationStyle = .overFullScreen
         navigationController.present(authViewController, animated: true, completion: nil)
+    }
+    
+    internal func showInitial() {
+        let initCoordinator = InitialCoordinator(appCoordinator: self, diContainer: diContainer)
+        childCoordinators = [initCoordinator]
+        let initViewController = initCoordinator.start()
+        initViewController.modalPresentationStyle = .overFullScreen
+        navigationController.pushViewController(initViewController, animated: true)
     }
     
 }
