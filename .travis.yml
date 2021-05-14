@@ -5,3 +5,6 @@ xcode_workspace: PhotoMap.xcworkspace
 xcode_scheme: PhotoMap
 xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 11
 podfile: Podfile
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -J 'PhotoMap'
