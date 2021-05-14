@@ -1,13 +1,13 @@
 //
-//  PhotoMapTests.swift
+//  MapPhotoViewModelTests.swift
 //  PhotoMapTests
 //
-//  Created by Dzmitry Makarevich on 4/28/21.
+//  Created by Dzmitry Makarevich on 13.05.21.
 //
 
 import XCTest
 
-class PhotoMapTests: XCTestCase {
+class MapPhotoViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -20,13 +20,6 @@ class PhotoMapTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }

@@ -56,6 +56,19 @@ class MapPhotoViewController: BaseViewController {
             .filter { $0 != nil }
             .subscribe(categoryView.categorySubject)
             .store(in: cancelBag)
+        viewModel.$closeCategoryPickerViewButtonTitle
+            .assign(to: \.title, on: closeBarButton)
+            .store(in: cancelBag)
+        viewModel.$doneButtonTitle
+            .sink(receiveValue: { [weak self] title in
+                self?.doneButton.setTitle(title, for: .application)
+            })
+            .store(in: cancelBag)
+        viewModel.$cancelButtonTitle
+            .sink(receiveValue: { [weak self] title in
+                self?.cancelButton.setTitle(title, for: .application)
+            })
+            .store(in: cancelBag)
 
         categoryView.gesture(.tap())
             .map { _ in false }

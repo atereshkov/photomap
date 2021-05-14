@@ -10,7 +10,8 @@ import Combine
 
 // MARK: - UIBarButtonItem
 public extension UIBarButtonItem {
-    final class Subscription<SubscriberType: Subscriber, Input: UIBarButtonItem>: Combine.Subscription where SubscriberType.Input == Input {
+    final class Subscription<SubscriberType: Subscriber,
+                             Input: UIBarButtonItem>: Combine.Subscription where SubscriberType.Input == Input {
         private var subscriber: SubscriberType?
         private let input: Input
 

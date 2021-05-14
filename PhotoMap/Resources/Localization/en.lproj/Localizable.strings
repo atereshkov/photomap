@@ -25,6 +25,9 @@
 "main.photo-alert.button.title.cancel" = "Cancel";
 "main.photo-alert.button.title.takePicture" = "Take a Picture";
 "main.photo-alert.button.title.chooseFromLibrary" = "Choose From Library";
+"main.map-photo.button.title.close" = "Done";
+"main.map-photo.button.title.done" = "Done";
+"main.map-photo.button.title.cancel" = "Cancel";
 
 // MARK: - Messages
 

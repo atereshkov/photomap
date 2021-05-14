@@ -6,8 +6,14 @@
 //
 
 import XCTest
+import Combine
+import Swinject
+@testable import PhotoMap
 
 class MapViewModelTests: XCTestCase {
+    var viewModel: MapViewModel!
+    var diContainer: DIContainerType!
+    var cancelBag: CancelBag!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -25,6 +25,10 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Output
     @Published var isHiddenCategoryPicker: Bool = true
     @Published private(set) var categoryPublisher: Category?
+    @Published var dateString: String?
+    @Published var doneButtonTitle: String?
+    @Published var cancelButtonTitle: String?
+    @Published var closeCategoryPickerViewButtonTitle: String?
 
     init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
@@ -35,6 +39,10 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     }
 
     private func transform() {
+        doneButtonTitle = L10n.Main.MapPhoto.Button.Title.done
+        cancelButtonTitle = L10n.Main.MapPhoto.Button.Title.cancel
+        closeCategoryPickerViewButtonTitle = L10n.Main.MapPhoto.Button.Title.close
+
         cancelButtonSubject
             .subscribe(coordinator.dismissSubject)
             .store(in: cancelBag)

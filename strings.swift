@@ -68,6 +68,18 @@ internal enum L10n {
   }
 
   internal enum Main {
+    internal enum MapPhoto {
+      internal enum Button {
+        internal enum Title {
+          /// Cancel
+          internal static let cancel = L10n.tr("Localizable", "main.map-photo.button.title.cancel")
+          /// Done
+          internal static let close = L10n.tr("Localizable", "main.map-photo.button.title.close")
+          /// Done
+          internal static let done = L10n.tr("Localizable", "main.map-photo.button.title.done")
+        }
+      }
+    }
     internal enum NavBar {
       internal enum Category {
         /// Category
