@@ -1,8 +1,10 @@
+install:
+  - brew update && brew upgrade swiftlint
 language: swift
-xcode_project: PhotoMap.xcworkspase # path to your xcodeproj folder
+xcode_project: PhotoMap.xcworkspace # path to your xcodeproj folder
 xcode_scheme: PhotoMap
 xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 12
 podfile: Podfile
 script:
  - swiftlint
- - xcodebuild test -workspace 'PhotoMap.xcworkspase' -scheme 'PhotoMap' -destination 'platform=iOS Simulator,OS=13.0,name=iPhone 12'
+ - xcodebuild test -workspace 'PhotoMap.xcworkspace' -scheme 'PhotoMap' -destination 'platform=iOS Simulator,OS=13.0,name=iPhone 12'
