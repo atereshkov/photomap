@@ -39,6 +39,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     }
 
     private func transform() {
+        dateString = Date().toString
         doneButtonTitle = L10n.Main.MapPhoto.Button.Title.done
         cancelButtonTitle = L10n.Main.MapPhoto.Button.Title.cancel
         closeCategoryPickerViewButtonTitle = L10n.Main.MapPhoto.Button.Title.close

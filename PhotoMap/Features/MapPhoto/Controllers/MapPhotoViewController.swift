@@ -46,6 +46,9 @@ class MapPhotoViewController: BaseViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
 
+        viewModel.$dateString
+            .assign(to: \.text, on: dateLabel)
+            .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: categoryPckerView)
             .store(in: cancelBag)
