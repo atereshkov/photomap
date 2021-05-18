@@ -9,7 +9,7 @@ import Foundation
 import Reachability
 import Combine
 
-protocol ReachabilityServiceType: class {
+protocol ReachabilityServiceType {
     
     func startNotifier()
     func stopNotifier()

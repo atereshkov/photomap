@@ -19,6 +19,17 @@ internal enum L10n {
   /// OK
   internal static let ok = L10n.tr("Localizable", "ok")
 
+  internal enum EmailValidation {
+    internal enum ErrorAlert {
+      /// Email field can't be blank
+      internal static let emptyEmail = L10n.tr("Localizable", "email-validation.error-alert.empty-email")
+      /// Please enter a valid email
+      internal static let invalidEmail = L10n.tr("Localizable", "email-validation.error-alert.invalid-email")
+      /// Minimum of 3 characters required
+      internal static let shortEmail = L10n.tr("Localizable", "email-validation.error-alert.short-email")
+    }
+  }
+
   internal enum InternetError {
     internal enum ErrorAlert {
       internal enum Button {
@@ -95,6 +106,15 @@ internal enum L10n {
     }
   }
 
+  internal enum PasswordValidation {
+    internal enum ErrorAlert {
+      /// Password field can't be blank
+      internal static let emptyPassword = L10n.tr("Localizable", "password-validation.error-alert.empty-password")
+      /// Minimum of 4 characters required
+      internal static let shortPassword = L10n.tr("Localizable", "password-validation.error-alert.short-password")
+    }
+  }
+
   internal enum Profile {
     internal enum LogoutAlert {
       internal enum Button {
@@ -114,6 +134,15 @@ internal enum L10n {
         /// User with that email already exists.
         internal static let userAlreadyExists = L10n.tr("Localizable", "sign-up.error-alert.title.user-already-exists")
       }
+    }
+  }
+
+  internal enum UsernameValidation {
+    internal enum ErrorAlert {
+      /// Username field can't be blank
+      internal static let emptyUsername = L10n.tr("Localizable", "username-validation.error-alert.empty-username")
+      /// Minimum of 3 characters required
+      internal static let shortUsername = L10n.tr("Localizable", "username-validation.error-alert.short-username")
     }
   }
 }

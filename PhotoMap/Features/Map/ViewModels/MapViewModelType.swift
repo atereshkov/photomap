@@ -4,7 +4,6 @@
 //
 //  Created by Dzmitry Makarevich on 4/27/21.
 //
-
 import Foundation
 import MapKit
 import Combine

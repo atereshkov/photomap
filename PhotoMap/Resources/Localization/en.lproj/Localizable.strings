@@ -39,3 +39,19 @@
 "sign-up.error-alert.title.user-already-exists" = "User with that email already exists.";
 "close" = "Close";
 "internet-error.error-alert.button.ok" = "Please, try again later";
+
+// MARK: - Email Validation errors
+
+"email-validation.error-alert.empty-email" = "Email field can't be blank";
+"email-validation.error-alert.short-email" = "Minimum of 3 characters required";
+"email-validation.error-alert.invalid-email" = "Please enter a valid email";
+
+// MARK: - Password Validation errors
+
+"password-validation.error-alert.empty-password" = "Password field can't be blank";
+"password-validation.error-alert.short-password" = "Minimum of 4 characters required";
+
+// MARK: - Username Validation errors
+
+"username-validation.error-alert.empty-username" = "Username field can't be blank";
+"username-validation.error-alert.short-username" = "Minimum of 3 characters required";

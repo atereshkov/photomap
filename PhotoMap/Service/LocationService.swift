@@ -10,19 +10,24 @@ import CoreLocation
 import Combine
 
 protocol LocationServiceType {
+    
     var isEnable: CurrentValueSubject<Bool, Never> { get }
     var status: CurrentValueSubject<CLAuthorizationStatus, Never> { get }
     var location: CurrentValueSubject<CLLocation, Never> { get }
 
     var currentCoordinate: CLLocationCoordinate2D { get }
     var locationManager: CLLocationManager { get }
+    
 }
 
 class LocationService: NSObject, LocationServiceType {
+    
     private(set) var location = CurrentValueSubject<CLLocation, Never>(CLLocation.init())
     private(set) var isEnable = CurrentValueSubject<Bool, Never>(false)
     private(set) var status = CurrentValueSubject<CLAuthorizationStatus, Never>(.notDetermined)
-
+    
+    private let cancelBag = CancelBag()
+    
     var currentCoordinate: CLLocationCoordinate2D {
         location.value.coordinate
     }
@@ -34,7 +39,6 @@ class LocationService: NSObject, LocationServiceType {
 
         return locationManager
     }()
-    private let cancelBag = CancelBag()
 
     override init() {
         super.init()
@@ -68,9 +72,11 @@ class LocationService: NSObject, LocationServiceType {
             }
             .store(in: cancelBag)
     }
+    
 }
 
 extension LocationService: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
         location.send(lastLocation)
@@ -80,4 +86,5 @@ extension LocationService: CLLocationManagerDelegate {
                          didChangeAuthorization status: CLAuthorizationStatus) {
         self.status.send(status)
     }
+    
 }

@@ -218,6 +218,8 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - Firebase (7.10.0):
+    - Firebase/Core (= 7.10.0)
   - Firebase/Analytics (7.10.0):
     - Firebase/Core
   - Firebase/Auth (7.10.0):
@@ -362,6 +364,7 @@ PODS:
   - Swinject (2.7.1)
 
 DEPENDENCIES:
+  - Firebase
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
@@ -427,6 +430,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
 
-PODFILE CHECKSUM: 5370bd0795bfd0bd151a4983a8447537987beba3
+PODFILE CHECKSUM: 67ef0b074c9e5caaa579b60631dad62fb77c6c01
 
 COCOAPODS: 1.10.1

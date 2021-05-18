@@ -45,7 +45,7 @@ struct GesturePublisher: Publisher {
         self.gestureType = gestureType
     }
     
-    func receive<S>(subscriber: S) where S : Subscriber,
+    func receive<S>(subscriber: S) where S: Subscriber,
                                          GesturePublisher.Failure == S.Failure,
                                          GesturePublisher.Output == S.Input {
         let subscription = GestureSubscription(

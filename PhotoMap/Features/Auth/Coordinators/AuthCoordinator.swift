@@ -7,25 +7,39 @@
 
 import UIKit
 
-class AuthCoordinator: Coordinator {
-    
+class AuthCoordinator: AuthCoordinatorType {
+   
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private var appCoordinator: AppCoordinator?
+    private var diContainer: DIContainerType
     
-    init(appCoordinator: AppCoordinator) {
+    init(appCoordinator: AppCoordinator, diContainer: DIContainerType) {
         self.appCoordinator = appCoordinator
+        self.diContainer = diContainer
     }
-
+    
     @discardableResult
     func start() -> UIViewController {
-       return UIViewController()
-    }
-
-    func openSignUpScreen() {
+        let viewModel = SignInViewModel(diContainer: diContainer,
+                                        coordinator: self,
+                                        emailValidator: EmailValidator(),
+                                        passwordValidator: PasswordValidator())
+        let signInVC = SignInViewController.newInstanse(viewModel: viewModel)
+        navigationController.pushViewController(signInVC, animated: true)
         
+        return navigationController
     }
-
+    
+    func openSignUpScreen() {
+        let viewModel = SignUpViewModel(diContainer: diContainer,
+                                        coordinator: self, usernameValidator: UsernameValidator(),
+                                        emailValidator: EmailValidator(),
+                                        passwordValidator: PasswordValidator())
+        let signUpVC = SignUpViewController.newInstanse(viewModel: viewModel)
+        navigationController.pushViewController(signUpVC, animated: true)
+    }
+    
     func showErrorAlert(error: ResponseError) {
         let alert = UIAlertController(title: error.title,
                                       message: error.message,
@@ -39,9 +53,14 @@ class AuthCoordinator: Coordinator {
         alert.addAction(cancelAction)
         self.navigationController.present(alert, animated: true)
     }
+    
+    func showMap() {
+        self.appCoordinator?.startMainScreen(isUserAuthorized: true)
+    }
 
     func closeScreen() {
-        navigationController.dismiss(animated: true, completion: nil)
+        navigationController.dismiss(animated: true)
+        self.showMap()
     }
     
 }
