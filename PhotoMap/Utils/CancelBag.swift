@@ -2,7 +2,7 @@
 //  CancelBag.swift
 //  PhotoMap
 //
-//  Created by Krystsina Kurytsyna on 4/23/21.
+//  Created by Krystsina Kurytsyna on 4/20/21.
 //
 
 import Combine

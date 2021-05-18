@@ -14,9 +14,18 @@ import UIKit
 internal enum StoryboardScene {
   internal enum Authentication: StoryboardType {
     internal static let storyboardName = "Authentication"
+
+    internal static let signInViewController = SceneType<SignInViewController>(storyboard: Authentication.self, identifier: "SignInViewController")
+
+    internal static let signUpViewController = SceneType<SignUpViewController>(storyboard: Authentication.self, identifier: "SignUpViewController")
   }
   internal enum Category: StoryboardType {
     internal static let storyboardName = "Category"
+  }
+  internal enum Initial: StoryboardType {
+    internal static let storyboardName = "Initial"
+
+    internal static let initialViewController = SceneType<InitialViewController>(storyboard: Initial.self, identifier: "InitialViewController")
   }
   internal enum Map: StoryboardType {
     internal static let storyboardName = "Map"
