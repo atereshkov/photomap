@@ -10,6 +10,7 @@
 		01776AA32639679A0058EDA7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AA22639679A0058EDA7 /* LocationService.swift */; };
 		01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01735842263851EF0035C3D5 /* MapViewModelTests.swift */; };
 		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
+		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
 		23AE2E6A264D54F200FE673F /* MapPhotoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */; };
 		23AE2E6C264D552100FE673F /* MapPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E6B264D552100FE673F /* MapPhotoViewController.swift */; };
 		23AE2E70264D557B00FE673F /* MapPhotoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E6E264D557A00FE673F /* MapPhotoViewModelType.swift */; };
@@ -125,6 +126,7 @@
 		01776AB3263996FF0058EDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GestureRecognizer+Combine.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
+		23AE289D265529B500A6E69B /* LocationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceMock.swift; sourceTree = "<group>"; };
 		23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoCoordinator.swift; path = MapPhoto/Coordinators/MapPhotoCoordinator.swift; sourceTree = "<group>"; };
 		23AE2E6B264D552100FE673F /* MapPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewController.swift; path = MapPhoto/Controllers/MapPhotoViewController.swift; sourceTree = "<group>"; };
 		23AE2E6E264D557A00FE673F /* MapPhotoViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewModelType.swift; path = MapPhoto/ViewModels/MapPhotoViewModelType.swift; sourceTree = "<group>"; };
@@ -274,6 +276,25 @@
 				333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		23AE289B265510F700A6E69B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */,
+				CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */,
+				23AE289D265529B500A6E69B /* LocationServiceMock.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		23AE289C2655112200A6E69B /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */,
+				333B83162649913B00AAD56F /* AppCoordinatorMock.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		23AE2E65264D546E00FE673F /* PhotoMap */ = {
@@ -523,11 +544,9 @@
 		333B83002642D8D100AAD56F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */,
-				CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */,
+				23AE289C2655112200A6E69B /* Coordinators */,
+				23AE289B265510F700A6E69B /* Services */,
 				CBE3230826493D240065F2CC /* DIContainerMock.swift */,
-				333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */,
-				333B83162649913B00AAD56F /* AppCoordinatorMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1084,6 +1103,7 @@
 			files = (
 				333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */,
 				333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */,
+				23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */,
 				23AE2E88264D63E300FE673F /* MapPhotoViewModelTests.swift in Sources */,
 				333B82F8264198FB00AAD56F /* SignInViewModelTests.swift in Sources */,
 				333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */,
@@ -1218,7 +1238,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PhotoMapTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1239,9 +1258,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PhotoMapTests/Info.plist;
-
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

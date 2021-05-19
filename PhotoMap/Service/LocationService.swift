@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import Combine
 
-protocol LocationServiceType {
+protocol LocationServiceType: NSObject {
     
     var isEnable: CurrentValueSubject<Bool, Never> { get }
     var status: CurrentValueSubject<CLAuthorizationStatus, Never> { get }

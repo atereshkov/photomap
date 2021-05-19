@@ -10,10 +10,28 @@ import Swinject
 
 class DIContainerMock: DIContainerType {
     
-    let container: Container
-    
-    init(container: Container) {
-        self.container = container
+    private let container: Container = Container()
+
+    init() {
+        container
+            .register(ReachabilityServiceType.self) { _ -> ReachabilityServiceType in
+                ReachabilityService()
+            }.inObjectScope(.container)
+
+        container
+            .register(AuthListenerType.self) { _ -> AuthListenerType in
+                AuthListenerMock()
+            }.inObjectScope(.container)
+
+        container
+            .register(AuthUserServiceType.self) { _ -> AuthUserServiceType in
+                AuthUserServiceMock()
+            }.inObjectScope(.container)
+
+        container
+            .register(LocationServiceType.self) { _ -> LocationServiceType in
+                LocationServiceMock()
+            }.inObjectScope(.container)
     }
     
     func resolve<T>() -> T {
