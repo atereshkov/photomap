@@ -74,13 +74,11 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
 
         categoryView.gesture(.tap())
-            .map { _ in false }
-            .assign(to: \.isHiddenCategoryPicker, on: viewModel)
+            .subscribe(viewModel.categoryViewSubject)
             .store(in: cancelBag)
 
         closeBarButton.publisher
-            .map { _ in true }
-            .assign(to: \.isHiddenCategoryPicker, on: viewModel)
+            .subscribe(viewModel.closeBarButtonSubject)
             .store(in: cancelBag)
 
         doneButton.tapPublisher

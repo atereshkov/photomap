@@ -16,7 +16,6 @@ class MapViewModel: MapViewModelType {
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let locationService: LocationServiceType
     private let diContainer: DIContainerType
-    @Published private(set) var isFollowModeOn: Bool = true
 
     // MARK: - Input
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -29,6 +28,7 @@ class MapViewModel: MapViewModelType {
     @Published private(set) var isShowUserLocation: Bool = true
     @Published private(set) var region: MKCoordinateRegion?
     @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
+    @Published private(set) var isFollowModeOn: Bool = true
 
     init(coordinator: MapCoordinator,
          diContainer: DIContainerType) {

@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class MapPhotoViewModel: NSObject, MapPhotoViewModelType {    
+class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapPhotoCoordinator
@@ -21,9 +21,11 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     private(set) var cancelButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var descriptionSubject = PassthroughSubject<String, Never>()
     private(set) var doneButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var categoryViewSubject = PassthroughSubject<GestureType, Never>()
+    private(set) var closeBarButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
 
     // MARK: - Output
-    @Published var isHiddenCategoryPicker: Bool = true
+    @Published private(set) var isHiddenCategoryPicker: Bool = true
     @Published private(set) var categoryPublisher: Category?
     @Published var dateString: String?
     @Published var doneButtonTitle: String?
@@ -53,6 +55,16 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
                 // Save new PhotoMap object in Firebase and close screen
                 self?.coordinator.dismissSubject.send(control)
             }
+            .store(in: cancelBag)
+
+        categoryViewSubject
+            .map { _ in false }
+            .assign(to: \.isHiddenCategoryPicker, on: self)
+            .store(in: cancelBag)
+
+        closeBarButtonSubject
+            .map { _ in true }
+            .assign(to: \.isHiddenCategoryPicker, on: self)
             .store(in: cancelBag)
     }
 }
