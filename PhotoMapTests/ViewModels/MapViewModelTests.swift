@@ -12,6 +12,7 @@ import Swinject
 
 class MapViewModelTests: XCTestCase {
     var viewModel: MapViewModelType!
+    var coordinator: MapCoordinator!
     var diContainer: DIContainerType!
     var cancelBag: CancelBag!
     var expectation: XCTestExpectation!
@@ -20,8 +21,8 @@ class MapViewModelTests: XCTestCase {
         cancelBag = CancelBag()
         expectation = XCTestExpectation()
         diContainer = DIContainerMock()
-        viewModel = MapViewModel(coordinator: MapCoordinator(diContainer: diContainer),
-                                 diContainer: diContainer)
+        coordinator = MapCoordinator(diContainer: diContainer)
+        viewModel = MapViewModel(coordinator: coordinator, diContainer: diContainer)
     }
 
     override func tearDownWithError() throws {
@@ -31,9 +32,51 @@ class MapViewModelTests: XCTestCase {
         viewModel = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testTapOnMap_FolowModeOn_ShouldOnDiscoveryMode() {
+        viewModel.enableDiscoveryModeSubject.send(.tap())
+
+        XCTAssertFalse(viewModel.isFollowModeOn)
     }
 
+    func testTapOnPhotoButton_FolowModeOn_ShouldOnDiscoveryMode() {
+        viewModel.photoButtonSubject.send(UIControl())
+
+        XCTAssertFalse(viewModel.isFollowModeOn)
+    }
+
+    func testTapOnCategoryButton_FolowModeOn_ShouldOnDiscoveryMode() {
+        viewModel.categoryButtonSubject.send(UIControl())
+
+        XCTAssertFalse(viewModel.isFollowModeOn)
+    }
+
+    func testTapOnPhotoButton_ShouldShowPhotoAlert() {
+        // Arrange
+        var isShow = false
+        let expectation = self.expectation(description: "Photo Alert is load")
+        
+        // Act
+        coordinator.showPhotoMenuAlertSubject
+            .sink { _ in
+                isShow = true
+                expectation.fulfill()
+            }
+            .store(in: cancelBag)
+        
+        viewModel.photoButtonSubject.send(UIControl())
+        wait(for: [expectation], timeout: 0.1)
+
+        // Assert
+        XCTAssertTrue(isShow)
+    }
+
+    func testTapOnNavigationButton_ShouldSwitchMode() {
+        XCTAssertTrue(viewModel.isFollowModeOn)
+
+        viewModel.navigationButtonSubject.send(UIControl())
+        XCTAssertFalse(viewModel.isFollowModeOn)
+        
+        viewModel.navigationButtonSubject.send(UIControl())
+        XCTAssertTrue(viewModel.isFollowModeOn)
+    }
 }

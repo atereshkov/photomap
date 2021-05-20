@@ -20,6 +20,7 @@ protocol MapViewModelOutput {
     var isShowUserLocation: Bool { get }
     var region: MKCoordinateRegion? { get }
     var modeButtonCollor: UIColor { get }
+    var isFollowModeOn: Bool { get }
 }
 
 protocol MapViewModelType: MapViewModelInput, MapViewModelOutput {}

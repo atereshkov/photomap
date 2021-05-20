@@ -6,15 +6,20 @@
 //
 
 import UIKit
+import Combine
 
 class MapCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private let diContainer: DIContainerType
+    private let cancelBag = CancelBag()
+    private(set) var showPhotoMenuAlertSubject = PassthroughSubject<Void, Never>()
+    private(set) var showMapPopupSubject = PassthroughSubject<Void, Never>()
 
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
+        bind()
     }
 
     @discardableResult
@@ -26,7 +31,23 @@ class MapCoordinator: Coordinator {
         return navigationController
     }
 
-    func showPhotoMenuAlert() {
+    private func bind() {
+        showPhotoMenuAlertSubject
+            .sink { [weak self] _ in
+                self?.showPhotoMenuAlert()
+            }
+            .store(in: cancelBag)
+        showMapPopupSubject
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+
+                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start()
+                self.navigationController.present(vc, animated: true)
+            }
+            .store(in: cancelBag)
+    }
+    
+    private func showPhotoMenuAlert() {
         let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
                                           style: .default,
                                           handler: nil)
@@ -42,10 +63,5 @@ class MapCoordinator: Coordinator {
         alert.addAction(cancelAction)
 
         navigationController.present(alert, animated: true, completion: nil)
-    }
-
-    func showMapPopup() {
-        let vc = MapPhotoCoordinator(diContainer: diContainer).start()
-        navigationController.present(vc, animated: true)
     }
 }

@@ -16,7 +16,7 @@ class MapViewModel: MapViewModelType {
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let locationService: LocationServiceType
     private let diContainer: DIContainerType
-    @Published private var isFollowModeOn: Bool = true
+    @Published private(set) var isFollowModeOn: Bool = true
 
     // MARK: - Input
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -57,7 +57,7 @@ class MapViewModel: MapViewModelType {
         categoryButtonSubject
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode(disableFolowMode: true)
-                self?.coordinator.showMapPopup()
+                self?.coordinator.showMapPopupSubject.send()
             }
             .store(in: cancelBag)
 
@@ -70,7 +70,7 @@ class MapViewModel: MapViewModelType {
         photoButtonSubject
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode(disableFolowMode: true)
-                self?.coordinator.showPhotoMenuAlert()
+                self?.coordinator.showPhotoMenuAlertSubject.send()
             }
             .store(in: cancelBag)
 
