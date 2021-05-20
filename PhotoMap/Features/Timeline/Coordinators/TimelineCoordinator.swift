@@ -14,7 +14,8 @@ class TimelineCoordinator: Coordinator {
     private(set) var navigationController = UINavigationController()
     
     func start() -> UIViewController {
-        let timelineVC = TimelineViewController.newInstanse()
+        let viewModel = TimelineViewModel(coordinator: self)
+        let timelineVC = TimelineViewController.newInstanse(viewModel: viewModel)
         timelineVC.tabBarItem.title = L10n.Main.TabBar.Timeline.title
         timelineVC.tabBarItem.image = UIImage(systemName: "calendar")
         navigationController.pushViewController(timelineVC, animated: true)
