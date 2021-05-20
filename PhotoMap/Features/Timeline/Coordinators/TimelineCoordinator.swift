@@ -13,14 +13,13 @@ class TimelineCoordinator: Coordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     
-    func start() {
-        navigationController.tabBarItem.title = L10n.Main.TabBar.Timeline.title
-        navigationController.tabBarItem.image = UIImage(named: "calendar")
-        navigationController.navigationBar.prefersLargeTitles = true
+    func start() -> UIViewController {
+        let timelineVC = TimelineViewController.newInstanse()
+        timelineVC.tabBarItem.title = L10n.Main.TabBar.Timeline.title
+        timelineVC.tabBarItem.image = UIImage(systemName: "calendar")
+        navigationController.pushViewController(timelineVC, animated: true)
 
-        let vc = TimelineViewController()
-
-        navigationController.pushViewController(vc, animated: true)
+        return navigationController
     }
     
 }
