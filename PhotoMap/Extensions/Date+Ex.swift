@@ -15,4 +15,9 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var monthAndYear: String {
+        let formatter = CachedDateFormatter.with(format: "LLLL yyyy")
+        return formatter.string(from: self)
+    }
+    
 }
