@@ -8,7 +8,7 @@
 import UIKit
 
 extension UISearchBar {
-    convenience init(placeholder: String ) {
+    convenience init(placeholder: String) {
         self.init()
         self.placeholder = placeholder
     }

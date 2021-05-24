@@ -15,11 +15,11 @@ final class MarkerCell: UITableViewCell {
     @IBOutlet private weak var markerCategory: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    func configure() {
-        markerImage.image = UIImage(systemName: "photo")
-        markerDescription.text = "My best friend show me his new Macbook Pro with M1"
-        markerDate.text = "11-16-15"
-        markerCategory.text = "FRIENDS"
+    func configure(with marker: Marker) {
+        markerImage.image = marker.image
+        markerDescription.text = marker.description
+        markerDate.text = marker.date.monthAndYear
+        markerCategory.text = marker.category
     }
     
 }

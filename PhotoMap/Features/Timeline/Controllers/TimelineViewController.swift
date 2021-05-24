@@ -11,15 +11,12 @@ import Combine
 class TimelineViewController: BaseViewController {
     
     // MARK: - Variables
-    private struct Constants {
-        static let cellIdentifier = "markerCell"
-    }
     private var viewModel: TimelineViewModelType?
     
     // MARK: - UI Properties
     @IBOutlet private weak var tableView: UITableView!
     private let searchBar = UISearchBar(placeholder: L10n.Main.NavBar.Search.title)
-    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self, action: nil)
+    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self, action: #selector(categoryButtonPressed))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -40,6 +37,9 @@ class TimelineViewController: BaseViewController {
         navigationItem.rightBarButtonItem = categoryBarButton
     }
     
+    // MARK: - Selectors
+    @objc private func categoryButtonPressed() {}
+    
 }
 
 // MARK: - UITable view data source
@@ -50,7 +50,7 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel?.headerTitles[section]
+        return viewModel?.setTitle(for: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,9 +58,10 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MarkerCell.identifier,
                                                        for: indexPath) as? MarkerCell else { return UITableViewCell() }
-        cell.configure()
+        guard let marker = viewModel?.getMarker(at: indexPath) else { return UITableViewCell() }
+        cell.configure(with: marker)
         return cell
     }
     

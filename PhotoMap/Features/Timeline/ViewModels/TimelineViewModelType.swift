@@ -9,12 +9,12 @@ import UIKit
 import Combine
 
 protocol TimelineViewModelTypeInput {
-    
+    func getMarker(at indexPath: IndexPath) -> Marker?
+    func setTitle(for: Int) -> String?
 }
 
 protocol TimelineViewModelTypeOutput {
     var numberOfSections: Int { get }
-    var headerTitles: [String] { get }
     var numberOfRows: Int { get }
 }
 
