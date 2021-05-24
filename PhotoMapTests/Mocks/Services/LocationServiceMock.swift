@@ -21,7 +21,6 @@ class LocationServiceMock: NSObject, LocationServiceType {
 
     lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
-        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
 
         return locationManager
@@ -32,15 +31,16 @@ class LocationServiceMock: NSObject, LocationServiceType {
     override init() {
         super.init()
 
-        if #available(iOS 14.0, *) {
-            self.status.send(locationManager.authorizationStatus)
-        } else {
-            self.status.send(CLLocationManager.authorizationStatus())
-        }
-
-//        bind()
         locationManager.startUpdatingLocation()
     }
-}
 
-extension LocationServiceMock: CLLocationManagerDelegate {}
+    func enableService() {
+        isEnable.send(true)
+        status.send(.authorizedWhenInUse)
+    }
+
+    func disableService() {
+        isEnable.send(false)
+        status.send(.denied)
+    }
+}

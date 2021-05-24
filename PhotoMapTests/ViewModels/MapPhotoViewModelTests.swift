@@ -26,6 +26,7 @@ class MapPhotoViewModelTests: XCTestCase {
         cancelBag = nil
         diContainer = nil
         viewModel = nil
+        coordinator = nil
     }
 
     func testTapOnCancelButton_ShouldCloseMapPopup() {
@@ -65,5 +66,9 @@ class MapPhotoViewModelTests: XCTestCase {
 
         // Assert
         XCTAssertTrue(viewModel.isHiddenCategoryPicker)
+    }
+
+    func testCategoryPublisher_ShouldBeNotNil() {
+        XCTAssertNotNil(viewModel.categoryPublisher)
     }
 }

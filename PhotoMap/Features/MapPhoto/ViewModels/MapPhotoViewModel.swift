@@ -45,6 +45,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         doneButtonTitle = L10n.Main.MapPhoto.Button.Title.done
         cancelButtonTitle = L10n.Main.MapPhoto.Button.Title.cancel
         closeCategoryPickerViewButtonTitle = L10n.Main.MapPhoto.Button.Title.close
+        categoryPublisher = categories[safe: 0]
 
         cancelButtonSubject
             .subscribe(coordinator.dismissSubject)

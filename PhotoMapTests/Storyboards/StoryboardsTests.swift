@@ -2,7 +2,7 @@
 //  StoryboardsTests.swift
 //  PhotoMapTests
 //
-//  Created by wsa-141-31b on 5/20/21.
+//  Created by Dzmitry Makarevich on 5/20/21.
 //
 
 import XCTest

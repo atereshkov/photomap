@@ -7,6 +7,7 @@
 
 import XCTest
 import Combine
+import CoreLocation
 @testable import PhotoMap
 
 class MapViewModelTests: XCTestCase {
@@ -25,7 +26,61 @@ class MapViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         cancelBag = nil
         diContainer = nil
+        coordinator = nil
         viewModel = nil
+    }
+
+    func testTabTitle_Title_ShouldEqual() {
+        XCTAssertEqual(viewModel.tabTitle, L10n.Main.TabBar.Map.title)
+    }
+
+    func testModeButtonColor_ShouldEqual() {
+        // Arrange
+        XCTAssertEqual(viewModel.modeButtonCollor, Asset.followModeColor.color)
+
+        // Act
+        viewModel.navigationButtonSubject.send(UIControl())
+
+        // Assert
+        XCTAssertEqual(viewModel.modeButtonCollor, Asset.discoverModeColor.color)
+    }
+
+    func testIsShowUserLocation_EnableLocation_ShouldBeTrue() {
+        // Arrange
+        XCTAssertFalse(viewModel.isShowUserLocation)
+        let locationService: LocationServiceType = diContainer.resolve()
+        guard let mockService = locationService as? LocationServiceMock else {
+            XCTAssertNotNil(nil, "Typecast Error!")
+            return
+        }
+
+        // Act
+        mockService.enableService()
+
+        // Assert
+        XCTAssertTrue(viewModel.isShowUserLocation)
+        XCTAssertEqual(mockService.status.value, .authorizedWhenInUse)
+    }
+
+    func  testIsShowUserLocation_DisableLocation_ShouldBeFalse() {
+        // Arrange
+        XCTAssertFalse(viewModel.isShowUserLocation)
+        let locationService: LocationServiceType = diContainer.resolve()
+        guard let mockService = locationService as? LocationServiceMock else {
+            XCTAssertNotNil(nil, "Typecast Error!")
+            return
+        }
+        
+        // Act
+        mockService.disableService()
+
+        // Assert
+        XCTAssertFalse(viewModel.isShowUserLocation)
+        XCTAssertEqual(mockService.status.value, .denied)
+    }
+
+    func testRegion_ShouldBeNotNil() {
+        XCTAssertNotNil(viewModel.region)
     }
 
     func testTapOnMap_FolowModeOn_ShouldOnDiscoveryMode() {
@@ -77,5 +132,21 @@ class MapViewModelTests: XCTestCase {
         
         viewModel.navigationButtonSubject.send(UIControl())
         XCTAssertTrue(viewModel.isFollowModeOn)
+    }
+
+    func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
+        // Arrange
+        var isShow = false
+        coordinator.showMapPopupSubject
+            .sink(receiveValue: { _ in
+                isShow = true
+            })
+            .store(in: cancelBag)
+
+        // Act
+        viewModel.categoryButtonSubject.send(UIControl())
+
+        // Assert
+        XCTAssertTrue(isShow)
     }
 }
