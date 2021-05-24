@@ -31,12 +31,12 @@ class TimelineViewModel: TimelineViewModelType {
         self.coordinator = coordinator
     }
     
-    // MARK: - Helpers
+    // MARK: - Output
     func getMarker(at indexPath: IndexPath) -> Marker? {
         return markers[at: indexPath.row]
     }
     
-    func setTitle(for section: Int) -> String? {
+    func getTitle(for section: Int) -> String? {
         return headerTitles[at: section]
     }
     
