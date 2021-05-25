@@ -12,9 +12,14 @@ class TimelineCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
+    private let diContainer: DIContainerType
+    
+    init(diContainer: DIContainerType) {
+        self.diContainer = diContainer
+    }
     
     func start() -> UIViewController {
-        let viewModel = TimelineViewModel(coordinator: self)
+        let viewModel = TimelineViewModel(coordinator: self, diContainer: diContainer)
         let timelineVC = TimelineViewController.newInstanse(viewModel: viewModel)
         timelineVC.tabBarItem.title = L10n.Main.TabBar.Timeline.title
         timelineVC.tabBarItem.image = UIImage(systemName: "calendar")

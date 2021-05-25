@@ -31,6 +31,9 @@ class DIContainer: DIContainerType {
         container.register(LocationServiceType.self) { _ -> LocationServiceType in
             return LocationService()
         }.inObjectScope(.container)
+        
+        container.register(FirebaseServiceType.self) { _ in FirebaseService() }
+            .inObjectScope(.container)
     }
     
     func resolve<T>() -> T {

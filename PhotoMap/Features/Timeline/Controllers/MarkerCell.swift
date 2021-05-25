@@ -16,9 +16,9 @@ final class MarkerCell: UITableViewCell {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     func configure(with marker: Marker) {
-        markerImage.image = marker.image
+        markerImage.image = UIImage(systemName: "photo")
         markerDescription.text = marker.description
-        markerDate.text = marker.date.monthAndYear
+        markerDate.text = marker.date.shortDate
         markerCategory.text = marker.category
     }
     

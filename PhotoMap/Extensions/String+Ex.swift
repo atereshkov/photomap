@@ -24,4 +24,13 @@ extension String {
         return testEmail.evaluate(with: self)
     }
     
+    var toMonthAndYearDate: Date {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("LLLL yyyy")
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Locale.current
+        
+        return formatter.date(from: self) ?? Date()
+    }
+    
 }
