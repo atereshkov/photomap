@@ -42,6 +42,8 @@ internal enum StoryboardScene {
   }
   internal enum Timeline: StoryboardType {
     internal static let storyboardName = "Timeline"
+
+    internal static let timelineViewController = SceneType<TimelineViewController>(storyboard: Timeline.self, identifier: "TimelineViewController")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name

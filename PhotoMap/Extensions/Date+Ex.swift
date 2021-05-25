@@ -16,4 +16,9 @@ extension Date {
         return "\(dateString) - \(timeString)"
     }
     
+    var monthAndYear: String {
+        let formatter = CachedDateFormatter.with(format: "LLLL yyyy")
+        return formatter.string(from: self)
+    }
+    
 }
