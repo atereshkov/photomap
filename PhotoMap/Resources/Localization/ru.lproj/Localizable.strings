@@ -28,6 +28,9 @@
 "main.map-photo.button.title.close" = "Закрыть";
 "main.map-photo.button.title.done" = "Сохранить";
 "main.map-photo.button.title.cancel" = "Отменить";
+    // MapView - Location alert
+"main.map.disable-location-alert.button.title.settings" = "Настройки";
+"main.map.disable-location-alert.button.title.close" = "Закрыть";
 
 // MARK: - Messages
 
@@ -42,6 +45,9 @@
 "sign-up.error-alert.title.user-already-exists" = "Аккаунт с такой почтой уже существует.";
 "close" = "Закрыть";
 "internet-error.error-alert.button.ok" = "Пожалуйста, попробуйте позже";
+"main.map.disable-location-alert.title" = "Геолокация отключена";
+"main.map.disable-location-alert.message" = "С отключенной сервисом местоположения вы не сможете воспользоваться всем функционалам приложения. Пожалуйста, перейдите в настройки по кнопке ниже и включите его.";
+
 
 // MARK: - Email Validation errors
 

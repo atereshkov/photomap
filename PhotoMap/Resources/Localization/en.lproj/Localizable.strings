@@ -25,9 +25,12 @@
 "main.photo-alert.button.title.cancel" = "Cancel";
 "main.photo-alert.button.title.takePicture" = "Take a Picture";
 "main.photo-alert.button.title.chooseFromLibrary" = "Choose From Library";
-"main.map-photo.button.title.close" = "Done";
+"main.map-photo.button.title.close" = "Close";
 "main.map-photo.button.title.done" = "Done";
 "main.map-photo.button.title.cancel" = "Cancel";
+// MapView - Location alert
+"main.map.disable-location-alert.button.title.settings" = "Settings";
+"main.map.disable-location-alert.button.title.close" = "Close";
 
 // MARK: - Messages
 
@@ -42,6 +45,8 @@
 "sign-up.error-alert.title.user-already-exists" = "User with that email already exists.";
 "close" = "Close";
 "internet-error.error-alert.button.ok" = "Please, try again later";
+"main.map.disable-location-alert.title" = "Location disabled";
+"main.map.disable-location-alert.message" = "With the location service disabled, you will not be able to use all the functionality of the App. Please go to the settings by the button below and enable it.";
 
 // MARK: - Email Validation errors
 

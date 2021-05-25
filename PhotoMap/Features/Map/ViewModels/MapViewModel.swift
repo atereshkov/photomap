@@ -79,6 +79,12 @@ class MapViewModel: MapViewModelType {
                 self?.switchFollowDiscoveryMode()
             }
             .store(in: cancelBag)
+
+        locationService.status
+            .filter { $0 == .denied }
+            .map { _ in () }
+            .subscribe(coordinator.disableLocationSubject)
+            .store(in: cancelBag)
     }
 
     private func switchFollowDiscoveryMode(disableFolowMode: Bool = false) {
