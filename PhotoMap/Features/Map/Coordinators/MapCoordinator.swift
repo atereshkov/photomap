@@ -15,8 +15,10 @@ class MapCoordinator: Coordinator {
     private let diContainer: DIContainerType
     private let cancelBag = CancelBag()
     private(set) var showPhotoMenuAlertSubject = PassthroughSubject<Void, Never>()
-    private(set) var showMapPopupSubject = PassthroughSubject<Void, Never>()
+    private(set) var showMapPopupSubject = PassthroughSubject<Photo, Never>()
     private(set) var disableLocationSubject = PassthroughSubject<Void, Never>()
+    private(set) var imagePickerSourceSubject = PassthroughSubject<UIImagePickerController.SourceType, Never>()
+    private(set) var showImagePickerSubject = PassthroughSubject<UIImagePickerController, Never>()
 
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -39,10 +41,10 @@ class MapCoordinator: Coordinator {
             }
             .store(in: cancelBag)
         showMapPopupSubject
-            .sink { [weak self] _ in
+            .sink { [weak self] photo in
                 guard let self = self else { return }
 
-                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start()
+                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start(photo: photo)
                 self.navigationController.present(vc, animated: true)
             }
             .store(in: cancelBag)
@@ -51,15 +53,20 @@ class MapCoordinator: Coordinator {
                 self?.showDisableLocationAlert()
             })
             .store(in: cancelBag)
+        showImagePickerSubject
+            .sink(receiveValue: { [weak self] picker in
+                self?.navigationController.present(picker, animated: true)
+            })
+            .store(in: cancelBag)
     }
     
     private func showPhotoMenuAlert() {
         let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
                                           style: .default,
-                                          handler: nil)
+                                          handler: { [weak self] _ in self?.imagePickerSourceSubject.send(.camera)})
         let chooseFromLibraryAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.chooseFromLibrary,
                                                     style: .default,
-                                                    handler: nil)
+                                                    handler: { [weak self] _ in self?.imagePickerSourceSubject.send(.photoLibrary)})
         let cancelAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.cancel,
                                          style: .cancel,
                                          handler: nil)

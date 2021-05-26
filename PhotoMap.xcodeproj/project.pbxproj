@@ -20,6 +20,7 @@
 		0B1DC439265E5FF400BC7B6E /* IndexCollection+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC438265E5FF400BC7B6E /* IndexCollection+Ex.swift */; };
 		0B1DC43B265E610700BC7B6E /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B1DC43A265E610700BC7B6E /* Timeline.storyboard */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
+		128B418C265E7DC500697551 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* Photo.swift */; };
 		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
 		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
 		23AE2E6A264D54F200FE673F /* MapPhotoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */; };
@@ -150,6 +151,7 @@
 		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
+		128B418B265E7DC500697551 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		12D96AD92656A2CA0073847E /* StoryboardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsTests.swift; sourceTree = "<group>"; };
 		23AE289D265529B500A6E69B /* LocationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceMock.swift; sourceTree = "<group>"; };
 		23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoCoordinator.swift; path = MapPhoto/Coordinators/MapPhotoCoordinator.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				0B1DC42C265E5F5F00BC7B6E /* Category.swift */,
 				0B1DC42D265E5F5F00BC7B6E /* Marker.swift */,
+				128B418B265E7DC500697551 /* Photo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1162,6 +1165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				128B418C265E7DC500697551 /* Photo.swift in Sources */,
 				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
 				33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */,
