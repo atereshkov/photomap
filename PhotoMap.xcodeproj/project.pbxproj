@@ -303,7 +303,6 @@
 		33334A3C2628324C00612573 /* PhotoMap */ = {
 			isa = PBXGroup;
 			children = (
-				0BC39C5B265BA8F400B67967 /* Models */,
 				33334A4B2628324D00612573 /* Info.plist */,
 				338BB5E4262D84C80001F530 /* App */,
 				33334AFB262879B000612573 /* Core */,
@@ -661,6 +660,7 @@
 		338BB5E6262D85450001F530 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				0BC39C5B265BA8F400B67967 /* Models */,
 				3387F0FB2637F0F8005DCFA0 /* Validation */,
 				33334B0026287A2200612573 /* Controllers */,
 				33334B0126287A3400612573 /* Coordinators */,

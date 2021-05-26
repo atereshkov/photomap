@@ -39,6 +39,7 @@ class TimelineViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = categoryBarButton
+        view.insertSubview(activityIndicator, aboveSubview: tableView)
     }
     
     private func bind() {
