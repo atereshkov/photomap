@@ -10,9 +10,10 @@ import Foundation
 extension Date {
     
     var toString: String {
-        let formatter = CachedDateFormatter.with(format: "dd MMM YYYY HH:mm")
+        let dateString = CachedDateFormatter.with(format: "MMMM d, YYYY").string(from: self)
+        let timeString = CachedDateFormatter.with(format: "h:mm a").string(from: self)
 
-        return formatter.string(from: self)
+        return "\(dateString) - \(timeString)"
     }
     
     var monthAndYear: String {

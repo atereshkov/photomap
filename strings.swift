@@ -68,6 +68,34 @@ internal enum L10n {
   }
 
   internal enum Main {
+    internal enum Map {
+      internal enum DisableLocationAlert {
+        /// With the location service disabled, you will not be able to use all the functionality of the App. Please go to the settings by the button below and enable it.
+        internal static let message = L10n.tr("Localizable", "main.map.disable-location-alert.message")
+        /// Location disabled
+        internal static let title = L10n.tr("Localizable", "main.map.disable-location-alert.title")
+        internal enum Button {
+          internal enum Title {
+            /// Close
+            internal static let close = L10n.tr("Localizable", "main.map.disable-location-alert.button.title.close")
+            /// Settings
+            internal static let settings = L10n.tr("Localizable", "main.map.disable-location-alert.button.title.settings")
+          }
+        }
+      }
+    }
+    internal enum MapPhoto {
+      internal enum Button {
+        internal enum Title {
+          /// Cancel
+          internal static let cancel = L10n.tr("Localizable", "main.map-photo.button.title.cancel")
+          /// Close
+          internal static let close = L10n.tr("Localizable", "main.map-photo.button.title.close")
+          /// Done
+          internal static let done = L10n.tr("Localizable", "main.map-photo.button.title.done")
+        }
+      }
+    }
     internal enum NavBar {
       internal enum Category {
         /// Category

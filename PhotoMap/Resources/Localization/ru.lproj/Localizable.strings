@@ -6,15 +6,6 @@
   
 */
 
-// MARK: - Buttons
-
-"login.button.title.sign-in" = "Войти";
-"login.button.title.sign-up" = "Регистрация";
-"logout.button.title.log-out" = "Выйти";
-"main.photo-alert.button.title.cancel" = "Отмена";
-"main.photo-alert.button.title.takePicture" = "Сделать Фото";
-"main.photo-alert.button.title.chooseFromLibrary" = "Выбрать из Галереи";
-
 // Mark: - Main Tab Bar
 
 "main.tab-bar.main.title" = "Дополнитнельно";
@@ -25,6 +16,21 @@
 
 "main.nav-bar.category.title" = "Категории";
 "main.nav-bar.search.title" = "Поиск";
+
+// MARK: - Buttons
+
+"login.button.title.sign-in" = "Войти";
+"login.button.title.sign-up" = "Регистрация";
+"logout.button.title.log-out" = "Выйти";
+"main.photo-alert.button.title.cancel" = "Отмена";
+"main.photo-alert.button.title.takePicture" = "Сделать Фото";
+"main.photo-alert.button.title.chooseFromLibrary" = "Выбрать из Галереи";
+"main.map-photo.button.title.close" = "Закрыть";
+"main.map-photo.button.title.done" = "Сохранить";
+"main.map-photo.button.title.cancel" = "Отменить";
+    // MapView - Location alert
+"main.map.disable-location-alert.button.title.settings" = "Настройки";
+"main.map.disable-location-alert.button.title.close" = "Закрыть";
 
 // MARK: - Messages
 
@@ -39,4 +45,22 @@
 "sign-up.error-alert.title.user-already-exists" = "Аккаунт с такой почтой уже существует.";
 "close" = "Закрыть";
 "internet-error.error-alert.button.ok" = "Пожалуйста, попробуйте позже";
+"main.map.disable-location-alert.title" = "Геолокация отключена";
+"main.map.disable-location-alert.message" = "С отключенной сервисом местоположения вы не сможете воспользоваться всем функционалам приложения. Пожалуйста, перейдите в настройки по кнопке ниже и включите его.";
 
+
+// MARK: - Email Validation errors
+
+"email-validation.error-alert.empty-email" = "Поле email не должно быть пустым";
+"email-validation.error-alert.short-email" = "Требуется минимум 3 символа";
+"email-validation.error-alert.invalid-email" = "Пожалуйста, введите корректый email";
+
+// MARK: - Password Validation errors
+
+"password-validation.error-alert.empty-password" = "Поле пароля не должно быть пустым";
+"password-validation.error-alert.short-password" = "Требуется минимум 4 символа";
+
+// MARK: - Username Validation errors
+
+"username-validation.error-alert.empty-username" = "Поле \"Имя пользователя\" не должно быть пустым";
+"username-validation.error-alert.short-username" = "Требуется минимум 3 символа";

@@ -32,6 +32,11 @@ internal enum StoryboardScene {
 
     internal static let mapViewController = SceneType<MapViewController>(storyboard: Map.self, identifier: "MapViewController")
   }
+  internal enum MapPhoto: StoryboardType {
+    internal static let storyboardName = "MapPhoto"
+
+    internal static let mapPhotoViewController = SceneType<MapPhotoViewController>(storyboard: MapPhoto.self, identifier: "MapPhotoViewController")
+  }
   internal enum More: StoryboardType {
     internal static let storyboardName = "More"
   }

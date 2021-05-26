@@ -29,7 +29,7 @@ class TabBarCoordinator: Coordinator {
         tabBarController.tabBar.barTintColor = Asset.tabBarBarTintColor.color
         tabBarController.tabBar.tintColor = Asset.tabBarTintColor.color
 
-        let mapCoordinator = MapCoordinator()
+        let mapCoordinator = MapCoordinator(diContainer: diContainer)
         mapCoordinator.start()
         childCoordinators.append(mapCoordinator)
         

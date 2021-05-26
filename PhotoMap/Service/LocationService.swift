@@ -9,10 +9,10 @@ import Foundation
 import CoreLocation
 import Combine
 
-protocol LocationServiceType {
+protocol LocationServiceType: NSObject {
     
     var isEnable: CurrentValueSubject<Bool, Never> { get }
-    var status: CurrentValueSubject<CLAuthorizationStatus, Never> { get }
+    var status: PassthroughSubject<CLAuthorizationStatus, Never> { get }
     var location: CurrentValueSubject<CLLocation, Never> { get }
 
     var currentCoordinate: CLLocationCoordinate2D { get }
@@ -24,7 +24,7 @@ class LocationService: NSObject, LocationServiceType {
     
     private(set) var location = CurrentValueSubject<CLLocation, Never>(CLLocation.init())
     private(set) var isEnable = CurrentValueSubject<Bool, Never>(false)
-    private(set) var status = CurrentValueSubject<CLAuthorizationStatus, Never>(.notDetermined)
+    private(set) var status = PassthroughSubject<CLAuthorizationStatus, Never>()
     
     private let cancelBag = CancelBag()
     
@@ -43,14 +43,14 @@ class LocationService: NSObject, LocationServiceType {
     override init() {
         super.init()
 
+        bind()
+        locationManager.startUpdatingLocation()
+
         if #available(iOS 14.0, *) {
-            self.status.send(locationManager.authorizationStatus)
+            self.status.send(self.locationManager.authorizationStatus)
         } else {
             self.status.send(CLLocationManager.authorizationStatus())
         }
-
-        bind()
-        locationManager.startUpdatingLocation()
     }
 
     private func bind() {
@@ -64,7 +64,6 @@ class LocationService: NSObject, LocationServiceType {
                     self.locationManager.requestWhenInUseAuthorization()
                     self.isEnable.send(true)
                 case .denied, .restricted:
-                    // Show alert telling users how to turn on permissions
                     self.isEnable.send(false)
                 @unknown default:
                     return
