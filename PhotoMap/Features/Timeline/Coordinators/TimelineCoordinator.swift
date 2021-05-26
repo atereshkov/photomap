@@ -28,4 +28,9 @@ class TimelineCoordinator: Coordinator {
         return navigationController
     }
     
+    func showError(error: GeneralErrorType) {
+        let alertViewController = self.generateErrorAlert(with: error)
+        self.navigationController.present(alertViewController, animated: true)
+    }
+    
 }

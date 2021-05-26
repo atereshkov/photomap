@@ -10,23 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-// swiftlint:disable line_length
-
-enum FirestoreErrorType: Error {
-    case noCurrentUserId
-    case custom(String)
-    
-    var description: String {
-        switch self {
-        case .noCurrentUserId:
-            return "User is not authorized"
-        case .custom(let message):
-            return message
-        }
-    }
-}
-
-final class FirebaseService: FirebaseServiceType {
+final class FirestoreService: FirestoreServiceType {
     private struct Path {
         static let photosCollection = "photos"
         static let userPhotosCollection = "user_photos"
@@ -35,19 +19,20 @@ final class FirebaseService: FirebaseServiceType {
     let db = Firestore.firestore()
     let currentUserId = Auth.auth().currentUser?.uid
     
-    func getUserMarkers() -> Future<[Marker], FirestoreErrorType> {
+    func getUserMarkers() -> Future<[Marker], FirestoreError> {
         return Future { [weak self] promise in
             guard let currentUserId = self?.currentUserId else {
                 promise(.failure(.noCurrentUserId))
                 return
             }
-            let userPhotosReference = self?.db.collection([Path.photosCollection, currentUserId, Path.userPhotosCollection].joined(separator: "/"))
+            let userPhotosReference = self?.db.collection([Path.photosCollection, currentUserId,
+                                                           Path.userPhotosCollection].joined(separator: "/"))
             userPhotosReference?.order(by: "date", descending: true).getDocuments { snapshot, error in
                 if let error = error {
                     promise(.failure(.custom(error.localizedDescription)))
                 } else {
                     guard let documents = snapshot?.documents else {
-                        promise(.failure(.custom("no documents")))
+                        promise(.success([]))
                         return
                     }
                     var markers = [Marker]()
@@ -61,5 +46,3 @@ final class FirebaseService: FirebaseServiceType {
         }
     }
 }
-
-// swiftlint:enable line_length

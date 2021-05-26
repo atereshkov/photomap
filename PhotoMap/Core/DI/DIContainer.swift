@@ -32,7 +32,7 @@ class DIContainer: DIContainerType {
             return LocationService()
         }.inObjectScope(.container)
         
-        container.register(FirebaseServiceType.self) { _ in FirebaseService() }
+        container.register(FirestoreServiceType.self) { _ in FirestoreService() }
             .inObjectScope(.container)
     }
     

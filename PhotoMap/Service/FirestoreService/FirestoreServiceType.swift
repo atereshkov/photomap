@@ -8,6 +8,6 @@
 import Combine
 import Foundation
 
-protocol FirebaseServiceType {
-    func getUserMarkers() -> Future<[Marker], FirestoreErrorType>
+protocol FirestoreServiceType {
+    func getUserMarkers() -> Future<[Marker], FirestoreError>
 }

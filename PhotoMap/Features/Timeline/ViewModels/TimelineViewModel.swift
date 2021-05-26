@@ -12,7 +12,7 @@ class TimelineViewModel: TimelineViewModelType {
     
     // MARK: - Variables
     private let coordinator: TimelineCoordinator
-    private let firebaseService: FirebaseServiceType
+    private let firestoreService: FirestoreServiceType
     private var markers = [String: [Marker]]()
     private let cancelBag = CancelBag()
     private lazy var headerTitles = [String]()
@@ -24,7 +24,7 @@ class TimelineViewModel: TimelineViewModelType {
     // MARK: - Lifecycle
     init(coordinator: TimelineCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
-        self.firebaseService = diContainer.resolve()
+        self.firestoreService = diContainer.resolve()
     }
     
     // MARK: - Input
@@ -32,8 +32,14 @@ class TimelineViewModel: TimelineViewModelType {
         getUserMarkers()
     }
     
+    private let activityIndicator = ActivityIndicator()
+    
     // MARK: - Output
     var reloadDataSubject = PassthroughSubject<Void, Never>()
+    
+    var loadingPublisher: AnyPublisher<Bool, Never> {
+        return activityIndicator.loading.eraseToAnyPublisher()
+    }
     
     func getMarker(at indexPath: IndexPath) -> Marker? {
         guard let key = headerTitles[at: indexPath.section] else { return nil }
@@ -53,12 +59,13 @@ class TimelineViewModel: TimelineViewModelType {
     
     // MARK: - Helpers
     private func getUserMarkers() {
-        firebaseService.getUserMarkers()
+        firestoreService.getUserMarkers()
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
+            .trackActivity(activityIndicator)
+            .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.description)
+                    self?.coordinator.showError(error: error)
                 case .finished:
                     break
                 }
@@ -82,8 +89,7 @@ class TimelineViewModel: TimelineViewModelType {
             }
         }
         self.markers = groupedMarkers
-        self.headerTitles = [String](groupedMarkers.keys)
-            .sorted { (first, next) -> Bool in first.toMonthAndYearDate > next.toMonthAndYearDate }
+        self.headerTitles = [String](groupedMarkers.keys).sorted { $0.toMonthAndYearDate > $1.toMonthAndYearDate }
     }
     
 }

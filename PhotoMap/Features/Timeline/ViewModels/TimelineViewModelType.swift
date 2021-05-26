@@ -14,6 +14,7 @@ protocol TimelineViewModelTypeInput {
 
 protocol TimelineViewModelTypeOutput {
     var numberOfSections: Int { get }
+    var loadingPublisher: AnyPublisher<Bool, Never> { get }
     var reloadDataSubject: PassthroughSubject<Void, Never> { get }
     func getMarker(at indexPath: IndexPath) -> Marker?
     func getTitle(for: Int) -> String?

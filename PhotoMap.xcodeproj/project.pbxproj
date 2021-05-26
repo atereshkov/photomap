@@ -11,6 +11,7 @@
 		01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */; };
 		01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01735842263851EF0035C3D5 /* MapViewModelTests.swift */; };
 		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
+		0B0AAAE9265E34FD007B52BA /* ActivityIndicator+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AAAE8265E34FD007B52BA /* ActivityIndicator+Combine.swift */; };
 		0B872D962656379900995E49 /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B872D952656379900995E49 /* Timeline.storyboard */; };
 		0B872D9A26563FB500995E49 /* MarkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B872D9926563FB500995E49 /* MarkerCell.swift */; };
 		0B872DA226564E8900995E49 /* UISearchBar+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B872DA126564E8900995E49 /* UISearchBar+Ex.swift */; };
@@ -18,6 +19,7 @@
 		0BC39C58265BA47F00B67967 /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC39C57265BA47F00B67967 /* UITableViewCell+Ex.swift */; };
 		0BC39C5D265BA8FF00B67967 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC39C5C265BA8FF00B67967 /* Marker.swift */; };
 		0BC39C61265BAB1E00B67967 /* IndexCollection+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC39C60265BAB1E00B67967 /* IndexCollection+Ex.swift */; };
+		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
@@ -97,8 +99,8 @@
 		33AC447C263C3B9E007B2444 /* UsernameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC447B263C3B9E007B2444 /* UsernameValidator.swift */; };
 		33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC447D263C3BDC007B2444 /* UsernameValidationError.swift */; };
 		6F453E80FF329570402BF2CA /* Pods_PhotoMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */; };
-		A8B6AC2E265BE7F1009AA6D2 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2D265BE7F1009AA6D2 /* FirebaseService.swift */; };
-		A8B6AC30265BE82A009AA6D2 /* FirebaseServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2F265BE82A009AA6D2 /* FirebaseServiceType.swift */; };
+		A8B6AC2E265BE7F1009AA6D2 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2D265BE7F1009AA6D2 /* FirestoreService.swift */; };
+		A8B6AC30265BE82A009AA6D2 /* FirestoreServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */; };
 		CBCA82BC0F830018042CD509 /* Pods_PhotoMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */; };
 		CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE3230826493D240065F2CC /* DIContainerMock.swift */; };
 		CBE3230D26493EEE0065F2CC /* AuthListenerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */; };
@@ -122,6 +124,7 @@
 		01776AB3263996FF0058EDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GestureRecognizer+Combine.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
+		0B0AAAE8265E34FD007B52BA /* ActivityIndicator+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityIndicator+Combine.swift"; sourceTree = "<group>"; };
 		0B872D952656379900995E49 /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		0B872D9926563FB500995E49 /* MarkerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCell.swift; sourceTree = "<group>"; };
 		0B872DA126564E8900995E49 /* UISearchBar+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Ex.swift"; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		0BC39C57265BA47F00B67967 /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
 		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		0BC39C60265BAB1E00B67967 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
+		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33334A3F2628324C00612573 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -217,8 +221,8 @@
 		39A12EAD33B979F503BEAC32 /* Pods-PhotoMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.debug.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.debug.xcconfig"; sourceTree = "<group>"; };
 		7BF840C2936D950C3B22C34B /* Pods-PhotoMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.debug.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A1D51F33FEE42E03AEE0CBD9 /* Pods-PhotoMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.release.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.release.xcconfig"; sourceTree = "<group>"; };
-		A8B6AC2D265BE7F1009AA6D2 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
-		A8B6AC2F265BE82A009AA6D2 /* FirebaseServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseServiceType.swift; sourceTree = "<group>"; };
+		A8B6AC2D265BE7F1009AA6D2 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceType.swift; sourceTree = "<group>"; };
 		AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE3230826493D240065F2CC /* DIContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerMock.swift; sourceTree = "<group>"; };
@@ -381,6 +385,7 @@
 				3387F1062637F16D005DCFA0 /* EmailValidationError.swift */,
 				3387F10C2637F182005DCFA0 /* PasswordValidationError.swift */,
 				33AC447D263C3BDC007B2444 /* UsernameValidationError.swift */,
+				0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -552,7 +557,7 @@
 		338364B0263018D0001EF61E /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				A8B6AC2C265BE7E7009AA6D2 /* FirebaseService */,
+				A8B6AC2C265BE7E7009AA6D2 /* FirestoreService */,
 				338364B1263018F0001EF61E /* ReachabilityService.swift */,
 				3383662326307272001EF61E /* AuthListener.swift */,
 				33877CAE2631598200A227F9 /* AuthUserService.swift */,
@@ -648,6 +653,7 @@
 				3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */,
 				3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */,
 				01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */,
+				0B0AAAE8265E34FD007B52BA /* ActivityIndicator+Combine.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -795,13 +801,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		A8B6AC2C265BE7E7009AA6D2 /* FirebaseService */ = {
+		A8B6AC2C265BE7E7009AA6D2 /* FirestoreService */ = {
 			isa = PBXGroup;
 			children = (
-				A8B6AC2D265BE7F1009AA6D2 /* FirebaseService.swift */,
-				A8B6AC2F265BE82A009AA6D2 /* FirebaseServiceType.swift */,
+				A8B6AC2D265BE7F1009AA6D2 /* FirestoreService.swift */,
+				A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */,
 			);
-			path = FirebaseService;
+			path = FirestoreService;
 			sourceTree = "<group>";
 		};
 		F317D6E2F14D6601FEEDEFAF /* Frameworks */ = {
@@ -1099,6 +1105,7 @@
 				333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */,
 				0BC39C58265BA47F00B67967 /* UITableViewCell+Ex.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
+				0B0AAAE9265E34FD007B52BA /* ActivityIndicator+Combine.swift in Sources */,
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
@@ -1115,8 +1122,8 @@
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				0BC39C5D265BA8FF00B67967 /* Marker.swift in Sources */,
-				A8B6AC30265BE82A009AA6D2 /* FirebaseServiceType.swift in Sources */,
-				A8B6AC2E265BE7F1009AA6D2 /* FirebaseService.swift in Sources */,
+				A8B6AC30265BE82A009AA6D2 /* FirestoreServiceType.swift in Sources */,
+				A8B6AC2E265BE7F1009AA6D2 /* FirestoreService.swift in Sources */,
 				333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */,
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
@@ -1133,6 +1140,7 @@
 				33877CD3263199A500A227F9 /* strings.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
 				01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */,
+				0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

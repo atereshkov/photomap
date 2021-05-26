@@ -8,8 +8,6 @@
 import UIKit
 import Combine
 
-// swiftlint:disable line_length
-
 class TimelineViewController: BaseViewController {
     
     // MARK: - Variables
@@ -19,14 +17,15 @@ class TimelineViewController: BaseViewController {
     // MARK: - UI Properties
     @IBOutlet private weak var tableView: UITableView!
     private let searchBar = UISearchBar(placeholder: L10n.Main.NavBar.Search.title)
-    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self, action: #selector(categoryButtonPressed))
+    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self,
+                                                    action: #selector(categoryButtonPressed))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        viewModel?.viewDidLoad()
         bind()
+        viewModel?.viewDidLoad()
     }
     
     // MARK: - Helpers
@@ -45,6 +44,11 @@ class TimelineViewController: BaseViewController {
     private func bind() {
         viewModel?.reloadDataSubject.sink(receiveValue: { [weak self] in
             self?.tableView.reloadData()
+        })
+        .store(in: cancelBag)
+        
+        viewModel?.loadingPublisher.sink(receiveValue: { [weak self] isLoading in
+            isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
         })
         .store(in: cancelBag)
     }
@@ -78,5 +82,3 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
 }
-
-// swiftlint:enable line_length
