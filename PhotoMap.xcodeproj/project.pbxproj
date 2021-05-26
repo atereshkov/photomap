@@ -8,16 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		01776AA32639679A0058EDA7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AA22639679A0058EDA7 /* LocationService.swift */; };
-		01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */; };
 		01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01735842263851EF0035C3D5 /* MapViewModelTests.swift */; };
 		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
-		0B872D962656379900995E49 /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B872D952656379900995E49 /* Timeline.storyboard */; };
-		0B872D9A26563FB500995E49 /* MarkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B872D9926563FB500995E49 /* MarkerCell.swift */; };
-		0B872DA226564E8900995E49 /* UISearchBar+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B872DA126564E8900995E49 /* UISearchBar+Ex.swift */; };
-		0B9084162656719A00092F25 /* TimelineViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9084152656719A00092F25 /* TimelineViewModelType.swift */; };
-		0BC39C58265BA47F00B67967 /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC39C57265BA47F00B67967 /* UITableViewCell+Ex.swift */; };
-		0BC39C5D265BA8FF00B67967 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC39C5C265BA8FF00B67967 /* Marker.swift */; };
-		0BC39C61265BAB1E00B67967 /* IndexCollection+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC39C60265BAB1E00B67967 /* IndexCollection+Ex.swift */; };
+		12818B9E265D3EE200308178 /* TimelineViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12818B9D265D3EE200308178 /* TimelineViewModelType.swift */; };
+		12818BA2265D3F3C00308178 /* MarkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12818BA1265D3F3C00308178 /* MarkerCell.swift */; };
+		12818BA5265D3F7500308178 /* UISearchBar+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12818BA3265D3F7500308178 /* UISearchBar+Ex.swift */; };
+		12818BA6265D3F7500308178 /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12818BA4265D3F7500308178 /* UITableViewCell+Ex.swift */; };
+		12818BA8265D3F8000308178 /* IndexCollection+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */; };
+		12818BAC265D40A400308178 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12818BAB265D40A400308178 /* Marker.swift */; };
+		12818BAE265D483400308178 /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12818BAD265D483400308178 /* Timeline.storyboard */; };
+		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
+		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
+		23AE2E6A264D54F200FE673F /* MapPhotoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */; };
+		23AE2E6C264D552100FE673F /* MapPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E6B264D552100FE673F /* MapPhotoViewController.swift */; };
+		23AE2E70264D557B00FE673F /* MapPhotoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E6E264D557A00FE673F /* MapPhotoViewModelType.swift */; };
+		23AE2E71264D557B00FE673F /* MapPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E6F264D557A00FE673F /* MapPhotoViewModel.swift */; };
+		23AE2E73264D558C00FE673F /* MapPhoto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23AE2E72264D558C00FE673F /* MapPhoto.storyboard */; };
+		23AE2E77264D563100FE673F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E76264D563100FE673F /* Category.swift */; };
+		23AE2E79264D567C00FE673F /* Array+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E78264D567C00FE673F /* Array+Ex.swift */; };
+		23AE2E7E264D5D7200FE673F /* UIBarButtonItem+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E7A264D5D7200FE673F /* UIBarButtonItem+Ex.swift */; };
+		23AE2E7F264D5D7200FE673F /* NSObject+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E7B264D5D7200FE673F /* NSObject+Ex.swift */; };
+		23AE2E80264D5D7200FE673F /* UIView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E7C264D5D7200FE673F /* UIView+Ex.swift */; };
+		23AE2E81264D5D7200FE673F /* UIColor+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E7D264D5D7200FE673F /* UIColor+Ex.swift */; };
+		23AE2E85264D5EF700FE673F /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E83264D5EF700FE673F /* CategoryView.swift */; };
+		23AE2E86264D5EF700FE673F /* CategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23AE2E84264D5EF700FE673F /* CategoryView.xib */; };
+		23AE2E88264D63E300FE673F /* MapPhotoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E87264D63E300FE673F /* MapPhotoViewModelTests.swift */; };
 		33334A3E2628324C00612573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3D2628324C00612573 /* AppDelegate.swift */; };
 		33334A402628324C00612573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334A3F2628324C00612573 /* SceneDelegate.swift */; };
 		33334A472628324D00612573 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33334A462628324D00612573 /* Colors.xcassets */; };
@@ -116,17 +131,32 @@
 		01735842263851EF0035C3D5 /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
 		01776AA22639679A0058EDA7 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		01776AAF263996FF0058EDA7 /* PhotoMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMapTests.swift; sourceTree = "<group>"; };
 		01776AB3263996FF0058EDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GestureRecognizer+Combine.swift"; sourceTree = "<group>"; };
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
-		0B872D952656379900995E49 /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
-		0B872D9926563FB500995E49 /* MarkerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCell.swift; sourceTree = "<group>"; };
-		0B872DA126564E8900995E49 /* UISearchBar+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Ex.swift"; sourceTree = "<group>"; };
-		0B9084152656719A00092F25 /* TimelineViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModelType.swift; sourceTree = "<group>"; };
-		0BC39C57265BA47F00B67967 /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
-		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
-		0BC39C60265BAB1E00B67967 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
+		12818B9D265D3EE200308178 /* TimelineViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewModelType.swift; sourceTree = "<group>"; };
+		12818BA1265D3F3C00308178 /* MarkerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerCell.swift; sourceTree = "<group>"; };
+		12818BA3265D3F7500308178 /* UISearchBar+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Ex.swift"; sourceTree = "<group>"; };
+		12818BA4265D3F7500308178 /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
+		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
+		12818BAB265D40A400308178 /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Marker.swift; path = Models/Marker.swift; sourceTree = "<group>"; };
+		12818BAD265D483400308178 /* Timeline.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
+		12D96AD92656A2CA0073847E /* StoryboardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsTests.swift; sourceTree = "<group>"; };
+		23AE289D265529B500A6E69B /* LocationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceMock.swift; sourceTree = "<group>"; };
+		23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoCoordinator.swift; path = MapPhoto/Coordinators/MapPhotoCoordinator.swift; sourceTree = "<group>"; };
+		23AE2E6B264D552100FE673F /* MapPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewController.swift; path = MapPhoto/Controllers/MapPhotoViewController.swift; sourceTree = "<group>"; };
+		23AE2E6E264D557A00FE673F /* MapPhotoViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewModelType.swift; path = MapPhoto/ViewModels/MapPhotoViewModelType.swift; sourceTree = "<group>"; };
+		23AE2E6F264D557A00FE673F /* MapPhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewModel.swift; path = MapPhoto/ViewModels/MapPhotoViewModel.swift; sourceTree = "<group>"; };
+		23AE2E72264D558C00FE673F /* MapPhoto.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MapPhoto.storyboard; path = MapPhoto/MapPhoto.storyboard; sourceTree = "<group>"; };
+		23AE2E76264D563100FE673F /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Models/Category.swift; sourceTree = "<group>"; };
+		23AE2E78264D567C00FE673F /* Array+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Ex.swift"; sourceTree = "<group>"; };
+		23AE2E7A264D5D7200FE673F /* UIBarButtonItem+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Ex.swift"; sourceTree = "<group>"; };
+		23AE2E7B264D5D7200FE673F /* NSObject+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Ex.swift"; sourceTree = "<group>"; };
+		23AE2E7C264D5D7200FE673F /* UIView+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ex.swift"; sourceTree = "<group>"; };
+		23AE2E7D264D5D7200FE673F /* UIColor+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ex.swift"; sourceTree = "<group>"; };
+		23AE2E83264D5EF700FE673F /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		23AE2E84264D5EF700FE673F /* CategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryView.xib; sourceTree = "<group>"; };
+		23AE2E87264D63E300FE673F /* MapPhotoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPhotoViewModelTests.swift; sourceTree = "<group>"; };
 		33334A3A2628324C00612573 /* PhotoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33334A3D2628324C00612573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33334A3F2628324C00612573 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -244,10 +274,10 @@
 		01776AB0263996FF0058EDA7 /* PhotoMapTests */ = {
 			isa = PBXGroup;
 			children = (
+				12D96AD826569E1C0073847E /* Storyboards */,
 				333B83032642DEBA00AAD56F /* Utility */,
 				333B83002642D8D100AAD56F /* Mocks */,
 				01776AC2263998440058EDA7 /* ViewModels */,
-				01735842263851EF0035C3D5 /* MapViewModelTests.swift */,
 				01776AB3263996FF0058EDA7 /* Info.plist */,
 			);
 			path = PhotoMapTests;
@@ -256,19 +286,84 @@
 		01776AC2263998440058EDA7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				01776AB1263996FF0058EDA7 /* PhotoMapTests.swift */,
+				23AE2E87264D63E300FE673F /* MapPhotoViewModelTests.swift */,
+				01735842263851EF0035C3D5 /* MapViewModelTests.swift */,
 				333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */,
 				333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		0BC39C5B265BA8F400B67967 /* Models */ = {
+		12D96AD826569E1C0073847E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				0BC39C5C265BA8FF00B67967 /* Marker.swift */,
+				12D96AD92656A2CA0073847E /* StoryboardsTests.swift */,
 			);
-			path = Models;
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		23AE289B265510F700A6E69B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */,
+				CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */,
+				23AE289D265529B500A6E69B /* LocationServiceMock.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		23AE289C2655112200A6E69B /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */,
+				333B83162649913B00AAD56F /* AppCoordinatorMock.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		23AE2E65264D546E00FE673F /* PhotoMap */ = {
+			isa = PBXGroup;
+			children = (
+				23AE2E72264D558C00FE673F /* MapPhoto.storyboard */,
+				23AE2E6D264D554A00FE673F /* ViewModels */,
+				23AE2E68264D54AD00FE673F /* Coordinators */,
+				23AE2E67264D549A00FE673F /* Controllers */,
+			);
+			name = PhotoMap;
+			sourceTree = "<group>";
+		};
+		23AE2E67264D549A00FE673F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				23AE2E6B264D552100FE673F /* MapPhotoViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		23AE2E68264D54AD00FE673F /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */,
+			);
+			name = Coordinators;
+			sourceTree = "<group>";
+		};
+		23AE2E6D264D554A00FE673F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				23AE2E6F264D557A00FE673F /* MapPhotoViewModel.swift */,
+				23AE2E6E264D557A00FE673F /* MapPhotoViewModelType.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		23AE2E75264D562000FE673F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12818BAB265D40A400308178 /* Marker.swift */,
+				23AE2E76264D563100FE673F /* Category.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		33334A312628324C00612573 = {
@@ -295,7 +390,6 @@
 		33334A3C2628324C00612573 /* PhotoMap */ = {
 			isa = PBXGroup;
 			children = (
-				0BC39C5B265BA8F400B67967 /* Models */,
 				33334A4B2628324D00612573 /* Info.plist */,
 				338BB5E4262D84C80001F530 /* App */,
 				33334AFB262879B000612573 /* Core */,
@@ -339,6 +433,7 @@
 		33334AFC262879BF00612573 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				23AE2E65264D546E00FE673F /* PhotoMap */,
 				333B82DC264004F500AAD56F /* Initial */,
 				33334B0A26287C3000612573 /* More */,
 				33334B0926287C1800612573 /* Auth */,
@@ -405,10 +500,10 @@
 		33334B0826287C0E00612573 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				12818BAD265D483400308178 /* Timeline.storyboard */,
 				338BB602262D8CEF0001F530 /* Controllers */,
 				338BB601262D8CE60001F530 /* Coordinators */,
 				338BB604262D8D010001F530 /* ViewModels */,
-				0B872D952656379900995E49 /* Timeline.storyboard */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -474,11 +569,9 @@
 		333B83002642D8D100AAD56F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */,
-				CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */,
+				23AE289C2655112200A6E69B /* Coordinators */,
+				23AE289B265510F700A6E69B /* Services */,
 				CBE3230826493D240065F2CC /* DIContainerMock.swift */,
-				333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */,
-				333B83162649913B00AAD56F /* AppCoordinatorMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -528,6 +621,8 @@
 		3374D0E4263B1ACC00A03E78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23AE2E83264D5EF700FE673F /* CategoryView.swift */,
+				23AE2E84264D5EF700FE673F /* CategoryView.xib */,
 				3374D0E5263B1AEE00A03E78 /* ATCTextField.swift */,
 				333B82DA263FFC7500AAD56F /* ErrorTextField.swift */,
 			);
@@ -633,13 +728,18 @@
 		338BB5E5262D84F70001F530 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */,
+				12818BA3265D3F7500308178 /* UISearchBar+Ex.swift */,
+				12818BA4265D3F7500308178 /* UITableViewCell+Ex.swift */,
+				23AE2E7B264D5D7200FE673F /* NSObject+Ex.swift */,
+				23AE2E7A264D5D7200FE673F /* UIBarButtonItem+Ex.swift */,
+				23AE2E7D264D5D7200FE673F /* UIColor+Ex.swift */,
+				23AE2E7C264D5D7200FE673F /* UIView+Ex.swift */,
+				23AE2E78264D567C00FE673F /* Array+Ex.swift */,
 				33334B392628812A00612573 /* Date+Ex.swift */,
 				33334B34262880F400612573 /* String+Ex.swift */,
 				338BB610262D8EAE0001F530 /* Reachability+Ex.swift */,
 				338F8E37262F234C00267889 /* UITextField+Ex.swift */,
-				0B872DA126564E8900995E49 /* UISearchBar+Ex.swift */,
-				0BC39C57265BA47F00B67967 /* UITableViewCell+Ex.swift */,
-				0BC39C60265BAB1E00B67967 /* IndexCollection+Ex.swift */,
 				3374D0EB263B1BFF00A03E78 /* UIControl+Ex.swift */,
 				3374D0EF263B1C2500A03E78 /* UIButton+Ex.swift */,
 				01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */,
@@ -650,6 +750,7 @@
 		338BB5E6262D85450001F530 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				23AE2E75264D562000FE673F /* Models */,
 				3387F0FB2637F0F8005DCFA0 /* Validation */,
 				33334B0026287A2200612573 /* Controllers */,
 				33334B0126287A3400612573 /* Coordinators */,
@@ -714,8 +815,8 @@
 		338BB602262D8CEF0001F530 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				12818BA1265D3F3C00308178 /* MarkerCell.swift */,
 				335881C7262DA6DB0057D25F /* TimelineViewController.swift */,
-				0B872D9926563FB500995E49 /* MarkerCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -723,8 +824,8 @@
 		338BB604262D8D010001F530 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				12818B9D265D3EE200308178 /* TimelineViewModelType.swift */,
 				33588315262DD1720057D25F /* TimelineViewModel.swift */,
-				0B9084152656719A00092F25 /* TimelineViewModelType.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -810,7 +911,6 @@
 				01776AAB263996FF0058EDA7 /* Sources */,
 				01776AAC263996FF0058EDA7 /* Frameworks */,
 				01776AAD263996FF0058EDA7 /* Resources */,
-				4F2CF090412BEE483C202CA2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -894,13 +994,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				333B82E7264019DB00AAD56F /* Initial.storyboard in Resources */,
+				12818BAE265D483400308178 /* Timeline.storyboard in Resources */,
+				23AE2E86264D5EF700FE673F /* CategoryView.xib in Resources */,
 				338365662630566C001EF61E /* Category.storyboard in Resources */,
 				3383658C2630575C001EF61E /* More.storyboard in Resources */,
 				33334A4A2628324D00612573 /* LaunchScreen.storyboard in Resources */,
+				23AE2E73264D558C00FE673F /* MapPhoto.storyboard in Resources */,
 				338365622630565F001EF61E /* Map.storyboard in Resources */,
 				33334AA426283B8B00612573 /* Localizable.strings in Resources */,
 				33334AB926283CCE00612573 /* GoogleService-Info.plist in Resources */,
-				0B872D962656379900995E49 /* Timeline.storyboard in Resources */,
 				337A7F09263707020071F6ED /* Authentication.storyboard in Resources */,
 				33334A472628324D00612573 /* Colors.xcassets in Resources */,
 			);
@@ -943,23 +1045,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/SwiftGen/bin/swiftgen\"\n";
-		};
-		4F2CF090412BEE483C202CA2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		601849C3B1D06D66C44D437D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1031,14 +1116,16 @@
 			files = (
 				333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */,
 				333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */,
+				23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */,
+				23AE2E88264D63E300FE673F /* MapPhotoViewModelTests.swift in Sources */,
 				333B82F8264198FB00AAD56F /* SignInViewModelTests.swift in Sources */,
 				333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */,
-				01776AB2263996FF0058EDA7 /* PhotoMapTests.swift in Sources */,
 				CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */,
 				333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */,
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
 				333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */,
 				333B82FB264199BD00AAD56F /* CancelBag.swift in Sources */,
+				12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */,
 				333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */,
 				01776ABB263997890058EDA7 /* MapViewModelTests.swift in Sources */,
 				CBE3230D26493EEE0065F2CC /* AuthListenerMock.swift in Sources */,
@@ -1050,6 +1137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
+				12818BA6265D3F7500308178 /* UITableViewCell+Ex.swift in Sources */,
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
 				33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */,
 				333B82F226417DDB00AAD56F /* UsernameValidationResult.swift in Sources */,
@@ -1061,9 +1149,11 @@
 				3387F0FD2637F10B005DCFA0 /* EmailValidator.swift in Sources */,
 				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
+				23AE2E71264D557B00FE673F /* MapPhotoViewModel.swift in Sources */,
 				3384B79526394C9C006E05BD /* SignUpViewModelType.swift in Sources */,
 				3383662426307272001EF61E /* AuthListener.swift in Sources */,
 				33334B3026287E0300612573 /* AlertError.swift in Sources */,
+				23AE2E6A264D54F200FE673F /* MapPhotoCoordinator.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
 				333B8319264BD47A00AAD56F /* AuthCoordinatorType.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
@@ -1071,51 +1161,59 @@
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
 				33334B2826287DF300612573 /* ResponseError.swift in Sources */,
 				338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */,
+				23AE2E81264D5D7200FE673F /* UIColor+Ex.swift in Sources */,
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
 				3387F1072637F16D005DCFA0 /* EmailValidationError.swift in Sources */,
 				3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
+				23AE2E79264D567C00FE673F /* Array+Ex.swift in Sources */,
 				333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */,
 				333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */,
 				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
+				23AE2E6C264D552100FE673F /* MapPhotoViewController.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
+				12818BAC265D40A400308178 /* Marker.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
-				0B872DA226564E8900995E49 /* UISearchBar+Ex.swift in Sources */,
 				333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */,
-				0BC39C58265BA47F00B67967 /* UITableViewCell+Ex.swift in Sources */,
+				12818BA8265D3F8000308178 /* IndexCollection+Ex.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,
+				23AE2E7E264D5D7200FE673F /* UIBarButtonItem+Ex.swift in Sources */,
 				338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */,
-				0B9084162656719A00092F25 /* TimelineViewModelType.swift in Sources */,
 				335881C8262DA6DB0057D25F /* TimelineViewController.swift in Sources */,
+				12818BA5265D3F7500308178 /* UISearchBar+Ex.swift in Sources */,
+				23AE2E77264D563100FE673F /* Category.swift in Sources */,
 				33588316262DD1720057D25F /* TimelineViewModel.swift in Sources */,
 				3387F10D2637F182005DCFA0 /* PasswordValidationError.swift in Sources */,
 				3387F1012637F119005DCFA0 /* PasswordValidator.swift in Sources */,
 				338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */,
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
-				0B872D9A26563FB500995E49 /* MarkerCell.swift in Sources */,
 				3374D0E6263B1AEE00A03E78 /* ATCTextField.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
-				0BC39C5D265BA8FF00B67967 /* Marker.swift in Sources */,
 				333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */,
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
-				0BC39C61265BAB1E00B67967 /* IndexCollection+Ex.swift in Sources */,
 				333B831B264BD4F400AAD56F /* AppCoordinatorType.swift in Sources */,
 				33AC447C263C3B9E007B2444 /* UsernameValidator.swift in Sources */,
 				33877CC32631916200A227F9 /* assets-colors.swift in Sources */,
 				3374D0F0263B1C2500A03E78 /* UIButton+Ex.swift in Sources */,
+				23AE2E7F264D5D7200FE673F /* NSObject+Ex.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
+				23AE2E80264D5D7200FE673F /* UIView+Ex.swift in Sources */,
+				12818BA2265D3F3C00308178 /* MarkerCell.swift in Sources */,
+				23AE2E70264D557B00FE673F /* MapPhotoViewModelType.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
 				333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */,
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
 				333B82EE26417D5100AAD56F /* EmailValidationResult.swift in Sources */,
 				33877CD3263199A500A227F9 /* strings.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
+				12818B9E265D3EE200308178 /* TimelineViewModelType.swift in Sources */,
+				23AE2E85264D5EF700FE673F /* CategoryView.swift in Sources */,
 				01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

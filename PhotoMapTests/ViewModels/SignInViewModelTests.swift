@@ -7,7 +7,6 @@
 
 import XCTest
 import Combine
-import Swinject
 @testable import PhotoMap
 
 class SignInViewModelTests: XCTestCase {
@@ -17,8 +16,6 @@ class SignInViewModelTests: XCTestCase {
     var emailValidator: EmailValidator!
     var passwordValidator: PasswordValidator!
     var cancelBag: CancelBag!
-    
-    var mockContainer: Container!
 
     var authService: AuthUserServiceMock!
     var authListener: AuthListenerMock!
@@ -28,20 +25,13 @@ class SignInViewModelTests: XCTestCase {
         emailValidator = EmailValidator()
         passwordValidator = PasswordValidator()
 
-        authService = AuthUserServiceMock()
-        authListener = AuthListenerMock()
-        
-        mockContainer = Container()
-        mockContainer.register(AuthUserServiceType.self) { _ -> AuthUserServiceType in
-            self.authService
-        }.inObjectScope(.container)
+        diContainer = DIContainerMock()
 
-        mockContainer.register(AuthListenerType.self) { _ -> AuthListenerType in
-            self.authListener
-        }.inObjectScope(.container)
-        
-        diContainer = DIContainerMock(container: mockContainer)
-        
+        let authServiceDI: AuthUserServiceType = diContainer.resolve()
+        let authListenerDI: AuthListenerType = diContainer.resolve()
+        authService = authServiceDI as? AuthUserServiceMock
+        authListener = authListenerDI as? AuthListenerMock
+
         let appCoordinator = AppCoordinatorMock(diContainer: diContainer)
         authCoordinator = AuthCoordinatorMock(appCoordinator: appCoordinator, diContainer: diContainer)
 

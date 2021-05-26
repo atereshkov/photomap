@@ -16,19 +16,19 @@ class MapViewModel: MapViewModelType {
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let locationService: LocationServiceType
     private let diContainer: DIContainerType
-    @Published private var isFollowModeOn: Bool = true
 
     // MARK: - Input
-    var categoryButtonSubject = PassthroughSubject<Void, Never>()
-    var enableDiscoveryModeSubject = PassthroughSubject<Void, Never>()
-    var navigationButtonSubject = PassthroughSubject<Void, Never>()
-    var photoButtonSubject = PassthroughSubject<Void, Never>()
+    private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var enableDiscoveryModeSubject = PassthroughSubject<GestureType, Never>()
+    private(set) var navigationButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var photoButtonSubject = PassthroughSubject<UIControl, Never>()
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
     @Published private(set) var isShowUserLocation: Bool = true
     @Published private(set) var region: MKCoordinateRegion?
     @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
+    @Published private(set) var isFollowModeOn: Bool = true
 
     init(coordinator: MapCoordinator,
          diContainer: DIContainerType) {
@@ -55,8 +55,9 @@ class MapViewModel: MapViewModelType {
             .store(in: cancelBag)
 
         categoryButtonSubject
-            .sink { _ in
-                print("Category Button Tapped!")
+            .sink { [weak self] _ in
+                self?.switchFollowDiscoveryMode(disableFolowMode: true)
+                self?.coordinator.showMapPopupSubject.send()
             }
             .store(in: cancelBag)
 
@@ -69,7 +70,7 @@ class MapViewModel: MapViewModelType {
         photoButtonSubject
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode(disableFolowMode: true)
-                self?.coordinator.showPhotoMenuAlert()
+                self?.coordinator.showPhotoMenuAlertSubject.send()
             }
             .store(in: cancelBag)
 
@@ -77,6 +78,12 @@ class MapViewModel: MapViewModelType {
             .sink { [weak self] _ in
                 self?.switchFollowDiscoveryMode()
             }
+            .store(in: cancelBag)
+
+        locationService.status
+            .filter { $0 == .denied }
+            .map { _ in () }
+            .subscribe(coordinator.disableLocationSubject)
             .store(in: cancelBag)
     }
 

@@ -60,19 +60,13 @@ class MapViewController: BaseViewController {
             .store(in: cancelBag)
 
         categoryButton.tapPublisher
-            .sink { _ in
-                viewModel.categoryButtonSubject.send(())
-            }
+            .subscribe(viewModel.categoryButtonSubject)
             .store(in: cancelBag)
         navigationButton.tapPublisher
-            .sink { _ in
-                viewModel.navigationButtonSubject.send(())
-            }
+            .subscribe(viewModel.navigationButtonSubject)
             .store(in: cancelBag)
         photoButton.tapPublisher
-            .sink { _ in
-                viewModel.photoButtonSubject.send(())
-            }
+            .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
     }
 
@@ -80,15 +74,12 @@ class MapViewController: BaseViewController {
         guard let viewModel = viewModel else { return }
 
         mapView.allGestures()
-            .sink { _ in
-                viewModel.enableDiscoveryModeSubject.send(())
-            }
+            .subscribe(viewModel.enableDiscoveryModeSubject)
             .store(in: cancelBag)
 
         mapView.gesture(.longPress())
-            .sink { _ in
-                viewModel.photoButtonSubject.send(())
-            }
+            .map { _ in UIControl() }
+            .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
     }
 }

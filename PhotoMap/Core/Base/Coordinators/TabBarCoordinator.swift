@@ -16,9 +16,11 @@ class TabBarCoordinator: Coordinator {
     private var reachabilityService: ReachabilityServiceType?
     
     private var subscriptions = Set<AnyCancellable>()
+    private let diContainer: DIContainerType
     
-    init(diContainer: DIContainerType?) {
-        self.reachabilityService = diContainer?.resolve()
+    init(diContainer: DIContainerType) {
+        self.diContainer = diContainer
+        self.reachabilityService = diContainer.resolve()
     }
 
     @discardableResult
@@ -27,7 +29,7 @@ class TabBarCoordinator: Coordinator {
         tabBarController.tabBar.barTintColor = Asset.tabBarBarTintColor.color
         tabBarController.tabBar.tintColor = Asset.tabBarTintColor.color
 
-        let mapCoordinator = MapCoordinator()
+        let mapCoordinator = MapCoordinator(diContainer: diContainer)
         mapCoordinator.start()
         childCoordinators.append(mapCoordinator)
         
