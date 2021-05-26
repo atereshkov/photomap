@@ -28,9 +28,9 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     @Published private(set) var isHiddenCategoryPicker: Bool = true
     @Published private(set) var categoryPublisher: Category?
     @Published private(set) var photo: Photo
-    @Published var doneButtonTitle: String?
-    @Published var cancelButtonTitle: String?
-    @Published var closeCategoryPickerViewButtonTitle: String?
+    @Published private(set) var doneButtonTitle: String?
+    @Published private(set) var cancelButtonTitle: String?
+    @Published private(set) var closeCategoryPickerViewButtonTitle: String?
 
     init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType, photo: Photo) {
         self.coordinator = coordinator
