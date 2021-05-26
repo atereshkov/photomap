@@ -12,7 +12,7 @@ import Combine
 
 class LocationServiceMock: NSObject, LocationServiceType {
     var isEnable = CurrentValueSubject<Bool, Never>(false)
-    var status = CurrentValueSubject<CLAuthorizationStatus, Never>(.notDetermined)
+    var status = PassthroughSubject<CLAuthorizationStatus, Never>()
     var location = CurrentValueSubject<CLLocation, Never>(CLLocation.init())
     
     var currentCoordinate: CLLocationCoordinate2D {
@@ -31,6 +31,7 @@ class LocationServiceMock: NSObject, LocationServiceType {
     override init() {
         super.init()
 
+        status.send(.notDetermined)
         locationManager.startUpdatingLocation()
     }
 

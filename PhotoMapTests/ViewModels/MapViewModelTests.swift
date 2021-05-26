@@ -47,6 +47,7 @@ class MapViewModelTests: XCTestCase {
 
     func testIsShowUserLocation_EnableLocation_ShouldBeTrue() {
         // Arrange
+        var isEqual = false
         XCTAssertFalse(viewModel.isShowUserLocation)
         let locationService: LocationServiceType = diContainer.resolve()
         guard let mockService = locationService as? LocationServiceMock else {
@@ -55,15 +56,22 @@ class MapViewModelTests: XCTestCase {
         }
 
         // Act
+        mockService.status
+            .sink { status in
+                isEqual = status == .authorizedWhenInUse
+            }
+            .store(in: cancelBag)
+
         mockService.enableService()
 
         // Assert
         XCTAssertTrue(viewModel.isShowUserLocation)
-        XCTAssertEqual(mockService.status.value, .authorizedWhenInUse)
+        XCTAssertTrue(isEqual)
     }
 
     func  testIsShowUserLocation_DisableLocation_ShouldBeFalse() {
         // Arrange
+        var isEqual = false
         XCTAssertFalse(viewModel.isShowUserLocation)
         let locationService: LocationServiceType = diContainer.resolve()
         guard let mockService = locationService as? LocationServiceMock else {
@@ -72,11 +80,18 @@ class MapViewModelTests: XCTestCase {
         }
         
         // Act
+        mockService.status
+            .sink { status in
+                isEqual = status == .denied
+            }
+            .store(in: cancelBag)
+
+        mockService.enableService()
         mockService.disableService()
 
         // Assert
         XCTAssertFalse(viewModel.isShowUserLocation)
-        XCTAssertEqual(mockService.status.value, .denied)
+        XCTAssertTrue(isEqual)
     }
 
     func testRegion_ShouldBeNotNil() {
