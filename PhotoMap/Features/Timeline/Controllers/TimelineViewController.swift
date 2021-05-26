@@ -12,16 +12,20 @@ class TimelineViewController: BaseViewController {
     
     // MARK: - Variables
     private var viewModel: TimelineViewModelType?
+    private let cancelBag = CancelBag()
     
     // MARK: - UI Properties
     @IBOutlet private weak var tableView: UITableView!
     private let searchBar = UISearchBar(placeholder: L10n.Main.NavBar.Search.title)
-    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self, action: #selector(categoryButtonPressed))
+    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self,
+                                                    action: #selector(categoryButtonPressed))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        bind()
+        viewModel?.viewDidLoad()
     }
     
     // MARK: - Helpers
@@ -35,6 +39,19 @@ class TimelineViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = categoryBarButton
+        view.insertSubview(activityIndicator, aboveSubview: tableView)
+    }
+    
+    private func bind() {
+        viewModel?.reloadDataSubject.sink(receiveValue: { [weak self] in
+            self?.tableView.reloadData()
+        })
+        .store(in: cancelBag)
+        
+        viewModel?.loadingPublisher.sink(receiveValue: { [weak self] isLoading in
+            isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+        })
+        .store(in: cancelBag)
     }
     
     // MARK: - Selectors
@@ -54,7 +71,7 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.numberOfRows ?? 0
+        return viewModel?.getNumberOfRows(in: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

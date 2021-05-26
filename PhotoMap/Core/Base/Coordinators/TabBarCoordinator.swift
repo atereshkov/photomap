@@ -33,7 +33,7 @@ class TabBarCoordinator: Coordinator {
         mapCoordinator.start()
         childCoordinators.append(mapCoordinator)
         
-        let timelineCoordinator = TimelineCoordinator()
+        let timelineCoordinator = TimelineCoordinator(diContainer: diContainer)
         timelineCoordinator.start()
         childCoordinators.append(timelineCoordinator)
 

@@ -21,4 +21,9 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var shortDate: String {
+        let formatter = CachedDateFormatter.with(format: "dd.MM.yy")
+        return formatter.string(from: self).split(separator: "/").joined(separator: "-")
+    }
+    
 }
