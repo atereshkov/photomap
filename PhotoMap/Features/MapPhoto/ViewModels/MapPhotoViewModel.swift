@@ -27,7 +27,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Output
     @Published private(set) var isHiddenCategoryPicker: Bool = true
     @Published private(set) var categoryPublisher: Category?
-    @Published private(set) var photo: Photo
+    @Published private(set) var photoPublisher: Photo
     @Published private(set) var doneButtonTitle: String?
     @Published private(set) var cancelButtonTitle: String?
     @Published private(set) var closeCategoryPickerViewButtonTitle: String?
@@ -35,7 +35,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType, photo: Photo) {
         self.coordinator = coordinator
         self.diContainer = diContainer
-        self.photo = photo
+        self.photoPublisher = photo
         super.init()
 
         transform()

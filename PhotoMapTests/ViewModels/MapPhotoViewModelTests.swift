@@ -19,7 +19,8 @@ class MapPhotoViewModelTests: XCTestCase {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
         coordinator = MapPhotoCoordinator(diContainer: diContainer)
-        viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer)
+        let photo = Photo(image: UIImage())
+        viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer, photo: photo)
     }
 
     override func tearDownWithError() throws {
@@ -70,5 +71,21 @@ class MapPhotoViewModelTests: XCTestCase {
 
     func testCategoryPublisher_ShouldBeNotNil() {
         XCTAssertNotNil(viewModel.categoryPublisher)
+    }
+
+    func testPhotoPublisher_ShouldBeNotNil() {
+        XCTAssertNotNil(viewModel.photoPublisher)
+    }
+
+    func testDoneButtonTitle_ShouldBeEqual() {
+        XCTAssertEqual(viewModel.doneButtonTitle, L10n.Main.MapPhoto.Button.Title.done)
+    }
+
+    func testCancelButtonTitle_ShouldBeEqual() {
+        XCTAssertEqual(viewModel.cancelButtonTitle, L10n.Main.MapPhoto.Button.Title.cancel)
+    }
+
+    func testCloseCategoryPickerViewButtonTitle_ShouldBeEqual() {
+        XCTAssertEqual(viewModel.closeCategoryPickerViewButtonTitle, L10n.Main.MapPhoto.Button.Title.close)
     }
 }

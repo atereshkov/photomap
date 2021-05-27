@@ -151,17 +151,12 @@ class MapViewModelTests: XCTestCase {
 
     func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
         // Arrange
-        var isShow = false
-        coordinator.showMapPopupSubject
-            .sink(receiveValue: { _ in
-                isShow = true
-            })
-            .store(in: cancelBag)
+        XCTAssertTrue(viewModel.isFollowModeOn)
 
         // Act
         viewModel.categoryButtonSubject.send(UIControl())
 
         // Assert
-        XCTAssertTrue(isShow)
+        XCTAssertFalse(viewModel.isFollowModeOn)
     }
 }

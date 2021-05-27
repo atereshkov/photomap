@@ -47,11 +47,11 @@ class MapPhotoViewController: BaseViewController {
     private func bind() {
         guard let viewModel = viewModel else { return }
 
-        viewModel.$photo
+        viewModel.$photoPublisher
             .map { $0.image }
             .assign(to: \.image, on: imageView)
             .store(in: cancelBag)
-        viewModel.$photo
+        viewModel.$photoPublisher
             .map { $0.date.toString }
             .assign(to: \.text, on: dateLabel)
             .store(in: cancelBag)

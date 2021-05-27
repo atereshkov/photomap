@@ -103,6 +103,7 @@ class MapViewModel: NSObject, MapViewModelType {
     private func createImagePicker(from source: UIImagePickerController.SourceType) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.sourceType = source
+        picker.allowsEditing = true
         picker.delegate = self
 
         return picker
