@@ -66,6 +66,7 @@ class MapViewController: BaseViewController {
             .subscribe(viewModel.navigationButtonSubject)
             .store(in: cancelBag)
         photoButton.tapPublisher
+            .map { _ in nil }
             .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
     }
@@ -78,8 +79,20 @@ class MapViewController: BaseViewController {
             .store(in: cancelBag)
 
         mapView.gesture(.longPress())
-            .map { _ in UIControl() }
+            .map { [weak self] gestureType -> CLLocationCoordinate2D? in
+                let gesture = gestureType.get()
+                guard let self = self,
+                      gesture.state == .ended else { return nil }
+
+                let touchLocation = gesture.location(in: self.mapView)
+                let coordinate = self.mapView.convert(touchLocation,
+                                                              toCoordinateFrom: self.mapView)
+
+                return coordinate
+            }
+            .filter { $0 != nil }
             .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
     }
+
 }

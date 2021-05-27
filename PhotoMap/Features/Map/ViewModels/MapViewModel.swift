@@ -21,7 +21,7 @@ class MapViewModel: MapViewModelType {
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var enableDiscoveryModeSubject = PassthroughSubject<GestureType, Never>()
     private(set) var navigationButtonSubject = PassthroughSubject<UIControl, Never>()
-    private(set) var photoButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var photoButtonSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
@@ -67,9 +67,18 @@ class MapViewModel: MapViewModelType {
             .store(in: cancelBag)
 
         photoButtonSubject
-            .sink { [weak self] _ in
-                self?.switchFollowDiscoveryMode(disableFolowMode: true)
-                self?.coordinator.showPhotoMenuAlertSubject.send()
+            .map { [weak self] coordinate -> CLLocationCoordinate2D? in
+                if coordinate != nil {
+                    return coordinate
+                } else {
+                    return self?.locationService.currentCoordinate
+                }
+            }
+            .sink { [weak self] coordinate in
+                guard let self = self else { return }
+                self.switchFollowDiscoveryMode(disableFolowMode: true)
+
+                self.coordinator.showPhotoMenuAlertSubject.send()
             }
             .store(in: cancelBag)
 
