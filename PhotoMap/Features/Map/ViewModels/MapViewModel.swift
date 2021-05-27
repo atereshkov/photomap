@@ -9,7 +9,7 @@ import Combine
 import CoreLocation
 import MapKit
 
-class MapViewModel: NSObject, MapViewModelType {
+class MapViewModel: MapViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapCoordinator
@@ -35,7 +35,6 @@ class MapViewModel: NSObject, MapViewModelType {
         self.coordinator = coordinator
         self.diContainer = diContainer
         self.locationService = diContainer.resolve()
-        super.init()
 
         transform()
     }
@@ -85,42 +84,10 @@ class MapViewModel: NSObject, MapViewModelType {
             .map { _ in () }
             .subscribe(coordinator.disableLocationSubject)
             .store(in: cancelBag)
-
-        coordinator.imagePickerSourceSubject
-            .sink(receiveValue: { [weak self] source in
-                guard let self = self else { return }
-
-                self.coordinator.showImagePickerSubject.send(self.createImagePicker(from: source))
-            })
-            .store(in: cancelBag)
     }
 
     private func switchFollowDiscoveryMode(disableFolowMode: Bool = false) {
         isFollowModeOn = disableFolowMode ? !disableFolowMode : !isFollowModeOn
         modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
-    }
-
-    private func createImagePicker(from source: UIImagePickerController.SourceType) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.sourceType = source
-        picker.allowsEditing = true
-        picker.delegate = self
-
-        return picker
-    }
-}
-
-extension MapViewModel: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
-
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        
-        coordinator.showMapPopupSubject.send(Photo(image: image))
     }
 }

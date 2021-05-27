@@ -20,6 +20,7 @@
 		0B1DC439265E5FF400BC7B6E /* IndexCollection+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC438265E5FF400BC7B6E /* IndexCollection+Ex.swift */; };
 		0B1DC43B265E610700BC7B6E /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B1DC43A265E610700BC7B6E /* Timeline.storyboard */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
+		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
 		128B418C265E7DC500697551 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* Photo.swift */; };
 		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
 		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
@@ -150,6 +151,7 @@
 		0B1DC43A265E610700BC7B6E /* Timeline.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
+		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
 		128B418B265E7DC500697551 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		12D96AD92656A2CA0073847E /* StoryboardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsTests.swift; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 			isa = PBXGroup;
 			children = (
 				338BB615262D8FA10001F530 /* MapCoordinator.swift */,
+				127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1224,6 +1227,7 @@
 				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				3374D0E6263B1AEE00A03E78 /* ATCTextField.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
+				127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */,
 				335881D5262DA82A0057D25F /* MoreViewController.swift in Sources */,
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				A8B6AC30265BE82A009AA6D2 /* FirestoreServiceType.swift in Sources */,

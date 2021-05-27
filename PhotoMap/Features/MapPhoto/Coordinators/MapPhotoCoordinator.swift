@@ -22,7 +22,7 @@ class MapPhotoCoordinator: Coordinator {
         bind()
     }
 
-    func start( photo: Photo) -> UINavigationController {
+    func start(with photo: Photo) -> UINavigationController {
         let viewModel = MapPhotoViewModel(coordinator: self, diContainer: DIContainer(), photo: photo)
         let vc = MapPhotoViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
