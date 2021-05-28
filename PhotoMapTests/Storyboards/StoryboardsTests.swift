@@ -38,4 +38,9 @@ class StoryboardsTests: XCTestCase {
         let vc = StoryboardScene.Initial.initialViewController.instantiate()
         XCTAssertNotNil(vc)
     }
+
+    func testTimelineViewController() {
+        let vc = StoryboardScene.Timeline.timelineViewController.instantiate()
+        XCTAssertNotNil(vc)
+    }
 }

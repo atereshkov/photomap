@@ -109,7 +109,7 @@ class MapViewModelTests: XCTestCase {
     func testTapOnPhotoButton_FolowModeOn_ShouldOnDiscoveryMode() {
         XCTAssertTrue(viewModel.isFollowModeOn)
 
-        viewModel.photoButtonSubject.send(UIControl())
+        viewModel.photoButtonSubject.send(CLLocationCoordinate2D())
 
         XCTAssertFalse(viewModel.isFollowModeOn)
     }
@@ -133,7 +133,7 @@ class MapViewModelTests: XCTestCase {
             }
             .store(in: cancelBag)
         
-        viewModel.photoButtonSubject.send(UIControl())
+        viewModel.photoButtonSubject.send(CLLocationCoordinate2D())
 
         // Assert
         XCTAssertTrue(isShow)
@@ -151,17 +151,12 @@ class MapViewModelTests: XCTestCase {
 
     func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
         // Arrange
-        var isShow = false
-        coordinator.showMapPopupSubject
-            .sink(receiveValue: { _ in
-                isShow = true
-            })
-            .store(in: cancelBag)
+        XCTAssertTrue(viewModel.isFollowModeOn)
 
         // Act
         viewModel.categoryButtonSubject.send(UIControl())
 
         // Assert
-        XCTAssertTrue(isShow)
+        XCTAssertFalse(viewModel.isFollowModeOn)
     }
 }

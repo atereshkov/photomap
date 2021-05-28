@@ -41,13 +41,23 @@ class MapPhotoViewController: BaseViewController {
         setupToolBar()
 
         bind()
+        bindActions()
     }
 
     private func bind() {
         guard let viewModel = viewModel else { return }
 
-        viewModel.$dateString
+        viewModel.$photoPublisher
+            .map { $0.image }
+            .assign(to: \.image, on: imageView)
+            .store(in: cancelBag)
+        viewModel.$photoPublisher
+            .map { $0.date.toString }
             .assign(to: \.text, on: dateLabel)
+            .store(in: cancelBag)
+        viewModel.$photoPublisher
+            .map { $0.description }
+            .assign(to: \.text, on: descriptionTextView)
             .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: categoryPckerView)
@@ -72,6 +82,10 @@ class MapPhotoViewController: BaseViewController {
                 self?.cancelButton.setTitle(title, for: .application)
             })
             .store(in: cancelBag)
+    }
+
+    private func bindActions() {
+        guard let viewModel = viewModel else { return }
 
         categoryView.gesture(.tap())
             .subscribe(viewModel.categoryViewSubject)

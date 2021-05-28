@@ -7,16 +7,21 @@
 
 import UIKit
 import Combine
+import CoreLocation
 
 class MapCoordinator: Coordinator {
-    
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
-    private let diContainer: DIContainerType
+
     private let cancelBag = CancelBag()
-    private(set) var showPhotoMenuAlertSubject = PassthroughSubject<Void, Never>()
-    private(set) var showMapPopupSubject = PassthroughSubject<Void, Never>()
+    private var coordinate: CLLocationCoordinate2D?
+    private let diContainer: DIContainerType
+
+    private(set) var showPhotoMenuAlertSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
+    private(set) var showMapPopupSubject = PassthroughSubject<Photo, Never>()
     private(set) var disableLocationSubject = PassthroughSubject<Void, Never>()
+    private(set) var imagePickerSourceSubject = PassthroughSubject<UIImagePickerController.SourceType, Never>()
+    private(set) var showImagePickerSubject = PassthroughSubject<UIImagePickerController, Never>()
 
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -34,15 +39,19 @@ class MapCoordinator: Coordinator {
 
     private func bind() {
         showPhotoMenuAlertSubject
-            .sink { [weak self] _ in
-                self?.showPhotoMenuAlert()
+            .sink { [weak self] coordinate in
+                guard let self = self else { return }
+
+                self.coordinate = coordinate
+                self.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
         showMapPopupSubject
-            .sink { [weak self] _ in
+            .sink { [weak self] photo in
                 guard let self = self else { return }
 
-                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start()
+                self.childCoordinators.removeAll()
+                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start(with: photo)
                 self.navigationController.present(vc, animated: true)
             }
             .store(in: cancelBag)
@@ -51,15 +60,34 @@ class MapCoordinator: Coordinator {
                 self?.showDisableLocationAlert()
             })
             .store(in: cancelBag)
+        imagePickerSourceSubject
+            .sink(receiveValue: { [weak self] source in
+                guard let self = self,
+                      let coordinate = self.coordinate else { return }
+
+                let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
+                imagePickerCoordinator.selectedPhotoSubject
+                    .subscribe(self.showMapPopupSubject)
+                    .store(in: self.cancelBag)
+
+                self.childCoordinators.append(imagePickerCoordinator)
+                self.navigationController.present(imagePickerCoordinator.start(from: source), animated: true)
+            })
+            .store(in: cancelBag)
     }
-    
+}
+
+// MARK: - MapCoordinator extenion with alerts
+extension MapCoordinator {
     private func showPhotoMenuAlert() {
         let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
                                           style: .default,
-                                          handler: nil)
+                                          handler: { [weak self] _ in self?.imagePickerSourceSubject.send(.camera)})
         let chooseFromLibraryAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.chooseFromLibrary,
                                                     style: .default,
-                                                    handler: nil)
+                                                    handler: { [weak self] _ in
+                                                        self?.imagePickerSourceSubject.send(.photoLibrary)
+                                                    })
         let cancelAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.cancel,
                                          style: .cancel,
                                          handler: nil)
@@ -75,9 +103,7 @@ class MapCoordinator: Coordinator {
         let goSettingsAction = UIAlertAction(title: L10n.Main.Map.DisableLocationAlert.Button.Title.settings,
                                              style: .default,
                                              handler: { _ in
-            guard let url = URL(string: UIApplication.openSettingsURLString) else {
-              return
-            }
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 
             if UIApplication.shared.canOpenURL(url) {
               UIApplication.shared.open(url, completionHandler: nil)

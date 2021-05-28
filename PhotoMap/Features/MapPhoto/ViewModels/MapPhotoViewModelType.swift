@@ -19,6 +19,10 @@ protocol MapPhotoViewModelInput {
 protocol MapPhotoViewModelOutput {
     var isHiddenCategoryPicker: Bool { get }
     var categoryPublisher: Category? { get }
+    var photoPublisher: Photo { get }
+    var doneButtonTitle: String? { get }
+    var cancelButtonTitle: String? { get }
+    var closeCategoryPickerViewButtonTitle: String? { get }
 }
 
 protocol MapPhotoViewModelType: MapPhotoViewModelInput, MapPhotoViewModelOutput {}

@@ -12,7 +12,7 @@ protocol MapViewModelInput {
     var categoryButtonSubject: PassthroughSubject<UIControl, Never> { get }
     var enableDiscoveryModeSubject: PassthroughSubject<GestureType, Never> { get }
     var navigationButtonSubject: PassthroughSubject<UIControl, Never> { get }
-    var photoButtonSubject: PassthroughSubject<UIControl, Never> { get }
+    var photoButtonSubject: PassthroughSubject<CLLocationCoordinate2D?, Never> { get }
 }
 
 protocol MapViewModelOutput {

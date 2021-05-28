@@ -60,5 +60,9 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Turning on location services allows us to show you your phototags that are nearby.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to the camera with wich you can take a photo in the app.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need access to the Photo Library with wich you can load a photo in the app.</string>
 </dict>
 </plist>
