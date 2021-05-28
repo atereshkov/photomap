@@ -17,11 +17,12 @@ class SignInViewModel: SignInViewModelType {
     
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
+    private let minStringLength: Int = 2
     
     // MARK: - Input
     
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
     
     private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var signInButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -32,7 +33,7 @@ class SignInViewModel: SignInViewModelType {
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
     
-    var showLoadingIndicator = CurrentValueSubject<Bool, Never>(false)
+    var isHiddenLoadingIndicator = CurrentValueSubject<Bool, Never>(true)
     
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinatorType,
@@ -51,25 +52,25 @@ class SignInViewModel: SignInViewModelType {
 extension SignInViewModel {
     
     func transform() {
-        $email.flatMap { email in
-            return self.emailValidator.isEmailValid(email)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.emailError, on: self)
-        .store(in: cancelBag)
+        $email
+            .filter { $0.count > 2 }
+            .flatMap { email in
+                self.emailValidator.isEmailValid(email)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.emailError, on: self)
+            .store(in: cancelBag)
         
-        $password.flatMap { password in
-            return self.passwordValidator.isPasswordValid(password)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.passwordError, on: self)
-        .store(in: cancelBag)
+        $password
+            .filter { $0.count > 2 }
+            .flatMap { password in
+                self.passwordValidator.isPasswordValid(password)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.passwordError, on: self)
+            .store(in: cancelBag)
         
         let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
         
@@ -88,8 +89,6 @@ extension SignInViewModel {
             .store(in: cancelBag)
         
         signInButtonSubject
-//            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
-//            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in
                 self?.signInButtonTapped()
             }
@@ -101,13 +100,13 @@ extension SignInViewModel {
 extension SignInViewModel: SignInViewModelInput {
     
     func signInButtonTapped() {
-        showLoadingIndicator.send(true)
+        isHiddenLoadingIndicator.send(false)
         print(email, password)
         authUserService
             .signIn(email: email, password: password)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
-                self?.showLoadingIndicator.send(false)
+                self?.isHiddenLoadingIndicator.send(true)
                 switch completion {
                 case .failure:
                     self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)

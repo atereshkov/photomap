@@ -17,9 +17,18 @@ class BaseViewController: UIViewController {
         activityIndicator.style = .large
         activityIndicator.tag = 1
         activityIndicator.color = Asset.activityIndicatorIndicatorColor.color
+        activityIndicator.layer.zPosition = -1
+        activityIndicator.isHidden = true
 
         return activityIndicator
     }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
     
     func setOpacityBackgroundNavigationBar() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

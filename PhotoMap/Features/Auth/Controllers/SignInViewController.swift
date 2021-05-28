@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class SignInViewController: BaseViewController {
     
@@ -27,7 +28,7 @@ class SignInViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setOpacityBackgroundNavigationBar()
         bind()
     }
@@ -50,30 +51,26 @@ extension SignInViewController {
             .store(in: cancelBag)
         
         viewModel.$emailError
-            .receive(on: RunLoop.main)
             .sink { [weak self] error in
-                guard let `self` = self else {
+                guard let self = self else { return }
+
+                guard let error = error else {
+                    self.emailTextField.hideError()
                     return
                 }
-                if let error = error {
-                    self.emailTextField.showError(error)
-                } else {
-                    self.emailTextField.hideError()
-                }
+                self.emailTextField.showError(error)
             }
             .store(in: cancelBag)
-        
+
         viewModel.$passwordError
-            .receive(on: RunLoop.main)
             .sink { [weak self] error in
-                guard let `self` = self else {
+                guard let self = self else { return }
+
+                guard let error = error else {
+                    self.passwordTextField.hideError()
                     return
                 }
-                if let error = error {
-                    self.passwordTextField.showError(error)
-                } else {
-                    self.passwordTextField.hideError()
-                }
+                self.passwordTextField.showError(error)
             }
             .store(in: cancelBag)
         
@@ -83,13 +80,9 @@ extension SignInViewController {
             .assign(to: \.isEnabled, on: signInButton)
             .store(in: cancelBag)
         
-        viewModel.showLoadingIndicator
+        viewModel.isHiddenLoadingIndicator
             .receive(on: RunLoop.main)
-            .map { $0 }
-            .sink { [weak self] _ in
-                self?.activityIndicator.isHidden = false
-                self?.activityIndicator.startAnimating()
-            }
+            .assign(to: \.isHidden, on: activityIndicator)
             .store(in: cancelBag)
         
         signUpButton.tapPublisher
