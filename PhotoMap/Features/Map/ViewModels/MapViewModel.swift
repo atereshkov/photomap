@@ -67,18 +67,13 @@ class MapViewModel: MapViewModelType {
             .store(in: cancelBag)
 
         photoButtonSubject
-            .map { [weak self] coordinate -> CLLocationCoordinate2D? in
-                if coordinate != nil {
-                    return coordinate
-                } else {
-                    return self?.locationService.currentCoordinate
-                }
-            }
-            .sink { [weak self] coordinate in
+            .sink { [weak self] receiveCoordinate in
                 guard let self = self else { return }
-                self.switchFollowDiscoveryMode(disableFolowMode: true)
 
-                self.coordinator.showPhotoMenuAlertSubject.send()
+                self.switchFollowDiscoveryMode(disableFolowMode: true)
+                let coordinate = receiveCoordinate != nil ? receiveCoordinate : self.locationService.currentCoordinate
+
+                self.coordinator.showPhotoMenuAlertSubject.send(coordinate)
             }
             .store(in: cancelBag)
 

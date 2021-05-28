@@ -55,6 +55,10 @@ class MapPhotoViewController: BaseViewController {
             .map { $0.date.toString }
             .assign(to: \.text, on: dateLabel)
             .store(in: cancelBag)
+        viewModel.$photoPublisher
+            .map { $0.description }
+            .assign(to: \.text, on: descriptionTextView)
+            .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: categoryPckerView)
             .store(in: cancelBag)

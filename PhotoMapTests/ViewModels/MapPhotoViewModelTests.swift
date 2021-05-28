@@ -7,6 +7,7 @@
 
 import XCTest
 import Combine
+import CoreLocation
 @testable import PhotoMap
 
 class MapPhotoViewModelTests: XCTestCase {
@@ -19,7 +20,7 @@ class MapPhotoViewModelTests: XCTestCase {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
         coordinator = MapPhotoCoordinator(diContainer: diContainer)
-        let photo = Photo(image: UIImage())
+        let photo = Photo(image: UIImage(), coordinate: CLLocationCoordinate2D())
         viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer, photo: photo)
     }
 

@@ -7,11 +7,13 @@
 
 import UIKit
 import Combine
+import CoreLocation
 
 class ImagePickerCoordinator: NSObject, Coordinator {
-    var childCoordinators: [Coordinator] = []
-    var navigationController = UINavigationController()
-
+    private(set) var childCoordinators: [Coordinator] = []
+    private(set) var navigationController = UINavigationController()
+    
+    private var coordinate: CLLocationCoordinate2D
     private(set) var selectedPhotoSubject = PassthroughSubject<Photo, Never>()
 
     private lazy var picker: UIImagePickerController = {
@@ -21,6 +23,10 @@ class ImagePickerCoordinator: NSObject, Coordinator {
 
         return picker
     }()
+
+    init(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+    }
 
     func start(from source: UIImagePickerController.SourceType) -> UIImagePickerController {
         picker.sourceType = source
@@ -40,7 +46,7 @@ extension ImagePickerCoordinator: UIImagePickerControllerDelegate, UINavigationC
         picker.dismiss(animated: true, completion: nil)
 
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        
-        selectedPhotoSubject.send(Photo(image: image))
+
+        selectedPhotoSubject.send(Photo(image: image, coordinate: coordinate))
     }
 }

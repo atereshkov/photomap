@@ -7,13 +7,17 @@
 
 import UIKit
 import Combine
+import CoreLocation
 
 class MapCoordinator: Coordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
-    private let diContainer: DIContainerType
+
     private let cancelBag = CancelBag()
-    private(set) var showPhotoMenuAlertSubject = PassthroughSubject<Void, Never>()
+    private var coordinate: CLLocationCoordinate2D?
+    private let diContainer: DIContainerType
+
+    private(set) var showPhotoMenuAlertSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
     private(set) var showMapPopupSubject = PassthroughSubject<Photo, Never>()
     private(set) var disableLocationSubject = PassthroughSubject<Void, Never>()
     private(set) var imagePickerSourceSubject = PassthroughSubject<UIImagePickerController.SourceType, Never>()
@@ -35,8 +39,11 @@ class MapCoordinator: Coordinator {
 
     private func bind() {
         showPhotoMenuAlertSubject
-            .sink { [weak self] _ in
-                self?.showPhotoMenuAlert()
+            .sink { [weak self] coordinate in
+                guard let self = self else { return }
+
+                self.coordinate = coordinate
+                self.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
         showMapPopupSubject
@@ -55,9 +62,10 @@ class MapCoordinator: Coordinator {
             .store(in: cancelBag)
         imagePickerSourceSubject
             .sink(receiveValue: { [weak self] source in
-                guard let self = self else { return }
+                guard let self = self,
+                      let coordinate = self.coordinate else { return }
 
-                let imagePickerCoordinator = ImagePickerCoordinator()
+                let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
                 imagePickerCoordinator.selectedPhotoSubject
                     .subscribe(self.showMapPopupSubject)
                     .store(in: self.cancelBag)

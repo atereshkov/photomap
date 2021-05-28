@@ -14,5 +14,5 @@ struct Photo {
     var description: String = ""
     var category: Category?
     var hashTags: [String] = []
-    var geopoint: CLLocationCoordinate2D?
+    var coordinate: CLLocationCoordinate2D
 }
