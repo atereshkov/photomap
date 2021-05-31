@@ -14,23 +14,33 @@ class TimelineViewModel: TimelineViewModelType {
     private let coordinator: TimelineCoordinator
     private let firestoreService: FirestoreServiceType
     private var markers = [String: [Marker]]()
+    private var headerTitles = [String]()
+    private var searchingMarkers = [String: [Marker]]()
+    private var searchingHeaderTitles = [String]()
     private let cancelBag = CancelBag()
-    private lazy var headerTitles = [String]()
-    
-    var numberOfSections: Int {
-        return markers.count
-    }
     
     // MARK: - Lifecycle
     init(coordinator: TimelineCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.firestoreService = diContainer.resolve()
+        transform()
+    }
+    
+    private func transform() {
+        searchTextSubject.debounce(for: .seconds(1.0), scheduler: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] hashtag in
+                self?.searchMarkersWith(hashtag: hashtag.trim())
+                self?.reloadDataSubject.send()
+            })
+            .store(in: cancelBag)
     }
     
     // MARK: - Input
     func viewDidLoad() {
         getUserMarkers()
     }
+    
+    let searchTextSubject = CurrentValueSubject<String, Never>.init("")
     
     private let activityIndicator = ActivityIndicator()
     
@@ -41,19 +51,27 @@ class TimelineViewModel: TimelineViewModelType {
         return activityIndicator.loading.eraseToAnyPublisher()
     }
     
+    var isSearching: Bool {
+        return !searchTextSubject.value.isEmpty
+    }
+    
+    var numberOfSections: Int {
+        return isSearching ? searchingMarkers.count : markers.count
+    }
+    
     func getMarker(at indexPath: IndexPath) -> Marker? {
-        guard let key = headerTitles[at: indexPath.section] else { return nil }
-        guard let markers = markers[key] else { return nil }
+        guard let key = isSearching ? searchingHeaderTitles[at: indexPath.section] : headerTitles[at: indexPath.section] else { return nil }
+        guard let markers = isSearching ? searchingMarkers[key] : markers[key] else { return nil }
         return markers[at: indexPath.row]
     }
     
     func getTitle(for section: Int) -> String? {
-        return headerTitles[at: section]
+        return isSearching ? searchingHeaderTitles[at: section] : headerTitles[at: section]
     }
     
     func getNumberOfRows(in section: Int) -> Int {
-        guard let key = headerTitles[at: section] else { return 0 }
-        guard let markers = markers[key] else { return 0 }
+        guard let key = isSearching ? searchingHeaderTitles[at: section] : headerTitles[at: section] else { return 0 }
+        guard let markers = isSearching ? searchingMarkers[key] : markers[key] else { return 0 }
         return markers.count
     }
     
@@ -70,14 +88,16 @@ class TimelineViewModel: TimelineViewModelType {
                     break
                 }
             }, receiveValue: { [weak self] markers in
-                self?.configureDataSource(with: markers)
+                guard let results = self?.configureDataSource(with: markers) else { return }
+                self?.markers = results.markers
+                self?.headerTitles = results.titles
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
     }
     
-    private func configureDataSource(with markers: [Marker]) {
-        guard !markers.isEmpty else { return }
+    private func configureDataSource(with markers: [Marker]) -> (markers: [String: [Marker]], titles: [String]) {
+        guard !markers.isEmpty else { return ([:], []) }
         var groupedMarkers = [String: [Marker]]()
         
         for marker in markers {
@@ -88,8 +108,22 @@ class TimelineViewModel: TimelineViewModelType {
                 groupedMarkers[marker.date.monthAndYear] = [marker]
             }
         }
-        self.markers = groupedMarkers
-        self.headerTitles = [String](groupedMarkers.keys).sorted { $0.toMonthAndYearDate > $1.toMonthAndYearDate }
+        let titles = [String](groupedMarkers.keys).sorted { $0.toMonthAndYearDate > $1.toMonthAndYearDate }
+        return (groupedMarkers, titles)
+    }
+    
+    private func searchMarkersWith(hashtag: String) {
+        let allmarkers = self.markers.values.flatMap { $0 }
+        var filteredMarkers = [Marker]()
+        
+        for marker in allmarkers {
+            for tag in marker.hashtags where tag.lowercased().contains(hashtag.lowercased()) {
+                filteredMarkers.append(marker)
+            }
+        }
+        let results = self.configureDataSource(with: filteredMarkers)
+        self.searchingMarkers = results.markers
+        self.searchingHeaderTitles = results.titles
     }
     
 }

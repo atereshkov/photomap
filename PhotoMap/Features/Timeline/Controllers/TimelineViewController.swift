@@ -37,18 +37,21 @@ class TimelineViewController: BaseViewController {
     
     private func setupView() {
         tableView.tableFooterView = UIView()
+        searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = categoryBarButton
         view.insertSubview(activityIndicator, aboveSubview: tableView)
     }
     
     private func bind() {
-        viewModel?.reloadDataSubject.sink(receiveValue: { [weak self] in
+        guard let viewModel = viewModel else { return }
+        
+        viewModel.reloadDataSubject.sink(receiveValue: { [weak self] in
             self?.tableView.reloadData()
         })
         .store(in: cancelBag)
         
-        viewModel?.loadingPublisher.sink(receiveValue: { [weak self] isLoading in
+        viewModel.loadingPublisher.sink(receiveValue: { [weak self] isLoading in
             isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
         })
         .store(in: cancelBag)
@@ -82,4 +85,11 @@ extension TimelineViewController: UITableViewDataSource {
         return cell
     }
     
+}
+
+// MARK: - UISearchBarDelegate
+extension TimelineViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel?.searchTextSubject.send(searchText)
+    }
 }

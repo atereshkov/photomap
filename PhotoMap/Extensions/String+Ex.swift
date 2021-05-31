@@ -33,4 +33,8 @@ extension String {
         return formatter.date(from: self) ?? Date()
     }
     
+    func trim() -> String {
+        return self.trimmingCharacters(in: .whitespaces)
+    }
+    
 }
