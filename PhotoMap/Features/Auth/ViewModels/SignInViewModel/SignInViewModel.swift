@@ -20,7 +20,6 @@ class SignInViewModel: SignInViewModelType {
     private let minStringLength: Int = 2
     
     // MARK: - Input
-    
     @Published var email: String = ""
     @Published var password: String = ""
     
@@ -28,11 +27,14 @@ class SignInViewModel: SignInViewModelType {
     private(set) var signInButtonSubject = PassthroughSubject<UIControl, Never>()
 
     // MARK: Output
-    
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
-    private(set) var isHiddenLoadingIndicator = CurrentValueSubject<Bool, Never>(true)
+    private let activityIndicator = ActivityIndicator()
+        
+    var loadingPublisher: AnyPublisher<Bool, Never> {
+        activityIndicator.loading
+    }
     
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinatorType,
@@ -96,15 +98,14 @@ extension SignInViewModel {
 
 extension SignInViewModel: SignInViewModelInput {
     
-    func signInButtonTapped() {
-        isHiddenLoadingIndicator.send(false)
+    private func signInButtonTapped() {
         authUserService
             .signIn(email: email, password: password)
             .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
 
-                self.isHiddenLoadingIndicator.send(true)
                 switch completion {
                 case .failure:
                     self.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)

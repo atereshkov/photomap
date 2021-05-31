@@ -33,7 +33,11 @@ class SignUpViewModel: SignUpViewModelType {
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isRegistrationEnabled = false
-    private(set) var isHiddenLoadingIndicator = CurrentValueSubject<Bool, Never>(true)
+    private let activityIndicator = ActivityIndicator()
+
+    var loadingPublisher: AnyPublisher<Bool, Never> {
+        activityIndicator.loading
+    }
 
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinator,
@@ -104,14 +108,13 @@ extension SignUpViewModel {
 extension SignUpViewModel: SignUpViewModelInput {
     
     func signUpButtonTapped() {
-        isHiddenLoadingIndicator.send(false)
         authUserService
             .signUp(email: email, password: password)
             .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
 
-                self.isHiddenLoadingIndicator.send(false)
                 switch completion {
                 case .failure:
                     self.coordinator.showErrorAlert(error: ResponseError.registrationError)

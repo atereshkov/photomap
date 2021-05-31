@@ -13,12 +13,10 @@ class BaseViewController: UIViewController {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.backgroundColor = Asset.activityIndicatorBackgroundColor.color
         activityIndicator.center = view.center
-        activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .large
         activityIndicator.tag = 1
         activityIndicator.color = Asset.activityIndicatorIndicatorColor.color
         activityIndicator.layer.zPosition = -1
-        activityIndicator.isHidden = true
 
         return activityIndicator
     }()
@@ -27,7 +25,6 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
 
         view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
     }
     
     func setOpacityBackgroundNavigationBar() {

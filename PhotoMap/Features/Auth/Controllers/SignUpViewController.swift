@@ -74,8 +74,11 @@ extension SignUpViewController {
             .assign(to: \.isEnabled, on: signUpButton)
             .store(in: cancelBag)
 
-        viewModel.isHiddenLoadingIndicator
-            .assign(to: \.isHidden, on: activityIndicator)
+        viewModel.loadingPublisher
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] isLoading in
+                isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+            })
             .store(in: cancelBag)
     }
 }
