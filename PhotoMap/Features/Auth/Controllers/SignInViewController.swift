@@ -36,7 +36,6 @@ class SignInViewController: BaseViewController {
 }
 
 // MARK: ViewModel Bind
-
 extension SignInViewController {
     
     private func bind() {
@@ -51,27 +50,11 @@ extension SignInViewController {
             .store(in: cancelBag)
         
         viewModel.$emailError
-            .sink { [weak self] error in
-                guard let self = self else { return }
-
-                guard let error = error else {
-                    self.emailTextField.hideError()
-                    return
-                }
-                self.emailTextField.showError(error)
-            }
+            .subscribe(emailTextField.errorSubject)
             .store(in: cancelBag)
 
         viewModel.$passwordError
-            .sink { [weak self] error in
-                guard let self = self else { return }
-
-                guard let error = error else {
-                    self.passwordTextField.hideError()
-                    return
-                }
-                self.passwordTextField.showError(error)
-            }
+            .subscribe(passwordTextField.errorSubject)
             .store(in: cancelBag)
         
         viewModel.$isAuthEnabled

@@ -26,14 +26,13 @@ class SignInViewModel: SignInViewModelType {
     
     private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var signInButtonSubject = PassthroughSubject<UIControl, Never>()
-   
+
     // MARK: Output
     
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
-    
-    var isHiddenLoadingIndicator = CurrentValueSubject<Bool, Never>(true)
+    private(set) var isHiddenLoadingIndicator = CurrentValueSubject<Bool, Never>(true)
     
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinatorType,
@@ -53,7 +52,6 @@ extension SignInViewModel {
     
     func transform() {
         $email
-            .filter { $0.count > 2 }
             .flatMap { email in
                 self.emailValidator.isEmailValid(email)
             }
@@ -63,7 +61,6 @@ extension SignInViewModel {
             .store(in: cancelBag)
         
         $password
-            .filter { $0.count > 2 }
             .flatMap { password in
                 self.passwordValidator.isPasswordValid(password)
             }
@@ -101,17 +98,18 @@ extension SignInViewModel: SignInViewModelInput {
     
     func signInButtonTapped() {
         isHiddenLoadingIndicator.send(false)
-        print(email, password)
         authUserService
             .signIn(email: email, password: password)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
-                self?.isHiddenLoadingIndicator.send(true)
+                guard let self = self else { return }
+
+                self.isHiddenLoadingIndicator.send(true)
                 switch completion {
                 case .failure:
-                    self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
+                    self.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
                 case .finished:
-                    self?.coordinator.closeScreen()
+                    self.coordinator.closeScreen()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)

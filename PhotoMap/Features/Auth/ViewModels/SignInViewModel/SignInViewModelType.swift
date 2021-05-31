@@ -21,7 +21,7 @@ protocol SignInViewModelOutput {
     var passwordError: String? { get set }
     
     var isAuthEnabled: Bool { get set }
-    var isHiddenLoadingIndicator: CurrentValueSubject<Bool, Never> { get set }
+    var isHiddenLoadingIndicator: CurrentValueSubject<Bool, Never> { get }
 }
 
 protocol SignInViewModelType: SignInViewModelInput, SignInViewModelOutput {
