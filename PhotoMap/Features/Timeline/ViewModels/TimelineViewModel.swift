@@ -116,11 +116,9 @@ class TimelineViewModel: TimelineViewModelType {
         let allmarkers = self.markers.values.flatMap { $0 }
         var filteredMarkers = [Marker]()
         
-        markersLoop: for marker in allmarkers {
+        for marker in allmarkers {
             for tag in marker.hashtags where tag.lowercased().contains(hashtag.lowercased()) {
                 filteredMarkers.append(marker)
-                continue markersLoop
-                
             }
         }
         let results = self.configureDataSource(with: filteredMarkers)
