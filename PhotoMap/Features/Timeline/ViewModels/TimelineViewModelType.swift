@@ -9,6 +9,7 @@ import UIKit
 import Combine
 
 protocol TimelineViewModelTypeInput {
+    var searchTextSubject: CurrentValueSubject<String, Never> { get }
     func viewDidLoad()
 }
 
