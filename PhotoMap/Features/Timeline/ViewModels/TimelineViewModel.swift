@@ -29,7 +29,7 @@ class TimelineViewModel: TimelineViewModelType {
     private func transform() {
         searchTextSubject.debounce(for: .seconds(1.0), scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] hashtag in
-                self?.searchMarkersWith(hashtag: hashtag)
+                self?.searchMarkersWith(hashtag: hashtag.trim())
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
@@ -90,13 +90,13 @@ class TimelineViewModel: TimelineViewModelType {
             }, receiveValue: { [weak self] markers in
                 guard let results = self?.configureDataSource(with: markers) else { return }
                 self?.markers = results.markers
-                self?.headerTitles = results.titlies
+                self?.headerTitles = results.titles
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
     }
     
-    private func configureDataSource(with markers: [Marker]) -> (markers: [String: [Marker]], titlies: [String]) {
+    private func configureDataSource(with markers: [Marker]) -> (markers: [String: [Marker]], titles: [String]) {
         guard !markers.isEmpty else { return ([:], []) }
         var groupedMarkers = [String: [Marker]]()
         
@@ -108,25 +108,24 @@ class TimelineViewModel: TimelineViewModelType {
                 groupedMarkers[marker.date.monthAndYear] = [marker]
             }
         }
-        let titlies = [String](groupedMarkers.keys).sorted { $0.toMonthAndYearDate > $1.toMonthAndYearDate }
-        return (groupedMarkers, titlies)
+        let titles = [String](groupedMarkers.keys).sorted { $0.toMonthAndYearDate > $1.toMonthAndYearDate }
+        return (groupedMarkers, titles)
     }
     
     private func searchMarkersWith(hashtag: String) {
-        let allMarkers = self.markers.values.flatMap { $0 }
+        let allmarkers = self.markers.values.flatMap { $0 }
         var filteredMarkers = [Marker]()
         
-        markersLoop: for marker in allMarkers {
-            for tag in marker.hashtags {
-                if tag.lowercased().contains(hashtag.lowercased()) {
-                    filteredMarkers.append(marker)
-                    continue markersLoop
-                }
+        markersLoop: for marker in allmarkers {
+            for tag in marker.hashtags where tag.lowercased().contains(hashtag.lowercased()) {
+                filteredMarkers.append(marker)
+                continue markersLoop
+                
             }
         }
         let results = self.configureDataSource(with: filteredMarkers)
         self.searchingMarkers = results.markers
-        self.searchingHeaderTitles = results.titlies
+        self.searchingHeaderTitles = results.titles
     }
     
 }
