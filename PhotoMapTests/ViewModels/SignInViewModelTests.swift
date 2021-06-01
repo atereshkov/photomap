@@ -108,7 +108,7 @@ class SignInViewModelTests: XCTestCase {
     func test_SignInFailed() {
         viewModel.email = "example.gmail.com"
         viewModel.password = "valid"
-        authService.signInError = .incorrectCredentials
+        authService.signInError = .wrongPassword
         
         XCTAssertFalse(authService.signInCalled)
         XCTAssertFalse(authCoordinator.showErrorAlertCalled)

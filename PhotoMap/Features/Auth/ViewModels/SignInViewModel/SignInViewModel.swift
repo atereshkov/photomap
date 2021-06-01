@@ -17,7 +17,6 @@ class SignInViewModel: SignInViewModelType {
     
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
-    private let minStringLength: Int = 2
     
     // MARK: - Input
     @Published var email: String = ""
@@ -48,13 +47,9 @@ class SignInViewModel: SignInViewModelType {
         transform()
     }
     
-}
-
-extension SignInViewModel {
-    
-    func transform() {
+    private func transform() {
         $email
-            .flatMap { email in
+            .flatMap { [unowned self] email in
                 self.emailValidator.isEmailValid(email)
             }
             .map { $0.localized }
@@ -63,7 +58,7 @@ extension SignInViewModel {
             .store(in: cancelBag)
         
         $password
-            .flatMap { password in
+            .flatMap { [unowned self] password in
                 self.passwordValidator.isPasswordValid(password)
             }
             .map { $0.localized }
@@ -71,20 +66,16 @@ extension SignInViewModel {
             .assign(to: \.passwordError, on: self)
             .store(in: cancelBag)
         
-        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
-        
-        credentials.map { emailError, passwordError in
-            return emailError == nil && passwordError == nil
-        }
-        .assign(to: \.isAuthEnabled, on: self)
-        .store(in: cancelBag)
+        Publishers.CombineLatest($emailError, $passwordError)
+            .map { $0 == nil && $1 == nil }
+            .assign(to: \.isAuthEnabled, on: self)
+            .store(in: cancelBag)
         
         signUpButtonSubject
             .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
             .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
-            .sink { [weak self] _ in
-                self?.signUpButtonTapped()
-            }
+            .map { _ in () }
+            .subscribe(coordinator.showSignUpSubject)
             .store(in: cancelBag)
         
         signInButtonSubject
@@ -96,7 +87,7 @@ extension SignInViewModel {
     
 }
 
-extension SignInViewModel: SignInViewModelInput {
+extension SignInViewModel {
     
     private func signInButtonTapped() {
         authUserService
@@ -107,17 +98,12 @@ extension SignInViewModel: SignInViewModelInput {
                 guard let self = self else { return }
 
                 switch completion {
-                case .failure:
-                    self.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
+                case .failure(let error):
+                    self.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self.coordinator.closeScreen()
+                    self.coordinator.showMapSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
     }
-    
-    func signUpButtonTapped() {
-        coordinator.openSignUpScreen()
-    }
-    
 }
