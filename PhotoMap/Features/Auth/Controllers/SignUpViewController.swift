@@ -32,18 +32,12 @@ class SignUpViewController: BaseViewController {
         setOpacityBackgroundNavigationBar()
         bind()
     }
-    
-    @IBAction func signInButtonDidTap(_ sender: Any) {
-        viewModel?.signUpButtonTapped()
-    }
-    
 }
 
 // MARK: ViewModel Bind
 
 extension SignUpViewController {
-    
-    // swiftlint:disable function_body_length
+
     private func bind() {
         guard let viewModel = viewModel else { return }
         
@@ -58,54 +52,33 @@ extension SignUpViewController {
         passwordTextField.textPublisher
             .assign(to: \.password, on: viewModel)
             .store(in: cancelBag)
-        
+
+        signUpButton.tapPublisher
+            .subscribe(viewModel.signUpButtonSubject)
+            .store(in: cancelBag)
+
         viewModel.$usernameError
-            .receive(on: RunLoop.main)
-            .sink { [weak self] error in
-                guard let `self` = self else {
-                    return
-                }
-                if let error = error {
-                    self.usernameTextField.showError(error)
-                } else {
-                    self.usernameTextField.hideError()
-                }
-            }
+            .subscribe(usernameTextField.errorSubject)
             .store(in: cancelBag)
 
         viewModel.$emailError
-            .receive(on: RunLoop.main)
-            .sink { [weak self] error in
-                guard let `self` = self else {
-                    return
-                }
-                if let error = error {
-                    self.emailTextField.showError(error)
-                } else {
-                    self.emailTextField.hideError()
-                }
-            }
+            .subscribe(emailTextField.errorSubject)
             .store(in: cancelBag)
 
         viewModel.$passwordError
-            .receive(on: RunLoop.main)
-            .sink { [weak self] error in
-                guard let `self` = self else {
-                    return
-                }
-                if let error = error {
-                    self.passwordTextField.showError(error)
-                } else {
-                    self.passwordTextField.hideError()
-                }
-            }
+            .subscribe(passwordTextField.errorSubject)
             .store(in: cancelBag)
         
         viewModel.$isRegistrationEnabled
             .map { $0 }
-            .receive(on: RunLoop.main)
             .assign(to: \.isEnabled, on: signUpButton)
             .store(in: cancelBag)
+
+        viewModel.loadingPublisher
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] isLoading in
+                isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+            })
+            .store(in: cancelBag)
     }
-    // swiftlint:enable function_body_length
 }

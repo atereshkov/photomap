@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 @testable import PhotoMap
 class AuthCoordinatorMock: AuthCoordinatorType {
-    
+    private(set) var showErrorAlertSubject = PassthroughSubject<ResponseError, Never>()
+    private(set) var showMapSubject = PassthroughSubject<Void, Never>()
+    private(set) var showSignUpSubject = PassthroughSubject<Void, Never>()
+
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController = UINavigationController()
