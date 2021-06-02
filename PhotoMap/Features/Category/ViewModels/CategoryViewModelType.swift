@@ -10,9 +10,13 @@ import UIKit
 
 protocol CategoryViewModelTypeInput {
     var doneButtonSubject: PassthroughSubject<Void, Never> { get }
-    func didPressedButton(with: UIButton) 
+    func didSelectCell(at: IndexPath)
 }
 
-protocol CategoryViewModelTypeOutput {}
+protocol CategoryViewModelTypeOutput {
+    var reloadDataSubject: PassthroughSubject<Void, Never> { get }
+    func getNumberOfRows() -> Int
+    func getCategory(at: IndexPath) -> Category?
+}
 
 protocol CategoryViewModelType: CategoryViewModelTypeInput, CategoryViewModelTypeOutput {}

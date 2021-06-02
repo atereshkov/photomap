@@ -120,6 +120,7 @@
 		A8B6AC30265BE82A009AA6D2 /* FirestoreServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */; };
 		A8BB1F6E2666BA190042E9CC /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BB1F6D2666BA190042E9CC /* CategoryCoordinator.swift */; };
 		A8BB1F702666BF940042E9CC /* CategoryViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BB1F6F2666BF940042E9CC /* CategoryViewModelType.swift */; };
+		A8EB8349266770CE008BB747 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EB8348266770CE008BB747 /* CategoryCell.swift */; };
 		CBCA82BC0F830018042CD509 /* Pods_PhotoMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */; };
 		CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE3230826493D240065F2CC /* DIContainerMock.swift */; };
 		CBE3230D26493EEE0065F2CC /* AuthListenerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */; };
@@ -264,6 +265,7 @@
 		A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceType.swift; sourceTree = "<group>"; };
 		A8BB1F6D2666BA190042E9CC /* CategoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
 		A8BB1F6F2666BF940042E9CC /* CategoryViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelType.swift; sourceTree = "<group>"; };
+		A8EB8348266770CE008BB747 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE3230826493D240065F2CC /* DIContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerMock.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 			isa = PBXGroup;
 			children = (
 				335882F1262DD0BF0057D25F /* CategoryViewController.swift */,
+				A8EB8348266770CE008BB747 /* CategoryCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1248,6 +1251,7 @@
 				338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */,
 				A8B6AC30265BE82A009AA6D2 /* FirestoreServiceType.swift in Sources */,
 				A8B6AC2E265BE7F1009AA6D2 /* FirestoreService.swift in Sources */,
+				A8EB8349266770CE008BB747 /* CategoryCell.swift in Sources */,
 				333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */,
 				01776AA32639679A0058EDA7 /* LocationService.swift in Sources */,
 				335881C3262DA5990057D25F /* MoreCoordinator.swift in Sources */,
