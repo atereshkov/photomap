@@ -27,8 +27,8 @@ class SignInViewModel: SignInViewModelType {
     private(set) var signInButtonSubject = PassthroughSubject<UIControl, Never>()
 
     // MARK: Output
-    @Published var emailError: String?
-    @Published var passwordError: String?
+    @Published var emailError: String? = ""
+    @Published var passwordError: String? = ""
     @Published var isAuthEnabled = false
     var loadingPublisher: AnyPublisher<Bool, Never> {
         activityIndicator.loading

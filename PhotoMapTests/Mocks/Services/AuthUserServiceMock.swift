@@ -22,6 +22,7 @@ class AuthUserServiceMock: AuthUserServiceType {
     var signUpPasswordParam: String?
     
     func signUp(email: String, password: String) -> Future<Void, Error> {
+        signUpCalled = true
         return Future { [weak self] promise in
             if let error = self?.signUpError {
                 promise(.failure(error))

@@ -10,8 +10,6 @@ import Combine
 @testable import PhotoMap
 
 class SignUpViewModelTests: XCTestCase {
-    
-    var expectation: XCTestExpectation!
     var viewModel: SignUpViewModel!
     var diContainer: DIContainerType!
     var usernameValidator: UsernameValidator!
@@ -20,11 +18,10 @@ class SignUpViewModelTests: XCTestCase {
     var cancelBag: CancelBag!
     
     override func setUpWithError() throws {
-        expectation = XCTestExpectation()
         usernameValidator = UsernameValidator()
         emailValidator = EmailValidator()
         passwordValidator = PasswordValidator()
-        diContainer = DIContainer()
+        diContainer = DIContainerMock()
         let authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer),
                                               diContainer: diContainer)
         viewModel = SignUpViewModel(diContainer: diContainer,
@@ -35,28 +32,22 @@ class SignUpViewModelTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        expectation = nil
         emailValidator = nil
         viewModel = nil
         cancelBag = nil
     }
     
-    func test_SignInButtonWithValidCredentials_ShouldBeEnabled() {
+    func testIsRegistrationEnabled_WithValidCredentials_ShouldBeEnabled() {
         var isEnabled = false
         
         viewModel.$isRegistrationEnabled
-            .map { $0 }
-            .sink { access in
-                    isEnabled = access
-                }
-            
+            .sink { isEnabled = $0 }
             .store(in: cancelBag)
         
         viewModel.username = "krokonox"
         viewModel.email = "example@gmail.com"
         viewModel.password = "12345"
-        
-        print(isEnabled)
+
         XCTAssertTrue(isEnabled)
     }
     
@@ -64,11 +55,7 @@ class SignUpViewModelTests: XCTestCase {
         var isEnabled = false
         
         viewModel.$isRegistrationEnabled
-            .map { $0 }
-            .sink { access in
-                    isEnabled = access
-                }
-            
+            .sink { isEnabled = $0 }
             .store(in: cancelBag)
         
         viewModel.username = "krokonox"
@@ -83,11 +70,7 @@ class SignUpViewModelTests: XCTestCase {
         var isEnabled = false
      
         viewModel.$isRegistrationEnabled
-            .map { $0 }
-            .sink { access in
-                    isEnabled = access
-                }
-            
+            .sink { isEnabled = $0 }
             .store(in: cancelBag)
         
         viewModel.username = "krokonox"
@@ -98,15 +81,11 @@ class SignUpViewModelTests: XCTestCase {
         XCTAssertTrue(isEnabled)
     }
     
-    func test_SignInButtonEnabledWithInvalidUsername_ShouldNotBeEnabled() {
+    func testSignUpButtonEnabled_WithInvalidUsername_ShouldNotBeEnabled() {
         var isEnabled = false
       
         viewModel.$isRegistrationEnabled
-            .map { $0 }
-            .sink { access in
-                    isEnabled = access
-                }
-            
+            .sink { isEnabled = $0 }
             .store(in: cancelBag)
         
         viewModel.username = "k"
@@ -116,5 +95,28 @@ class SignUpViewModelTests: XCTestCase {
         print(isEnabled)
         XCTAssertTrue(isEnabled)
     }
-    
+
+    func testSignUpButtonTapped_ShouldShowActivityIndicator() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        let expectedIsShow = [false, true, false]
+        var receiveIsShow: [Bool] = []
+        var count: Int = 0
+
+        // Act
+        viewModel.loadingPublisher
+            .sink { isLoading in
+                receiveIsShow.append(isLoading)
+                count += 1
+                if count == 3 {
+                    expectation.fulfill()
+                }
+            }
+            .store(in: cancelBag)
+        viewModel.signUpButtonSubject.send(UIControl())
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(receiveIsShow, expectedIsShow)
+    }
 }

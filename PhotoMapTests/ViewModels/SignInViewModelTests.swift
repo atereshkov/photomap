@@ -2,7 +2,7 @@
 //  SignInViewModelTests.swift
 //  PhotoMapTests
 //
-//  Created by Krystsina Kurytsyna on 4.05.21.
+//  Created by Dzmitry Makarevich on 6/2/21.
 //
 
 import XCTest
@@ -19,7 +19,7 @@ class SignInViewModelTests: XCTestCase {
 
     var authService: AuthUserServiceMock!
     var authListener: AuthListenerMock!
-    var authCoordinator: AuthCoordinatorMock!
+    var authCoordinator: AuthCoordinator!
     
     override func setUpWithError() throws {
         emailValidator = EmailValidator()
@@ -32,8 +32,8 @@ class SignInViewModelTests: XCTestCase {
         authService = authServiceDI as? AuthUserServiceMock
         authListener = authListenerDI as? AuthListenerMock
 
-        let appCoordinator = AppCoordinatorMock(diContainer: diContainer)
-        authCoordinator = AuthCoordinatorMock(appCoordinator: appCoordinator, diContainer: diContainer)
+        let appCoordinator = AppCoordinator(diContainer: diContainer)
+        authCoordinator = AuthCoordinator(appCoordinator: appCoordinator, diContainer: diContainer)
 
         viewModel = SignInViewModel(diContainer: diContainer,
                                     coordinator: authCoordinator,
@@ -51,93 +51,137 @@ class SignInViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testSignInButtonEnabled_WithValidCredentials() {
+    func testIsAuthEnabled_WithValidCredentials_ShouldBeEnabled() {
+        let expectation = XCTestExpectation()
         var isEnabled = false
-       
+
         viewModel.$isAuthEnabled
-            .map { $0 }
+            .dropFirst()
             .sink { access in
-                    isEnabled = access
-                }
-            
+                isEnabled = access
+                expectation.fulfill()
+            }
             .store(in: cancelBag)
-        
         viewModel.email = "example@gmail.com"
-        viewModel.password = "12345"
+        viewModel.password = "123456"
         
-        print(isEnabled)
+        wait(for: [expectation], timeout: 0.1)
         XCTAssertTrue(isEnabled)
     }
     
-    func testSignInButtonEnabled_WithInvalidEmail() {
+    func testIsAuthEnabled_WithInvalidEmail_ShouldNotBeEnabled() {
         var isEnabled = false
       
         viewModel.$isAuthEnabled
-            .map { $0 }
-            .sink { access in
-                    isEnabled = access
-                }
-            
+            .sink { isEnabled = $0 }
             .store(in: cancelBag)
         
         viewModel.email = "examplegmail.com"
         viewModel.password = "12345"
-        
-        print(isEnabled)
+
         XCTAssertTrue(isEnabled)
     }
     
-    func test_SignInButtonWithInvalidPassword_ShouldNotBeEnabled() {
+    func testIsAuthEnabled_WithInvalidPassword_ShouldNotBeEnabled() {
         var isEnabled = false
       
         viewModel.$isAuthEnabled
-            .map { $0 }
-            .sink { access in
-                    isEnabled = access
-                }
-            
+            .sink { isEnabled = $0 }
             .store(in: cancelBag)
         
         viewModel.email = "example@gmail.com"
         viewModel.password = "1"
-        
-        print(isEnabled)
+
         XCTAssertTrue(isEnabled)
     }
     
-    func test_SignInFailed() {
+    func testSignInButtonTapped_WithInvalidCredential_ShouldShowError() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var showErrorAlertCalled = false
         viewModel.email = "example.gmail.com"
         viewModel.password = "valid"
-        authService.signInError = .wrongPassword
-        
+        authService.signInError = .signInFailure
         XCTAssertFalse(authService.signInCalled)
-        XCTAssertFalse(authCoordinator.showErrorAlertCalled)
-        XCTAssertNil(authService.signInEmailParam)
-        XCTAssertNil(authService.signInPasswordParam)
-        
+
+        // Act
+        authCoordinator.showErrorAlertSubject
+            .sink { _ in
+                showErrorAlertCalled = true
+                expectation.fulfill()
+            }
+            .store(in: cancelBag)
         viewModel.signInButtonSubject.send(UIButton())
 
+        // Assert
+        wait(for: [expectation], timeout: 1)
         XCTAssertTrue(authService.signInCalled)
-        XCTAssertEqual(authService.signInEmailParam, "example.gmail.com")
-        XCTAssertEqual(authService.signInPasswordParam, "valid")
-//        XCTAssertTrue(authCoordinator.showErrorAlertCalled)
+        XCTAssertTrue(showErrorAlertCalled)
     }
     
-    func test_SignInSucceeded() {
+    func testSignInButtonTapped_WithValidCredential_ShouldShowMap() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var showMapCalled = false
         viewModel.email = "example@gmail.com"
         viewModel.password = "valid"
-        
-        XCTAssertFalse(authCoordinator.closeScreenCalled)
         XCTAssertFalse(authService.signInCalled)
-        XCTAssertNil(authService.signInEmailParam)
-        XCTAssertNil(authService.signInPasswordParam)
         
+        // Act
+        authCoordinator.showMapSubject
+            .sink { _ in
+                showMapCalled = true
+                expectation.fulfill()
+            }
+            .store(in: cancelBag)
         viewModel.signInButtonSubject.send(UIButton())
-   
+        
+        // Arrange
+        wait(for: [expectation], timeout: 1)
         XCTAssertTrue(authService.signInCalled)
-        XCTAssertEqual(authService.signInEmailParam, "example@gmail.com")
-        XCTAssertEqual(authService.signInPasswordParam, "valid")
-//        XCTAssertTrue(authCoordinator.closeScreenCalled)
+        XCTAssertTrue(showMapCalled)
     }
-    
+
+    func testSignUpButtonTapped_ShouldShowSignUpScreen() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var isShowSignUpScreen = false
+
+        // Act
+        authCoordinator.showSignUpSubject
+            .sink { _ in
+                isShowSignUpScreen = true
+                expectation.fulfill()
+            }
+            .store(in: cancelBag)
+        viewModel.signUpButtonSubject.send(UIControl())
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(isShowSignUpScreen)
+    }
+
+    func testSignInButtonTapped_ShouldShowActivityIndicator() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        let expectedIsShow = [false, true, false]
+        var receiveIsShow: [Bool] = []
+        var count: Int = 0
+
+        // Act
+        viewModel.loadingPublisher
+            .sink { isLoading in
+                receiveIsShow.append(isLoading)
+                count += 1
+                if count == 3 {
+                    expectation.fulfill()
+                }
+            }
+            .store(in: cancelBag)
+        viewModel.signInButtonSubject.send(UIControl())
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(receiveIsShow, expectedIsShow)
+    }
 }
