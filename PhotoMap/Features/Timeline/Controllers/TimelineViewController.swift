@@ -17,8 +17,8 @@ class TimelineViewController: BaseViewController {
     // MARK: - UI Properties
     @IBOutlet private weak var tableView: UITableView!
     private let searchBar = UISearchBar(placeholder: L10n.Main.NavBar.Search.title)
-    private let categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title, style: .plain, target: self,
-                                                    action: #selector(categoryButtonPressed))
+    private lazy var categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title,
+                                                         style: .plain, target: self, action: #selector(categoryButtonPressed))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -58,7 +58,9 @@ class TimelineViewController: BaseViewController {
     }
     
     // MARK: - Selectors
-    @objc private func categoryButtonPressed() {}
+    @objc private func categoryButtonPressed() {
+        viewModel?.categoryButtonSubject.send()
+    }
     
 }
 

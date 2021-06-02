@@ -29,9 +29,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = appCoordinator.navigationController
         self.window = window
         window.makeKeyAndVisible()
-        do {
-            try Auth.auth().signOut()
-        } catch { print("already logged out") }
+//        do {
+//            try Auth.auth().signOut()
+//        } catch { print("already logged out") }
         appCoordinator.start()
     }
 

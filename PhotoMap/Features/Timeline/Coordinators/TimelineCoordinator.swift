@@ -33,4 +33,12 @@ class TimelineCoordinator: Coordinator {
         self.navigationController.present(alertViewController, animated: true)
     }
     
+    func presentCategoryScreen() {
+        let coordinator = CategoryCoordinator(diContainer: diContainer)
+        let categoryNavigationVC = coordinator.start()
+        categoryNavigationVC.modalPresentationStyle = .fullScreen
+        navigationController.present(categoryNavigationVC, animated: true)
+        childCoordinators.append(coordinator)
+    }
+    
 }

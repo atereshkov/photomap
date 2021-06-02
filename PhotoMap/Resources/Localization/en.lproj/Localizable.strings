@@ -63,3 +63,8 @@
 
 "username-validation.error-alert.empty-username" = "Username field can't be blank";
 "username-validation.error-alert.short-username" = "Minimum of 3 characters required";
+
+// MARK: - Categories Screen
+"categories.navigationItem.title" = "Categories";
+"categories.navigationItem.rightButtonItem.done" = "Done";
+

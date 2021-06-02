@@ -118,6 +118,8 @@
 		6F453E80FF329570402BF2CA /* Pods_PhotoMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */; };
 		A8B6AC2E265BE7F1009AA6D2 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2D265BE7F1009AA6D2 /* FirestoreService.swift */; };
 		A8B6AC30265BE82A009AA6D2 /* FirestoreServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */; };
+		A8BB1F6E2666BA190042E9CC /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BB1F6D2666BA190042E9CC /* CategoryCoordinator.swift */; };
+		A8BB1F702666BF940042E9CC /* CategoryViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BB1F6F2666BF940042E9CC /* CategoryViewModelType.swift */; };
 		CBCA82BC0F830018042CD509 /* Pods_PhotoMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */; };
 		CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE3230826493D240065F2CC /* DIContainerMock.swift */; };
 		CBE3230D26493EEE0065F2CC /* AuthListenerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE3230C26493EEE0065F2CC /* AuthListenerMock.swift */; };
@@ -260,6 +262,8 @@
 		A1D51F33FEE42E03AEE0CBD9 /* Pods-PhotoMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMapTests.release.xcconfig"; path = "Target Support Files/Pods-PhotoMapTests/Pods-PhotoMapTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8B6AC2D265BE7F1009AA6D2 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceType.swift; sourceTree = "<group>"; };
+		A8BB1F6D2666BA190042E9CC /* CategoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
+		A8BB1F6F2666BF940042E9CC /* CategoryViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelType.swift; sourceTree = "<group>"; };
 		AEFF3F31A97BB43F1931B0D5 /* Pods_PhotoMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3FDD52F022A4D4D06F0893B /* Pods_PhotoMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE3230826493D240065F2CC /* DIContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerMock.swift; sourceTree = "<group>"; };
@@ -507,6 +511,7 @@
 		33334B0726287C0400612573 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				A8BB1F6C2666B9ED0042E9CC /* Coordinators */,
 				338BB606262D8D320001F530 /* Controllers */,
 				338BB608262D8D4A0001F530 /* ViewModels */,
 				338365652630566C001EF61E /* Category.storyboard */,
@@ -864,6 +869,7 @@
 			isa = PBXGroup;
 			children = (
 				335882F6262DD0D20057D25F /* CategoryViewModel.swift */,
+				A8BB1F6F2666BF940042E9CC /* CategoryViewModelType.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -921,6 +927,14 @@
 				A8B6AC2F265BE82A009AA6D2 /* FirestoreServiceType.swift */,
 			);
 			path = FirestoreService;
+			sourceTree = "<group>";
+		};
+		A8BB1F6C2666B9ED0042E9CC /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				A8BB1F6D2666BA190042E9CC /* CategoryCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		F317D6E2F14D6601FEEDEFAF /* Frameworks */ = {
@@ -1170,6 +1184,7 @@
 			files = (
 				128B418C265E7DC500697551 /* Photo.swift in Sources */,
 				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
+				A8BB1F6E2666BA190042E9CC /* CategoryCoordinator.swift in Sources */,
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
 				33AC447E263C3BDC007B2444 /* UsernameValidationError.swift in Sources */,
 				333B82F226417DDB00AAD56F /* UsernameValidationResult.swift in Sources */,
@@ -1208,6 +1223,7 @@
 				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
 				23AE2E6C264D552100FE673F /* MapPhotoViewController.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
+				A8BB1F702666BF940042E9CC /* CategoryViewModelType.swift in Sources */,
 				0B1DC42F265E5F5F00BC7B6E /* Marker.swift in Sources */,
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,

@@ -33,12 +33,19 @@ class TimelineViewModel: TimelineViewModelType {
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
+        
+        categoryButtonSubject.sink(receiveValue: { [weak self] in
+            self?.coordinator.presentCategoryScreen()
+        })
+        .store(in: cancelBag)
     }
     
     // MARK: - Input
     func viewDidLoad() {
         getUserMarkers()
     }
+    
+    let categoryButtonSubject = PassthroughSubject<Void, Never>()
     
     let searchTextSubject = CurrentValueSubject<String, Never>.init("")
     
