@@ -18,6 +18,7 @@ class SignUpViewModel: SignUpViewModelType {
     private let usernameValidator: UsernameValidator
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
+    private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
     @Published var email = ""
@@ -31,8 +32,6 @@ class SignUpViewModel: SignUpViewModelType {
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isRegistrationEnabled = false
-    private let activityIndicator = ActivityIndicator()
-
     var loadingPublisher: AnyPublisher<Bool, Never> {
         activityIndicator.loading
     }

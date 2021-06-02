@@ -17,6 +17,7 @@ class SignInViewModel: SignInViewModelType {
     
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
+    private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
     @Published var email: String = ""
@@ -29,8 +30,6 @@ class SignInViewModel: SignInViewModelType {
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
-    private let activityIndicator = ActivityIndicator()
-        
     var loadingPublisher: AnyPublisher<Bool, Never> {
         activityIndicator.loading
     }
@@ -79,6 +78,8 @@ class SignInViewModel: SignInViewModelType {
             .store(in: cancelBag)
         
         signInButtonSubject
+            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in
                 self?.signInButtonTapped()
             }

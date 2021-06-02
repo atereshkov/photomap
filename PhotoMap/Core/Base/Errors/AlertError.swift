@@ -9,7 +9,7 @@ import Foundation
 
 enum AlertError: GeneralErrorType {
 
-    case networtConnection
+    case networkConnection
     case other(message: String)
 
     var title: String {
@@ -18,10 +18,10 @@ enum AlertError: GeneralErrorType {
 
     var message: String {
         switch self {
-            case .networtConnection:
-                return L10n.InternetError.ErrorAlert.Title.noNetworkConnection
-            case .other(let message):
-                return message
+        case .networkConnection:
+            return L10n.InternetError.ErrorAlert.Title.noNetworkConnection
+        case .other(let message):
+            return message
         }
     }
     

@@ -55,7 +55,7 @@ class TabBarCoordinator: Coordinator {
             .sink(receiveValue: { [weak self] isReachable in
                 if !isReachable {
                     self?.closePresentedModalVC()
-                    self?.showErrorAlert(error: .networtConnection)
+                    self?.showErrorAlert(error: .networkConnection)
                 }
             })
             .store(in: &subscriptions)
