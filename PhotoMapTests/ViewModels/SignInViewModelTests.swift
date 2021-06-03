@@ -52,9 +52,11 @@ class SignInViewModelTests: XCTestCase {
     }
     
     func testIsAuthEnabled_WithValidCredentials_ShouldBeEnabled() {
+        // Arrange
         let expectation = XCTestExpectation()
         var isEnabled = false
 
+        // Act
         viewModel.$isAuthEnabled
             .dropFirst()
             .sink { access in
@@ -65,34 +67,53 @@ class SignInViewModelTests: XCTestCase {
         viewModel.email = "example@gmail.com"
         viewModel.password = "123456"
         
+        // Assert
         wait(for: [expectation], timeout: 0.1)
         XCTAssertTrue(isEnabled)
     }
     
     func testIsAuthEnabled_WithInvalidEmail_ShouldNotBeEnabled() {
-        var isEnabled = false
-      
+        // Arrange
+        let expectation = XCTestExpectation()
+        var isEnabled = true
+
+        // Act
         viewModel.$isAuthEnabled
-            .sink { isEnabled = $0 }
+            .dropFirst()
+            .sink { access in
+                isEnabled = access
+                expectation.fulfill()
+            }
             .store(in: cancelBag)
         
         viewModel.email = "examplegmail.com"
-        viewModel.password = "12345"
-
-        XCTAssertTrue(isEnabled)
+        viewModel.password = "123456"
+        
+        // Assert
+        wait(for: [expectation], timeout: 0.1)
+        XCTAssertFalse(isEnabled)
     }
     
     func testIsAuthEnabled_WithInvalidPassword_ShouldNotBeEnabled() {
+        // Arrange
+        let expectation = XCTestExpectation()
         var isEnabled = false
       
         viewModel.$isAuthEnabled
-            .sink { isEnabled = $0 }
+            .dropFirst()
+            .sink { access in
+                isEnabled = access
+                expectation.fulfill()
+            }
             .store(in: cancelBag)
         
+        // Act
         viewModel.email = "example@gmail.com"
-        viewModel.password = "1"
-
-        XCTAssertTrue(isEnabled)
+        viewModel.password = "12345"
+        
+        // Assert
+        wait(for: [expectation], timeout: 0.1)
+        XCTAssertFalse(isEnabled)
     }
     
     func testSignInButtonTapped_WithInvalidCredential_ShouldShowError() {
@@ -173,7 +194,7 @@ class SignInViewModelTests: XCTestCase {
             .sink { isLoading in
                 receiveIsShow.append(isLoading)
                 count += 1
-                if count == 3 {
+                if count == expectedIsShow.count {
                     expectation.fulfill()
                 }
             }
@@ -183,5 +204,41 @@ class SignInViewModelTests: XCTestCase {
         // Assert
         wait(for: [expectation], timeout: 1)
         XCTAssertEqual(receiveIsShow, expectedIsShow)
+    }
+
+    func testEmailError_WithEmptyEmail_ShouldHasEmptyEmailErrorMessage() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var emailError: String?
+
+        // Act
+        viewModel.$emailError
+            .sink(receiveValue: { error in
+                emailError = error
+                expectation.fulfill()
+            })
+            .store(in: cancelBag)
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(emailError, L10n.EmailValidation.ErrorAlert.emptyEmail)
+    }
+
+    func testEmailError_WithValidEmail_ShouldBeNil() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var emailError: String?
+
+        // Act
+        viewModel.$emailError
+            .sink(receiveValue: { error in
+                emailError = error
+                expectation.fulfill()
+            })
+            .store(in: cancelBag)
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertNil(emailError)
     }
 }
