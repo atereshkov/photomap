@@ -51,6 +51,7 @@ class SignInViewModelTests: XCTestCase {
         super.tearDown()
     }
     
+    // MARK: - IsAuthEnabled tests
     func testIsAuthEnabled_WithValidCredentials_ShouldBeEnabled() {
         // Arrange
         let expectation = XCTestExpectation()
@@ -116,6 +117,7 @@ class SignInViewModelTests: XCTestCase {
         XCTAssertFalse(isEnabled)
     }
     
+    // MARK: - SignInButton tests
     func testSignInButtonTapped_WithInvalidCredential_ShouldShowError() {
         // Arrange
         let expectation = XCTestExpectation()
@@ -206,6 +208,7 @@ class SignInViewModelTests: XCTestCase {
         XCTAssertEqual(receiveIsShow, expectedIsShow)
     }
 
+    // MARK: - EmailError tests
     func testEmailError_WithEmptyEmail_ShouldHasEmptyEmailErrorMessage() {
         // Arrange
         let expectation = XCTestExpectation()
@@ -213,11 +216,13 @@ class SignInViewModelTests: XCTestCase {
 
         // Act
         viewModel.$emailError
+            .dropFirst()
             .sink(receiveValue: { error in
                 emailError = error
                 expectation.fulfill()
             })
             .store(in: cancelBag)
+        viewModel.email = ""
 
         // Assert
         wait(for: [expectation], timeout: 1)
@@ -231,14 +236,57 @@ class SignInViewModelTests: XCTestCase {
 
         // Act
         viewModel.$emailError
+            .dropFirst()
             .sink(receiveValue: { error in
                 emailError = error
                 expectation.fulfill()
             })
             .store(in: cancelBag)
+        viewModel.email = "example@dmail.com"
 
         // Assert
         wait(for: [expectation], timeout: 1)
         XCTAssertNil(emailError)
+    }
+
+    // MARK: - PasswordError tests
+    func testPasswordError_WithInvalidPassword_ShouldHasPasswordErrorMessage() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var passwordError: String?
+
+        // Act
+        viewModel.$passwordError
+            .dropFirst()
+            .sink(receiveValue: { error in
+                passwordError = error
+                expectation.fulfill()
+            })
+            .store(in: cancelBag)
+        viewModel.password = "1234"
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(passwordError, L10n.PasswordValidation.ErrorAlert.shortPassword)
+    }
+
+    func testPasswordError_WithValidPassword_ShouldBeNil() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var passwordError: String?
+
+        // Act
+        viewModel.$passwordError
+            .dropFirst()
+            .sink(receiveValue: { error in
+                passwordError = error
+                expectation.fulfill()
+            })
+            .store(in: cancelBag)
+        viewModel.password = "valild!"
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertNil(passwordError)
     }
 }

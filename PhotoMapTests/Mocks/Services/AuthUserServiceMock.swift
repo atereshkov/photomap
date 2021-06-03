@@ -16,7 +16,7 @@ class AuthUserServiceMock: AuthUserServiceType {
     var signInError: ResponseError?
     
     var signUpCalled = false
-    var signUpError: Error?
+    var signUpError: ResponseError?
     var signUpUsernameParam: String?
     var signUpEmailParam: String?
     var signUpPasswordParam: String?
