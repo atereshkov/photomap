@@ -14,7 +14,7 @@ class TimelineViewModelTests: XCTestCase {
     
     var viewModel: TimelineViewModelType!
     var diContainer: DIContainerType!
-    var coordinator: TimelineCoordinatorMock!
+    var coordinator: TimelineCoordinator!
     var firestoreService: FirestoreServiceMock!
     var cancelBag: CancelBag!
     
@@ -49,12 +49,23 @@ class TimelineViewModelTests: XCTestCase {
         firestoreService.userHasDocuments = true
         firestoreService.markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
         
-        viewModel.viewDidLoad()
+        let expectation = XCTestExpectation()
+        let expectedValues = [false, true, false]
+        var results = [Bool]()
+        var count = 0
         
-        viewModel.loadingPublisher.first().sink(receiveValue: { isLoading in
-            XCTAssertTrue(isLoading)
+        viewModel.loadingPublisher.sink(receiveValue: { isLoading in
+            results.append(isLoading)
+            count += 1
+            if count == expectedValues.count {
+                expectation.fulfill()
+            }
         })
         .store(in: cancelBag)
+        
+        viewModel.viewDidLoad()
+        wait(for: [expectation], timeout: 2)
+        XCTAssertEqual(expectedValues, results)
     }
     
     func testIfNotAuthorizedThenCantGetMarks() {
@@ -65,15 +76,86 @@ class TimelineViewModelTests: XCTestCase {
         XCTAssertFalse(firestoreService.getMarkersEndWithValues)
     }
     
-    func testIfAuthorizedThenGetMarksShouldBeCalled() {
+    func testIfAuthorizedThenGetMarksShouldBeCalledWithValues() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
         firestoreService.markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
         
+        let expectation = XCTestExpectation()
+        
+        viewModel.reloadDataSubject.sink(receiveValue: { _ in
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
         XCTAssertFalse(firestoreService.getMarkersCalled)
         viewModel.viewDidLoad()
+        wait(for: [expectation], timeout: 2)
         XCTAssertTrue(firestoreService.getMarkersCalled)
         XCTAssertTrue(firestoreService.getMarkersEndWithValues)
+        XCTAssertTrue(viewModel.numberOfSections > 0)
+    }
+    
+    func testIfGetValuesThenShouldGetTitlesForValues() {
+        firestoreService.userId = "id"
+        firestoreService.userHasDocuments = true
+        let markers = [
+            Marker(category: "Nature", date: Date(), description: "nature",
+                   hashtags: ["#nature"], photoURLString: "url", location: (15, 28))
+        ]
+        firestoreService.markers = markers
+        
+        let expectation = XCTestExpectation()
+        
+        viewModel.reloadDataSubject.sink(receiveValue: { _ in
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
+        viewModel.viewDidLoad()
+        wait(for: [expectation], timeout: 2)
+        XCTAssertNotNil(viewModel.getTitle(for: markers.count - 1))
+    }
+    
+    func testIfGetValuesThenShouldGetChosenMarker() {
+        firestoreService.userId = "id"
+        firestoreService.userHasDocuments = true
+        let markers = [
+            Marker(category: "Nature", date: Date(), description: "nature",
+                   hashtags: ["#nature"], photoURLString: "url", location: (15, 28))
+        ]
+        firestoreService.markers = markers
+        
+        let expectation = XCTestExpectation()
+        
+        viewModel.reloadDataSubject.sink(receiveValue: { _ in
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
+        viewModel.viewDidLoad()
+        wait(for: [expectation], timeout: 2)
+        let indexPath = IndexPath(row: markers.count - 1, section: 0)
+        XCTAssertNotNil(viewModel.getMarker(at: indexPath))
+    }
+    
+    func testIfGetValuesShouldReturnNumberOfRows() {
+        firestoreService.userId = "id"
+        firestoreService.userHasDocuments = true
+        let markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        firestoreService.markers = markers
+        
+        let expectation = XCTestExpectation()
+        
+        viewModel.reloadDataSubject.sink(receiveValue: { _ in
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
+        viewModel.viewDidLoad()
+        wait(for: [expectation], timeout: 2)
+        
+        XCTAssertTrue(viewModel.getNumberOfRows(in: markers.count - 1) > 0)
     }
     
 }
