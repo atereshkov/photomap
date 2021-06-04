@@ -16,13 +16,14 @@ class CategoryViewController: BaseViewController {
     // MARK: - @IBOutlets
     @IBOutlet private weak var tableView: UITableView!
     private lazy var doneButton = UIBarButtonItem(title: L10n.Categories.NavigationItem.RightButtonItem.done,
-                                                  style: .done, target: self, action: #selector(doneButtonPressed))
+                                                  style: .done, target: self, action: nil)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         bind()
+        viewModel?.viewDidLoad()
     }
     
     private func bind() {
@@ -32,6 +33,10 @@ class CategoryViewController: BaseViewController {
             self?.tableView.reloadData()
         })
         .store(in: cancelBag)
+        
+        doneButton.publisher
+            .subscribe(viewModel.doneButtonSubject)
+            .store(in: cancelBag)
     }
     
     // MARK: - Helpers
@@ -44,11 +49,6 @@ class CategoryViewController: BaseViewController {
     private func setupViews() {
         tableView.tableFooterView = UIView()
         navigationItem.rightBarButtonItem = doneButton
-    }
-    
-    // MARK: - Selectors
-    @objc private func doneButtonPressed() {
-        viewModel?.doneButtonSubject.send()
     }
 }
 
@@ -70,7 +70,6 @@ extension CategoryViewController: UITableViewDataSource {
 // MARK: - UITable View Delegate
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        viewModel?.didSelectCell(at: indexPath)
+        viewModel?.didSelectRow(at: indexPath)
     }
 }

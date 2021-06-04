@@ -11,31 +11,50 @@ import UIKit
 class CategoryViewModel: CategoryViewModelType {
     
     // MARK: - Variables
-    private var coordinator: CategoryCoordinator
-    private var categories = [
-        Category(id: "0", name: "DEFAULT", color: "#368EDF"),
-        Category(id: "1", name: "FRIENDS", color: "#F4A523"),
-        Category(id: "2", name: "NATURE", color: "#578E18")
-    ]
-    private var cancelBag = CancelBag()
+    private let coordinator: CategoryCoordinator
+    private let firestoreService: FirestoreServiceType
+    private var categories = [Category]()
+    private let cancelBag = CancelBag()
     
     // MARK: - Lifecycle
     init(coordinator: CategoryCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
+        self.firestoreService = diContainer.resolve()
         transform()
     }
     
     private func transform() {
-        doneButtonSubject.sink(receiveValue: { [weak self] in
-            self?.coordinator.doneButtonPressed()
+        doneButtonSubject.sink(receiveValue: { [weak self] _ in
+            self?.coordinator.doneButtonSubject.send()
         })
         .store(in: cancelBag)
+        
+        showErrorAlertSubject.subscribe(coordinator.showErrorAlertSubject)
+            .store(in: cancelBag)
     }
     
     // MARK: - Input
-    let doneButtonSubject = PassthroughSubject<Void, Never>()
+    let doneButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
+    let showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
     
-    func didSelectCell(at indexPath: IndexPath) {
+    func viewDidLoad() {
+        firestoreService.getCategories()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.showErrorAlertSubject.send(error)
+                }
+            }, receiveValue: { [weak self] categories in
+                self?.categories = categories
+                self?.reloadDataSubject.send()
+            })
+            .store(in: cancelBag)
+    }
+    
+    func didSelectRow(at indexPath: IndexPath) {
         guard var category = categories[at: indexPath.row] else { return }
         categories.remove(at: indexPath.row)
         category.isSelected = !category.isSelected

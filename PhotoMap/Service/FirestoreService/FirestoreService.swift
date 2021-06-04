@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 final class FirestoreService: FirestoreServiceType {
     private struct Path {
+        static let categoriesCollection = "categories"
         static let photosCollection = "photos"
         static let userPhotosCollection = "user_photos"
     }
@@ -41,6 +42,29 @@ final class FirestoreService: FirestoreServiceType {
                         markers.append(marker)
                     }
                     promise(.success(markers))
+                }
+            }
+        }
+    }
+    
+    func getCategories() -> Future<[Category], FirestoreError> {
+        return Future { [weak self] promise in
+            guard self?.currentUserId != nil else {
+                promise(.failure(.noCurrentUserId))
+                return
+            }
+            let categoriesReference = self?.db.collection(Path.categoriesCollection)
+            categoriesReference?.getDocuments { snapshot, error in
+                if let error = error {
+                    promise(.failure(.custom(error.localizedDescription)))
+                    return
+                } else {
+                    guard let documents = snapshot?.documents else {
+                        promise(.failure(.noMarkersCategories))
+                        return
+                    }
+                    let categories = documents.map { Category(id: $0.documentID, dictionary: $0.data()) }
+                    promise(.success(categories))
                 }
             }
         }

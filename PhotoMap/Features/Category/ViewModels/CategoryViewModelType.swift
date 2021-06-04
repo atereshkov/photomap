@@ -9,8 +9,9 @@ import Combine
 import UIKit
 
 protocol CategoryViewModelTypeInput {
-    var doneButtonSubject: PassthroughSubject<Void, Never> { get }
-    func didSelectCell(at: IndexPath)
+    var doneButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
+    func viewDidLoad()
+    func didSelectRow(at: IndexPath)
 }
 
 protocol CategoryViewModelTypeOutput {

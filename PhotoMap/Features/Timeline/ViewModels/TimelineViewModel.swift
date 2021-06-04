@@ -34,10 +34,11 @@ class TimelineViewModel: TimelineViewModelType {
             })
             .store(in: cancelBag)
         
-        categoryButtonSubject.sink(receiveValue: { [weak self] in
-            self?.coordinator.presentCategoryScreen()
-        })
-        .store(in: cancelBag)
+        categoryButtonSubject.subscribe(coordinator.categoryButtonTapped)
+            .store(in: cancelBag)
+        
+        showErrorSubject.subscribe(coordinator.showErrorAlertSubject)
+            .store(in: cancelBag)
     }
     
     // MARK: - Input
@@ -45,7 +46,9 @@ class TimelineViewModel: TimelineViewModelType {
         getUserMarkers()
     }
     
-    let categoryButtonSubject = PassthroughSubject<Void, Never>()
+    let categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
+    
+    let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
     
     let searchTextSubject = CurrentValueSubject<String, Never>.init("")
     
@@ -90,7 +93,7 @@ class TimelineViewModel: TimelineViewModelType {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    self?.coordinator.showError(error: error)
+                    self?.showErrorSubject.send(error)
                 case .finished:
                     break
                 }

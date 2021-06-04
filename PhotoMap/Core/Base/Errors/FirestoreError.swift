@@ -9,6 +9,7 @@ import Foundation
 
 enum FirestoreError: GeneralErrorType {
     case noCurrentUserId
+    case noMarkersCategories
     case custom(String)
     
     var title: String {
@@ -17,6 +18,8 @@ enum FirestoreError: GeneralErrorType {
     
     var message: String {
         switch self {
+        case .noMarkersCategories:
+            return "There are not categories at all"
         case .noCurrentUserId:
             return "User is not authorized"
         case .custom(let message):
