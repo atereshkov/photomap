@@ -147,9 +147,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Sign Up"/>
-                                <connections>
-                                    <action selector="signInButtonDidTap:" destination="giH-2J-w5D" eventType="touchUpInside" id="h7b-I9-mKd"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="V08-q4-wCE"/>
@@ -183,6 +180,23 @@
             <point key="canvasLocation" x="1129" y="76"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="HzB-n6-6Zl">
+            <size key="intrinsicContentSize" width="96.5" height="34"/>
+        </designable>
+        <designable name="Tu0-Dg-xwB">
+            <size key="intrinsicContentSize" width="100" height="34"/>
+        </designable>
+        <designable name="Vw4-jz-JNa">
+            <size key="intrinsicContentSize" width="96.5" height="34"/>
+        </designable>
+        <designable name="d9M-rp-0IK">
+            <size key="intrinsicContentSize" width="68.5" height="34"/>
+        </designable>
+        <designable name="v1J-QO-ogd">
+            <size key="intrinsicContentSize" width="68.5" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

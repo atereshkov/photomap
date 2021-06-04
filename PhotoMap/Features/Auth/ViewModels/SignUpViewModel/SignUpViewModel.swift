@@ -18,9 +18,9 @@ class SignUpViewModel: SignUpViewModelType {
     private let usernameValidator: UsernameValidator
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
+    private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
-    
     @Published var email = ""
     @Published var password = ""
     @Published var username = ""
@@ -28,11 +28,13 @@ class SignUpViewModel: SignUpViewModelType {
     private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
     
     // MARK: Output
-    
     @Published var usernameError: String?
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isRegistrationEnabled = false
+    var loadingPublisher: AnyPublisher<Bool, Never> {
+        activityIndicator.loading
+    }
 
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinator,
@@ -47,74 +49,71 @@ class SignUpViewModel: SignUpViewModelType {
         
         transform()
     }
+
+    private func transform() {
+        $username
+            .flatMap { [unowned self] username in
+                self.usernameValidator.isUsernameValid(username)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.usernameError, on: self)
+            .store(in: cancelBag)
+        
+        $email
+            .flatMap { [unowned self] email in
+                self.emailValidator.isEmailValid(email)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.emailError, on: self)
+            .store(in: cancelBag)
+        
+        $password
+            .flatMap { [unowned self] password in
+                self.passwordValidator.isPasswordValid(password)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.passwordError, on: self)
+            .store(in: cancelBag)
+        
+        Publishers.CombineLatest3($emailError, $passwordError, $usernameError)
+            .map { email, password, name -> Bool in
+                if email == nil && password == nil && name == nil {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            .assign(to: \.isRegistrationEnabled, on: self)
+            .store(in: cancelBag)
+        
+        signUpButtonSubject
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
+            .sink { [weak self] _ in self?.signUpButtonTapped() }
+            .store(in: cancelBag)
+    }
     
 }
 
 extension SignUpViewModel {
     
-    func transform() {
-        $username.flatMap { username in
-            return self.usernameValidator.isUsernameValid(username)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.usernameError, on: self)
-        .store(in: cancelBag)
-        
-        $email.flatMap { email in
-            return self.emailValidator.isEmailValid(email)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.emailError, on: self)
-        .store(in: cancelBag)
-        
-        $password.flatMap { password in
-            return self.passwordValidator.isPasswordValid(password)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.passwordError, on: self)
-        .store(in: cancelBag)
-        
-        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
-        
-        credentials.map { emailError, passwordError in
-            return emailError == nil && passwordError == nil
-        }
-        .assign(to: \.isRegistrationEnabled, on: self)
-        .store(in: cancelBag)
-        
-        signUpButtonSubject
-            .sink { [weak self] _ in
-                self?.signUpButtonTapped()
-            }
-            .store(in: cancelBag)
-    }
-    
-}
-
-extension SignUpViewModel: SignUpViewModelInput {
-    
-    func signUpButtonTapped() {
+    private func signUpButtonTapped() {
         authUserService
             .signUp(email: email, password: password)
             .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+
                 switch completion {
-                case .failure:
-                    self?.coordinator.showErrorAlert(error: ResponseError.registrationError)
+                case .failure(let error):
+                    self.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self?.coordinator.showMap()
+                    self.coordinator.showMapSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
     }
-    
 }

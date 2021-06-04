@@ -48,7 +48,7 @@ class PasswordValidatorTests: XCTestCase {
         let expected = PasswordValidationResult.valid
         var actual: PasswordValidationResult?
         
-        passwordValidator.isPasswordValid("1672")
+        passwordValidator.isPasswordValid("167275")
             .sink { result in
                 actual = result
             }

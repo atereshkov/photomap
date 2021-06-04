@@ -17,22 +17,22 @@ class SignInViewModel: SignInViewModelType {
     
     private let emailValidator: EmailValidator
     private let passwordValidator: PasswordValidator
+    private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
-    
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
     
     private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var signInButtonSubject = PassthroughSubject<UIControl, Never>()
-   
+
     // MARK: Output
-    
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var isAuthEnabled = false
-    
-    var showLoadingIndicator = CurrentValueSubject<Bool, Never>(false)
+    var loadingPublisher: AnyPublisher<Bool, Never> {
+        activityIndicator.loading
+    }
     
     init(diContainer: DIContainerType,
          coordinator: AuthCoordinatorType,
@@ -46,80 +46,61 @@ class SignInViewModel: SignInViewModelType {
         transform()
     }
     
+    private func transform() {
+        $email
+            .flatMap { [unowned self] email in
+                self.emailValidator.isEmailValid(email)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.emailError, on: self)
+            .store(in: cancelBag)
+        
+        $password
+            .flatMap { [unowned self] password in
+                self.passwordValidator.isPasswordValid(password)
+            }
+            .map { $0.localized }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.passwordError, on: self)
+            .store(in: cancelBag)
+        
+        Publishers.CombineLatest($emailError, $passwordError)
+            .map { $0 == nil && $1 == nil }
+            .assign(to: \.isAuthEnabled, on: self)
+            .store(in: cancelBag)
+        
+        signUpButtonSubject
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
+            .map { _ in () }
+            .subscribe(coordinator.showSignUpSubject)
+            .store(in: cancelBag)
+        
+        signInButtonSubject
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
+            .sink { [weak self] _ in self?.signInButtonTapped() }
+            .store(in: cancelBag)
+    }
+    
 }
 
 extension SignInViewModel {
     
-    func transform() {
-        $email.flatMap { email in
-            return self.emailValidator.isEmailValid(email)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.emailError, on: self)
-        .store(in: cancelBag)
-        
-        $password.flatMap { password in
-            return self.passwordValidator.isPasswordValid(password)
-        }
-        .map { result in
-            return result.localized
-        }
-        .receive(on: DispatchQueue.main)
-        .assign(to: \.passwordError, on: self)
-        .store(in: cancelBag)
-        
-        let credentials = Publishers.CombineLatest($emailError, $passwordError).eraseToAnyPublisher()
-        
-        credentials.map { emailError, passwordError in
-            return emailError == nil && passwordError == nil
-        }
-        .assign(to: \.isAuthEnabled, on: self)
-        .store(in: cancelBag)
-        
-        signUpButtonSubject
-            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
-            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
-            .sink { [weak self] _ in
-                self?.signUpButtonTapped()
-            }
-            .store(in: cancelBag)
-        
-        signInButtonSubject
-//            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
-//            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
-            .sink { [weak self] _ in
-                self?.signInButtonTapped()
-            }
-            .store(in: cancelBag)
-    }
-    
-}
-
-extension SignInViewModel: SignInViewModelInput {
-    
-    func signInButtonTapped() {
-        showLoadingIndicator.send(true)
-        print(email, password)
+    private func signInButtonTapped() {
         authUserService
             .signIn(email: email, password: password)
             .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
-                self?.showLoadingIndicator.send(false)
+                guard let self = self else { return }
+
                 switch completion {
-                case .failure:
-                    self?.coordinator.showErrorAlert(error: ResponseError.incorrectCredentials)
+                case .failure(let error):
+                    self.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self?.coordinator.closeScreen()
+                    self.coordinator.showMapSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
     }
-    
-    func signUpButtonTapped() {
-        coordinator.openSignUpScreen()
-    }
-    
 }

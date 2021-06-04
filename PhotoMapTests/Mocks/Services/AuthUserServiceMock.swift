@@ -16,12 +16,13 @@ class AuthUserServiceMock: AuthUserServiceType {
     var signInError: ResponseError?
     
     var signUpCalled = false
-    var signUpError: Error?
+    var signUpError: ResponseError?
     var signUpUsernameParam: String?
     var signUpEmailParam: String?
     var signUpPasswordParam: String?
     
     func signUp(email: String, password: String) -> Future<Void, Error> {
+        signUpCalled = true
         return Future { [weak self] promise in
             if let error = self?.signUpError {
                 promise(.failure(error))

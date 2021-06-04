@@ -32,19 +32,24 @@
 "main.map.disable-location-alert.button.title.settings" = "Настройки";
 "main.map.disable-location-alert.button.title.close" = "Закрыть";
 
+"ok" = "OK";
+"close" = "Закрыть";
+"internet-error.error-alert.button.ok" = "Пожалуйста, попробуйте позже";
+
 // MARK: - Messages
 
 "cancel" = "Войти";
 "profile.logout-alert.button.title" = "Подтвердите выход";
 "logout.logout-alert.title" = "Вы действительно хотите выйти?";
 "error" = "Ошибка";
-"sign-up.error-alert.title.incorrect-password" = "Неверный имейл или пароль";
+
+// MARK: - Response Error Messages
 "internet-error.error-alert.title.no-network-connection" = "Отсутствует интернет соединение";
-"ok" = "OK";
-"sign-up.error-alert.title.registration-error" = "Ошибка регистрации. Пожалуйста, попробуйте еще раз.";
-"sign-up.error-alert.title.user-already-exists" = "Аккаунт с такой почтой уже существует.";
-"close" = "Закрыть";
-"internet-error.error-alert.button.ok" = "Пожалуйста, попробуйте позже";
+"auth.error-alert.title.incorrect-password" = "Неверный пароль";
+"auth.error-alert.title.user-not-found" = "Пользователя с таким email не существует.";
+"auth.error-alert.title.sign-in-error" = "Ошибка регистрации. Пожалуйста, попробуйте еще раз.";
+"auth.error-alert.title.email-already-in-use" = "Пользователь с таким email уже существует.";
+
 "main.map.disable-location-alert.title" = "Геолокация отключена";
 "main.map.disable-location-alert.message" = "С отключенной сервисом местоположения вы не сможете воспользоваться всем функционалам приложения. Пожалуйста, перейдите в настройки по кнопке ниже и включите его.";
 
@@ -58,7 +63,7 @@
 // MARK: - Password Validation errors
 
 "password-validation.error-alert.empty-password" = "Поле пароля не должно быть пустым";
-"password-validation.error-alert.short-password" = "Требуется минимум 4 символа";
+"password-validation.error-alert.short-password" = "Требуется минимум 6 символа";
 
 // MARK: - Username Validation errors
 
