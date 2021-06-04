@@ -78,15 +78,20 @@ class SignUpViewModel: SignUpViewModelType {
             .assign(to: \.passwordError, on: self)
             .store(in: cancelBag)
         
-        Publishers.CombineLatest($emailError, $passwordError)
-            .map { $0 == nil && $1 == nil }
+        Publishers.CombineLatest3($emailError, $passwordError, $usernameError)
+            .map { email, password, name -> Bool in
+                if email == nil && password == nil && name == nil {
+                    return true
+                } else {
+                    return false
+                }
+            }
             .assign(to: \.isRegistrationEnabled, on: self)
             .store(in: cancelBag)
         
         signUpButtonSubject
-            .sink { [weak self] _ in
-                self?.signUpButtonTapped()
-            }
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
+            .sink { [weak self] _ in self?.signUpButtonTapped() }
             .store(in: cancelBag)
     }
     

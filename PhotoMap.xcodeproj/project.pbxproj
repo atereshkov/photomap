@@ -23,6 +23,7 @@
 		0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */; };
 		0BD78B05265F8C17000B4DE6 /* TimelineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
+		126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126CC4192667A9C2008E560D /* SignInViewModelTests.swift */; };
 		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
 		128B418C265E7DC500697551 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* Photo.swift */; };
 		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
@@ -64,7 +65,6 @@
 		333B82EE26417D5100AAD56F /* EmailValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82ED26417D5100AAD56F /* EmailValidationResult.swift */; };
 		333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82EF26417DAC00AAD56F /* PasswordValidationResult.swift */; };
 		333B82F226417DDB00AAD56F /* UsernameValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82F126417DDB00AAD56F /* UsernameValidationResult.swift */; };
-		333B82F8264198FB00AAD56F /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */; };
 		333B82FB264199BD00AAD56F /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33810EB926331B6800BFC67C /* CancelBag.swift */; };
 		333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */; };
 		333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83042642DED100AAD56F /* EmailValidatorTests.swift */; };
@@ -157,6 +157,7 @@
 		0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
 		0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModelTests.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
+		126CC4192667A9C2008E560D /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
 		128B418B265E7DC500697551 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -204,7 +205,6 @@
 		333B82ED26417D5100AAD56F /* EmailValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidationResult.swift; sourceTree = "<group>"; };
 		333B82EF26417DAC00AAD56F /* PasswordValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidationResult.swift; sourceTree = "<group>"; };
 		333B82F126417DDB00AAD56F /* UsernameValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidationResult.swift; sourceTree = "<group>"; };
-		333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		333B83012642D8E900AAD56F /* AuthUserServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserServiceMock.swift; sourceTree = "<group>"; };
 		333B83042642DED100AAD56F /* EmailValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatorTests.swift; sourceTree = "<group>"; };
 		333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatorTests.swift; sourceTree = "<group>"; };
@@ -309,8 +309,8 @@
 			children = (
 				23AE2E87264D63E300FE673F /* MapPhotoViewModelTests.swift */,
 				01735842263851EF0035C3D5 /* MapViewModelTests.swift */,
-				333B82F7264198FB00AAD56F /* SignInViewModelTests.swift */,
 				333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */,
+				126CC4192667A9C2008E560D /* SignInViewModelTests.swift */,
 				0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */,
 			);
 			path = ViewModels;
@@ -1161,8 +1161,8 @@
 				0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */,
 				23AE2E88264D63E300FE673F /* MapPhotoViewModelTests.swift in Sources */,
 				0BBDEB8E265FABCA007D48C0 /* TimelineCoordinatorMock.swift in Sources */,
-				333B82F8264198FB00AAD56F /* SignInViewModelTests.swift in Sources */,
 				333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */,
+				126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */,
 				CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */,
 				333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */,
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
