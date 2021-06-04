@@ -114,7 +114,7 @@ class TimelineViewModelTests: XCTestCase {
         
         viewModel.viewDidLoad()
         wait(for: [expectation], timeout: 2)
-        XCTAssertNotNil(viewModel.getTitle(for: markers.count - 1))
+        XCTAssertEqual(viewModel.getTitle(for: markers.count - 1), markers[markers.count - 1].date.monthAndYear)
     }
     
     func testIfGetValuesThenShouldGetChosenMarker() {
@@ -136,7 +136,9 @@ class TimelineViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         wait(for: [expectation], timeout: 2)
         let indexPath = IndexPath(row: markers.count - 1, section: 0)
-        XCTAssertNotNil(viewModel.getMarker(at: indexPath))
+        XCTAssertEqual(viewModel.getMarker(at: indexPath)?.description, markers[at: indexPath.row]?.description)
+        XCTAssertEqual(viewModel.getMarker(at: indexPath)?.date, markers[at: indexPath.row]?.date)
+        XCTAssertEqual(viewModel.getMarker(at: indexPath)?.hashtags, markers[at: indexPath.row]?.hashtags)
     }
     
     func testIfGetValuesShouldReturnNumberOfRows() {
@@ -145,6 +147,7 @@ class TimelineViewModelTests: XCTestCase {
         let markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
         firestoreService.markers = markers
         
+        let expectedNumberOfRows = markers.count
         let expectation = XCTestExpectation()
         
         viewModel.reloadDataSubject.sink(receiveValue: { _ in
@@ -155,7 +158,7 @@ class TimelineViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
         wait(for: [expectation], timeout: 2)
         
-        XCTAssertTrue(viewModel.getNumberOfRows(in: markers.count - 1) > 0)
+        XCTAssertEqual(viewModel.getNumberOfRows(in: markers.count - 1), expectedNumberOfRows)
     }
     
 }
