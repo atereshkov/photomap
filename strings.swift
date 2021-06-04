@@ -26,6 +26,20 @@ internal enum L10n {
       internal enum RightButtonItem {
         /// Done
         internal static let done = L10n.tr("Localizable", "categories.navigationItem.rightButtonItem.done")
+    }
+ }
+
+  internal enum Auth {
+    internal enum ErrorAlert {
+      internal enum Title {
+        /// User with that email already exists.
+        internal static let emailAlreadyInUse = L10n.tr("Localizable", "auth.error-alert.title.email-already-in-use")
+        /// The password is invalid.
+        internal static let incorrectPassword = L10n.tr("Localizable", "auth.error-alert.title.incorrect-password")
+        /// Sign in error. Please try again.
+        internal static let signInFailure = L10n.tr("Localizable", "auth.error-alert.title.sign-in-failure")
+        /// There is no user with this email.
+        internal static let userNotFound = L10n.tr("Localizable", "auth.error-alert.title.user-not-found")
       }
     }
   }
@@ -149,7 +163,7 @@ internal enum L10n {
     internal enum ErrorAlert {
       /// Password field can't be blank
       internal static let emptyPassword = L10n.tr("Localizable", "password-validation.error-alert.empty-password")
-      /// Minimum of 4 characters required
+      /// Minimum of 6 characters required
       internal static let shortPassword = L10n.tr("Localizable", "password-validation.error-alert.short-password")
     }
   }
@@ -159,19 +173,6 @@ internal enum L10n {
       internal enum Button {
         /// Conform logout
         internal static let title = L10n.tr("Localizable", "profile.logout-alert.button.title")
-      }
-    }
-  }
-
-  internal enum SignUp {
-    internal enum ErrorAlert {
-      internal enum Title {
-        /// Incorrect login or password
-        internal static let incorrectPassword = L10n.tr("Localizable", "sign-up.error-alert.title.incorrect-password")
-        /// Registration error. Please try again.
-        internal static let registrationError = L10n.tr("Localizable", "sign-up.error-alert.title.registration-error")
-        /// User with that email already exists.
-        internal static let userAlreadyExists = L10n.tr("Localizable", "sign-up.error-alert.title.user-already-exists")
       }
     }
   }

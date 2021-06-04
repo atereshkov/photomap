@@ -8,9 +8,8 @@
 import Foundation
 
 enum AlertError: GeneralErrorType {
-    
-    case incorrectCredentials
-    case networtConnection
+
+    case networkConnection
     case other(message: String)
 
     var title: String {
@@ -19,9 +18,7 @@ enum AlertError: GeneralErrorType {
 
     var message: String {
         switch self {
-        case .incorrectCredentials:
-            return L10n.SignUp.ErrorAlert.Title.incorrectPassword
-        case .networtConnection:
+        case .networkConnection:
             return L10n.InternetError.ErrorAlert.Title.noNetworkConnection
         case .other(let message):
             return message

@@ -22,6 +22,7 @@ protocol SignUpViewModelOutput {
     var passwordError: String? { get set }
     
     var isRegistrationEnabled: Bool { get set }
+    var loadingPublisher: AnyPublisher<Bool, Never> { get }
 }
 
 protocol SignUpViewModelType: SignUpViewModelInput, SignUpViewModelOutput {
