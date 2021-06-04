@@ -18,3 +18,11 @@ struct Category: Codable {
         self.color = color
     }
 }
+
+extension Category {
+    init(dictionary: [String: Any]) {
+        id = dictionary["id"] as? String ?? ""
+        name = dictionary["name"] as? String ?? ""
+        color = dictionary["color"] as? String ?? ""
+    }
+}

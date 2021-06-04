@@ -34,11 +34,8 @@ class MapPhotoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        categoryPckerView.delegate = viewModel
-        categoryPckerView.dataSource = viewModel
-
         setOpacityBackgroundNavigationBar()
-        setupToolBar()
+        setupUI()
 
         bind()
         bindActions()
@@ -69,17 +66,16 @@ class MapPhotoViewController: BaseViewController {
             .filter { $0 != nil }
             .subscribe(categoryView.categorySubject)
             .store(in: cancelBag)
-        viewModel.$closeCategoryPickerViewButtonTitle
-            .assign(to: \.title, on: closeBarButton)
+        viewModel.loadCategoriesSubject
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.categoryPckerView.delegate = viewModel
+                self.categoryPckerView.dataSource = viewModel
+            }
             .store(in: cancelBag)
-        viewModel.$doneButtonTitle
-            .sink(receiveValue: { [weak self] title in
-                self?.doneButton.setTitle(title, for: .application)
-            })
-            .store(in: cancelBag)
-        viewModel.$cancelButtonTitle
-            .sink(receiveValue: { [weak self] title in
-                self?.cancelButton.setTitle(title, for: .application)
+        viewModel.loadingPublisher
+            .sink(receiveValue: { [weak self] isLoading in
+                isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
             })
             .store(in: cancelBag)
     }
@@ -103,7 +99,11 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
     }
 
-    private func setupToolBar() {
+    private func setupUI() {
+        doneButton.setTitle(L10n.Main.MapPhoto.Button.Title.done, for: .application)
+        cancelButton.setTitle(L10n.Main.MapPhoto.Button.Title.cancel, for: .application)
+        closeBarButton.title = L10n.Main.MapPhoto.Button.Title.close
+
         pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 }

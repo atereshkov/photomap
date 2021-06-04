@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 final class FirestoreService: FirestoreServiceType {
     private struct Path {
+        static let categoriesCollection = "categories"
         static let photosCollection = "photos"
         static let userPhotosCollection = "user_photos"
     }
@@ -42,6 +43,32 @@ final class FirestoreService: FirestoreServiceType {
                     }
                     promise(.success(markers))
                 }
+            }
+        }
+    }
+
+    func getCategories() -> Future<[Category], FirestoreError> {
+        Future { [weak self] promise in
+            guard let self = self else {
+                return promise(.failure(.custom("Local service unavailable")))
+            }
+
+            let categoryReference = self.db.collection(Path.categoriesCollection)
+            categoryReference.getDocuments { snapshot, error in
+                if let error = error {
+                    return promise(.failure(.custom(error.localizedDescription)))
+                }
+
+                guard let documents = snapshot?.documents else { return promise(.success([])) }
+
+                var categories = [Category]()
+                for document in documents {
+                    var data = document.data()
+                    data["id"] = document.documentID
+
+                    categories.append(Category(dictionary: data))
+                }
+                promise(.success(categories))
             }
         }
     }
