@@ -33,8 +33,10 @@ class DIContainerMock: DIContainerType {
                 LocationServiceMock()
             }.inObjectScope(.container)
         
-        container.register(FirestoreServiceType.self) { _ in FirestoreService() }
-            .inObjectScope(.container)
+        container
+            .register(FirestoreServiceType.self) { _ -> FirestoreServiceType in
+                FirestoreServiceMock()
+            }.inObjectScope(.container)
     }
     
     func resolve<T>() -> T {
