@@ -36,5 +36,20 @@ extension String {
     func trim() -> String {
         return self.trimmingCharacters(in: .whitespaces)
     }
+
+    var findHashtags: [String] {
+        var hashtags: [String] = []
+        let regex = try? NSRegularExpression(pattern: "(#[a-zA-Z0-9_\\p{Cyrillic}\\p{N}]*)", options: [])
+        // swiftlint:disable legacy_constructor
+        if let matches = regex?.matches(in: self, options: [], range: NSMakeRange(0, self.count)) {
+            for match in matches {
+                hashtags
+                    .append(NSString(string: self)
+                    .substring(with: NSRange(location: match.range.location, length: match.range.length)))
+            }
+        }
+
+        return hashtags
+    }
     
 }

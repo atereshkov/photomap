@@ -74,6 +74,7 @@ class MapPhotoViewController: BaseViewController {
             }
             .store(in: cancelBag)
         viewModel.loadingPublisher
+            .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isLoading in
                 isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
             })
@@ -92,6 +93,7 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
 
         doneButton.tapPublisher
+            .map { [weak self] _ in self?.descriptionTextView.text ?? "" }
             .subscribe(viewModel.doneButtonSubject)
             .store(in: cancelBag)
         cancelButton.tapPublisher

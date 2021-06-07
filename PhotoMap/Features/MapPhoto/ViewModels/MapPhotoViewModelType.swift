@@ -13,7 +13,7 @@ protocol MapPhotoViewModelInput {
     var categoryViewSubject: PassthroughSubject<GestureType, Never> { get }
     var closeBarButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
     var descriptionSubject: PassthroughSubject<String, Never> { get }
-    var doneButtonSubject: PassthroughSubject<UIControl, Never> { get }
+    var doneButtonSubject: PassthroughSubject<String, Never> { get }
     var loadCategoriesSubject: PassthroughSubject<Void, Never> { get }
 }
 

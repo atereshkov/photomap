@@ -20,7 +20,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Input
     private(set) var cancelButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var descriptionSubject = PassthroughSubject<String, Never>()
-    private(set) var doneButtonSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var doneButtonSubject = PassthroughSubject<String, Never>()
     private(set) var categoryViewSubject = PassthroughSubject<GestureType, Never>()
     private(set) var closeBarButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     private(set) var loadCategoriesSubject = PassthroughSubject<Void, Never>()
@@ -43,17 +43,38 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         transform()
     }
 
+    private func saveNewPhoto(with description: String) {
+        guard let data = photoPublisher.image.pngData() else { return }
+        photoPublisher.description = description
+
+        firestoreService.uploadPhoto(data)
+            .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
+            .flatMap { [unowned self] url in
+                self.firestoreService.addUserMarker(with: self.photoPublisher.toDictionary(urls: [url.absoluteString]))
+            }
+            .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
+            .sink(receiveCompletion: { print($0) },
+                  receiveValue: { [weak self] _ in
+                    self?.coordinator.dismissSubject.send(UIControl())
+                  })
+            .store(in: cancelBag)
+    }
+
     private func transform() {
         cancelButtonSubject
             .subscribe(coordinator.dismissSubject)
             .store(in: cancelBag)
 
+        $categoryPublisher
+            .sink { [weak self] category in self?.photoPublisher.category = category }
+            .store(in: cancelBag)
+
         doneButtonSubject
-            .trackActivity(activityIndicator)
-            .sink { [weak self] control in
-                guard let self = self else { return }
-                // Save new PhotoMap object in Firebase and close screen
-                self.coordinator.dismissSubject.send(control)
+            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
+            .sink { [weak self] description in
+                self?.saveNewPhoto(with: description)
             }
             .store(in: cancelBag)
 
@@ -71,7 +92,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .store(in: self.cancelBag)
 
         categoryViewSubject
-            .map { _ in false }
+            .map { [unowned self] _ in self.categories.isEmpty }
             .assign(to: \.isHiddenCategoryPicker, on: self)
             .store(in: cancelBag)
 

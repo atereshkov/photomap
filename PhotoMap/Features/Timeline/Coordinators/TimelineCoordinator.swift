@@ -18,6 +18,7 @@ class TimelineCoordinator: Coordinator {
         self.diContainer = diContainer
     }
     
+    @discardableResult
     func start() -> UIViewController {
         let viewModel = TimelineViewModel(coordinator: self, diContainer: diContainer)
         let timelineVC = TimelineViewController.newInstanse(viewModel: viewModel)
