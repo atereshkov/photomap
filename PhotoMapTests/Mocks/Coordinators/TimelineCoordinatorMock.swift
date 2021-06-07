@@ -12,7 +12,7 @@ class TimelineCoordinatorMock: TimelineCoordinator {
     
     var showErrorCalled = false
     
-    override func showError(error: GeneralErrorType) {
+    func showError(error: GeneralErrorType) {
         showErrorCalled = true
     }
 }

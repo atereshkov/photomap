@@ -19,18 +19,6 @@ internal enum L10n {
   /// OK
   internal static let ok = L10n.tr("Localizable", "ok")
 
-
-  internal enum Categories {
-    internal enum NavigationItem {
-      /// Categories
-      internal static let title = L10n.tr("Localizable", "categories.navigationItem.title")
-      internal enum RightButtonItem {
-        /// Done
-        internal static let done = L10n.tr("Localizable", "categories.navigationItem.rightButtonItem.done")
-      }
-    }
-  }
-
   internal enum Auth {
     internal enum ErrorAlert {
       internal enum Title {
@@ -42,6 +30,17 @@ internal enum L10n {
         internal static let signInFailure = L10n.tr("Localizable", "auth.error-alert.title.sign-in-failure")
         /// There is no user with this email.
         internal static let userNotFound = L10n.tr("Localizable", "auth.error-alert.title.user-not-found")
+      }
+    }
+  }
+
+  internal enum Categories {
+    internal enum NavigationItem {
+      /// Categories
+      internal static let title = L10n.tr("Localizable", "categories.navigationItem.title")
+      internal enum RightButtonItem {
+        /// Done
+        internal static let done = L10n.tr("Localizable", "categories.navigationItem.rightButtonItem.done")
       }
     }
   }
