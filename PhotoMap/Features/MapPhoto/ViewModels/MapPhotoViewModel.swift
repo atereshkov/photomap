@@ -53,8 +53,6 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .flatMap { [unowned self] url in
                 self.firestoreService.addUserMarker(with: self.photoPublisher.toDictionary(urls: [url.absoluteString]))
             }
-            .receive(on: DispatchQueue.main)
-            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { print($0) },
                   receiveValue: { [weak self] _ in
                     self?.coordinator.dismissSubject.send(UIControl())
@@ -79,12 +77,10 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .store(in: cancelBag)
 
         firestoreService.getCategories()
-            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { error in
                 print(error)
             }, receiveValue: { [weak self] categories in
                 guard let self = self else { return }
-                print(categories)
                 self.categories = categories
                 self.categoryPublisher = categories[safe: 0]
                 self.loadCategoriesSubject.send()
@@ -92,6 +88,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .store(in: self.cancelBag)
 
         categoryViewSubject
+            // It is a good case?
             .map { [unowned self] _ in self.categories.isEmpty }
             .assign(to: \.isHiddenCategoryPicker, on: self)
             .store(in: cancelBag)

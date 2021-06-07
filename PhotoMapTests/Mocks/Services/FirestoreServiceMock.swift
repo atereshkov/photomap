@@ -19,6 +19,40 @@ class FirestoreServiceMock {
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
+    func getCategories() -> Future<[PhotoMap.Category], FirestoreError> {
+        Future { [weak self] promise in
+            if let error = self?.error {
+                promise(.failure(.custom(error.message)))
+                return
+            }
+            return promise(.success([Category(id: "123", name: "First", color: "#000000"),
+                                     Category(id: "456", name: "Second", color: "#000fff"),
+                                     Category(id: "789", name: "Third", color: "#ffffff")]))
+        }
+    }
+
+    func addUserMarker(with data: [String: Any]) -> Future<Bool, FirestoreError> {
+        Future { [weak self] promise in
+            if let error = self?.error {
+                promise(.failure(.custom(error.message)))
+                return
+            }
+            return promise(.success(true))
+        }
+    }
+
+    func uploadPhoto(_ data: Data) -> Future<URL, FirestoreError> {
+        Future { [weak self] promise in
+            if let error = self?.error {
+                promise(.failure(.custom(error.message)))
+                return
+            }
+            // swiftlint:disable force_unwrapping
+            return promise(.success(URL(string: "https://google.com")!))
+            // swiftlint:enable force_unwrapping
+        }
+    }
+    
     func getUserMarkers() -> Future<[Marker], FirestoreError> {
         getMarkersCalled = true
         return Future { [weak self] promise in

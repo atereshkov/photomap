@@ -20,7 +20,7 @@ class MapPhotoViewController: BaseViewController {
     @IBOutlet private weak var descriptionTextView: UITextView!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var doneButton: UIButton!
-    @IBOutlet private weak var categoryPckerView: UIPickerView!
+    @IBOutlet private weak var categoryPickerView: UIPickerView!
     @IBOutlet private weak var pickerToolBar: UIToolbar!
     @IBOutlet private weak var closeBarButton: UIBarButtonItem!
     
@@ -57,7 +57,7 @@ class MapPhotoViewController: BaseViewController {
             .assign(to: \.text, on: descriptionTextView)
             .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
-            .assign(to: \.isHidden, on: categoryPckerView)
+            .assign(to: \.isHidden, on: categoryPickerView)
             .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: pickerToolBar)
@@ -69,8 +69,8 @@ class MapPhotoViewController: BaseViewController {
         viewModel.loadCategoriesSubject
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.categoryPckerView.delegate = viewModel
-                self.categoryPckerView.dataSource = viewModel
+                self.categoryPickerView.delegate = viewModel
+                self.categoryPickerView.dataSource = viewModel
             }
             .store(in: cancelBag)
         viewModel.loadingPublisher
@@ -90,6 +90,16 @@ class MapPhotoViewController: BaseViewController {
 
         closeBarButton.publisher
             .subscribe(viewModel.closeBarButtonSubject)
+            .store(in: cancelBag)
+
+        viewModel.$categoryPublisher
+            .map { $0 != nil }
+            .assign(to: \.isEnabled, on: doneButton)
+            .store(in: cancelBag)
+
+        viewModel.loadingPublisher
+            .map { !$0 }
+            .assign(to: \.isEnabled, on: doneButton)
             .store(in: cancelBag)
 
         doneButton.tapPublisher

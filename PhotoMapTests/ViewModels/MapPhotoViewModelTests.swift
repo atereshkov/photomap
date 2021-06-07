@@ -14,11 +14,14 @@ class MapPhotoViewModelTests: XCTestCase {
     var viewModel: MapPhotoViewModelType!
     var coordinator: MapPhotoCoordinator!
     var diContainer: DIContainerType!
+    var service: FirestoreServiceMock!
     var cancelBag: CancelBag!
 
     override func setUpWithError() throws {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
+        let serviceType: FirestoreServiceType = diContainer.resolve()
+        service = serviceType as? FirestoreServiceMock
         coordinator = MapPhotoCoordinator(diContainer: diContainer)
         let photo = Photo(image: UIImage(), coordinate: CLLocationCoordinate2D())
         viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer, photo: photo)
@@ -27,6 +30,7 @@ class MapPhotoViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         cancelBag = nil
         diContainer = nil
+        service = nil
         viewModel = nil
         coordinator = nil
     }
@@ -76,17 +80,5 @@ class MapPhotoViewModelTests: XCTestCase {
 
     func testPhotoPublisher_ShouldBeNotNil() {
         XCTAssertNotNil(viewModel.photoPublisher)
-    }
-
-    func testDoneButtonTitle_ShouldBeEqual() {
-        XCTAssertEqual(viewModel.doneButtonTitle, L10n.Main.MapPhoto.Button.Title.done)
-    }
-
-    func testCancelButtonTitle_ShouldBeEqual() {
-        XCTAssertEqual(viewModel.cancelButtonTitle, L10n.Main.MapPhoto.Button.Title.cancel)
-    }
-
-    func testCloseCategoryPickerViewButtonTitle_ShouldBeEqual() {
-        XCTAssertEqual(viewModel.closeCategoryPickerViewButtonTitle, L10n.Main.MapPhoto.Button.Title.close)
     }
 }
