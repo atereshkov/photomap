@@ -7,11 +7,12 @@ target 'PhotoMap' do
 
   # Pods for PhotoMap
 
-  pod 'Firebase/Auth'
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/Firestore'
+  pod 'Firebase/Auth',   '~> 7.10.0'
+  pod 'Firebase/Crashlytics',   '~> 7.10.0'
+  pod 'Firebase/Analytics',   '~> 7.10.0'
+  pod 'Firebase/Messaging',   '~> 7.10.0'
+  pod 'Firebase/Firestore',   '~> 7.10.0'
+  pod 'Firebase/Storage',   '~> 7.10.0'
   pod 'ReachabilitySwift',   '~> 5.0.0'
   pod 'SwiftLint',  '~> 0.41'
   pod 'SwiftGen',   '~> 6.4.0'
