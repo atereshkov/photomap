@@ -94,7 +94,10 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     }
 
     private func saveNewPhoto(with description: String) {
-        guard let data = photoPublisher.image.pngData() else { return }
+        guard let data = photoPublisher.image.pngData() else {
+            coordinator.errorAlertSubject.send(.custom("Image error"))
+            return
+        }
         photoPublisher.description = description
 
         firestoreService.uploadPhoto(data)

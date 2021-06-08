@@ -51,7 +51,7 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertTrue(isClose)
     }
 
-    func testTapOnCategoryView_ShouldShowCategoryPickerView() {
+    func testTapOnCategoryView_WithNoEmptyCategories_ShouldShowCategoryPickerView() {
         // Arrange
         XCTAssertTrue(viewModel.isHiddenCategoryPicker)
 
@@ -62,7 +62,7 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isHiddenCategoryPicker)
     }
 
-    func testTapOnloseBarButton_ShouldShowCategoryPickerView() {
+    func testTapOnCloseBarButton_ShouldShowCategoryPickerView() {
         // Arrange
         viewModel.categoryViewSubject.send(.tap())
         XCTAssertFalse(viewModel.isHiddenCategoryPicker)
@@ -80,5 +80,55 @@ class MapPhotoViewModelTests: XCTestCase {
 
     func testPhotoPublisher_ShouldBeNotNil() {
         XCTAssertNotNil(viewModel.photoPublisher)
+    }
+
+    func testTapOnCancelButton_ShouldCloseScreen() {
+        // Arrange
+        var isDismiss = false
+        coordinator.dismissSubject
+            .sink { _ in
+                isDismiss = true
+            }
+            .store(in: cancelBag)
+
+        // Act
+        viewModel.cancelButtonSubject.send(UIControl())
+
+        // Assert
+        XCTAssertTrue(isDismiss)
+    }
+
+    func testTapOnDoneButton_WithError_ShouldShowErrorAlert() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var isShow = false
+        service.error = .nonMatchingChecksum
+
+        coordinator.errorAlertSubject
+            .sink { _ in
+                isShow = true
+                expectation.fulfill()
+            }
+            .store(in: cancelBag)
+
+        // Act
+        viewModel.doneButtonSubject.send("")
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(isShow)
+    }
+
+    func testTapOnCloseBarButton_WhenOpenPicker_ShouldHidePicker() {
+        // Arrange
+        XCTAssertTrue(viewModel.isHiddenCategoryPicker)
+        viewModel.categoryViewSubject.send(.tap())
+        XCTAssertFalse(viewModel.isHiddenCategoryPicker)
+
+        // Act
+        viewModel.closeBarButtonSubject.send(UIBarButtonItem())
+
+        // Assert
+        XCTAssertTrue(viewModel.isHiddenCategoryPicker)
     }
 }
