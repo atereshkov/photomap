@@ -33,6 +33,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         activityIndicator.loading
     }
 
+    // MARK: - Initialize
     init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType, photo: Photo) {
         self.coordinator = coordinator
         self.diContainer = diContainer
@@ -41,23 +42,6 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         super.init()
 
         transform()
-    }
-
-    private func saveNewPhoto(with description: String) {
-        guard let data = photoPublisher.image.pngData() else { return }
-        photoPublisher.description = description
-
-        firestoreService.uploadPhoto(data)
-            .receive(on: DispatchQueue.main)
-            .trackActivity(activityIndicator)
-            .flatMap { [unowned self] url in
-                self.firestoreService.addUserMarker(with: self.photoPublisher.toDictionary(urls: [url.absoluteString]))
-            }
-            .sink(receiveCompletion: { print($0) },
-                  receiveValue: { [weak self] _ in
-                    self?.coordinator.dismissSubject.send(UIControl())
-                  })
-            .store(in: cancelBag)
     }
 
     private func transform() {
@@ -77,8 +61,8 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .store(in: cancelBag)
 
         firestoreService.getCategories()
-            .sink(receiveCompletion: { error in
-                print(error)
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.completionHandler(with: completion)
             }, receiveValue: { [weak self] categories in
                 guard let self = self else { return }
                 self.categories = categories
@@ -98,14 +82,44 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .assign(to: \.isHiddenCategoryPicker, on: self)
             .store(in: cancelBag)
     }
+
+    // MARK: - Utils
+    private func completionHandler(with completion: Subscribers.Completion<FirestoreError>) {
+        switch completion {
+        case .failure(let error):
+            coordinator.errorAlertSubject.send(error)
+        case .finished:
+            return
+        }
+    }
+
+    private func saveNewPhoto(with description: String) {
+        guard let data = photoPublisher.image.pngData() else { return }
+        photoPublisher.description = description
+
+        firestoreService.uploadPhoto(data)
+            .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
+            .flatMap { [unowned self] url in
+                self.firestoreService.addUserMarker(with: self.photoPublisher.toDictionary(urls: [url.absoluteString]))
+            }
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.completionHandler(with: completion)
+            }, receiveValue: { [weak self] _ in
+                self?.coordinator.dismissSubject.send(UIControl())
+            })
+            .store(in: cancelBag)
+    }
 }
 
+// MARK: - UIPickerViewDelegate
 extension MapPhotoViewModel: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         categoryPublisher = categories[safe: row]
     }
 }
 
+// MARK: - UIPickerViewDataSource
 extension MapPhotoViewModel: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1

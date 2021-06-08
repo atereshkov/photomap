@@ -51,26 +51,21 @@ final class FirestoreService: FirestoreServiceType {
     }
 
     func getCategories() -> Future<[Category], FirestoreError> {
-        Future { [weak self] promise in
-            guard let self = self else {
-                return promise(.failure(.custom("Local service unavailable")))
+        return Future { [weak self] promise in
+            guard self?.currentUserId != nil else {
+                promise(.failure(.noCurrentUserId))
+                return
             }
-
-            let categoryReference = self.db.collection(Path.categoriesCollection)
-            categoryReference.getDocuments { snapshot, error in
+            let categoriesReference = self?.db.collection(Path.categoriesCollection)
+            categoriesReference?.getDocuments { snapshot, error in
                 if let error = error {
-                    return promise(.failure(.custom(error.localizedDescription)))
+                    return promise(.failure(FirestoreError(error)))
                 }
 
-                guard let documents = snapshot?.documents else { return promise(.success([])) }
-
-                var categories = [Category]()
-                for document in documents {
-                    var data = document.data()
-                    data["id"] = document.documentID
-
-                    categories.append(Category(dictionary: data))
+                guard let documents = snapshot?.documents else {
+                    return promise(.failure(.noMarkersCategories))
                 }
+                let categories = documents.map { Category(id: $0.documentID, dictionary: $0.data()) }
                 promise(.success(categories))
             }
         }
@@ -79,7 +74,7 @@ final class FirestoreService: FirestoreServiceType {
     func addUserMarker(with data: [String: Any]) -> Future<Bool, FirestoreError> {
         Future { [weak self] promise in
             guard let self = self else {
-                return promise(.failure(.custom("Local service unavailable")))
+                return promise(.failure(.unavailableLocalService))
             }
             guard let currentUserId = self.currentUserId else {
                 return promise(.failure(.noCurrentUserId))
@@ -97,29 +92,30 @@ final class FirestoreService: FirestoreServiceType {
     func uploadPhoto(_ data: Data = Data()) -> Future<URL, FirestoreError> {
         Future { [weak self] promise in
             guard let self = self else {
-                return promise(.failure(.custom("Local service unavailable")))
+                return promise(.failure(.unavailableLocalService))
             }
             guard let currentUserId = self.currentUserId else {
                 return promise(.failure(.noCurrentUserId))
             }
+
             let dateString = String(Date().description.trim().map { $0 == " " ? "-" : $0 })
             let imageName = [currentUserId, [dateString, "png"].joined(separator: ".")].joined(separator: "/")
             let photoRef = self.storage.child(imageName)
 
             photoRef.putData(data, metadata: nil) { (_, error) in
                 if let error = error {
-                    return promise(.failure(.custom(error.localizedDescription)))
+                    return promise(.failure(FirestoreError(error)))
                 }
 
                 photoRef.downloadURL { (url, error) in
                     if let error = error {
-                        return promise(.failure(.custom(error.localizedDescription)))
+                        return promise(.failure(FirestoreError(error)))
                     }
                     guard let downloadURL = url else {
-                        return promise(.failure(.custom("Error while getting url")))
+                        return promise(.failure(.nonMatchingChecksum))
                     }
 
-                    return promise(.success(downloadURL))
+                    promise(.success(downloadURL))
                 }
             }
         }
