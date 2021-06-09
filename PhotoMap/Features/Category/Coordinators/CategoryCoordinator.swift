@@ -14,8 +14,11 @@ class CategoryCoordinator: Coordinator {
     private let diContainer: DIContainerType
     private let cancelBag = CancelBag()
     
+    var parentCoordinator: (TimelineCoordinator & Coordinator)?
+    
     private(set) var doneButtonSubject = PassthroughSubject<Void, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private(set) var categoriesSubject = PassthroughSubject<[Category], Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -32,6 +35,10 @@ class CategoryCoordinator: Coordinator {
             self?.showErrorAlert(error: error)
         })
         .store(in: cancelBag)
+        
+        categoriesSubject.sink(receiveValue: { [weak self] categories in
+            self?.parentCoordinator?.doneButtonPressedWithCategoriesSubject.send(categories)
+        }).store(in: cancelBag)
     }
     
     func start() -> UIViewController {
@@ -43,6 +50,7 @@ class CategoryCoordinator: Coordinator {
     }
     
     private func doneButtonPressed() {
+        parentCoordinator?.childDidFinish(self)
         navigationController.dismiss(animated: true)
     }
     

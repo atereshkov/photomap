@@ -36,11 +36,7 @@ final class FirestoreService: FirestoreServiceType {
                         promise(.success([]))
                         return
                     }
-                    var markers = [Marker]()
-                    for document in documents {
-                        let marker = Marker(dictionary: document.data())
-                        markers.append(marker)
-                    }
+                    let markers = documents.map { Marker(dictionary: $0.data()) }
                     promise(.success(markers))
                 }
             }

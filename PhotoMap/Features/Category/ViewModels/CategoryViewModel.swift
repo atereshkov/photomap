@@ -26,6 +26,8 @@ class CategoryViewModel: CategoryViewModelType {
     private func transform() {
         doneButtonSubject.sink(receiveValue: { [weak self] _ in
             self?.coordinator.doneButtonSubject.send()
+            guard let categories = self?.categoriesSubject.value else { return }
+            self?.coordinator.categoriesSubject.send(categories.filter { $0.isSelected })
         })
         .store(in: cancelBag)
         
@@ -58,6 +60,7 @@ class CategoryViewModel: CategoryViewModelType {
                 }
             }, receiveValue: { [weak self] categories in
                 self?.categories = categories
+                self?.categoriesSubject.send(categories)
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
@@ -68,11 +71,13 @@ class CategoryViewModel: CategoryViewModelType {
         categories.remove(at: indexPath.row)
         category.isSelected = !category.isSelected
         categories.insert(category, at: indexPath.row)
+        categoriesSubject.send(categories)
         reloadDataSubject.send()
     }
     
     // MARK: - Output
     let reloadDataSubject = PassthroughSubject<Void, Never>()
+    let categoriesSubject = CurrentValueSubject<[Category], Never>([])
     
     var loadingPublisher: AnyPublisher<Bool, Never> {
         return activityIndicator.loading.eraseToAnyPublisher()

@@ -17,6 +17,7 @@ class TimelineCoordinator: Coordinator {
     
     private(set) var categoryButtonTapped = PassthroughSubject<UIBarButtonItem, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private(set) var doneButtonPressedWithCategoriesSubject = PassthroughSubject<[Category], Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -52,10 +53,18 @@ class TimelineCoordinator: Coordinator {
     
     private func presentCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
+        coordinator.parentCoordinator = self
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
         navigationController.present(categoryNavigationVC, animated: true)
         childCoordinators.append(coordinator)
     }
     
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        if let index = childCoordinators.firstIndex(where: { coordinator -> Bool in
+            return childCoordinator === coordinator
+        }) {
+            childCoordinators.remove(at: index)
+        }
+    }
 }
