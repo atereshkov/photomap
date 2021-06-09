@@ -5,15 +5,33 @@
 //  Created by Yury Kasper on 1.06.21.
 //
 
+import Combine
 import UIKit
 
 class CategoryCoordinator: Coordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController: UINavigationController = UINavigationController()
     private let diContainer: DIContainerType
+    private let cancelBag = CancelBag()
+    
+    private(set) var doneButtonSubject = PassthroughSubject<Void, Never>()
+    private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
+        bind()
+    }
+    
+    private func bind() {
+        doneButtonSubject.sink(receiveValue: { [weak self] in
+            self?.doneButtonPressed()
+        })
+        .store(in: cancelBag)
+        
+        showErrorAlertSubject.sink(receiveValue: { [weak self] error in
+            self?.showErrorAlert(error: error)
+        })
+        .store(in: cancelBag)
     }
     
     func start() -> UIViewController {
@@ -24,7 +42,12 @@ class CategoryCoordinator: Coordinator {
         return navigationController
     }
     
-    func doneButtonPressed() {
+    private func doneButtonPressed() {
         navigationController.dismiss(animated: true)
+    }
+    
+    private func showErrorAlert(error: GeneralErrorType) {
+        let alertController = self.generateErrorAlert(with: error)
+        self.navigationController.present(alertController, animated: true)
     }
 }

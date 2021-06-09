@@ -18,14 +18,14 @@ class TimelineViewController: BaseViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let searchBar = UISearchBar(placeholder: L10n.Main.NavBar.Search.title)
     private lazy var categoryBarButton = UIBarButtonItem(title: L10n.Main.NavBar.Category.title,
-                                                         style: .plain, target: self, action: #selector(categoryButtonPressed))
+                                                         style: .plain, target: self, action: nil)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         bind()
-        viewModel?.viewDidLoad()
+        viewModel?.viewDidLoadSubject.send()
     }
     
     // MARK: - Helpers
@@ -55,11 +55,10 @@ class TimelineViewController: BaseViewController {
             isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
         })
         .store(in: cancelBag)
-    }
-    
-    // MARK: - Selectors
-    @objc private func categoryButtonPressed() {
-        viewModel?.categoryButtonSubject.send()
+        
+        categoryBarButton.publisher
+            .subscribe(viewModel.categoryButtonSubject)
+            .store(in: cancelBag)
     }
     
 }

@@ -13,9 +13,26 @@ class TimelineCoordinator: Coordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private let diContainer: DIContainerType
+    private let cancelBag = CancelBag()
+    
+    private(set) var categoryButtonTapped = PassthroughSubject<UIBarButtonItem, Never>()
+    private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
+        bind()
+    }
+    
+    private func bind() {
+        categoryButtonTapped.sink(receiveValue: { [weak self] _ in
+            self?.presentCategoryScreen()
+        })
+        .store(in: cancelBag)
+        
+        showErrorAlertSubject.sink(receiveValue: { [weak self] error in
+            self?.showError(error: error)
+        })
+        .store(in: cancelBag)
     }
     
     func start() -> UIViewController {
@@ -28,12 +45,12 @@ class TimelineCoordinator: Coordinator {
         return navigationController
     }
     
-    func showError(error: GeneralErrorType) {
+    private func showError(error: GeneralErrorType) {
         let alertViewController = self.generateErrorAlert(with: error)
         self.navigationController.present(alertViewController, animated: true)
     }
     
-    func presentCategoryScreen() {
+    private func presentCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
