@@ -66,23 +66,45 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    func addUserPhoto(with photo: Photo) -> Future<Void, FirestoreError> {
+    func addUserPhoto(with photo: Photo) -> AnyPublisher<Void, FirestoreError> {
+        uploadPhoto(with: photo.image)
+            .flatMap { [unowned self] url -> Future<Void, FirestoreError> in
+                self.savePhoto(data: photo.toDictionary(urls: [url]))
+            }.eraseToAnyPublisher()
+    }
+
+    private func savePhoto(data: [String: Any]) -> Future<Void, FirestoreError> {
         Future { [weak self] promise in
-            guard let imageData = photo.image.pngData() else {
-                return promise(.failure(.custom("Image error")))
-            }
-            guard let self = self else {
+            guard let currentUserId = self?.currentUserId else {return promise(.failure(.noCurrentUserId)) }
+
+            let userPhotoPath = [Path.photosCollection,
+                                 currentUserId,
+                                 Path.userPhotosCollection].joined(separator: Separator.slash)
+            guard let userPhotosRef = self?.db.collection(userPhotoPath) else {
                 return promise(.failure(.unavailableLocalService))
             }
-            guard let currentUserId = self.currentUserId else {
-                return promise(.failure(.noCurrentUserId))
+
+            userPhotosRef.addDocument(data: data) { error in
+                if let error = error { return promise(.failure(FirestoreError(error))) }
             }
+
+            promise(.success(()))
+        }
+    }
+
+    private func uploadPhoto(with image: UIImage) -> Future<URL, FirestoreError> {
+        Future { [weak self] promise in
+            guard let imageData = image.pngData() else { return promise(.failure(.imageDecoding)) }
+
+            guard let currentUserId = self?.currentUserId else {return promise(.failure(.noCurrentUserId)) }
 
             let imageName = [currentUserId, [Date().fullDateString, Path.imageType]
                                 .joined(separator: Separator.point)].joined(separator: Separator.slash)
-            let photoRef = self.storage.child(imageName)
 
-            var downloadUrl: URL?
+            guard let photoRef = self?.storage.child(imageName) else {
+                return promise(.failure(.unavailableLocalService))
+            }
+
             photoRef.putData(imageData, metadata: nil) { (_, error) in
                 if let error = error {
                     return promise(.failure(FirestoreError(error)))
@@ -90,19 +112,10 @@ final class FirestoreService: FirestoreServiceType {
 
                 photoRef.downloadURL { (url, error) in
                     if let error = error { return promise(.failure(FirestoreError(error))) }
-                    downloadUrl = url
+                    guard let receiveUrl = url else { return promise(.failure(.nonMatchingChecksum)) }
+                    promise(.success(receiveUrl))
                 }
             }
-            guard let downloadUrl = downloadUrl else { return promise(.failure(.nonMatchingChecksum)) }
-
-            let userPhotosRef = self.db.collection([Path.photosCollection,
-                                                    currentUserId,
-                                                    Path.userPhotosCollection].joined(separator: Separator.slash))
-            userPhotosRef.addDocument(data: photo.toDictionary(urls: [downloadUrl])) { error in
-                if let error = error { return promise(.failure(FirestoreError(error))) }
-            }
-
-            promise(.success(()))
         }
     }
 }

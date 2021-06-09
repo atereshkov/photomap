@@ -71,11 +71,11 @@
 
 // MARK: - FirestoreError messages
 
-"firesore-error.no-current-id.message" = "Ошибка авторизации. Попробуйте перезайти в приложение.";
-"firesore-error.no-markers-categories.message" = "Список категорий пуст.";
-"firesore-error.unavailable-local-service.message" = "Сервис недоступен. Попробуйте ещё раз.";
-"firesore-error.non-matching-checksum.message" = "Ошибка при загрузке. Попробуйте еще раз.";
-"firesore-error.no-rules.message" = "У вас недостаточно прав. Напишите в техподдерку.";
+"firestore-error.no-current-id.message" = "Ошибка авторизации. Попробуйте перезайти в приложение.";
+"firestore-error.no-markers-categories.message" = "Список категорий пуст.";
+"firestore-error.unavailable-local-service.message" = "Сервис недоступен. Попробуйте ещё раз.";
+"firestore-error.non-matching-checksum.message" = "Ошибка при загрузке. Попробуйте еще раз.";
+"firestore-error.no-rules.message" = "У вас недостаточно прав. Напишите в техподдерку.";
 "firestore-error.image-decoding.message" = "Ошибка обработки изображения. Пожалуйста, попробуйте перезагрузить или выберите другое фото.";
 
 // MARK: - Categories Screen

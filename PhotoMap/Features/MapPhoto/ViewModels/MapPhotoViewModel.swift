@@ -20,14 +20,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     private var isDisabledCategoryPicker: Bool {
         categories.isEmpty
     }
-    private lazy var сompletionHandler: (Subscribers.Completion<FirestoreError>) -> Void = { [weak self] completion in
-        switch completion {
-        case .failure(let error):
-            self?.coordinator.errorAlertSubject.send(error)
-        case .finished:
-            return
-        }
-    }
+    private var сompletionHandler: (Subscribers.Completion<FirestoreError>) -> Void
 
     // MARK: - Input
     private(set) var cancelButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -51,6 +44,15 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         self.diContainer = diContainer
         self.firestoreService = diContainer.resolve()
         self.photoPublisher = photo
+        self.сompletionHandler = { completion in
+            switch completion {
+            case .failure(let error):
+                coordinator.errorAlertSubject.send(error)
+            case .finished:
+                return
+            }
+        }
+
         super.init()
 
         transform()
@@ -75,11 +77,9 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         firestoreService.getCategories()
             .sink(receiveCompletion: сompletionHandler,
                   receiveValue: { [weak self] categories in
-                guard let self = self else { return }
-
-                self.categories = categories
-                self.categoryPublisher = categories[safe: 0]
-                self.loadCategoriesSubject.send()
+                self?.categories = categories
+                self?.categoryPublisher = categories[safe: 0]
+                self?.loadCategoriesSubject.send()
             })
             .store(in: self.cancelBag)
 
@@ -99,6 +99,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         photoPublisher.description = description
 
         firestoreService.addUserPhoto(with: photoPublisher)
+            .trackActivity(activityIndicator)
             .sink(receiveCompletion: сompletionHandler,
                   receiveValue: { [weak self] _ in
                 self?.coordinator.dismissSubject.send(UIControl())
