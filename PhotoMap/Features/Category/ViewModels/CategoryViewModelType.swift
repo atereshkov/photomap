@@ -10,12 +10,13 @@ import UIKit
 
 protocol CategoryViewModelTypeInput {
     var doneButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
-    func viewDidLoad()
+    var viewDidLoadSubject: PassthroughSubject<Void, Never> { get }
     func didSelectRow(at: IndexPath)
 }
 
 protocol CategoryViewModelTypeOutput {
     var reloadDataSubject: PassthroughSubject<Void, Never> { get }
+    var loadingPublisher: AnyPublisher<Bool, Never> { get }
     func getNumberOfRows() -> Int
     func getCategory(at: IndexPath) -> Category?
 }

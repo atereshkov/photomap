@@ -63,14 +63,14 @@ class TimelineViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertEqual(expectedValues, results)
     }
     
     func testIfNotAuthorizedThenCantGetMarks() {
         XCTAssertFalse(firestoreService.getMarkersCalled)
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         XCTAssertEqual(viewModel.numberOfSections, 0)
         XCTAssertTrue(firestoreService.getMarkersCalled)
         XCTAssertFalse(firestoreService.getMarkersEndWithValues)
@@ -89,7 +89,7 @@ class TimelineViewModelTests: XCTestCase {
         .store(in: cancelBag)
         
         XCTAssertFalse(firestoreService.getMarkersCalled)
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(firestoreService.getMarkersCalled)
         XCTAssertTrue(firestoreService.getMarkersEndWithValues)
@@ -112,7 +112,7 @@ class TimelineViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertEqual(viewModel.getTitle(for: markers.count - 1), markers[markers.count - 1].date.monthAndYear)
     }
@@ -133,7 +133,7 @@ class TimelineViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         let indexPath = IndexPath(row: markers.count - 1, section: 0)
         XCTAssertEqual(viewModel.getMarker(at: indexPath)?.description, markers[at: indexPath.row]?.description)
@@ -155,7 +155,7 @@ class TimelineViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         
         XCTAssertEqual(viewModel.getNumberOfRows(in: markers.count - 1), expectedNumberOfRows)

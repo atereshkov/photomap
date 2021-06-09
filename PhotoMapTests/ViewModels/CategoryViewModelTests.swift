@@ -37,7 +37,7 @@ class CategoryViewModelTests: XCTestCase {
         cancelBag = nil
     }
     
-    func testIfAuthorizedThenGetCategories() {
+    func testIfAuthorizedShouldGetCategoriesFromDatabase() {
         firestoreService.userId = "id"
         let categories = [
             PhotoMap.Category(id: "1", name: "default", color: "blue"),
@@ -55,7 +55,7 @@ class CategoryViewModelTests: XCTestCase {
         .store(in: cancelBag)
         
         XCTAssertFalse(firestoreService.getCategoriesCalled)
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(firestoreService.getCategoriesCalled)
         XCTAssertTrue(firestoreService.getCategoriesEndWithValues)
@@ -65,7 +65,7 @@ class CategoryViewModelTests: XCTestCase {
     
     func testIfErrorOccuredThenCoordinatorShowErrorAlert() {
         firestoreService.userId = "id"
-        firestoreService.error = .noMarkersCategories
+        firestoreService.error = .custom("error occured")
         
         let expectation = XCTestExpectation()
         var showAlertCalled = false
@@ -77,13 +77,13 @@ class CategoryViewModelTests: XCTestCase {
         .store(in: cancelBag)
         
         XCTAssertFalse(firestoreService.getCategoriesCalled)
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(firestoreService.getCategoriesCalled)
         XCTAssertTrue(showAlertCalled)
     }
     
-    func testWhenSelectRowThenChangeItStatus() {
+    func testWhenSelectCategoryShouldChangeCategoryIsSelectedState() {
         firestoreService.userId = "id"
         let categories = [
             PhotoMap.Category(id: "1", name: "default", color: "blue"),
@@ -101,7 +101,7 @@ class CategoryViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         
         viewModel.didSelectRow(at: indexPath)

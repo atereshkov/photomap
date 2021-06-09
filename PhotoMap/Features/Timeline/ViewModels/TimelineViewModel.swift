@@ -39,19 +39,18 @@ class TimelineViewModel: TimelineViewModelType {
         
         showErrorSubject.subscribe(coordinator.showErrorAlertSubject)
             .store(in: cancelBag)
+        
+        viewDidLoadSubject.sink(receiveValue: { [weak self] in
+            self?.getUserMarkers()
+        })
+        .store(in: cancelBag)
     }
     
     // MARK: - Input
-    func viewDidLoad() {
-        getUserMarkers()
-    }
-    
+    let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     let categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
-    
     let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
-    
     let searchTextSubject = CurrentValueSubject<String, Never>.init("")
-    
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output

@@ -23,7 +23,7 @@ class CategoryViewController: BaseViewController {
         super.viewDidLoad()
         setupViews()
         bind()
-        viewModel?.viewDidLoad()
+        viewModel?.viewDidLoadSubject.send()
     }
     
     private func bind() {
@@ -37,6 +37,11 @@ class CategoryViewController: BaseViewController {
         doneButton.publisher
             .subscribe(viewModel.doneButtonSubject)
             .store(in: cancelBag)
+        
+        viewModel.loadingPublisher.sink(receiveValue: { [weak self] isLoading in
+            isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+        })
+        .store(in: cancelBag)
     }
     
     // MARK: - Helpers

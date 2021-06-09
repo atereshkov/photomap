@@ -25,7 +25,7 @@ class TimelineViewController: BaseViewController {
         super.viewDidLoad()
         setupView()
         bind()
-        viewModel?.viewDidLoad()
+        viewModel?.viewDidLoadSubject.send()
     }
     
     // MARK: - Helpers

@@ -29,17 +29,26 @@ class CategoryViewModel: CategoryViewModelType {
         })
         .store(in: cancelBag)
         
-        showErrorAlertSubject.subscribe(coordinator.showErrorAlertSubject)
+        showErrorAlertSubject
+            .subscribe(coordinator.showErrorAlertSubject)
             .store(in: cancelBag)
+        
+        viewDidLoadSubject.sink(receiveValue: { [weak self] in
+            self?.getCategories()
+        })
+        .store(in: cancelBag)
     }
     
     // MARK: - Input
     let doneButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     let showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
+    let viewDidLoadSubject = PassthroughSubject<Void, Never>()
+    private let activityIndicator = ActivityIndicator()
     
-    func viewDidLoad() {
+    private func getCategories() {
         firestoreService.getCategories()
             .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -64,6 +73,10 @@ class CategoryViewModel: CategoryViewModelType {
     
     // MARK: - Output
     let reloadDataSubject = PassthroughSubject<Void, Never>()
+    
+    var loadingPublisher: AnyPublisher<Bool, Never> {
+        return activityIndicator.loading.eraseToAnyPublisher()
+    }
     
     func getNumberOfRows() -> Int {
         return categories.count
