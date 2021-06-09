@@ -21,6 +21,8 @@ internal enum StoryboardScene {
   }
   internal enum Category: StoryboardType {
     internal static let storyboardName = "Category"
+
+    internal static let categoryViewController = SceneType<CategoryViewController>(storyboard: Category.self, identifier: "CategoryViewController")
   }
   internal enum Initial: StoryboardType {
     internal static let storyboardName = "Initial"

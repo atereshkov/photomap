@@ -9,8 +9,9 @@ import UIKit
 import Combine
 
 protocol TimelineViewModelTypeInput {
+    var categoryButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
     var searchTextSubject: CurrentValueSubject<String, Never> { get }
-    func viewDidLoad()
+    var viewDidLoadSubject: PassthroughSubject<Void, Never> { get }
 }
 
 protocol TimelineViewModelTypeOutput {
