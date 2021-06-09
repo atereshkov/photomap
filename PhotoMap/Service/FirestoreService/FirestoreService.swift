@@ -12,13 +12,6 @@ import FirebaseFirestore
 import FirebaseStorage
 
 final class FirestoreService: FirestoreServiceType {
-    private struct Path {
-        static let categoriesCollection = "categories"
-        static let photosCollection = "photos"
-        static let userPhotosCollection = "user_photos"
-        static let userImages = "Photo"
-    }
-    
     private let db = Firestore.firestore()
     private let storage = Storage.storage().reference(withPath: Path.userImages)
     private let currentUserId = Auth.auth().currentUser?.uid
@@ -29,8 +22,10 @@ final class FirestoreService: FirestoreServiceType {
                 promise(.failure(.noCurrentUserId))
                 return
             }
-            let userPhotosReference = self?.db.collection([Path.photosCollection, currentUserId,
-                                                           Path.userPhotosCollection].joined(separator: "/"))
+            let userPhotosReference = self?.db.collection([Path.photosCollection,
+                                                           currentUserId,
+                                                           Path.userPhotosCollection]
+                                                            .joined(separator: Separator.slash))
             userPhotosReference?.order(by: "date", descending: true).getDocuments { snapshot, error in
                 if let error = error {
                     promise(.failure(.custom(error.localizedDescription)))
@@ -70,9 +65,12 @@ final class FirestoreService: FirestoreServiceType {
             }
         }
     }
-    
-    func addUserMarker(with data: [String: Any]) -> Future<Bool, FirestoreError> {
+
+    func addUserPhoto(with photo: Photo) -> Future<Void, FirestoreError> {
         Future { [weak self] promise in
+            guard let imageData = photo.image.pngData() else {
+                return promise(.failure(.custom("Image error")))
+            }
             guard let self = self else {
                 return promise(.failure(.unavailableLocalService))
             }
@@ -80,44 +78,46 @@ final class FirestoreService: FirestoreServiceType {
                 return promise(.failure(.noCurrentUserId))
             }
 
-            let userPhotosRef = self.db.collection([Path.photosCollection,
-                                           currentUserId,
-                                           Path.userPhotosCollection].joined(separator: "/"))
-            userPhotosRef.addDocument(data: data)
-
-            return promise(.success(true))
-        }
-    }
-
-    func uploadPhoto(_ data: Data = Data()) -> Future<URL, FirestoreError> {
-        Future { [weak self] promise in
-            guard let self = self else {
-                return promise(.failure(.unavailableLocalService))
-            }
-            guard let currentUserId = self.currentUserId else {
-                return promise(.failure(.noCurrentUserId))
-            }
-
-            let dateString = String(Date().description.trim().map { $0 == " " ? "-" : $0 })
-            let imageName = [currentUserId, [dateString, "png"].joined(separator: ".")].joined(separator: "/")
+            let imageName = [currentUserId, [Date().fullDateString, Path.imageType]
+                                .joined(separator: Separator.point)].joined(separator: Separator.slash)
             let photoRef = self.storage.child(imageName)
 
-            photoRef.putData(data, metadata: nil) { (_, error) in
+            var downloadUrl: URL?
+            photoRef.putData(imageData, metadata: nil) { (_, error) in
                 if let error = error {
                     return promise(.failure(FirestoreError(error)))
                 }
 
                 photoRef.downloadURL { (url, error) in
-                    if let error = error {
-                        return promise(.failure(FirestoreError(error)))
-                    }
-                    guard let downloadURL = url else {
-                        return promise(.failure(.nonMatchingChecksum))
-                    }
-
-                    promise(.success(downloadURL))
+                    if let error = error { return promise(.failure(FirestoreError(error))) }
+                    downloadUrl = url
                 }
             }
+            guard let downloadUrl = downloadUrl else { return promise(.failure(.nonMatchingChecksum)) }
+
+            let userPhotosRef = self.db.collection([Path.photosCollection,
+                                                    currentUserId,
+                                                    Path.userPhotosCollection].joined(separator: Separator.slash))
+            userPhotosRef.addDocument(data: photo.toDictionary(urls: [downloadUrl])) { error in
+                if let error = error { return promise(.failure(FirestoreError(error))) }
+            }
+
+            promise(.success(()))
         }
+    }
+}
+
+extension FirestoreService {
+    private struct Path {
+        static let categoriesCollection = "categories"
+        static let photosCollection = "photos"
+        static let userPhotosCollection = "user_photos"
+        static let userImages = "Photo"
+        static let imageType = "png"
+    }
+
+    private struct Separator {
+        static let point: String = "."
+        static let slash: String = "/"
     }
 }

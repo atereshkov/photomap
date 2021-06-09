@@ -16,6 +16,18 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()
     private let activityIndicator = ActivityIndicator()
+    // MARK: - Computed Variables
+    private var isDisabledCategoryPicker: Bool {
+        categories.isEmpty
+    }
+    private lazy var сompletionHandler: (Subscribers.Completion<FirestoreError>) -> Void = { [weak self] completion in
+        switch completion {
+        case .failure(let error):
+            self?.coordinator.errorAlertSubject.send(error)
+        case .finished:
+            return
+        }
+    }
 
     // MARK: - Input
     private(set) var cancelButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -61,10 +73,10 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .store(in: cancelBag)
 
         firestoreService.getCategories()
-            .sink(receiveCompletion: { [weak self] completion in
-                self?.completionHandler(with: completion)
-            }, receiveValue: { [weak self] categories in
+            .sink(receiveCompletion: сompletionHandler,
+                  receiveValue: { [weak self] categories in
                 guard let self = self else { return }
+
                 self.categories = categories
                 self.categoryPublisher = categories[safe: 0]
                 self.loadCategoriesSubject.send()
@@ -72,8 +84,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
             .store(in: self.cancelBag)
 
         categoryViewSubject
-            // It is a good case?
-            .map { [unowned self] _ in self.categories.isEmpty }
+            .map { [unowned self] _ in self.isDisabledCategoryPicker }
             .assign(to: \.isHiddenCategoryPicker, on: self)
             .store(in: cancelBag)
 
@@ -84,31 +95,12 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     }
 
     // MARK: - Utils
-    private func completionHandler(with completion: Subscribers.Completion<FirestoreError>) {
-        switch completion {
-        case .failure(let error):
-            coordinator.errorAlertSubject.send(error)
-        case .finished:
-            return
-        }
-    }
-
     private func saveNewPhoto(with description: String) {
-        guard let data = photoPublisher.image.pngData() else {
-            coordinator.errorAlertSubject.send(.custom("Image error"))
-            return
-        }
         photoPublisher.description = description
 
-        firestoreService.uploadPhoto(data)
-            .receive(on: DispatchQueue.main)
-            .trackActivity(activityIndicator)
-            .flatMap { [unowned self] url in
-                self.firestoreService.addUserMarker(with: self.photoPublisher.toDictionary(urls: [url.absoluteString]))
-            }
-            .sink(receiveCompletion: { [weak self] completion in
-                self?.completionHandler(with: completion)
-            }, receiveValue: { [weak self] _ in
+        firestoreService.addUserPhoto(with: photoPublisher)
+            .sink(receiveCompletion: сompletionHandler,
+                  receiveValue: { [weak self] _ in
                 self?.coordinator.dismissSubject.send(UIControl())
             })
             .store(in: cancelBag)

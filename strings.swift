@@ -45,26 +45,30 @@ internal enum L10n {
     }
   }
 
-  internal enum FiresoreError {
+  internal enum FirestoreError {
+    internal enum ImageDecoding {
+      /// Image processing error. Please, try reload or choose another photo.
+      internal static let message = L10n.tr("Localizable", "firestore-error.image-decoding.message")
+    }
     internal enum NoCurrentId {
       /// Authorisation Error. Try to re-enter the application.
-      internal static let message = L10n.tr("Localizable", "firesore-error.no-current-id.message")
+      internal static let message = L10n.tr("Localizable", "firestore-error.no-current-id.message")
     }
     internal enum NoMarkersCategories {
       /// Category list is empty.
-      internal static let message = L10n.tr("Localizable", "firesore-error.no-markers-categories.message")
+      internal static let message = L10n.tr("Localizable", "firestore-error.no-markers-categories.message")
     }
     internal enum NoRules {
       /// You don't have enough rights. Contact technical support.
-      internal static let message = L10n.tr("Localizable", "firesore-error.no-rules.message")
+      internal static let message = L10n.tr("Localizable", "firestore-error.no-rules.message")
     }
     internal enum NonMatchingChecksum {
       /// Uploading did failed. Try uploading again.
-      internal static let message = L10n.tr("Localizable", "firesore-error.non-matching-checksum.message")
+      internal static let message = L10n.tr("Localizable", "firestore-error.non-matching-checksum.message")
     }
     internal enum UnavailableLocalService {
       /// Service unavailable. Try again.
-      internal static let message = L10n.tr("Localizable", "firesore-error.unavailable-local-service.message")
+      internal static let message = L10n.tr("Localizable", "firestore-error.unavailable-local-service.message")
     }
   }
 

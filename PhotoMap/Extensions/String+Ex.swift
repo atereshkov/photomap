@@ -48,6 +48,7 @@ extension String {
                     .substring(with: NSRange(location: match.range.location, length: match.range.length)))
             }
         }
+        // swiftlint:enable legacy_constructor
 
         return hashtags
     }

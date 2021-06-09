@@ -11,6 +11,5 @@ import Foundation
 protocol FirestoreServiceType {
     func getUserMarkers() -> Future<[Marker], FirestoreError>
     func getCategories() -> Future<[Category], FirestoreError>
-    func addUserMarker(with data: [String: Any]) -> Future<Bool, FirestoreError>
-    func uploadPhoto(_ data: Data) -> Future<URL, FirestoreError>
+    func addUserPhoto(with photo: Photo) -> Future<Void, FirestoreError>
 }

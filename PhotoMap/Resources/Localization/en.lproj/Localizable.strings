@@ -71,8 +71,9 @@
 
 // MARK: - FirestoreError messages
 
-"firesore-error.no-current-id.message" = "Authorisation Error. Try to re-enter the application.";
-"firesore-error.no-markers-categories.message" = "Category list is empty.";
-"firesore-error.unavailable-local-service.message" = "Service unavailable. Try again.";
-"firesore-error.non-matching-checksum.message" = "Uploading did failed. Try uploading again.";
-"firesore-error.no-rules.message" = "You don't have enough rights. Contact technical support.";
+"firestore-error.no-current-id.message" = "Authorisation Error. Try to re-enter the application.";
+"firestore-error.no-markers-categories.message" = "Category list is empty.";
+"firestore-error.unavailable-local-service.message" = "Service unavailable. Try again.";
+"firestore-error.non-matching-checksum.message" = "Uploading did failed. Try uploading again.";
+"firestore-error.no-rules.message" = "You don't have enough rights. Contact technical support.";
+"firestore-error.image-decoding.message" = "Image processing error. Please, try reload or choose another photo.";

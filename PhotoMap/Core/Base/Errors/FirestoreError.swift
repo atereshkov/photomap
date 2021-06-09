@@ -14,6 +14,7 @@ enum FirestoreError: GeneralErrorType {
     case unavailableLocalService
     case nonMatchingChecksum
     case noRules
+    case imageDecoding
     case custom(String)
     
     var title: String {
@@ -23,15 +24,17 @@ enum FirestoreError: GeneralErrorType {
     var message: String {
         switch self {
         case .noMarkersCategories:
-            return L10n.FiresoreError.NoMarkersCategories.message
+            return L10n.FirestoreError.NoMarkersCategories.message
         case .noCurrentUserId:
-            return L10n.FiresoreError.NoCurrentId.message
+            return L10n.FirestoreError.NoCurrentId.message
         case .unavailableLocalService:
-            return L10n.FiresoreError.UnavailableLocalService.message
+            return L10n.FirestoreError.UnavailableLocalService.message
         case .nonMatchingChecksum:
-            return L10n.FiresoreError.NonMatchingChecksum.message
+            return L10n.FirestoreError.NonMatchingChecksum.message
         case .noRules:
-            return L10n.FiresoreError.NoRules.message
+            return L10n.FirestoreError.NoRules.message
+        case .imageDecoding:
+            return L10n.FirestoreError.ImageDecoding.message
         case .custom(let message):
             return message
         }
