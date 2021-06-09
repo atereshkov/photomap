@@ -11,6 +11,7 @@ struct Category: Codable {
     let id: String
     let name: String
     let color: String
+    var isSelected = true
 
     init(id: String, name: String, color: String) {
         self.id = id

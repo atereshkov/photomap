@@ -77,3 +77,7 @@
 "firesore-error.non-matching-checksum.message" = "Ошибка при загрузке. Попробуйте еще раз.";
 "firesore-error.no-rules.message" = "У вас недостаточно прав. Напишите в техподдерку.";
 "firestore-error.image-decoding.message" = "Ошибка обработки изображения. Пожалуйста, попробуйте перезагрузить или выберите другое фото.";
+
+// MARK: - Categories Screen
+"categories.navigationItem.title" = "Категории";
+"categories.navigationItem.rightButtonItem.done" = "Выбрать";

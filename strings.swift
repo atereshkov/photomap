@@ -34,6 +34,17 @@ internal enum L10n {
     }
   }
 
+  internal enum Categories {
+    internal enum NavigationItem {
+      /// Categories
+      internal static let title = L10n.tr("Localizable", "categories.navigationItem.title")
+      internal enum RightButtonItem {
+        /// Done
+        internal static let done = L10n.tr("Localizable", "categories.navigationItem.rightButtonItem.done")
+      }
+    }
+  }
+
   internal enum EmailValidation {
     internal enum ErrorAlert {
       /// Email field can't be blank

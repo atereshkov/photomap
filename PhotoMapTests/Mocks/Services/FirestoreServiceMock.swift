@@ -16,67 +16,43 @@ class FirestoreServiceMock {
     var userHasDocuments: Bool?
     var getMarkersCalled = false
     var getMarkersEndWithValues = false
-    var categories: [PhotoMap.Category] {
-        [Category(id: "123", name: "First", color: "#000000"),
-         Category(id: "456", name: "Second", color: "#000fff"),
-         Category(id: "789", name: "Third", color: "#ffffff")]
-    }
+    var categories: [PhotoMap.Category]?
+    var getCategoriesCalled = false
+    var getCategoriesEndWithValues = false
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
     func getCategories() -> Future<[PhotoMap.Category], FirestoreError> {
         Future { [weak self] promise in
-            guard let self = self else { return promise(.failure(.unavailableLocalService))}
-            if let error = self.error {
-                promise(.failure(.custom(error.message)))
-                return
-            }
-            return promise(.success(self.categories))
+            if let error = self?.error { return promise(.failure(error)) }
+            guard let categories = self?.categories else { return promise(.failure(.noMarkersCategories)) }
+
+            self?.getCategoriesEndWithValues = true
+            promise(.success(categories))
         }
     }
 
-    func addUserMarker(with data: [String: Any]) -> Future<Bool, FirestoreError> {
+    func addUserPhoto(with photo: Photo) -> Future<Void, FirestoreError> {
         Future { [weak self] promise in
-            if let error = self?.error {
-                promise(.failure(.custom(error.message)))
-                return
-            }
-            return promise(.success(true))
-        }
-    }
+            if let error = self?.error { return promise(.failure(.custom(error.message))) }
 
-    func uploadPhoto(_ data: Data) -> Future<URL, FirestoreError> {
-        Future { [weak self] promise in
-            if let error = self?.error {
-                promise(.failure(.custom(error.message)))
-                return
-            }
-            // swiftlint:disable force_unwrapping
-            return promise(.success(URL(string: "https://google.com")!))
-            // swiftlint:enable force_unwrapping
+            promise(.success(()))
         }
     }
     
     func getUserMarkers() -> Future<[Marker], FirestoreError> {
         getMarkersCalled = true
         return Future { [weak self] promise in
-            guard self?.userId != nil else {
-                promise(.failure(.noCurrentUserId))
-                return
-            }
-            if let error = self?.error {
-                promise(.failure(.custom(error.message)))
-                return
-            }
+            guard self?.userId != nil else { return promise(.failure(.noCurrentUserId)) }
+            if let error = self?.error { return promise(.failure(.custom(error.message))) }
             guard self?.userHasDocuments != nil else {
-                promise(.success([]))
                 self?.getMarkersEndWithValues = true
-                return
+                return promise(.success([]))
             }
+
             if let markers = self?.markers {
-                promise(.success(markers))
                 self?.getMarkersEndWithValues = true
-                return
+                promise(.success(markers))
             }
         }
     }
