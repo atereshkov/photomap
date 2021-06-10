@@ -65,10 +65,6 @@ internal enum L10n {
       /// Authorisation Error. Try to re-enter the application.
       internal static let message = L10n.tr("Localizable", "firestore-error.no-current-id.message")
     }
-    internal enum NoMarkersCategories {
-      /// Category list is empty.
-      internal static let message = L10n.tr("Localizable", "firestore-error.no-markers-categories.message")
-    }
     internal enum NoRules {
       /// You don't have enough rights. Contact technical support.
       internal static let message = L10n.tr("Localizable", "firestore-error.no-rules.message")

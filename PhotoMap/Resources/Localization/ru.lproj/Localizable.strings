@@ -72,7 +72,6 @@
 // MARK: - FirestoreError messages
 
 "firestore-error.no-current-id.message" = "Ошибка авторизации. Попробуйте перезайти в приложение.";
-"firestore-error.no-markers-categories.message" = "Список категорий пуст.";
 "firestore-error.unavailable-local-service.message" = "Сервис недоступен. Попробуйте ещё раз.";
 "firestore-error.non-matching-checksum.message" = "Ошибка при загрузке. Попробуйте еще раз.";
 "firestore-error.no-rules.message" = "У вас недостаточно прав. Напишите в техподдерку.";

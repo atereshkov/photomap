@@ -10,7 +10,6 @@ import FirebaseStorage
 
 enum FirestoreError: GeneralErrorType {
     case noCurrentUserId
-    case noMarkersCategories
     case unavailableLocalService
     case nonMatchingChecksum
     case noRules
@@ -23,8 +22,6 @@ enum FirestoreError: GeneralErrorType {
     
     var message: String {
         switch self {
-        case .noMarkersCategories:
-            return L10n.FirestoreError.NoMarkersCategories.message
         case .noCurrentUserId:
             return L10n.FirestoreError.NoCurrentId.message
         case .unavailableLocalService:

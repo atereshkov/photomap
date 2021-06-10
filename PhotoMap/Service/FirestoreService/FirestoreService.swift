@@ -57,9 +57,8 @@ final class FirestoreService: FirestoreServiceType {
                     return promise(.failure(FirestoreError(error)))
                 }
 
-                guard let documents = snapshot?.documents else {
-                    return promise(.failure(.noMarkersCategories))
-                }
+                guard let documents = snapshot?.documents else { return promise(.success([])) }
+
                 let categories = documents.map { Category(id: $0.documentID, dictionary: $0.data()) }
                 promise(.success(categories))
             }
