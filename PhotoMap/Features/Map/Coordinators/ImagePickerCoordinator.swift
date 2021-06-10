@@ -42,10 +42,10 @@ extension ImagePickerCoordinator: UIImagePickerControllerDelegate, UINavigationC
     }
 
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
 
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
 
         selectedPhotoSubject.send(Photo(image: image, coordinate: coordinate))
     }

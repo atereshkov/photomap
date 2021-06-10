@@ -14,11 +14,23 @@ class MapPhotoViewModelTests: XCTestCase {
     var viewModel: MapPhotoViewModelType!
     var coordinator: MapPhotoCoordinator!
     var diContainer: DIContainerType!
+    var firestoreService: FirestoreServiceMock!
     var cancelBag: CancelBag!
 
     override func setUpWithError() throws {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
+        let serviceType: FirestoreServiceType = diContainer.resolve()
+        firestoreService = serviceType as? FirestoreServiceMock
+        
+        firestoreService.userId = "id"
+        let categories = [
+            PhotoMap.Category(id: "1", name: "default", color: "blue"),
+            PhotoMap.Category(id: "2", name: "nature", color: "green"),
+            PhotoMap.Category(id: "3", name: "friends", color: "orange")
+        ]
+        firestoreService.categories = categories
+        
         coordinator = MapPhotoCoordinator(diContainer: diContainer)
         let photo = Photo(image: UIImage(), coordinate: CLLocationCoordinate2D())
         viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer, photo: photo)
@@ -27,6 +39,7 @@ class MapPhotoViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         cancelBag = nil
         diContainer = nil
+        firestoreService = nil
         viewModel = nil
         coordinator = nil
     }
@@ -47,7 +60,7 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertTrue(isClose)
     }
 
-    func testTapOnCategoryView_ShouldShowCategoryPickerView() {
+    func testTapOnCategoryView_WithNoEmptyCategories_ShouldShowCategoryPickerView() {
         // Arrange
         XCTAssertTrue(viewModel.isHiddenCategoryPicker)
 
@@ -58,7 +71,7 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isHiddenCategoryPicker)
     }
 
-    func testTapOnloseBarButton_ShouldShowCategoryPickerView() {
+    func testTapOnCloseBarButton_ShouldShowCategoryPickerView() {
         // Arrange
         viewModel.categoryViewSubject.send(.tap())
         XCTAssertFalse(viewModel.isHiddenCategoryPicker)
@@ -78,15 +91,53 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertNotNil(viewModel.photoPublisher)
     }
 
-    func testDoneButtonTitle_ShouldBeEqual() {
-        XCTAssertEqual(viewModel.doneButtonTitle, L10n.Main.MapPhoto.Button.Title.done)
+    func testTapOnCancelButton_ShouldCloseScreen() {
+        // Arrange
+        var isDismiss = false
+        coordinator.dismissSubject
+            .sink { _ in
+                isDismiss = true
+            }
+            .store(in: cancelBag)
+
+        // Act
+        viewModel.cancelButtonSubject.send(UIControl())
+
+        // Assert
+        XCTAssertTrue(isDismiss)
     }
 
-    func testCancelButtonTitle_ShouldBeEqual() {
-        XCTAssertEqual(viewModel.cancelButtonTitle, L10n.Main.MapPhoto.Button.Title.cancel)
+    func testTapOnDoneButton_WithError_ShouldShowErrorAlert() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        var isShow = false
+        firestoreService.error = .nonMatchingChecksum
+
+        coordinator.errorAlertSubject
+            .sink { _ in
+                isShow = true
+                expectation.fulfill()
+            }
+            .store(in: cancelBag)
+
+        // Act
+        viewModel.doneButtonSubject.send("")
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(isShow)
     }
 
-    func testCloseCategoryPickerViewButtonTitle_ShouldBeEqual() {
-        XCTAssertEqual(viewModel.closeCategoryPickerViewButtonTitle, L10n.Main.MapPhoto.Button.Title.close)
+    func testTapOnCloseBarButton_WhenOpenPicker_ShouldHidePicker() {
+        // Arrange
+        XCTAssertTrue(viewModel.isHiddenCategoryPicker)
+        viewModel.categoryViewSubject.send(.tap())
+        XCTAssertFalse(viewModel.isHiddenCategoryPicker)
+
+        // Act
+        viewModel.closeBarButtonSubject.send(UIBarButtonItem())
+
+        // Assert
+        XCTAssertTrue(viewModel.isHiddenCategoryPicker)
     }
 }

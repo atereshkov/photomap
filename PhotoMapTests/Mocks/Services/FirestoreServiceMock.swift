@@ -23,44 +23,37 @@ class FirestoreServiceMock {
 
 extension FirestoreServiceMock: FirestoreServiceType {
     func getCategories() -> Future<[PhotoMap.Category], FirestoreError> {
-        getCategoriesCalled = true
-        return Future { [weak self] promise in
-            guard self?.userId != nil else {
-                promise(.failure(.noCurrentUserId))
-                return
-            }
-            if let error = self?.error {
-                promise(.failure(.custom(error.message)))
-                return
-            }
-            if let categories = self?.categories {
-                promise(.success(categories))
-                self?.getCategoriesEndWithValues = true
-                return
-            }
+        Future { [weak self] promise in
+            self?.getCategoriesCalled = true
+            if let error = self?.error { return promise(.failure(error)) }
+            guard let categories = self?.categories else { return promise(.success([])) }
+
+            self?.getCategoriesEndWithValues = true
+            promise(.success(categories))
         }
+    }
+
+    func addUserPhoto(with photo: Photo) -> AnyPublisher<Void, FirestoreError> {
+        Future { [weak self] promise in
+            if let error = self?.error { return promise(.failure(.custom(error.message))) }
+
+            promise(.success(()))
+        }.eraseToAnyPublisher()
     }
     
     func getUserMarkers() -> Future<[Marker], FirestoreError> {
-        getMarkersCalled = true
-        return Future { [weak self] promise in
-            guard self?.userId != nil else {
-                promise(.failure(.noCurrentUserId))
-                return
-            }
-            if let error = self?.error {
-                promise(.failure(.custom(error.message)))
-                return
-            }
+        Future { [weak self] promise in
+            self?.getMarkersCalled = true
+            guard self?.userId != nil else { return promise(.failure(.noCurrentUserId)) }
+            if let error = self?.error { return promise(.failure(.custom(error.message))) }
             guard self?.userHasDocuments != nil else {
-                promise(.success([]))
                 self?.getMarkersEndWithValues = true
-                return
+                return promise(.success([]))
             }
+
             if let markers = self?.markers {
-                promise(.success(markers))
                 self?.getMarkersEndWithValues = true
-                return
+                promise(.success(markers))
             }
         }
     }

@@ -69,7 +69,14 @@
 "username-validation.error-alert.empty-username" = "Username field can't be blank";
 "username-validation.error-alert.short-username" = "Minimum of 3 characters required";
 
+// MARK: - FirestoreError messages
+
+"firestore-error.no-current-id.message" = "Authorisation Error. Try to re-enter the application.";
+"firestore-error.unavailable-local-service.message" = "Service unavailable. Try again.";
+"firestore-error.non-matching-checksum.message" = "Uploading did failed. Try uploading again.";
+"firestore-error.no-rules.message" = "You don't have enough rights. Contact technical support.";
+"firestore-error.image-decoding.message" = "Image processing error. Please, try reload or choose another photo.";
+
 // MARK: - Categories Screen
 "categories.navigationItem.title" = "Categories";
 "categories.navigationItem.rightButtonItem.done" = "Done";
-
