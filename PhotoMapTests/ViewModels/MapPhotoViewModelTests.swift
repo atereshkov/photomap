@@ -14,14 +14,23 @@ class MapPhotoViewModelTests: XCTestCase {
     var viewModel: MapPhotoViewModelType!
     var coordinator: MapPhotoCoordinator!
     var diContainer: DIContainerType!
-    var service: FirestoreServiceMock!
+    var firestoreService: FirestoreServiceMock!
     var cancelBag: CancelBag!
 
     override func setUpWithError() throws {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
         let serviceType: FirestoreServiceType = diContainer.resolve()
-        service = serviceType as? FirestoreServiceMock
+        firestoreService = serviceType as? FirestoreServiceMock
+        
+        firestoreService.userId = "id"
+        let categories = [
+            PhotoMap.Category(id: "1", name: "default", color: "blue"),
+            PhotoMap.Category(id: "2", name: "nature", color: "green"),
+            PhotoMap.Category(id: "3", name: "friends", color: "orange")
+        ]
+        firestoreService.categories = categories
+        
         coordinator = MapPhotoCoordinator(diContainer: diContainer)
         let photo = Photo(image: UIImage(), coordinate: CLLocationCoordinate2D())
         viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer, photo: photo)
@@ -30,7 +39,7 @@ class MapPhotoViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         cancelBag = nil
         diContainer = nil
-        service = nil
+        firestoreService = nil
         viewModel = nil
         coordinator = nil
     }
@@ -102,7 +111,7 @@ class MapPhotoViewModelTests: XCTestCase {
         // Arrange
         let expectation = XCTestExpectation()
         var isShow = false
-        service.error = .nonMatchingChecksum
+        firestoreService.error = .nonMatchingChecksum
 
         coordinator.errorAlertSubject
             .sink { _ in
