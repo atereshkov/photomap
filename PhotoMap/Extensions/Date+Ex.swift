@@ -25,5 +25,8 @@ extension Date {
         let formatter = CachedDateFormatter.with(format: "dd.MM.yy")
         return formatter.string(from: self).split(separator: "/").joined(separator: "-")
     }
-    
+
+    var fullDateString: String {
+        String(self.description.map { $0  == " " ? "-" : $0 })
+    }
 }

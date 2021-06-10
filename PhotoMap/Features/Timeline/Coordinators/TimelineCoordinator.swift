@@ -35,6 +35,7 @@ class TimelineCoordinator: Coordinator {
         .store(in: cancelBag)
     }
     
+    @discardableResult
     func start() -> UIViewController {
         let viewModel = TimelineViewModel(coordinator: self, diContainer: diContainer)
         let timelineVC = TimelineViewController.newInstanse(viewModel: viewModel)

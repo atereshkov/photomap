@@ -16,7 +16,7 @@ class BaseViewController: UIViewController {
         activityIndicator.style = .large
         activityIndicator.tag = 1
         activityIndicator.color = Asset.activityIndicatorIndicatorColor.color
-        activityIndicator.layer.zPosition = -1
+        activityIndicator.layer.zPosition = 10
 
         return activityIndicator
     }()

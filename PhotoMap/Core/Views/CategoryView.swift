@@ -14,7 +14,8 @@ class CategoryView: UIView {
 
     @IBOutlet private weak var image: UIImageView!
     @IBOutlet private weak var title: UILabel!
-
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    
     private(set) var categorySubject = PassthroughSubject<Category?, Never>()
 
     override init(frame: CGRect) {
@@ -30,6 +31,7 @@ class CategoryView: UIView {
     }
 
     func set(with category: Category) {
+        loadingIndicator.stopAnimating()
         image.tintColor = UIColor(hex: category.color)
         title.text = category.name
     }
@@ -51,5 +53,7 @@ class CategoryView: UIView {
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         }
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.startAnimating()
     }
 }

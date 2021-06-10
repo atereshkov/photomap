@@ -20,7 +20,7 @@ class MapPhotoViewController: BaseViewController {
     @IBOutlet private weak var descriptionTextView: UITextView!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var doneButton: UIButton!
-    @IBOutlet private weak var categoryPckerView: UIPickerView!
+    @IBOutlet private weak var categoryPickerView: UIPickerView!
     @IBOutlet private weak var pickerToolBar: UIToolbar!
     @IBOutlet private weak var closeBarButton: UIBarButtonItem!
     
@@ -34,11 +34,8 @@ class MapPhotoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        categoryPckerView.delegate = viewModel
-        categoryPckerView.dataSource = viewModel
-
         setOpacityBackgroundNavigationBar()
-        setupToolBar()
+        setupUI()
 
         bind()
         bindActions()
@@ -60,7 +57,7 @@ class MapPhotoViewController: BaseViewController {
             .assign(to: \.text, on: descriptionTextView)
             .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
-            .assign(to: \.isHidden, on: categoryPckerView)
+            .assign(to: \.isHidden, on: categoryPickerView)
             .store(in: cancelBag)
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: pickerToolBar)
@@ -69,17 +66,17 @@ class MapPhotoViewController: BaseViewController {
             .filter { $0 != nil }
             .subscribe(categoryView.categorySubject)
             .store(in: cancelBag)
-        viewModel.$closeCategoryPickerViewButtonTitle
-            .assign(to: \.title, on: closeBarButton)
+        viewModel.loadCategoriesSubject
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.categoryPickerView.delegate = viewModel
+                self.categoryPickerView.dataSource = viewModel
+            }
             .store(in: cancelBag)
-        viewModel.$doneButtonTitle
-            .sink(receiveValue: { [weak self] title in
-                self?.doneButton.setTitle(title, for: .application)
-            })
-            .store(in: cancelBag)
-        viewModel.$cancelButtonTitle
-            .sink(receiveValue: { [weak self] title in
-                self?.cancelButton.setTitle(title, for: .application)
+        viewModel.loadingPublisher
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] isLoading in
+                isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
             })
             .store(in: cancelBag)
     }
@@ -95,7 +92,18 @@ class MapPhotoViewController: BaseViewController {
             .subscribe(viewModel.closeBarButtonSubject)
             .store(in: cancelBag)
 
+        viewModel.$categoryPublisher
+            .map { $0 != nil }
+            .assign(to: \.isEnabled, on: doneButton)
+            .store(in: cancelBag)
+
+        viewModel.loadingPublisher
+            .map { !$0 }
+            .assign(to: \.isEnabled, on: doneButton)
+            .store(in: cancelBag)
+
         doneButton.tapPublisher
+            .map { [weak self] _ in self?.descriptionTextView.text ?? "" }
             .subscribe(viewModel.doneButtonSubject)
             .store(in: cancelBag)
         cancelButton.tapPublisher
@@ -103,7 +111,11 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
     }
 
-    private func setupToolBar() {
+    private func setupUI() {
+        doneButton.setTitle(L10n.Main.MapPhoto.Button.Title.done, for: .application)
+        cancelButton.setTitle(L10n.Main.MapPhoto.Button.Title.cancel, for: .application)
+        closeBarButton.title = L10n.Main.MapPhoto.Button.Title.close
+
         pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 }

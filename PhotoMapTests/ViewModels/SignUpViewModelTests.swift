@@ -67,7 +67,7 @@ class SignUpViewModelTests: XCTestCase {
         viewModel.password = "123456"
         
         // Assert
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: 0.5)
         XCTAssertTrue(isEnabled)
     }
     

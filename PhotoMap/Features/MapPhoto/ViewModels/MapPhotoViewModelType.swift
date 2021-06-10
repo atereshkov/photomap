@@ -13,16 +13,14 @@ protocol MapPhotoViewModelInput {
     var categoryViewSubject: PassthroughSubject<GestureType, Never> { get }
     var closeBarButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
     var descriptionSubject: PassthroughSubject<String, Never> { get }
-    var doneButtonSubject: PassthroughSubject<UIControl, Never> { get }
+    var doneButtonSubject: PassthroughSubject<String, Never> { get }
+    var loadCategoriesSubject: PassthroughSubject<Void, Never> { get }
 }
 
 protocol MapPhotoViewModelOutput {
     var isHiddenCategoryPicker: Bool { get }
     var categoryPublisher: Category? { get }
     var photoPublisher: Photo { get }
-    var doneButtonTitle: String? { get }
-    var cancelButtonTitle: String? { get }
-    var closeCategoryPickerViewButtonTitle: String? { get }
 }
 
 protocol MapPhotoViewModelType: MapPhotoViewModelInput, MapPhotoViewModelOutput {}

@@ -53,7 +53,6 @@
 "main.map.disable-location-alert.title" = "Геолокация отключена";
 "main.map.disable-location-alert.message" = "С отключенной сервисом местоположения вы не сможете воспользоваться всем функционалам приложения. Пожалуйста, перейдите в настройки по кнопке ниже и включите его.";
 
-
 // MARK: - Email Validation errors
 
 "email-validation.error-alert.empty-email" = "Поле email не должно быть пустым";
@@ -69,6 +68,14 @@
 
 "username-validation.error-alert.empty-username" = "Поле \"Имя пользователя\" не должно быть пустым";
 "username-validation.error-alert.short-username" = "Требуется минимум 3 символа";
+
+// MARK: - FirestoreError messages
+
+"firestore-error.no-current-id.message" = "Ошибка авторизации. Попробуйте перезайти в приложение.";
+"firestore-error.unavailable-local-service.message" = "Сервис недоступен. Попробуйте ещё раз.";
+"firestore-error.non-matching-checksum.message" = "Ошибка при загрузке. Попробуйте еще раз.";
+"firestore-error.no-rules.message" = "У вас недостаточно прав. Напишите в техподдерку.";
+"firestore-error.image-decoding.message" = "Ошибка обработки изображения. Пожалуйста, попробуйте перезагрузить или выберите другое фото.";
 
 // MARK: - Categories Screen
 "categories.navigationItem.title" = "Категории";
