@@ -10,10 +10,11 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
+import MapKit
 
 final class FirestoreService: FirestoreServiceType {
     private let db = Firestore.firestore()
-    private let storage = Storage.storage().reference(withPath: Path.userImages)
+    private let storage = Storage.storage()
     private let currentUserId = Auth.auth().currentUser?.uid
     
     func getUserMarkers() -> Future<[Marker], FirestoreError> {
@@ -100,7 +101,7 @@ final class FirestoreService: FirestoreServiceType {
             let imageName = [currentUserId, [Date().fullDateString, Path.imageType]
                                 .joined(separator: Separator.point)].joined(separator: Separator.slash)
 
-            guard let photoRef = self?.storage.child(imageName) else {
+            guard let photoRef = self?.storage.reference(withPath: Path.userImages).child(imageName) else {
                 return promise(.failure(.unavailableLocalService))
             }
 
@@ -115,6 +116,60 @@ final class FirestoreService: FirestoreServiceType {
                     promise(.success(receiveUrl))
                 }
             }
+        }
+    }
+
+    func getUserMarkers(by visibleRect: MKMapRect) -> Future<[ReceivePhoto], FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
+            let userPhotosReference = self?.db.collection(Path.photosCollection)
+                                              .document(currentUserId)
+                                              .collection(Path.userPhotosCollection)
+
+            userPhotosReference?.getDocuments { snapshot, error in
+                if let error = error { return promise(.failure(FirestoreError(error))) }
+                guard let documents = snapshot?.documents else { return promise(.success([])) }
+
+                var photos = [ReceivePhoto]()
+                for document in documents {
+                    let photo = ReceivePhoto(dictionary: document.data())
+                    if visibleRect.contains(MKMapPoint(photo.toMapCoordinates())) {
+                        photos.append(photo)
+                    }
+                }
+
+                promise(.success(photos))
+            }
+        }
+    }
+
+    func getCategoryBy(by id: String) -> Future<Category, FirestoreError> {
+        Future { [weak self] promise in
+            guard self?.currentUserId != nil else { return promise(.failure(.noCurrentUserId)) }
+
+            let categoriesReference = self?.db.collection(Path.categoriesCollection).document(id)
+
+            categoriesReference?.getDocument { document, error in
+                if let error = error { return promise(.failure(FirestoreError(error))) }
+                guard let document = document,
+                      let data = document.data() else { return promise(.failure(.nonMatchingChecksum)) }
+
+                let category = Category(id: document.documentID, dictionary: data)
+                promise(.success(category))
+            }
+        }
+    }
+
+    func downloadImage(by url: String) -> Future<UIImage?, FirestoreError> {
+        Future { [weak self] promise in
+            self?.storage
+                .reference(forURL: url)
+                .getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    if let error = error { return promise(.failure(FirestoreError(error))) }
+                    guard let data = data else { return promise(.failure(.imageDecoding)) }
+
+                    promise(.success(UIImage(data: data)))
+                }
         }
     }
 }

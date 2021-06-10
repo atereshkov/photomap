@@ -33,6 +33,17 @@ class MapViewController: BaseViewController {
         setOpacityBackgroundNavigationBar()
         bind()
         bindMapGestures()
+
+        mapView.delegate = viewModel
+        mapView.register(PhotoMarkerView.self,
+                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+
+        let photoAnnotation = PhotoAnnotation(title: "Apple Campus",
+                                              date: "1 June 2021",
+                                              category: "FRIENDS",
+                                              coordinate: CLLocationCoordinate2D(latitude: 37.33233141,
+                                                                                 longitude: -122.0312186))
+        mapView.addAnnotation(photoAnnotation)
     }
 
     private func bind() {
@@ -73,6 +84,13 @@ class MapViewController: BaseViewController {
 
     private func bindMapGestures() {
         guard let viewModel = viewModel else { return }
+
+        categoryButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let visibleRect = self?.mapView.visibleMapRect else { return }
+                viewModel.loadUserPhotosSubject.send(visibleRect)
+            }
+            .store(in: cancelBag)
 
         mapView.allGestures()
             .subscribe(viewModel.enableDiscoveryModeSubject)

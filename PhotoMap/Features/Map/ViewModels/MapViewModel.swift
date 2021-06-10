@@ -9,7 +9,7 @@ import Combine
 import CoreLocation
 import MapKit
 
-class MapViewModel: MapViewModelType {
+class MapViewModel: NSObject, MapViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapCoordinator
@@ -17,11 +17,15 @@ class MapViewModel: MapViewModelType {
     private let locationService: LocationServiceType
     private let diContainer: DIContainerType
 
+    private let firestoreService: FirestoreServiceType
+    private var сompletionHandler: (Subscribers.Completion<FirestoreError>) -> Void
+
     // MARK: - Input
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var enableDiscoveryModeSubject = PassthroughSubject<GestureType, Never>()
     private(set) var navigationButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var photoButtonSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
+    private(set) var loadUserPhotosSubject = PassthroughSubject<MKMapRect, FirestoreError>()
 
     // MARK: - Output
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
@@ -35,6 +39,18 @@ class MapViewModel: MapViewModelType {
         self.coordinator = coordinator
         self.diContainer = diContainer
         self.locationService = diContainer.resolve()
+
+        self.firestoreService = diContainer.resolve()
+        self.сompletionHandler = { completion in
+            switch completion {
+            case .failure(let error):
+                // coordinator.errorAlertSubject.send(error)
+                print(error.localizedDescription)
+            case .finished:
+                return
+            }
+        }
+        super.init()
 
         transform()
     }
@@ -72,7 +88,6 @@ class MapViewModel: MapViewModelType {
 
                 self.switchFollowDiscoveryMode(disableFolowMode: true)
                 let coordinate = receiveCoordinate != nil ? receiveCoordinate : self.locationService.currentCoordinate
-
                 self.coordinator.showPhotoMenuAlertSubject.send(coordinate)
             }
             .store(in: cancelBag)
@@ -88,6 +103,14 @@ class MapViewModel: MapViewModelType {
             .map { _ in () }
             .subscribe(coordinator.disableLocationSubject)
             .store(in: cancelBag)
+
+        loadUserPhotosSubject
+            .flatMap { [unowned self] visibleRect in
+                self.firestoreService.getUserMarkers(by: visibleRect)
+            }
+            .sink(receiveCompletion: сompletionHandler,
+                  receiveValue: { print($0) })
+            .store(in: cancelBag)
     }
 
     private func switchFollowDiscoveryMode(disableFolowMode: Bool = false) {
@@ -95,3 +118,5 @@ class MapViewModel: MapViewModelType {
         modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
     }
 }
+
+extension MapViewModel: MKMapViewDelegate {}
