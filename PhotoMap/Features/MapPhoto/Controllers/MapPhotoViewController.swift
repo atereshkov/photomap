@@ -68,9 +68,7 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
         viewModel.loadCategoriesSubject
             .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.categoryPickerView.delegate = viewModel
-                self.categoryPickerView.dataSource = viewModel
+                self?.categoryPickerView.reloadAllComponents()
             }
             .store(in: cancelBag)
         viewModel.loadingPublisher
@@ -115,6 +113,9 @@ class MapPhotoViewController: BaseViewController {
         doneButton.setTitle(L10n.Main.MapPhoto.Button.Title.done, for: .application)
         cancelButton.setTitle(L10n.Main.MapPhoto.Button.Title.cancel, for: .application)
         closeBarButton.title = L10n.Main.MapPhoto.Button.Title.close
+
+        categoryPickerView.delegate = viewModel
+        categoryPickerView.dataSource = viewModel
 
         pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }

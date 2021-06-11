@@ -18,12 +18,12 @@ class PhotoMarkerView: MKMarkerAnnotationView {
                                                     size: CGSize(width: 48, height: 48)))
             mapsButton.setBackgroundImage(UIImage(systemName: "photo"), for: .normal)
             rightCalloutAccessoryView = mapsButton
-            
-            markerTintColor = Asset.friendsColor.color
-            if let letter = photo.category?.first {
+            if let color = photo.category?.color {
+                markerTintColor = UIColor(hex: color)
+            }
+            if let name = photo.category?.name, let letter = name.first {
                 glyphText = String(letter)
             }
         }
     }
-    
 }

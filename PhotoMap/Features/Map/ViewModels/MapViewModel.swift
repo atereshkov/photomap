@@ -28,6 +28,7 @@ class MapViewModel: NSObject, MapViewModelType {
     private(set) var loadUserPhotosSubject = PassthroughSubject<MKMapRect, FirestoreError>()
 
     // MARK: - Output
+    @Published private(set) var photos: [Photo] = []
     @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
     @Published private(set) var isShowUserLocation: Bool = true
     @Published private(set) var region: MKCoordinateRegion?
@@ -106,10 +107,12 @@ class MapViewModel: NSObject, MapViewModelType {
 
         loadUserPhotosSubject
             .flatMap { [unowned self] visibleRect in
-                self.firestoreService.getUserMarkers(by: visibleRect)
+                self.firestoreService.getPhotos(by: visibleRect)
             }
             .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { print($0) })
+                  receiveValue: { [weak self] photos in
+                    self?.photos = photos
+                  })
             .store(in: cancelBag)
     }
 

@@ -37,17 +37,18 @@ class MapViewController: BaseViewController {
         mapView.delegate = viewModel
         mapView.register(PhotoMarkerView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-
-        let photoAnnotation = PhotoAnnotation(title: "Apple Campus",
-                                              date: "1 June 2021",
-                                              category: "FRIENDS",
-                                              coordinate: CLLocationCoordinate2D(latitude: 37.33233141,
-                                                                                 longitude: -122.0312186))
-        mapView.addAnnotation(photoAnnotation)
     }
 
     private func bind() {
         guard let viewModel = viewModel else { return }
+
+        viewModel.$photos
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { print($0) },
+                  receiveValue: { [weak self] photos in
+                    photos.forEach { self?.mapView.addAnnotation(PhotoAnnotation(photo: $0)) }
+            })
+            .store(in: cancelBag)
 
         viewModel.$tabTitle
             .sink(receiveValue: { [weak self] title in

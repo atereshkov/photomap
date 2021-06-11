@@ -10,10 +10,10 @@ import MapKit
 class PhotoAnnotation: NSObject, MKAnnotation {
     let title: String?
     let date: String?
-    let category: String?
+    let category: Category?
     let coordinate: CLLocationCoordinate2D
     
-    init(title: String?, date: String?, category: String?, coordinate: CLLocationCoordinate2D) {
+    init(title: String?, date: String?, category: Category?, coordinate: CLLocationCoordinate2D) {
         self.title = title
         self.date = date
         self.category = category
@@ -22,11 +22,11 @@ class PhotoAnnotation: NSObject, MKAnnotation {
         super.init()
     }
     
-    init(photo: ReceivePhoto) {
+    init(photo: Photo) {
         self.title = photo.description
         self.date = photo.date.toString
         self.category = photo.category
-        self.coordinate = photo.toMapCoordinates()
+        self.coordinate = photo.coordinate
         
         super.init()
     }

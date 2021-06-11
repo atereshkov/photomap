@@ -53,4 +53,13 @@ struct ReceivePhoto {
     func toMapCoordinates() -> CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: geopoint.latitude, longitude: geopoint.longitude)
     }
+
+    func toPhoto(with category: Category?) -> Photo {
+        var photo = Photo(image: UIImage(), coordinate: toMapCoordinates())
+        photo.category = category
+        photo.date = date
+        photo.description = description
+
+        return photo
+    }
 }
