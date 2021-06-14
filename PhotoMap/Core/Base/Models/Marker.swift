@@ -13,18 +13,24 @@ struct Marker {
     let date: Date
     var description: String?
     var hashtags = [String]()
-    let photoURLString: String
-    let location: (x: Int, y: Int)?
+    let images: [String]
+    let location: GeoPoint?
 }
 
 extension Marker {
+    var imageURL: URL? {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let fileName = "\(self.date.toString).png"
+        return documentDirectory?.appendingPathComponent(fileName)
+    }
+    
     init(dictionary: [String: Any]) {
         category = dictionary["category"] as? String ?? ""
         let timestamp = dictionary["date"] as? Timestamp ?? Timestamp(date: Date())
         date = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))
         description = dictionary["description"] as? String
         hashtags = dictionary["hashtags"] as? [String] ?? [String]()
-        photoURLString = dictionary["photoURL"] as? String ?? ""
-        location = dictionary["point"] as? (x: Int, y: Int)
+        images = dictionary["images"] as? [String] ?? [String]()
+        location = dictionary["point"] as? GeoPoint
     }
 }

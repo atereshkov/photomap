@@ -66,7 +66,7 @@ final class FirestoreService: FirestoreServiceType {
     }
 
     func addUserPhoto(with photo: Photo) -> AnyPublisher<Void, FirestoreError> {
-        uploadPhoto(with: photo.image)
+        uploadPhoto(with: photo.image, and: photo.date.toString)
             .flatMap { [unowned self] url -> Future<Void, FirestoreError> in
                 self.savePhoto(data: photo.toDictionary(urls: [url]))
             }.eraseToAnyPublisher()
@@ -91,13 +91,13 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    private func uploadPhoto(with image: UIImage) -> Future<URL, FirestoreError> {
+    private func uploadPhoto(with image: UIImage, and date: String) -> Future<URL, FirestoreError> {
         Future { [weak self] promise in
             guard let imageData = image.pngData() else { return promise(.failure(.imageDecoding)) }
 
             guard let currentUserId = self?.currentUserId else {return promise(.failure(.noCurrentUserId)) }
 
-            let imageName = [currentUserId, [Date().fullDateString, Path.imageType]
+            let imageName = [currentUserId, [date, Path.imageType]
                                 .joined(separator: Separator.point)].joined(separator: Separator.slash)
 
             guard let photoRef = self?.storage.child(imageName) else {
@@ -114,6 +114,37 @@ final class FirestoreService: FirestoreServiceType {
                     guard let receiveUrl = url else { return promise(.failure(.nonMatchingChecksum)) }
                     promise(.success(receiveUrl))
                 }
+            }
+        }
+    }
+    
+    func downloadImage(for marker: Marker) -> Future<URL?, FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else {
+                promise(.failure(.noCurrentUserId))
+                return
+            }
+            
+            guard let photoReference = self?.storage
+                    .child(currentUserId+Separator.slash+marker.date.toString+Separator.point+Path.imageType)
+            else {
+                promise(.failure(.custom("can't find image reference in storage")))
+                return
+            }
+            
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            let fileName = marker.date.toString+Separator.point+Path.imageType
+            guard let fileURL = documentDirectory?.appendingPathComponent(fileName) else {
+                promise(.failure(.custom("can't create path to file")))
+                return
+            }
+            
+            photoReference.write(toFile: fileURL) { url, error in
+                if let error = error {
+                    promise(.failure(.custom(error.localizedDescription)))
+                    return
+                }
+                promise(.success(url))
             }
         }
     }
