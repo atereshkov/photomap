@@ -8,30 +8,25 @@
 import MapKit
 
 class PhotoAnnotation: NSObject, MKAnnotation {
-    let title: String?
-    let date: String?
-    let category: Category?
-    let coordinate: CLLocationCoordinate2D
-    
-    init(title: String?, date: String?, category: Category?, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-        self.date = date
-        self.category = category
-        self.coordinate = coordinate
-        
-        super.init()
+    private let photo: Photo
+    var id: String { photo.id }
+    var title: String? {
+        photo.description == "" ? " " : photo.description
     }
-    
+    var date: Date { photo.date }
+    var category: Category? { photo.category }
+    var coordinate: CLLocationCoordinate2D { photo.coordinate }
+    var imageUrl: String? {
+        photo.imageUrls[safe: 0]
+    }
+
     init(photo: Photo) {
-        self.title = photo.description
-        self.date = photo.date.toString
-        self.category = photo.category
-        self.coordinate = photo.coordinate
-        
+        self.photo = photo
+
         super.init()
     }
-    
+
     var subtitle: String? {
-        return date
+        date.shortDateWithFullYear
     }
 }

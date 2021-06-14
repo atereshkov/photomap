@@ -46,6 +46,9 @@ class MapViewController: BaseViewController {
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { print($0) },
                   receiveValue: { [weak self] photos in
+                    if let annotations = self?.mapView?.annotations {
+                        self?.mapView?.removeAnnotations(annotations)
+                    }
                     photos.forEach { self?.mapView.addAnnotation(PhotoAnnotation(photo: $0)) }
             })
             .store(in: cancelBag)
@@ -85,13 +88,6 @@ class MapViewController: BaseViewController {
 
     private func bindMapGestures() {
         guard let viewModel = viewModel else { return }
-
-        categoryButton.tapPublisher
-            .sink { [weak self] _ in
-                guard let visibleRect = self?.mapView.visibleMapRect else { return }
-                viewModel.loadUserPhotosSubject.send(visibleRect)
-            }
-            .store(in: cancelBag)
 
         mapView.allGestures()
             .subscribe(viewModel.enableDiscoveryModeSubject)

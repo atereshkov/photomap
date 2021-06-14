@@ -14,7 +14,9 @@ fileprivate enum Name: String {
 }
 
 struct Photo {
+    var id: String = ""
     var image: UIImage
+    var imageUrls: [String] = []
     var date: Date = Date()
     var description: String = ""
     var category: Category?
@@ -35,13 +37,15 @@ struct Photo {
 }
 
 struct ReceivePhoto {
+    var id: String = ""
     var images: [String]
     var date: Date = Date()
     var description: String = ""
     var category: String
     var geopoint: GeoPoint
 
-    init(dictionary: [String: Any]) {
+    init(dictionary: [String: Any], id: String) {
+        self.id = id
         category = dictionary[Name.category.rawValue] as? String ?? ""
         let timestamp = dictionary[Name.date.rawValue] as? Timestamp ?? Timestamp(date: Date())
         date = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))
@@ -56,9 +60,11 @@ struct ReceivePhoto {
 
     func toPhoto(with category: Category?) -> Photo {
         var photo = Photo(image: UIImage(), coordinate: toMapCoordinates())
+        photo.id = id
         photo.category = category
         photo.date = date
         photo.description = description
+        photo.imageUrls = images
 
         return photo
     }

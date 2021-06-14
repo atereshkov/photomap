@@ -67,7 +67,7 @@ final class FirestoreService: FirestoreServiceType {
     }
 
     func addUserPhoto(with photo: Photo) -> AnyPublisher<Void, FirestoreError> {
-        uploadPhoto(with: photo.image)
+        uploadPhoto(photo.image, with: photo.date.toString)
             .flatMap { [unowned self] url -> Future<Void, FirestoreError> in
                 self.savePhoto(data: photo.toDictionary(urls: [url]))
             }.eraseToAnyPublisher()
@@ -92,7 +92,7 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    private func uploadPhoto(with image: UIImage) -> Future<URL, FirestoreError> {
+    private func uploadPhoto(_ image: UIImage, with name: String) -> Future<URL, FirestoreError> {
         Future { [weak self] promise in
             guard let imageData = image.pngData() else { return promise(.failure(.imageDecoding)) }
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
@@ -152,7 +152,7 @@ final class FirestoreService: FirestoreServiceType {
                     
                     var photos = [ReceivePhoto]()
                     for document in documents {
-                        photos.append(ReceivePhoto(dictionary: document.data()))
+                        photos.append(ReceivePhoto(dictionary: document.data(), id: document.documentID))
                     }
 
                     promise(.success(photos))
@@ -181,7 +181,7 @@ final class FirestoreService: FirestoreServiceType {
         Future { [weak self] promise in
             self?.storage
                 .reference(forURL: url)
-                .getData(maxSize: 1 * 1024 * 1024) { data, error in
+                .getData(maxSize: 5120 * 1024) { data, error in
                     if let error = error { return promise(.failure(FirestoreError(error))) }
                     guard let data = data else { return promise(.failure(.imageDecoding)) }
 

@@ -122,4 +122,32 @@ class MapViewModel: NSObject, MapViewModelType {
     }
 }
 
-extension MapViewModel: MKMapViewDelegate {}
+extension MapViewModel: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        guard let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
+        print("Pin btn tapped! \(photoAnnotation.id)")
+    }
+
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        loadUserPhotosSubject.send(mapView.visibleMapRect)
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let photoView = view as? PhotoMarkerView,
+              let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
+
+        guard let url = photoAnnotation.imageUrl else { return }
+
+        if !photoView.isLoadImage {
+            firestoreService.downloadImage(by: url)
+                .sink(receiveCompletion: self.сompletionHandler,
+                      receiveValue: { image in
+                        guard let image = image else { return }
+                        photoView.loadImageSubject.send(image)
+                      })
+                .store(in: cancelBag)
+        }
+    }
+}

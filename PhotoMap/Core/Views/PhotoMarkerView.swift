@@ -6,18 +6,36 @@
 //
 
 import MapKit
+import Combine
 
 class PhotoMarkerView: MKMarkerAnnotationView {
+    private(set) var loadImageSubject = PassthroughSubject<UIImage, Never>()
+    private let cancelBag = CancelBag()
+    private(set) var isLoadImage = false
+
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.backgroundColor = Asset.activityIndicatorBackgroundColor.color
+        activityIndicator.style = .medium
+        activityIndicator.tag = 1
+        activityIndicator.color = Asset.activityIndicatorIndicatorColor.color
+        activityIndicator.layer.zPosition = 10
+
+        return activityIndicator
+    }()
+
     override var annotation: MKAnnotation? {
         willSet {
             guard let photo = newValue as? PhotoAnnotation else { return }
+
             canShowCallout = true
-            calloutOffset = CGPoint(x: 0, y: 5)
-            
-            let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
-                                                    size: CGSize(width: 48, height: 48)))
-            mapsButton.setBackgroundImage(UIImage(systemName: "photo"), for: .normal)
-            rightCalloutAccessoryView = mapsButton
+
+            titleVisibility = .hidden
+            subtitleVisibility = .hidden
+
+            rightCalloutAccessoryView = activityIndicator
+            activityIndicator.startAnimating()
+
             if let color = photo.category?.color {
                 markerTintColor = UIColor(hex: color)
             }
@@ -25,5 +43,29 @@ class PhotoMarkerView: MKMarkerAnnotationView {
                 glyphText = String(letter)
             }
         }
+    }
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        bind()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bind() {
+        loadImageSubject
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] image in
+                let photoButton = UIButton(frame: CGRect(origin: CGPoint.zero,
+                                                        size: CGSize(width: 68, height: 48)))
+                photoButton.setBackgroundImage(image, for: .normal)
+
+                self?.activityIndicator.stopAnimating()
+                self?.rightCalloutAccessoryView = photoButton
+                self?.isLoadImage = true
+            })
+            .store(in: cancelBag)
     }
 }
