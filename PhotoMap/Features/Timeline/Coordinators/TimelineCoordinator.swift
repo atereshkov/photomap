@@ -8,8 +8,11 @@
 import UIKit
 import Combine
 
-class TimelineCoordinator: Coordinator {
-    
+protocol ReturnCategoriesWhenDonePressedProtocol {
+    var doneButtonPressedWithCategoriesSubject: PassthroughSubject<[Category], Never> { get }
+}
+
+class TimelineCoordinator: Coordinator, ReturnCategoriesWhenDonePressedProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private let diContainer: DIContainerType

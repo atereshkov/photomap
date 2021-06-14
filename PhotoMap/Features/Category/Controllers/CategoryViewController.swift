@@ -42,6 +42,11 @@ class CategoryViewController: BaseViewController {
             isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
         })
         .store(in: cancelBag)
+        
+        viewModel.doneButtonIsEnabled.sink(receiveValue: { [weak self] isEnabled in
+            self?.doneButton.isEnabled = isEnabled
+        })
+        .store(in: cancelBag)
     }
     
     // MARK: - Helpers

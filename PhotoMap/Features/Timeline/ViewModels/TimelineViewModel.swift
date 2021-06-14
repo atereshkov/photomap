@@ -55,14 +55,13 @@ class TimelineViewModel: TimelineViewModelType {
         selectedCategoriesSubject
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] categories in
-                guard let self = self else { return }
                 let categoriesTitles = categories.map { String($0.name) }
-                let markers = self.allMarkers.values.flatMap { $0 }.filter { categoriesTitles.contains($0.category) }
-                let results = self.configureDataSource(with: markers)
-                self.categorizedMarkers = results.markers
-                self.headerTitles = results.titles
-                self.searchTextSubject.value = ""
-                self.reloadDataSubject.send()
+                let markers = self?.allMarkers.values.flatMap { $0 }.filter { categoriesTitles.contains($0.category) }
+                let results = self?.configureDataSource(with: markers ?? [])
+                self?.categorizedMarkers = results?.markers ?? [:]
+                self?.headerTitles = results?.titles ?? []
+                self?.searchTextSubject.value = ""
+                self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
     }

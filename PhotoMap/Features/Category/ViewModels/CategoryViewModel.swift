@@ -71,11 +71,13 @@ class CategoryViewModel: CategoryViewModelType {
         categories.remove(at: indexPath.row)
         category.isSelected = !category.isSelected
         categories.insert(category, at: indexPath.row)
+        doneButtonIsEnabled.send(!categories.filter { $0.isSelected }.isEmpty)
         categoriesSubject.send(categories)
         reloadDataSubject.send()
     }
     
     // MARK: - Output
+    let doneButtonIsEnabled = CurrentValueSubject<Bool, Never>(true)
     let reloadDataSubject = PassthroughSubject<Void, Never>()
     let categoriesSubject = CurrentValueSubject<[Category], Never>([])
     
