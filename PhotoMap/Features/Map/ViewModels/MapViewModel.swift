@@ -14,11 +14,9 @@ class MapViewModel: NSObject, MapViewModelType {
     private let cancelBag = CancelBag()
     private let coordinator: MapCoordinator
     private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
-    private let locationService: LocationServiceType
     private let diContainer: DIContainerType
-
+    private let locationService: LocationServiceType
     private let firestoreService: FirestoreServiceType
-    private var сompletionHandler: (Subscribers.Completion<FirestoreError>) -> Void
 
     // MARK: - Input
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -29,7 +27,6 @@ class MapViewModel: NSObject, MapViewModelType {
 
     // MARK: - Output
     @Published private(set) var photos: [Photo] = []
-    @Published private(set) var tabTitle: String = L10n.Main.TabBar.Map.title
     @Published private(set) var isShowUserLocation: Bool = true
     @Published private(set) var region: MKCoordinateRegion?
     @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
@@ -40,17 +37,8 @@ class MapViewModel: NSObject, MapViewModelType {
         self.coordinator = coordinator
         self.diContainer = diContainer
         self.locationService = diContainer.resolve()
-
         self.firestoreService = diContainer.resolve()
-        self.сompletionHandler = { completion in
-            switch completion {
-            case .failure(let error):
-                // coordinator.errorAlertSubject.send(error)
-                print(error.localizedDescription)
-            case .finished:
-                return
-            }
-        }
+
         super.init()
 
         transform()
@@ -66,8 +54,7 @@ class MapViewModel: NSObject, MapViewModelType {
                 guard let self = self,
                       self.isFollowModeOn else { return }
 
-                self.region = MKCoordinateRegion(center: location.coordinate,
-                                          span: self.coordinateSpan)
+                self.region = MKCoordinateRegion(center: location.coordinate, span: self.coordinateSpan)
             }
             .store(in: cancelBag)
 
@@ -106,13 +93,12 @@ class MapViewModel: NSObject, MapViewModelType {
             .store(in: cancelBag)
 
         loadUserPhotosSubject
+            .debounce(for: 0.5, scheduler: RunLoop.main)
             .flatMap { [unowned self] visibleRect in
                 self.firestoreService.getPhotos(by: visibleRect)
             }
             .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { [weak self] photos in
-                    self?.photos = photos
-                  })
+                  receiveValue: { [weak self] photos in self?.photos = photos })
             .store(in: cancelBag)
     }
 
@@ -120,15 +106,24 @@ class MapViewModel: NSObject, MapViewModelType {
         isFollowModeOn = disableFolowMode ? !disableFolowMode : !isFollowModeOn
         modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
     }
+
+    private func сompletionHandler(completion: Subscribers.Completion<FirestoreError>) {
+        switch completion {
+        case .failure(let error):
+            coordinator.errorAlertSubject.send(error)
+        case .finished:
+            return
+        }
+    }
+
+    private func isChangedCoordinate(last: CLLocationCoordinate2D) -> Bool {
+        guard let previous = region?.center else { return true }
+
+        return last.latitude != previous.latitude || last.longitude != previous.longitude
+    }
 }
 
 extension MapViewModel: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView,
-                 annotationView view: MKAnnotationView,
-                 calloutAccessoryControlTapped control: UIControl) {
-        guard let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
-        print("Pin btn tapped! \(photoAnnotation.id)")
-    }
 
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         loadUserPhotosSubject.send(mapView.visibleMapRect)
@@ -149,5 +144,12 @@ extension MapViewModel: MKMapViewDelegate {
                       })
                 .store(in: cancelBag)
         }
+    }
+
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        guard let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
+        // Open FullPhoto screen
     }
 }

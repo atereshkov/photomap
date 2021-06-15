@@ -16,7 +16,6 @@ protocol MapViewModelInput {
 }
 
 protocol MapViewModelOutput {
-    var tabTitle: String { get }
     var isShowUserLocation: Bool { get }
     var region: MKCoordinateRegion? { get }
     var modeButtonCollor: UIColor { get }

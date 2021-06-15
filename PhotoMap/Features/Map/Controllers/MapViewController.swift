@@ -23,6 +23,7 @@ class MapViewController: BaseViewController {
         let mapVC = StoryboardScene.Map.mapViewController.instantiate()
         mapVC.viewModel = viewModel
         mapVC.tabBarItem.image = .actions
+        mapVC.tabBarItem.title = L10n.Main.TabBar.Map.title
 
         return mapVC
     }
@@ -44,18 +45,11 @@ class MapViewController: BaseViewController {
 
         viewModel.$photos
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { print($0) },
-                  receiveValue: { [weak self] photos in
+            .sink(receiveValue: { [weak self] photos in
                     if let annotations = self?.mapView?.annotations {
                         self?.mapView?.removeAnnotations(annotations)
                     }
                     photos.forEach { self?.mapView.addAnnotation(PhotoAnnotation(photo: $0)) }
-            })
-            .store(in: cancelBag)
-
-        viewModel.$tabTitle
-            .sink(receiveValue: { [weak self] title in
-                self?.tabBarItem.title = title
             })
             .store(in: cancelBag)
 

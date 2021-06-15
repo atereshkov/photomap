@@ -9,9 +9,17 @@ import MapKit
 
 class PhotoAnnotation: NSObject, MKAnnotation {
     private let photo: Photo
+    private let maxTitleCount: Int = 23
+    private let substringCount: Int = 20
+
     var id: String { photo.id }
     var title: String? {
-        photo.description == "" ? " " : photo.description
+        var title = photo.description
+        if title.count > maxTitleCount {
+            title = "\(String(title.prefix(substringCount)))..."
+        }
+
+        return photo.description == "" ? " " : title
     }
     var date: Date { photo.date }
     var category: Category? { photo.category }

@@ -28,9 +28,7 @@ class AuthCoordinator: AuthCoordinatorType {
 
     private func bind() {
         showErrorAlertSubject
-            .sink { [weak self] error in
-                self?.showErrorAlert(error: error)
-            }
+            .sink { [weak self] error in self?.showErrorAlert(error: error) }
             .store(in: cancelBag)
 
         showMapSubject
@@ -66,19 +64,5 @@ class AuthCoordinator: AuthCoordinatorType {
         navigationController.pushViewController(signInVC, animated: true)
         
         return navigationController
-    }
-    
-    private func showErrorAlert(error: ResponseError) {
-        let alert = UIAlertController(title: error.title,
-                                      message: error.message,
-                                      preferredStyle: .alert)
-
-        let cancelAction = UIAlertAction(title: L10n.ok,
-                                         style: .cancel) { [unowned self] _ in
-            if case .networkError = error { self.navigationController.popViewController(animated: true) }
-        }
-
-        alert.addAction(cancelAction)
-        self.navigationController.present(alert, animated: true)
     }
 }

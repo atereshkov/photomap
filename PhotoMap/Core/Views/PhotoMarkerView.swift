@@ -59,8 +59,9 @@ class PhotoMarkerView: MKMarkerAnnotationView {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] image in
                 let photoButton = UIButton(frame: CGRect(origin: CGPoint.zero,
-                                                        size: CGSize(width: 68, height: 48)))
-                photoButton.setBackgroundImage(image, for: .normal)
+                                                         size: CGSize(width: 68, height: 48)))
+                photoButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 5)
+                photoButton.setImage(image, for: .normal)
 
                 self?.activityIndicator.stopAnimating()
                 self?.rightCalloutAccessoryView = photoButton
