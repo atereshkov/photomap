@@ -14,8 +14,8 @@ class TimelineViewModel: TimelineViewModelType {
     private let coordinator: TimelineCoordinator
     private let firestoreService: FirestoreServiceType
     private var allMarkers = [String: [Marker]]()
-    private var categorizedMarkers = [String: [Marker]]()
-    private var headerTitles = [String]()
+    private(set) var categorizedMarkers = [String: [Marker]]()
+    private(set) var headerTitles = [String]()
     private var searchingMarkers = [String: [Marker]]()
     private var searchingHeaderTitles = [String]()
     private let cancelBag = CancelBag()
@@ -71,11 +71,11 @@ class TimelineViewModel: TimelineViewModelType {
     let categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
     let searchTextSubject = CurrentValueSubject<String, Never>.init("")
+    private let selectedCategoriesSubject = PassthroughSubject<[Category], Never>()
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output
     let reloadDataSubject = PassthroughSubject<Void, Never>()
-    private let selectedCategoriesSubject = PassthroughSubject<[Category], Never>()
     
     var loadingPublisher: AnyPublisher<Bool, Never> {
         return activityIndicator.loading.eraseToAnyPublisher()

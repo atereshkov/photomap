@@ -123,4 +123,24 @@ class CategoryViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(doneButtonPressed)
     }
+    
+    func testWhenGettingCategoriesIndicatorShouldSpinning() {
+        let expectation = XCTestExpectation()
+        let expectedValues = [false, true, false]
+        var results = [Bool]()
+        var count = 0
+        
+        viewModel.loadingPublisher.sink(receiveValue: { isLoading in
+            results.append(isLoading)
+            count += 1
+            if count == expectedValues.count {
+                expectation.fulfill()
+            }
+        })
+        .store(in: cancelBag)
+        
+        viewModel.viewDidLoadSubject.send()
+        wait(for: [expectation], timeout: 2)
+        XCTAssertEqual(expectedValues, results)
+    }
 }

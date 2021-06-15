@@ -43,10 +43,9 @@ class CategoryViewController: BaseViewController {
         })
         .store(in: cancelBag)
         
-        viewModel.doneButtonIsEnabled.sink(receiveValue: { [weak self] isEnabled in
-            self?.doneButton.isEnabled = isEnabled
-        })
-        .store(in: cancelBag)
+        viewModel.doneButtonIsEnabled
+            .assign(to: \.isEnabled, on: doneButton)
+            .store(in: cancelBag)
     }
     
     // MARK: - Helpers

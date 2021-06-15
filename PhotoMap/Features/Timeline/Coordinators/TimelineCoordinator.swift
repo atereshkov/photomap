@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-protocol ReturnCategoriesWhenDonePressedProtocol {
+protocol CategoriesProtocol {
     var doneButtonPressedWithCategoriesSubject: PassthroughSubject<[Category], Never> { get }
 }
 
-class TimelineCoordinator: Coordinator, ReturnCategoriesWhenDonePressedProtocol {
+class TimelineCoordinator: Coordinator, CategoriesProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private let diContainer: DIContainerType
@@ -64,10 +64,6 @@ class TimelineCoordinator: Coordinator, ReturnCategoriesWhenDonePressedProtocol 
     }
     
     func childDidFinish(_ childCoordinator: Coordinator) {
-        if let index = childCoordinators.firstIndex(where: { coordinator -> Bool in
-            return childCoordinator === coordinator
-        }) {
-            childCoordinators.remove(at: index)
-        }
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
     }
 }

@@ -14,7 +14,7 @@ class CategoryCoordinator: Coordinator {
     private let diContainer: DIContainerType
     private let cancelBag = CancelBag()
     
-    var parentCoordinator: (Coordinator & ReturnCategoriesWhenDonePressedProtocol)?
+    weak var parentCoordinator: (Coordinator & CategoriesProtocol)?
     
     private(set) var doneButtonSubject = PassthroughSubject<Void, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
