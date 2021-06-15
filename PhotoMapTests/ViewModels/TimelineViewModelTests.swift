@@ -185,7 +185,7 @@ class TimelineViewModelTests: XCTestCase {
         let expectedNumberOfTitles = Set(markers.map { $0.date.monthAndYear }).count
         let expectation = XCTestExpectation()
         
-        viewModel.reloadDataSubject.sink(receiveValue: { _ in
+        viewModel.reloadDataSubject.dropFirst().sink(receiveValue: { _ in
             expectation.fulfill()
         })
         .store(in: cancelBag)
