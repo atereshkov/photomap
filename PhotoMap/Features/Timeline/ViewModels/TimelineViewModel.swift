@@ -17,14 +17,12 @@ class TimelineViewModel: TimelineViewModelType {
     private var headerTitles = [String]()
     private var searchingMarkers = [String: [Marker]]()
     private var searchingHeaderTitles = [String]()
-    private let diContainer: DIContainerType
     private let cancelBag = CancelBag()
     
     // MARK: - Lifecycle
     init(coordinator: TimelineCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.firestoreService = diContainer.resolve()
-        self.diContainer = diContainer
         transform()
     }
     
@@ -56,8 +54,8 @@ class TimelineViewModel: TimelineViewModelType {
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output
-    func createCellViewModel() -> TimelineCellViewModel {
-        return TimelineCellViewModel(firestoreService: self.firestoreService)
+    func createCellViewModel(with marker: Marker) -> TimelineCellViewModel {
+        return TimelineCellViewModel(firestoreService: self.firestoreService, marker: marker)
     }
     
     var reloadDataSubject = PassthroughSubject<Void, Never>()

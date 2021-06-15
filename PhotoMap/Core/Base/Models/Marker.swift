@@ -18,9 +18,10 @@ struct Marker {
 }
 
 extension Marker {
-    var imageURL: URL? {
+    var localImageURL: URL? {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let fileName = "\(self.date.toString).png"
+        guard let imageLink = images.first else { return nil }
+        let fileName = "\(imageLink).png"
         return documentDirectory?.appendingPathComponent(fileName)
     }
     

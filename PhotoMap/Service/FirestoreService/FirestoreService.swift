@@ -118,31 +118,24 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
     
-    func downloadImage(for marker: Marker) -> Future<URL?, FirestoreError> {
+    func downloadImage(with url: URL?) -> Future<URL?, FirestoreError> {
         Future { [weak self] promise in
-            guard let currentUserId = self?.currentUserId else {
-                promise(.failure(.noCurrentUserId))
-                return
+            guard self?.currentUserId != nil else {
+                return promise(.failure(.noCurrentUserId))
             }
             
-            guard let photoReference = self?.storage
-                    .child(currentUserId+Separator.slash+marker.date.toString+Separator.point+Path.imageType)
-            else {
-                promise(.failure(.custom("can't find image reference in storage")))
-                return
-            }
+            guard let url = url else { return promise(.failure(.custom("can't get the url"))) }
+            let photoReference = Storage.storage().reference(forURL: url.absoluteString)
             
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-            let fileName = marker.date.toString+Separator.point+Path.imageType
+            let fileName = "\(url.absoluteString).\(Path.imageType)"
             guard let fileURL = documentDirectory?.appendingPathComponent(fileName) else {
-                promise(.failure(.custom("can't create path to file")))
-                return
+                return promise(.failure(.custom("can't create path to file")))
             }
             
             photoReference.write(toFile: fileURL) { url, error in
                 if let error = error {
-                    promise(.failure(.custom(error.localizedDescription)))
-                    return
+                    return promise(.failure(.custom(error.localizedDescription)))
                 }
                 promise(.success(url))
             }

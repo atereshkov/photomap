@@ -33,7 +33,14 @@ enum FirestoreError: GeneralErrorType {
         case .imageDecoding:
             return L10n.FirestoreError.ImageDecoding.message
         case .custom(let message):
-            return message
+            switch message {
+            case "can't get the url":
+                return L10n.FirestoreError.WrongURL.message
+            case "can't create path to file":
+                return L10n.FirestoreError.WrongPath.message
+            default:
+                return self.localizedDescription
+            }
         }
     }
 
