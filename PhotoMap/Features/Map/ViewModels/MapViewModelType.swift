@@ -13,9 +13,11 @@ protocol MapViewModelInput {
     var enableDiscoveryModeSubject: PassthroughSubject<GestureType, Never> { get }
     var navigationButtonSubject: PassthroughSubject<UIControl, Never> { get }
     var photoButtonSubject: PassthroughSubject<CLLocationCoordinate2D?, Never> { get }
+    var loadUserPhotosSubject: PassthroughSubject<MKMapRect, FirestoreError> { get }
 }
 
 protocol MapViewModelOutput {
+    var photos: [Photo] { get }
     var isShowUserLocation: Bool { get }
     var region: MKCoordinateRegion? { get }
     var modeButtonCollor: UIColor { get }

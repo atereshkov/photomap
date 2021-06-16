@@ -76,6 +76,7 @@
 "firestore-error.non-matching-checksum.message" = "Uploading did failed. Try uploading again.";
 "firestore-error.no-rules.message" = "You don't have enough rights. Contact technical support.";
 "firestore-error.image-decoding.message" = "Image processing error. Please, try reload or choose another photo.";
+"firestore-error.not-found.message" = "Not found.";
 
 // MARK: - Categories Screen
 "categories.navigationItem.title" = "Categories";

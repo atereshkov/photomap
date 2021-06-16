@@ -73,6 +73,10 @@ internal enum L10n {
       /// Uploading did failed. Try uploading again.
       internal static let message = L10n.tr("Localizable", "firestore-error.non-matching-checksum.message")
     }
+    internal enum NotFound {
+      /// Not found.
+      internal static let message = L10n.tr("Localizable", "firestore-error.not-found.message")
+    }
     internal enum UnavailableLocalService {
       /// Service unavailable. Try again.
       internal static let message = L10n.tr("Localizable", "firestore-error.unavailable-local-service.message")

@@ -29,7 +29,7 @@ final class FirestoreService: FirestoreServiceType {
                                                             .joined(separator: Separator.slash))
             userPhotosReference?.order(by: PhotoField.date, descending: true).getDocuments { snapshot, error in
                 if let error = error {
-                    promise(.failure(.custom(error.localizedDescription)))
+                    promise(.failure(FirestoreError(error)))
                 } else {
                     guard let documents = snapshot?.documents else {
                         promise(.success([]))
@@ -109,7 +109,7 @@ final class FirestoreService: FirestoreServiceType {
 
                 photoRef.downloadURL { (url, error) in
                     if let error = error { return promise(.failure(FirestoreError(error))) }
-                    guard let receiveUrl = url else { return promise(.failure(.nonMatchingChecksum)) }
+                    guard let receiveUrl = url else { return promise(.failure(.notFound)) }
                     promise(.success(receiveUrl))
                 }
             }
@@ -118,7 +118,7 @@ final class FirestoreService: FirestoreServiceType {
 
     /// At the function `func getCategories()` used for receive all categories and transform `category id` to `Category` object
     func getPhotos(by visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
-        getUserMarkers(by: visibleRect)
+        getReceivePhotos(by: visibleRect)
             .flatMap { [unowned self] receivePhotos in
                 self.getCategories()
                     .map { categories -> [Photo] in
@@ -131,7 +131,7 @@ final class FirestoreService: FirestoreServiceType {
             }.eraseToAnyPublisher()
     }
 
-    func getUserMarkers(by visibleRect: MKMapRect) -> Future<[ReceivePhoto], FirestoreError> {
+    private func getReceivePhotos(by visibleRect: MKMapRect) -> Future<[ReceivePhoto], FirestoreError> {
         Future { [weak self] promise in
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
             let userPhotosReference = self?.db.collection(Path.photosCollection)

@@ -8,17 +8,21 @@
 import XCTest
 import Combine
 import CoreLocation
+import MapKit
 @testable import PhotoMap
 
 class MapViewModelTests: XCTestCase {
     var viewModel: MapViewModelType!
     var coordinator: MapCoordinator!
     var diContainer: DIContainerType!
+    var firestoreService: FirestoreServiceMock!
     var cancelBag: CancelBag!
 
     override func setUpWithError() throws {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
+        let serviceType: FirestoreServiceType = diContainer.resolve()
+        firestoreService = serviceType as? FirestoreServiceMock
         coordinator = MapCoordinator(diContainer: diContainer)
         viewModel = MapViewModel(coordinator: coordinator, diContainer: diContainer)
     }
@@ -28,10 +32,7 @@ class MapViewModelTests: XCTestCase {
         diContainer = nil
         coordinator = nil
         viewModel = nil
-    }
-
-    func testTabTitle_Title_ShouldEqual() {
-        XCTAssertEqual(viewModel.tabTitle, L10n.Main.TabBar.Map.title)
+        firestoreService = nil
     }
 
     func testModeButtonColor_ShouldEqual() {
@@ -158,5 +159,58 @@ class MapViewModelTests: XCTestCase {
 
         // Assert
         XCTAssertFalse(viewModel.isFollowModeOn)
+    }
+
+    func testLoadPhotosForVisibleArea_WithExistingPhotos_ShouldReturnPhotos() {
+        // Arrange
+        guard let viewModel = viewModel as? MapViewModel else {
+            XCTAssertTrue(false)
+            return
+        }
+
+        let expectation = XCTestExpectation()
+        firestoreService.photos = getPhotos()
+
+        // Act
+        viewModel.$photos
+            .dropFirst()
+            .sink { _ in expectation.fulfill() }
+            .store(in: cancelBag)
+
+        viewModel.loadUserPhotosSubject.send(MKMapRect())
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertFalse(viewModel.photos.isEmpty)
+    }
+
+    func testLoadPhotosForVisibleArea_WithoutPhotos_ShouldReturnEmptyArray() {
+        // Arrange
+        guard let viewModel = viewModel as? MapViewModel else {
+            XCTAssertTrue(false)
+            return
+        }
+
+        let expectation = XCTestExpectation()
+        firestoreService.photos = nil
+
+        // Act
+        viewModel.$photos
+            .dropFirst()
+            .sink { _ in expectation.fulfill() }
+            .store(in: cancelBag)
+
+        viewModel.loadUserPhotosSubject.send(MKMapRect())
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(viewModel.photos.isEmpty)
+    }
+
+    private func getPhotos() -> [Photo] {
+        // swiftlint:disable line_length
+        [Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+         Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))]
+        // swiftlint:enable line_length
     }
 }
