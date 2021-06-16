@@ -55,7 +55,7 @@ class TimelineViewModel: TimelineViewModelType {
     
     // MARK: - Output
     func createCellViewModel(with marker: Marker) -> TimelineCellViewModel {
-        return TimelineCellViewModel(firestoreService: self.firestoreService, marker: marker)
+        return TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
     }
     
     var reloadDataSubject = PassthroughSubject<Void, Never>()

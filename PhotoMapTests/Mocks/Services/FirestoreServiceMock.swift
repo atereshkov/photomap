@@ -19,6 +19,9 @@ class FirestoreServiceMock {
     var categories: [PhotoMap.Category]?
     var getCategoriesCalled = false
     var getCategoriesEndWithValues = false
+    var downloadImageURL: URL?
+    var downloadImageCalled = false
+    var downloadImageEndWithURL = false
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
@@ -55,6 +58,19 @@ extension FirestoreServiceMock: FirestoreServiceType {
                 self?.getMarkersEndWithValues = true
                 promise(.success(markers))
             }
+        }
+    }
+    
+    func downloadImage(with: URL?) -> Future<URL?, FirestoreError> {
+        Future { [weak self] promise in
+            self?.downloadImageCalled = true
+            guard self?.userId != nil else { return promise(.failure(.noCurrentUserId)) }
+            guard let fileURL = self?.downloadImageURL else { return promise(.failure(.custom(L10n.FirestoreError.WrongURL.message))) }
+            if let error = self?.error {
+                return promise(.failure(.custom(error.localizedDescription)))
+            }
+            self?.downloadImageEndWithURL = true
+            promise(.success(fileURL))
         }
     }
 }

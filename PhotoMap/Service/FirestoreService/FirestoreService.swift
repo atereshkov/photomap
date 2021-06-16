@@ -15,6 +15,11 @@ final class FirestoreService: FirestoreServiceType {
     private let db = Firestore.firestore()
     private let storage = Storage.storage().reference(withPath: Path.userImages)
     private let currentUserId = Auth.auth().currentUser?.uid
+    private let fileManagerService: FileManagerServiceType
+    
+    init(fileManagerService: FileManagerServiceType) {
+        self.fileManagerService = fileManagerService
+    }
     
     func getUserMarkers() -> Future<[Marker], FirestoreError> {
         return Future { [weak self] promise in
@@ -34,11 +39,7 @@ final class FirestoreService: FirestoreServiceType {
                         promise(.success([]))
                         return
                     }
-                    var markers = [Marker]()
-                    for document in documents {
-                        let marker = Marker(dictionary: document.data())
-                        markers.append(marker)
-                    }
+                    let markers = documents.map { Marker(dictionary: $0.data(), fileManagerService: self?.fileManagerService) }
                     promise(.success(markers))
                 }
             }
@@ -120,17 +121,14 @@ final class FirestoreService: FirestoreServiceType {
     
     func downloadImage(with url: URL?) -> Future<URL?, FirestoreError> {
         Future { [weak self] promise in
-            guard self?.currentUserId != nil else {
-                return promise(.failure(.noCurrentUserId))
-            }
+            guard self?.currentUserId != nil else { return promise(.failure(.noCurrentUserId)) }
+            guard let url = url else { return promise(.failure(.custom(L10n.FirestoreError.WrongURL.message))) }
             
-            guard let url = url else { return promise(.failure(.custom("can't get the url"))) }
             let photoReference = Storage.storage().reference(forURL: url.absoluteString)
-            
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             let fileName = "\(url.absoluteString).\(Path.imageType)"
-            guard let fileURL = documentDirectory?.appendingPathComponent(fileName) else {
-                return promise(.failure(.custom("can't create path to file")))
+            
+            guard let fileURL = self?.fileManagerService.configureFilePath(for: fileName) else {
+                return promise(.failure(.custom(L10n.FirestoreError.WrongPath.message)))
             }
             
             photoReference.write(toFile: fileURL) { url, error in

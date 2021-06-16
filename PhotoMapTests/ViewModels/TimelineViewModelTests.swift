@@ -47,7 +47,7 @@ class TimelineViewModelTests: XCTestCase {
     func testIfGettingMarksThenIndicatorShouldAppear() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        firestoreService.markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        firestoreService.markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
         
         let expectation = XCTestExpectation()
         let expectedValues = [false, true, false]
@@ -79,7 +79,7 @@ class TimelineViewModelTests: XCTestCase {
     func testIfAuthorizedThenGetMarksShouldBeCalledWithValues() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        firestoreService.markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        firestoreService.markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
         
         let expectation = XCTestExpectation()
         
@@ -101,7 +101,7 @@ class TimelineViewModelTests: XCTestCase {
         firestoreService.userHasDocuments = true
         let markers = [
             Marker(category: "Nature", date: Date(), description: "nature",
-                   hashtags: ["#nature"], photoURLString: "url", location: (15, 28))
+                   hashtags: ["#nature"], images: ["url"], location: nil)
         ]
         firestoreService.markers = markers
         
@@ -122,7 +122,7 @@ class TimelineViewModelTests: XCTestCase {
         firestoreService.userHasDocuments = true
         let markers = [
             Marker(category: "Nature", date: Date(), description: "nature",
-                   hashtags: ["#nature"], photoURLString: "url", location: (15, 28))
+                   hashtags: ["#nature"], images: ["url"], location: nil)
         ]
         firestoreService.markers = markers
         
@@ -144,7 +144,7 @@ class TimelineViewModelTests: XCTestCase {
     func testIfGetValuesShouldReturnNumberOfRows() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        let markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        let markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
         firestoreService.markers = markers
         
         let expectedNumberOfRows = markers.count

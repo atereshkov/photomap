@@ -32,8 +32,16 @@ class DIContainer: DIContainerType {
             return LocationService()
         }.inObjectScope(.container)
         
-        container.register(FirestoreServiceType.self) { _ in FirestoreService() }
-            .inObjectScope(.container)
+        container.register(FileManagerServiceType.self) { _ -> FileManagerServiceType in
+            return FileManagerService(fileManager: FileManager.default)
+        }.inObjectScope(.container)
+        
+        container.register(FirestoreServiceType.self) { resolver in
+            guard let fileManagerService = resolver.resolve(FileManagerServiceType.self) else {
+                fatalError("File Manager Service does not exist")
+            }
+            return FirestoreService(fileManagerService: fileManagerService)
+        }.inObjectScope(.container)
     }
     
     func resolve<T>() -> T {
