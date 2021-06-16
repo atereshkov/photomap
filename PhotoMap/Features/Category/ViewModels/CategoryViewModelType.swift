@@ -15,6 +15,7 @@ protocol CategoryViewModelTypeInput {
 }
 
 protocol CategoryViewModelTypeOutput {
+    var doneButtonIsEnabled: CurrentValueSubject<Bool, Never> { get } 
     var reloadDataSubject: PassthroughSubject<Void, Never> { get }
     var loadingPublisher: AnyPublisher<Bool, Never> { get }
     func getNumberOfRows() -> Int
