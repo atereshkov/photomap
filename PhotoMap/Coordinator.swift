@@ -8,9 +8,10 @@
 import UIKit
 import Combine
 
-protocol Coordinator {
+protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get }
     var navigationController: UINavigationController { get }
+    func childDidFinish(_ childCoordinator: Coordinator)
 }
 
 extension Coordinator {
@@ -34,4 +35,6 @@ extension Coordinator {
         alert.addAction(cancelAction)
         navigationController.present(alert, animated: true)
     }
+    
+    func childDidFinish(_ childCoordinator: Coordinator) {}
 }

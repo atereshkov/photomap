@@ -8,8 +8,11 @@
 import UIKit
 import Combine
 
-class TimelineCoordinator: Coordinator {
-    
+protocol CategoriesProtocol {
+    var doneButtonPressedWithCategoriesSubject: PassthroughSubject<[Category], Never> { get }
+}
+
+class TimelineCoordinator: Coordinator, CategoriesProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private let diContainer: DIContainerType
@@ -17,6 +20,7 @@ class TimelineCoordinator: Coordinator {
     
     private(set) var categoryButtonTapped = PassthroughSubject<UIBarButtonItem, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private(set) var doneButtonPressedWithCategoriesSubject = PassthroughSubject<[Category], Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -53,10 +57,14 @@ class TimelineCoordinator: Coordinator {
     
     private func presentCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
+        coordinator.parentCoordinator = self
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
         navigationController.present(categoryNavigationVC, animated: true)
         childCoordinators.append(coordinator)
     }
     
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
+    }
 }
