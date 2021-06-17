@@ -35,93 +35,78 @@ class MapViewModelTests: XCTestCase {
         firestoreService = nil
     }
 
-    func testModeButtonColor_ShouldEqual() {
-        // Arrange
-        XCTAssertEqual(viewModel.modeButtonCollor, Asset.followModeColor.color)
-
-        // Act
-        viewModel.navigationButtonSubject.send(UIControl())
-
-        // Assert
-        XCTAssertEqual(viewModel.modeButtonCollor, Asset.discoverModeColor.color)
-    }
-
-    func testIsShowUserLocation_EnableLocation_ShouldBeTrue() {
-        // Arrange
-        var isEqual = false
-        XCTAssertFalse(viewModel.isShowUserLocation)
-        let locationService: LocationServiceType = diContainer.resolve()
-        guard let mockService = locationService as? LocationServiceMock else {
-            XCTAssertNotNil(nil, "Typecast Error!")
-            return
-        }
-
-        // Act
-        mockService.status
-            .sink { status in
-                isEqual = status == .authorizedWhenInUse
-            }
-            .store(in: cancelBag)
-
-        mockService.enableService()
-
-        // Assert
-        XCTAssertTrue(viewModel.isShowUserLocation)
-        XCTAssertTrue(isEqual)
-    }
-
-    func  testIsShowUserLocation_DisableLocation_ShouldBeFalse() {
-        // Arrange
-        var isEqual = false
-        XCTAssertFalse(viewModel.isShowUserLocation)
-        let locationService: LocationServiceType = diContainer.resolve()
-        guard let mockService = locationService as? LocationServiceMock else {
-            XCTAssertNotNil(nil, "Typecast Error!")
-            return
-        }
-        
-        // Act
-        mockService.status
-            .sink { status in
-                isEqual = status == .denied
-            }
-            .store(in: cancelBag)
-
-        mockService.enableService()
-        mockService.disableService()
-
-        // Assert
-        XCTAssertFalse(viewModel.isShowUserLocation)
-        XCTAssertTrue(isEqual)
-    }
-
-    func testRegion_ShouldBeNotNil() {
-        XCTAssertNotNil(viewModel.region)
-    }
-
-    func testTapOnMap_FolowModeOn_ShouldOnDiscoveryMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        viewModel.enableDiscoveryModeSubject.send(.tap())
-
-        XCTAssertFalse(viewModel.isFollowModeOn)
-    }
-
-    func testTapOnPhotoButton_FolowModeOn_ShouldOnDiscoveryMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        viewModel.photoButtonSubject.send(CLLocationCoordinate2D())
-
-        XCTAssertFalse(viewModel.isFollowModeOn)
-    }
-
-    func testTapOnCategoryButton_FolowModeOn_ShouldOnDiscoveryMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        viewModel.categoryButtonSubject.send(UIControl())
-
-        XCTAssertFalse(viewModel.isFollowModeOn)
-    }
+//    func testIsShowUserLocation_EnableLocation_ShouldBeTrue() {
+//        // Arrange
+//        var isEqual = false
+//        XCTAssertFalse(viewModel.isShowUserLocation)
+//        let locationService: LocationServiceType = diContainer.resolve()
+//        guard let mockService = locationService as? LocationServiceMock else {
+//            XCTAssertNotNil(nil, "Typecast Error!")
+//            return
+//        }
+//
+//        // Act
+//        mockService.status
+//            .sink { status in
+//                isEqual = status == .authorizedWhenInUse
+//            }
+//            .store(in: cancelBag)
+//
+//        mockService.enableService()
+//
+//        // Assert
+//        XCTAssertTrue(viewModel.isShowUserLocation)
+//        XCTAssertTrue(isEqual)
+//    }
+//
+//    func  testIsShowUserLocation_DisableLocation_ShouldBeFalse() {
+//        // Arrange
+//        var isEqual = false
+//        XCTAssertFalse(viewModel.isShowUserLocation)
+//        let locationService: LocationServiceType = diContainer.resolve()
+//        guard let mockService = locationService as? LocationServiceMock else {
+//            XCTAssertNotNil(nil, "Typecast Error!")
+//            return
+//        }
+//        
+//        // Act
+//        mockService.status
+//            .sink { status in
+//                isEqual = status == .denied
+//            }
+//            .store(in: cancelBag)
+//
+//        mockService.enableService()
+//        mockService.disableService()
+//
+//        // Assert
+//        XCTAssertFalse(viewModel.isShowUserLocation)
+//        XCTAssertTrue(isEqual)
+//    }
+//
+//    func testTapOnMap_FolowModeOn_ShouldOnDiscoveryMode() {
+//        XCTAssertTrue(viewModel.isFollowModeOn)
+//
+//        viewModel.enableDiscoveryModeSubject.send(.tap())
+//
+//        XCTAssertFalse(viewModel.isFollowModeOn)
+//    }
+//
+//    func testTapOnPhotoButton_FolowModeOn_ShouldOnDiscoveryMode() {
+//        XCTAssertTrue(viewModel.isFollowModeOn)
+//
+//        viewModel.photoButtonSubject.send(CLLocationCoordinate2D())
+//
+//        XCTAssertFalse(viewModel.isFollowModeOn)
+//    }
+//
+//    func testTapOnCategoryButton_FolowModeOn_ShouldOnDiscoveryMode() {
+//        XCTAssertTrue(viewModel.isFollowModeOn)
+//
+//        viewModel.categoryButtonSubject.send(UIControl())
+//
+//        XCTAssertFalse(viewModel.isFollowModeOn)
+//    }
 
     func testTapOnPhotoButton_ShouldShowPhotoAlert() {
         // Arrange
@@ -140,26 +125,26 @@ class MapViewModelTests: XCTestCase {
         XCTAssertTrue(isShow)
     }
 
-    func testTapOnNavigationButton_ShouldSwitchMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        viewModel.navigationButtonSubject.send(UIControl())
-        XCTAssertFalse(viewModel.isFollowModeOn)
-        
-        viewModel.navigationButtonSubject.send(UIControl())
-        XCTAssertTrue(viewModel.isFollowModeOn)
-    }
-
-    func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
-        // Arrange
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        // Act
-        viewModel.categoryButtonSubject.send(UIControl())
-
-        // Assert
-        XCTAssertFalse(viewModel.isFollowModeOn)
-    }
+//    func testTapOnNavigationButton_ShouldSwitchMode() {
+//        XCTAssertTrue(viewModel.isFollowModeOn)
+//
+//        viewModel.navigationButtonSubject.send(UIControl())
+//        XCTAssertFalse(viewModel.isFollowModeOn)
+//
+//        viewModel.navigationButtonSubject.send(UIControl())
+//        XCTAssertTrue(viewModel.isFollowModeOn)
+//    }
+//
+//    func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
+//        // Arrange
+//        XCTAssertTrue(viewModel.isFollowModeOn)
+//
+//        // Act
+//        viewModel.categoryButtonSubject.send(UIControl())
+//
+//        // Assert
+//        XCTAssertFalse(viewModel.isFollowModeOn)
+//    }
 
     func testLoadPhotosForVisibleArea_WithExistingPhotos_ShouldReturnPhotos() {
         // Arrange

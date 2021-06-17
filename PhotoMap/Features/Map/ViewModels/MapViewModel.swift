@@ -14,24 +14,19 @@ class MapViewModel: NSObject, MapViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
     private let coordinator: MapCoordinator
-    private let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     private let diContainer: DIContainerType
     private let locationService: LocationServiceType
     private let firestoreService: FirestoreServiceType
 
     // MARK: - Input
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
-    private(set) var enableDiscoveryModeSubject = PassthroughSubject<GestureType, Never>()
-    private(set) var navigationButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var photoButtonSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
     private(set) var loadUserPhotosSubject = PassthroughSubject<MKMapRect, FirestoreError>()
 
     // MARK: - Output
     @Published private(set) var photos: [Photo] = []
-    @Published private(set) var isShowUserLocation: Bool = true
-    @Published private(set) var region: MKCoordinateRegion?
-    @Published private(set) var modeButtonCollor: UIColor = Asset.followModeColor.color
-    @Published private(set) var isFollowModeOn: Bool = true
+    @Published private(set) var modeButtonTintColor: UIColor = Asset.followModeColor.color
+    @Published private(set) var userTrackingMode: MKUserTrackingMode = .follow
 
     init(coordinator: MapCoordinator,
          diContainer: DIContainerType) {
@@ -46,28 +41,9 @@ class MapViewModel: NSObject, MapViewModelType {
     }
 
     private func transform() {
-        locationService.isEnable
-            .assign(to: \.isShowUserLocation, on: self)
-            .store(in: cancelBag)
-
-        locationService.location
-            .sink { [weak self] location in
-                guard let self = self,
-                      self.isFollowModeOn else { return }
-
-                self.region = MKCoordinateRegion(center: location.coordinate, span: self.coordinateSpan)
-            }
-            .store(in: cancelBag)
-
         categoryButtonSubject
             .sink { [weak self] _ in
-                self?.switchFollowDiscoveryMode(disableFolowMode: true)
-            }
-            .store(in: cancelBag)
-
-        enableDiscoveryModeSubject
-            .sink { [weak self] _ in
-                self?.switchFollowDiscoveryMode(disableFolowMode: true)
+                self?.enableDiscoveryMode()
             }
             .store(in: cancelBag)
 
@@ -75,15 +51,9 @@ class MapViewModel: NSObject, MapViewModelType {
             .sink { [weak self] receiveCoordinate in
                 guard let self = self else { return }
 
-                self.switchFollowDiscoveryMode(disableFolowMode: true)
+                self.enableDiscoveryMode()
                 let coordinate = receiveCoordinate != nil ? receiveCoordinate : self.locationService.currentCoordinate
                 self.coordinator.showPhotoMenuAlertSubject.send(coordinate)
-            }
-            .store(in: cancelBag)
-
-        navigationButtonSubject
-            .sink { [weak self] _ in
-                self?.switchFollowDiscoveryMode()
             }
             .store(in: cancelBag)
 
@@ -103,9 +73,8 @@ class MapViewModel: NSObject, MapViewModelType {
             .store(in: cancelBag)
     }
 
-    private func switchFollowDiscoveryMode(disableFolowMode: Bool = false) {
-        isFollowModeOn = disableFolowMode ? !disableFolowMode : !isFollowModeOn
-        modeButtonCollor = isFollowModeOn ? Asset.followModeColor.color : Asset.discoverModeColor.color
+    private func enableDiscoveryMode() {
+        userTrackingMode = .none
     }
 
     private func сompletionHandler(completion: Subscribers.Completion<FirestoreError>) {
@@ -115,12 +84,6 @@ class MapViewModel: NSObject, MapViewModelType {
         case .finished:
             return
         }
-    }
-
-    private func isChangedCoordinate(last: CLLocationCoordinate2D) -> Bool {
-        guard let previous = region?.center else { return true }
-
-        return last.latitude != previous.latitude || last.longitude != previous.longitude
     }
 }
 
@@ -152,5 +115,18 @@ extension MapViewModel: MKMapViewDelegate {
                  calloutAccessoryControlTapped control: UIControl) {
         guard let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
         // Open FullPhoto screen
+    }
+
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        switch mode {
+        case .follow:
+            modeButtonTintColor = Asset.followModeColor.color
+        case .none:
+            modeButtonTintColor = Asset.discoverModeColor.color
+        case .followWithHeading:
+            enableDiscoveryMode()
+        @unknown default:
+        fatalError()
+        }
     }
 }

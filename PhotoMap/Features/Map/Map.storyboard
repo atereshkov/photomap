@@ -21,14 +21,6 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="con-EB-4hb">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-GJ-qIS">
-                                <rect key="frame" x="354" y="52.5" width="40" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="nOd-0v-jtE"/>
-                                    <constraint firstAttribute="height" constant="40" id="wz3-9u-ERA"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="location.circle" catalog="system"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBe-qO-7bO">
                                 <rect key="frame" x="20" y="49.5" width="55" height="39.5"/>
                                 <constraints>
@@ -39,7 +31,7 @@
                                 <state key="normal" backgroundImage="list.bullet" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azD-Rc-SEl">
-                                <rect key="frame" x="264" y="52.5" width="50" height="38"/>
+                                <rect key="frame" x="264" y="49.5" width="50" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="cnd-8p-vfC"/>
                                     <constraint firstAttribute="height" constant="40" id="og1-BA-WCU"/>
@@ -51,14 +43,12 @@
                         <viewLayoutGuide key="safeArea" id="LeX-6U-nxQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Zz9-GJ-qIS" firstAttribute="leading" secondItem="azD-Rc-SEl" secondAttribute="trailing" constant="40" id="Cvf-Rd-gKP"/>
                             <constraint firstItem="pBe-qO-7bO" firstAttribute="leading" secondItem="LeX-6U-nxQ" secondAttribute="leading" constant="20" id="IF4-Fo-aZz"/>
-                            <constraint firstItem="Zz9-GJ-qIS" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="8" id="LhL-cA-ohO"/>
-                            <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="Zz9-GJ-qIS" secondAttribute="trailing" constant="20" id="OT8-NP-gaC"/>
                             <constraint firstItem="pBe-qO-7bO" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="3" id="WT1-5c-tid"/>
-                            <constraint firstItem="azD-Rc-SEl" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="8" id="eNU-VS-hEl"/>
+                            <constraint firstItem="azD-Rc-SEl" firstAttribute="top" secondItem="LeX-6U-nxQ" secondAttribute="top" constant="5" id="eNU-VS-hEl"/>
                             <constraint firstItem="con-EB-4hb" firstAttribute="leading" secondItem="LeX-6U-nxQ" secondAttribute="leading" id="fDe-a6-Nkq"/>
                             <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="con-EB-4hb" secondAttribute="trailing" id="iWk-Cx-MIZ"/>
+                            <constraint firstItem="LeX-6U-nxQ" firstAttribute="trailing" secondItem="azD-Rc-SEl" secondAttribute="trailing" constant="100" id="mAp-jg-Ojz"/>
                             <constraint firstItem="con-EB-4hb" firstAttribute="top" secondItem="EGV-a0-fOZ" secondAttribute="top" id="qrC-li-5ax"/>
                             <constraint firstItem="LeX-6U-nxQ" firstAttribute="bottom" secondItem="con-EB-4hb" secondAttribute="bottom" id="sKV-P8-fIw"/>
                         </constraints>
@@ -66,7 +56,6 @@
                     <connections>
                         <outlet property="categoryButton" destination="pBe-qO-7bO" id="N7L-SB-Gov"/>
                         <outlet property="mapView" destination="con-EB-4hb" id="UqV-k1-FWD"/>
-                        <outlet property="navigationButton" destination="Zz9-GJ-qIS" id="fZR-Ed-ARb"/>
                         <outlet property="photoButton" destination="azD-Rc-SEl" id="vIq-pb-bhb"/>
                     </connections>
                 </viewController>
@@ -78,7 +67,6 @@
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
-        <image name="location.circle" catalog="system" width="128" height="121"/>
         <namedColor name="discoverModeColor">
             <color red="0.37299999594688416" green="0.36100000143051147" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
