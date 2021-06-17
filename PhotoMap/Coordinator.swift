@@ -7,9 +7,10 @@
 
 import UIKit
 
-protocol Coordinator {
+protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get }
     var navigationController: UINavigationController { get }
+    func childDidFinish(_ childCoordinator: Coordinator)
 }
 
 extension Coordinator {
@@ -23,4 +24,6 @@ extension Coordinator {
 
         return alert
     }
+    
+    func childDidFinish(_ childCoordinator: Coordinator) {}
 }

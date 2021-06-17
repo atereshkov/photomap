@@ -161,4 +161,75 @@ class TimelineViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.getNumberOfRows(in: markers.count - 1), expectedNumberOfRows)
     }
     
+    func testWhenGettingCategoriesShouldFilterMarkersCorrectly() {
+        guard let viewModel = viewModel as? TimelineViewModel else { return }
+        
+        firestoreService.userId = "id"
+        firestoreService.userHasDocuments = true
+        let markers = [
+            Marker(category: "NATURE", date: Date(), photoURLString: "url", location: nil),
+            Marker(category: "NATURE", date: Date(), photoURLString: "url", location: nil),
+            Marker(category: "DEFAULT", date: Date(), photoURLString: "url", location: nil),
+            Marker(category: "FRIENDS", date: Date(), photoURLString: "url", location: nil),
+            Marker(category: "FRIENDS", date: Date(), photoURLString: "url", location: nil),
+            Marker(category: "FRIENDS", date: Date(), photoURLString: "url", location: nil)
+        ]
+        firestoreService.markers = markers
+        
+        let categories = [
+            PhotoMap.Category(id: "1", name: "DEFAULT", color: "blue"),
+            PhotoMap.Category(id: "2", name: "NATURE", color: "green")
+        ]
+        
+        let expectedNumberOfMarkers = markers.filter { $0.category ==  "DEFAULT" || $0.category == "NATURE" }.count
+        let expectedNumberOfTitles = Set(markers.map { $0.date.monthAndYear }).count
+        let expectation = XCTestExpectation()
+        
+        viewModel.reloadDataSubject.dropFirst().sink(receiveValue: { _ in
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
+        viewModel.viewDidLoadSubject.send()
+        coordinator.doneButtonPressedWithCategoriesSubject.send(categories)
+        wait(for: [expectation], timeout: 2)
+        
+        XCTAssertEqual(viewModel.categorizedMarkers.values.flatMap { $0 }.count, expectedNumberOfMarkers)
+        XCTAssertEqual(viewModel.headerTitles.count, expectedNumberOfTitles)
+    }
+    
+    func testWhenPressCategoryButtonCoordinatorShouldShowCategoryScreen() {
+        let expectation = XCTestExpectation()
+        var presentCategoryScreenCalled = false
+        
+        coordinator.categoryButtonTapped.sink(receiveValue: { _ in
+            presentCategoryScreenCalled = true
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
+        viewModel.categoryButtonSubject.send(UIBarButtonItem())
+        wait(for: [expectation], timeout: 2)
+        
+        XCTAssertTrue(presentCategoryScreenCalled)
+    }
+    
+    func testIfErrorOccurredCoordinatorShouldShowErrorAlert() {
+        guard let viewModel = viewModel as? TimelineViewModel else { return }
+        
+        let expectation = XCTestExpectation()
+        var showErrorAlertCalled = false
+        
+        coordinator.showErrorAlertSubject.sink(receiveValue: { _ in
+            showErrorAlertCalled = true
+            expectation.fulfill()
+        })
+        .store(in: cancelBag)
+        
+        viewModel.showErrorSubject.send(FirestoreError.custom("error"))
+        wait(for: [expectation], timeout: 2)
+        
+        XCTAssertTrue(showErrorAlertCalled)
+    }
+    
 }

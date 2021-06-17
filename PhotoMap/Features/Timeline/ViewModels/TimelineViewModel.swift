@@ -13,8 +13,9 @@ class TimelineViewModel: TimelineViewModelType {
     // MARK: - Variables
     private let coordinator: TimelineCoordinator
     private let firestoreService: FirestoreServiceType
-    private var markers = [String: [Marker]]()
-    private var headerTitles = [String]()
+    private var allMarkers = [String: [Marker]]()
+    private(set) var categorizedMarkers = [String: [Marker]]()
+    private(set) var headerTitles = [String]()
     private var searchingMarkers = [String: [Marker]]()
     private var searchingHeaderTitles = [String]()
     private let cancelBag = CancelBag()
@@ -27,23 +28,42 @@ class TimelineViewModel: TimelineViewModelType {
     }
     
     private func transform() {
-        searchTextSubject.debounce(for: .seconds(1.0), scheduler: DispatchQueue.main)
+        searchTextSubject.debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] hashtag in
                 self?.searchMarkersWith(hashtag: hashtag.trim())
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
         
-        categoryButtonSubject.subscribe(coordinator.categoryButtonTapped)
+        categoryButtonSubject
+            .subscribe(coordinator.categoryButtonTapped)
             .store(in: cancelBag)
         
-        showErrorSubject.subscribe(coordinator.showErrorAlertSubject)
+        showErrorSubject
+            .subscribe(coordinator.showErrorAlertSubject)
             .store(in: cancelBag)
         
         viewDidLoadSubject.sink(receiveValue: { [weak self] in
             self?.getUserMarkers()
         })
         .store(in: cancelBag)
+        
+        coordinator.doneButtonPressedWithCategoriesSubject
+            .subscribe(selectedCategoriesSubject)
+            .store(in: cancelBag)
+        
+        selectedCategoriesSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] categories in
+                let categoriesTitles = categories.map { String($0.name) }
+                let markers = self?.allMarkers.values.flatMap { $0 }.filter { categoriesTitles.contains($0.category) }
+                let results = self?.configureDataSource(with: markers ?? [])
+                self?.categorizedMarkers = results?.markers ?? [:]
+                self?.headerTitles = results?.titles ?? []
+                self?.searchTextSubject.value = ""
+                self?.reloadDataSubject.send()
+            })
+            .store(in: cancelBag)
     }
     
     // MARK: - Input
@@ -51,6 +71,7 @@ class TimelineViewModel: TimelineViewModelType {
     let categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
     let searchTextSubject = CurrentValueSubject<String, Never>.init("")
+    private let selectedCategoriesSubject = PassthroughSubject<[Category], Never>()
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output
@@ -69,12 +90,12 @@ class TimelineViewModel: TimelineViewModelType {
     }
     
     var numberOfSections: Int {
-        return isSearching ? searchingMarkers.count : markers.count
+        return isSearching ? searchingMarkers.count : categorizedMarkers.count
     }
     
     func getMarker(at indexPath: IndexPath) -> Marker? {
         guard let key = isSearching ? searchingHeaderTitles[at: indexPath.section] : headerTitles[at: indexPath.section] else { return nil }
-        guard let markers = isSearching ? searchingMarkers[key] : markers[key] else { return nil }
+        guard let markers = isSearching ? searchingMarkers[key] : categorizedMarkers[key] else { return nil }
         return markers[at: indexPath.row]
     }
     
@@ -84,7 +105,7 @@ class TimelineViewModel: TimelineViewModelType {
     
     func getNumberOfRows(in section: Int) -> Int {
         guard let key = isSearching ? searchingHeaderTitles[at: section] : headerTitles[at: section] else { return 0 }
-        guard let markers = isSearching ? searchingMarkers[key] : markers[key] else { return 0 }
+        guard let markers = isSearching ? searchingMarkers[key] : categorizedMarkers[key] else { return 0 }
         return markers.count
     }
     
@@ -102,7 +123,8 @@ class TimelineViewModel: TimelineViewModelType {
                 }
             }, receiveValue: { [weak self] markers in
                 guard let results = self?.configureDataSource(with: markers) else { return }
-                self?.markers = results.markers
+                self?.allMarkers = results.markers
+                self?.categorizedMarkers = results.markers
                 self?.headerTitles = results.titles
                 self?.reloadDataSubject.send()
             })
@@ -126,12 +148,13 @@ class TimelineViewModel: TimelineViewModelType {
     }
     
     private func searchMarkersWith(hashtag: String) {
-        let allmarkers = self.markers.values.flatMap { $0 }
+        let markers = self.categorizedMarkers.values.flatMap { $0 }
         var filteredMarkers = [Marker]()
         
-        for marker in allmarkers {
+        mainLoop: for marker in markers {
             for tag in marker.hashtags where tag.lowercased().contains(hashtag.lowercased()) {
                 filteredMarkers.append(marker)
+                continue mainLoop
             }
         }
         let results = self.configureDataSource(with: filteredMarkers)
