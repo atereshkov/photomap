@@ -15,11 +15,10 @@ struct Marker {
     var hashtags = [String]()
     let images: [String]
     let location: GeoPoint?
-    var localImageURL: URL?
 }
 
 extension Marker {
-    init(dictionary: [String: Any], fileManagerService: FileManagerServiceType?) {
+    init(dictionary: [String: Any]) {
         category = dictionary["category"] as? String ?? ""
         let timestamp = dictionary["date"] as? Timestamp ?? Timestamp(date: Date())
         date = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))
@@ -27,8 +26,5 @@ extension Marker {
         hashtags = dictionary["hashtags"] as? [String] ?? [String]()
         images = dictionary["images"] as? [String] ?? [String]()
         location = dictionary["point"] as? GeoPoint
-        guard let imageLink = images.first else { return }
-        let fileName = "\(imageLink).png"
-        localImageURL = fileManagerService?.configureFilePath(for: fileName)
     }
 }

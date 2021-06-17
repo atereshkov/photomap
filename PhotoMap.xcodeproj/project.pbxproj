@@ -21,6 +21,7 @@
 		0B1DC43B265E610700BC7B6E /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B1DC43A265E610700BC7B6E /* Timeline.storyboard */; };
 		0B24CC622677675500308E9C /* TimelineCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B24CC612677675500308E9C /* TimelineCellViewModel.swift */; };
 		0B6A6FD7266E17870021E692 /* CategoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */; };
+		0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */; };
 		0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C06D32679F9FB006E9724 /* FileManagerService.swift */; };
 		0BBDEB8E265FABCA007D48C0 /* TimelineCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */; };
 		0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */; };
@@ -160,6 +161,7 @@
 		0B1DC43A265E610700BC7B6E /* Timeline.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		0B24CC612677675500308E9C /* TimelineCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellViewModel.swift; sourceTree = "<group>"; };
 		0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelTests.swift; sourceTree = "<group>"; };
+		0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellViewModelTests.swift; sourceTree = "<group>"; };
 		0B9C06D32679F9FB006E9724 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCoordinatorMock.swift; sourceTree = "<group>"; };
 		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				126CC4192667A9C2008E560D /* SignInViewModelTests.swift */,
 				0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */,
 				0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */,
+				0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1191,6 +1194,7 @@
 				126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */,
 				CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */,
 				0B6A6FD7266E17870021E692 /* CategoryViewModelTests.swift in Sources */,
+				0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */,
 				333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */,
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
 				333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */,

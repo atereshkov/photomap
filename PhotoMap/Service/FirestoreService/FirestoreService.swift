@@ -39,7 +39,7 @@ final class FirestoreService: FirestoreServiceType {
                         promise(.success([]))
                         return
                     }
-                    let markers = documents.map { Marker(dictionary: $0.data(), fileManagerService: self?.fileManagerService) }
+                    let markers = documents.map { Marker(dictionary: $0.data()) }
                     promise(.success(markers))
                 }
             }
@@ -119,23 +119,27 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
     
-    func downloadImage(with url: URL?) -> Future<URL?, FirestoreError> {
+    func downloadImage(with url: URL?) -> Future<UIImage?, FirestoreError> {
         Future { [weak self] promise in
             guard self?.currentUserId != nil else { return promise(.failure(.noCurrentUserId)) }
             guard let url = url else { return promise(.failure(.custom(L10n.FirestoreError.WrongURL.message))) }
             
-            let photoReference = Storage.storage().reference(forURL: url.absoluteString)
             let fileName = "\(url.absoluteString).\(Path.imageType)"
-            
             guard let fileURL = self?.fileManagerService.configureFilePath(for: fileName) else {
                 return promise(.failure(.custom(L10n.FirestoreError.WrongPath.message)))
             }
             
+            if let localImageData = try? Data(contentsOf: fileURL) {
+                return promise(.success(UIImage(data: localImageData)))
+            }
+            
+            let photoReference = Storage.storage().reference(forURL: url.absoluteString)
             photoReference.write(toFile: fileURL) { url, error in
                 if let error = error {
                     return promise(.failure(.custom(error.localizedDescription)))
                 }
-                promise(.success(url))
+                guard let url = url, let imageData = try? Data(contentsOf: url) else { return promise(.failure(.imageDecoding)) }
+                return promise(.success(UIImage(data: imageData)))
             }
         }
     }

@@ -37,11 +37,7 @@ final class TimelineCellViewModel {
         description = marker.description
         date = marker.date.shortDate
         category = marker.category
-        guard let localURL = marker.localImageURL, let image = toImageFromURL(url: localURL) else {
-            downloadImage(for: marker)
-            return
-        }
-        self.image = image
+        downloadImage(for: marker)
     }
     
     private func downloadImage(for marker: Marker) {
@@ -56,14 +52,9 @@ final class TimelineCellViewModel {
                 case .failure(_):
                     self?.image = UIImage(systemName: "photo")
                 }
-            }, receiveValue: { [weak self] url in
-                self?.image = self?.toImageFromURL(url: url)
+            }, receiveValue: { [weak self] image in
+                self?.image = image
             })
             .store(in: cancelBag)
-    }
-    
-    private func toImageFromURL(url: URL?) -> UIImage? {
-        guard let url = url, let imageData = try? Data(contentsOf: url) else { return nil }
-        return UIImage(data: imageData)
     }
 }

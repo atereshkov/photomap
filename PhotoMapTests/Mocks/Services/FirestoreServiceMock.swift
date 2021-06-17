@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import UIKit
 @testable import PhotoMap
 
 class FirestoreServiceMock {
@@ -19,9 +19,9 @@ class FirestoreServiceMock {
     var categories: [PhotoMap.Category]?
     var getCategoriesCalled = false
     var getCategoriesEndWithValues = false
-    var downloadImageURL: URL?
-    var downloadImageCalled = false
-    var downloadImageEndWithURL = false
+    var localImage: UIImage?
+    var downloadImage: UIImage?
+    var downloadImageEndWithImage = false
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
@@ -61,16 +61,21 @@ extension FirestoreServiceMock: FirestoreServiceType {
         }
     }
     
-    func downloadImage(with: URL?) -> Future<URL?, FirestoreError> {
+    func downloadImage(with url: URL?) -> Future<UIImage?, FirestoreError> {
         Future { [weak self] promise in
-            self?.downloadImageCalled = true
             guard self?.userId != nil else { return promise(.failure(.noCurrentUserId)) }
-            guard let fileURL = self?.downloadImageURL else { return promise(.failure(.custom(L10n.FirestoreError.WrongURL.message))) }
+            
+            if let localImage = self?.localImage {
+                self?.downloadImageEndWithImage = true
+                return promise(.success(localImage))
+            }
             if let error = self?.error {
                 return promise(.failure(.custom(error.localizedDescription)))
             }
-            self?.downloadImageEndWithURL = true
-            promise(.success(fileURL))
+            
+            guard let image = self?.downloadImage else { return promise(.failure(.custom("no image provided"))) }
+            self?.downloadImageEndWithImage = true
+            return promise(.success(image))
         }
     }
 }

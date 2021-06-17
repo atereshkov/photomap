@@ -19,7 +19,7 @@ final class FileManagerService: FileManagerServiceType {
     }
     
     func configureFilePath(for fileName: String) -> URL? {
-        let fileURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        let fileURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first
         return fileURL?.appendingPathComponent(fileName)
     }
 }
