@@ -22,19 +22,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBe-qO-7bO">
-                                <rect key="frame" x="20" y="49.5" width="55" height="39.5"/>
+                                <rect key="frame" x="20" y="49.5" width="40" height="29.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="55" id="EbM-GF-4dy"/>
-                                    <constraint firstAttribute="height" constant="45" id="iNS-cq-TrP"/>
+                                    <constraint firstAttribute="width" constant="40" id="EbM-GF-4dy"/>
+                                    <constraint firstAttribute="height" constant="35" id="iNS-cq-TrP"/>
                                 </constraints>
                                 <color key="tintColor" name="discoverModeColor"/>
                                 <state key="normal" backgroundImage="list.bullet" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azD-Rc-SEl">
-                                <rect key="frame" x="264" y="49.5" width="50" height="38"/>
+                                <rect key="frame" x="274" y="49.5" width="40" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="cnd-8p-vfC"/>
-                                    <constraint firstAttribute="height" constant="40" id="og1-BA-WCU"/>
+                                    <constraint firstAttribute="width" constant="40" id="cnd-8p-vfC"/>
+                                    <constraint firstAttribute="height" constant="35" id="og1-BA-WCU"/>
                                 </constraints>
                                 <color key="tintColor" name="discoverModeColor"/>
                                 <state key="normal" backgroundImage="camera.fill" catalog="system"/>

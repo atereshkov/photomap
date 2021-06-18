@@ -21,7 +21,7 @@ class MapViewController: BaseViewController {
     private lazy var userTrackingButton: MKUserTrackingButton = {
         let button = MKUserTrackingButton(mapView: mapView)
         button.layer.cornerRadius = button.frame.size.height / 2
-        button.frame.size = CGSize(width: 40, height: 40)
+        button.frame.size = CGSize(width: 30, height: 30)
         button.clipsToBounds = true
         button.layer.backgroundColor = UIColor.clear.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +64,9 @@ class MapViewController: BaseViewController {
             .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
 
+        mapView.gesture(.tap())
+            .subscribe(viewModel.tapMapViewGestureSubject)
+            .store(in: cancelBag)
         mapView.gesture(.longPress())
             .map { [weak self] gestureType in
                 self?.getCoordinate(by: gestureType)
@@ -83,7 +86,7 @@ class MapViewController: BaseViewController {
             .store(in: cancelBag)
     }
 
-    private func getCoordinate(by gestureType: GesturePublisher.Output) -> CLLocationCoordinate2D? {
+    private func getCoordinate(by gestureType: GestureType) -> CLLocationCoordinate2D? {
         let gesture = gestureType.get()
         guard gesture.state == .ended else { return nil }
 
@@ -105,5 +108,7 @@ class MapViewController: BaseViewController {
                                                 constant: 5).isActive = true
         userTrackingButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
                                                      constant: -50).isActive = true
+        userTrackingButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        userTrackingButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
 }

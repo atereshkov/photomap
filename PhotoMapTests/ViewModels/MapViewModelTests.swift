@@ -125,6 +125,17 @@ class MapViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.photos.isEmpty)
     }
 
+    func testTapMapViewGesture_ShouldAnableDiscoveryMode() {
+        // Arrange
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.follow)
+
+        // Act
+        viewModel.tapMapViewGestureSubject.send(.tap())
+
+        // Assert
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
+    }
+
     private func getPhotos() -> [Photo] {
         // swiftlint:disable line_length
         [Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),

@@ -22,6 +22,7 @@ class MapViewModel: NSObject, MapViewModelType {
     private(set) var categoryButtonSubject = PassthroughSubject<UIControl, Never>()
     private(set) var photoButtonSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
     private(set) var loadUserPhotosSubject = PassthroughSubject<MKMapRect, FirestoreError>()
+    private(set) var tapMapViewGestureSubject = PassthroughSubject<GestureType, Never>()
 
     // MARK: - Output
     @Published private(set) var photos: [Photo] = []
@@ -70,6 +71,10 @@ class MapViewModel: NSObject, MapViewModelType {
             }
             .sink(receiveCompletion: сompletionHandler,
                   receiveValue: { [weak self] photos in self?.photos = photos })
+            .store(in: cancelBag)
+
+        tapMapViewGestureSubject
+            .sink(receiveValue: { [weak self] _ in self?.enableDiscoveryMode()})
             .store(in: cancelBag)
     }
 

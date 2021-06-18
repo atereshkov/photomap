@@ -12,6 +12,7 @@ protocol MapViewModelInput {
     var categoryButtonSubject: PassthroughSubject<UIControl, Never> { get }
     var photoButtonSubject: PassthroughSubject<CLLocationCoordinate2D?, Never> { get }
     var loadUserPhotosSubject: PassthroughSubject<MKMapRect, FirestoreError> { get }
+    var tapMapViewGestureSubject: PassthroughSubject<GestureType, Never> { get }
 }
 
 protocol MapViewModelOutput {
