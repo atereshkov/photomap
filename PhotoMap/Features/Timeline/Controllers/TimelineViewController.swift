@@ -82,7 +82,7 @@ extension TimelineViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MarkerCell.identifier,
                                                        for: indexPath) as? MarkerCell else { return UITableViewCell() }
         guard let marker = viewModel?.getMarker(at: indexPath) else { return UITableViewCell() }
-        cell.configure(with: marker)
+        cell.viewModel = viewModel?.createCellViewModel(with: marker)
         return cell
     }
     

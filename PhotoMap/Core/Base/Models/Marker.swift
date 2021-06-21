@@ -13,8 +13,8 @@ struct Marker {
     let date: Date
     var description: String?
     var hashtags = [String]()
-    let photoURLString: String
-    let location: (x: Int, y: Int)?
+    let images: [String]
+    let location: GeoPoint?
 }
 
 extension Marker {
@@ -24,7 +24,7 @@ extension Marker {
         date = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))
         description = dictionary["description"] as? String
         hashtags = dictionary["hashtags"] as? [String] ?? [String]()
-        photoURLString = dictionary["photoURL"] as? String ?? ""
-        location = dictionary["point"] as? (x: Int, y: Int)
+        images = dictionary["images"] as? [String] ?? [String]()
+        location = dictionary["point"] as? GeoPoint
     }
 }

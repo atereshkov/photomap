@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -64,11 +65,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="zvF-Li-COf" secondAttribute="trailing" constant="95" id="3kF-ax-Jd0"/>
                                                 <constraint firstItem="YMU-uZ-dYO" firstAttribute="leading" secondItem="eqn-gl-lmy" secondAttribute="trailing" constant="8" symbolic="YES" id="3rm-zc-hDC"/>
                                                 <constraint firstItem="ZCg-Tb-BIq" firstAttribute="top" secondItem="YMU-uZ-dYO" secondAttribute="bottom" constant="7" id="C18-mb-YLv"/>
                                                 <constraint firstItem="6N4-pi-yWO" firstAttribute="centerY" secondItem="ZCg-Tb-BIq" secondAttribute="centerY" id="PNY-Zd-kno"/>
                                                 <constraint firstItem="YMU-uZ-dYO" firstAttribute="trailing" secondItem="sv3-9u-SYT" secondAttribute="trailingMargin" id="Su5-Jp-OdY"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="zvF-Li-COf" secondAttribute="trailing" constant="95" id="U9l-hF-0dC"/>
                                                 <constraint firstItem="YMU-uZ-dYO" firstAttribute="top" secondItem="sv3-9u-SYT" secondAttribute="topMargin" constant="15" id="WgF-6q-s45"/>
                                                 <constraint firstItem="Fcc-XW-wDE" firstAttribute="centerX" secondItem="eqn-gl-lmy" secondAttribute="centerX" id="dek-Kc-E1W"/>
                                                 <constraint firstItem="eqn-gl-lmy" firstAttribute="leading" secondItem="sv3-9u-SYT" secondAttribute="leadingMargin" id="fxe-hr-WEX"/>

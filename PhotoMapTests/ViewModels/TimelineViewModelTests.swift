@@ -47,7 +47,7 @@ class TimelineViewModelTests: XCTestCase {
     func testIfGettingMarksThenIndicatorShouldAppear() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        firestoreService.markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        firestoreService.markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
         
         let expectation = XCTestExpectation()
         let expectedValues = [false, true, false]
@@ -79,7 +79,7 @@ class TimelineViewModelTests: XCTestCase {
     func testIfAuthorizedThenGetMarksShouldBeCalledWithValues() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        firestoreService.markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        firestoreService.markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
         
         let expectation = XCTestExpectation()
         
@@ -101,7 +101,7 @@ class TimelineViewModelTests: XCTestCase {
         firestoreService.userHasDocuments = true
         let markers = [
             Marker(category: "Nature", date: Date(), description: "nature",
-                   hashtags: ["#nature"], photoURLString: "url", location: (15, 28))
+                   hashtags: ["#nature"], images: ["url"], location: nil)
         ]
         firestoreService.markers = markers
         
@@ -122,7 +122,7 @@ class TimelineViewModelTests: XCTestCase {
         firestoreService.userHasDocuments = true
         let markers = [
             Marker(category: "Nature", date: Date(), description: "nature",
-                   hashtags: ["#nature"], photoURLString: "url", location: (15, 28))
+                   hashtags: ["#nature"], images: ["url"], location: nil)
         ]
         firestoreService.markers = markers
         
@@ -144,7 +144,7 @@ class TimelineViewModelTests: XCTestCase {
     func testIfGetValuesShouldReturnNumberOfRows() {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        let markers = [Marker(category: "Nature", date: Date(), photoURLString: "url", location: (35, 89))]
+        let markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
         firestoreService.markers = markers
         
         let expectedNumberOfRows = markers.count
@@ -167,12 +167,12 @@ class TimelineViewModelTests: XCTestCase {
         firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
         let markers = [
-            Marker(category: "NATURE", date: Date(), photoURLString: "url", location: nil),
-            Marker(category: "NATURE", date: Date(), photoURLString: "url", location: nil),
-            Marker(category: "DEFAULT", date: Date(), photoURLString: "url", location: nil),
-            Marker(category: "FRIENDS", date: Date(), photoURLString: "url", location: nil),
-            Marker(category: "FRIENDS", date: Date(), photoURLString: "url", location: nil),
-            Marker(category: "FRIENDS", date: Date(), photoURLString: "url", location: nil)
+            Marker(category: "NATURE", date: Date(), images: ["url"], location: nil),
+            Marker(category: "NATURE", date: Date(), images: ["url"], location: nil),
+            Marker(category: "DEFAULT", date: Date(), images: ["url"], location: nil),
+            Marker(category: "FRIENDS", date: Date(), images: ["url"], location: nil),
+            Marker(category: "FRIENDS", date: Date(), images: ["url"], location: nil),
+            Marker(category: "FRIENDS", date: Date(), images: ["url"], location: nil)
         ]
         firestoreService.markers = markers
         
@@ -181,19 +181,27 @@ class TimelineViewModelTests: XCTestCase {
             PhotoMap.Category(id: "2", name: "NATURE", color: "green")
         ]
         
+        // Arrange
         let expectedNumberOfMarkers = markers.filter { $0.category ==  "DEFAULT" || $0.category == "NATURE" }.count
         let expectedNumberOfTitles = Set(markers.map { $0.date.monthAndYear }).count
         let expectation = XCTestExpectation()
+        var count = 0
         
         viewModel.reloadDataSubject.dropFirst().sink(receiveValue: { _ in
-            expectation.fulfill()
+            count += 1
+            if count == 2 {
+                expectation.fulfill()
+            }
         })
         .store(in: cancelBag)
         
         viewModel.viewDidLoadSubject.send()
+        
+        // Act
         coordinator.doneButtonPressedWithCategoriesSubject.send(categories)
         wait(for: [expectation], timeout: 2)
         
+        // Assert
         XCTAssertEqual(viewModel.categorizedMarkers.values.flatMap { $0 }.count, expectedNumberOfMarkers)
         XCTAssertEqual(viewModel.headerTitles.count, expectedNumberOfTitles)
     }

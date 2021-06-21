@@ -75,7 +75,11 @@ class TimelineViewModel: TimelineViewModelType {
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output
-    let reloadDataSubject = PassthroughSubject<Void, Never>()
+    func createCellViewModel(with marker: Marker) -> TimelineCellViewModel {
+        return TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
+    }
+    
+    var reloadDataSubject = PassthroughSubject<Void, Never>()
     
     var loadingPublisher: AnyPublisher<Bool, Never> {
         return activityIndicator.loading.eraseToAnyPublisher()

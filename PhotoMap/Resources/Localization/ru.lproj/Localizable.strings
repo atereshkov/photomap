@@ -76,6 +76,8 @@
 "firestore-error.non-matching-checksum.message" = "Ошибка при загрузке. Попробуйте еще раз.";
 "firestore-error.no-rules.message" = "У вас недостаточно прав. Напишите в техподдерку.";
 "firestore-error.image-decoding.message" = "Ошибка обработки изображения. Пожалуйста, попробуйте перезагрузить или выберите другое фото.";
+"firestore-error.wrong-URL.message" = "Такого URL не существует";
+"firestore-error.wrong-Path.message" = "Не можем создать путь для скаченного вами файла";
 
 // MARK: - Categories Screen
 "categories.navigationItem.title" = "Категории";

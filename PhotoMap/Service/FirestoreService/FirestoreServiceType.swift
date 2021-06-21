@@ -6,10 +6,11 @@
 //
 
 import Combine
-import Foundation
+import UIKit
 
 protocol FirestoreServiceType {
     func getUserMarkers() -> Future<[Marker], FirestoreError>
     func getCategories() -> Future<[Category], FirestoreError>
     func addUserPhoto(with photo: Photo) -> AnyPublisher<Void, FirestoreError>
+    func downloadImage(with: URL?) -> Future<UIImage?, FirestoreError>
 }

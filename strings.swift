@@ -77,6 +77,14 @@ internal enum L10n {
       /// Service unavailable. Try again.
       internal static let message = L10n.tr("Localizable", "firestore-error.unavailable-local-service.message")
     }
+    internal enum WrongPath {
+      /// Can't create a download path for your file
+      internal static let message = L10n.tr("Localizable", "firestore-error.wrong-Path.message")
+    }
+    internal enum WrongURL {
+      /// There is no such URL at all
+      internal static let message = L10n.tr("Localizable", "firestore-error.wrong-URL.message")
+    }
   }
 
   internal enum InternetError {
