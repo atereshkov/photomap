@@ -40,7 +40,7 @@ class TimelineCellViewModelTests: XCTestCase {
         XCTAssertNotEqual(viewModel.image, UIImage(systemName: "photo"))
     }
     
-    func testIfHavePhotoLoadItFromCacheDocuments() {
+    func test_IfImageExists_LoadItFromCacheDocuments() {
         let marker = Marker(category: "DEFAULT", date: Date(), description: "", hashtags: [],
                                                               images: ["url"], location: nil)
         firestoreService.localImage = UIImage(systemName: "face.smiling")
