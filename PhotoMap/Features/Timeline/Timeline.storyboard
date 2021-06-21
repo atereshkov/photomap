@@ -59,13 +59,15 @@
                                                 </activityIndicatorView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-Li-COf">
                                                     <rect key="frame" x="211" y="54" width="88" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="88" id="RlV-kx-acb"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="zvF-Li-COf" secondAttribute="trailing" constant="95" id="3kF-ax-Jd0"/>
                                                 <constraint firstItem="YMU-uZ-dYO" firstAttribute="leading" secondItem="eqn-gl-lmy" secondAttribute="trailing" constant="8" symbolic="YES" id="3rm-zc-hDC"/>
                                                 <constraint firstItem="ZCg-Tb-BIq" firstAttribute="top" secondItem="YMU-uZ-dYO" secondAttribute="bottom" constant="7" id="C18-mb-YLv"/>
                                                 <constraint firstItem="6N4-pi-yWO" firstAttribute="centerY" secondItem="ZCg-Tb-BIq" secondAttribute="centerY" id="PNY-Zd-kno"/>
@@ -92,6 +94,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="mai-vs-rJS" id="JS7-Ka-FuP"/>
+                                    <outlet property="delegate" destination="mai-vs-rJS" id="COQ-Q2-2vW"/>
                                 </connections>
                             </tableView>
                         </subviews>

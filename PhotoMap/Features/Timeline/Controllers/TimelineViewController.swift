@@ -88,6 +88,14 @@ extension TimelineViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITable view delegate
+extension TimelineViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        viewModel?.didSelectRowSubject.send(indexPath)
+    }
+}
+
 // MARK: - UISearchBarDelegate
 extension TimelineViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
