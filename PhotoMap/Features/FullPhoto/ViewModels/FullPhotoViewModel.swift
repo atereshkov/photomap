@@ -24,18 +24,17 @@ final class FullPhotoViewModel: FullPhotoViewModelType {
     
     private func transform() {
         imageTappedSubject.sink(receiveValue: { [weak self] _ in
-            self?.showFooterView.toggle()
-            self?.showNavbar.toggle()
+            self?.footerAndNavBarHidden.toggle()
         })
         .store(in: cancelBag)
         
-        viewDidDisappear
+        viewDidDisappearSubject
             .subscribe(coordinator.viewDidDisappearSubject)
             .store(in: cancelBag)
     }
     
     // MARK: - Inputs
-    let viewDidDisappear = PassthroughSubject<Void, Never>()
+    let viewDidDisappearSubject = PassthroughSubject<Void, Never>()
     let imageTappedSubject = PassthroughSubject<GestureType, Never>()
     let imageDoubleTappedSubject = PassthroughSubject<GestureType, Never>()
     
@@ -43,8 +42,7 @@ final class FullPhotoViewModel: FullPhotoViewModelType {
     @Published var image: UIImage?
     @Published var description: String?
     @Published var date: String?
-    @Published var showFooterView = false
-    @Published var showNavbar = false
+    @Published var footerAndNavBarHidden = false
     
     // MARK: - Helpers
     private func setupView(with marker: Marker) {
