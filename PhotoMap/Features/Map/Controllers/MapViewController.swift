@@ -100,10 +100,10 @@ class MapViewController: BaseViewController {
         mapView.showsUserLocation = true
         
         mapView.delegate = viewModel
-        mapView.register(PhotoMarkerView.self,
-                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        view.addSubview(userTrackingButton)
+        mapView.register(PhotoMarkerView.self, forAnnotationViewWithReuseIdentifier: PhotoMarkerView.className)
+        mapView.register(PhotoClusterView.self, forAnnotationViewWithReuseIdentifier: PhotoClusterView.className)
 
+        view.addSubview(userTrackingButton)
         userTrackingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
                                                 constant: 5).isActive = true
         userTrackingButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,

@@ -9,11 +9,10 @@ import MapKit
 import Combine
 
 class PhotoMarkerView: MKMarkerAnnotationView {
-    private(set) var loadImageSubject = PassthroughSubject<UIImage, Never>()
     private let cancelBag = CancelBag()
-    private(set) var isLoadImage = false
+    @Published var detailImage: UIImage?
 
-    lazy var activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.backgroundColor = Asset.activityIndicatorBackgroundColor.color
         activityIndicator.style = .medium
@@ -24,49 +23,59 @@ class PhotoMarkerView: MKMarkerAnnotationView {
         return activityIndicator
     }()
 
-    override var annotation: MKAnnotation? {
-        willSet {
-            guard let photo = newValue as? PhotoAnnotation else { return }
+    override func prepareForDisplay() {
+        super.prepareForDisplay()
 
-            canShowCallout = true
+        guard let photo = annotation as? PhotoAnnotation else { return }
 
-            titleVisibility = .hidden
-            subtitleVisibility = .hidden
+        canShowCallout = true
+        displayPriority = .defaultHigh
 
-            rightCalloutAccessoryView = activityIndicator
-            activityIndicator.startAnimating()
+        titleVisibility = .hidden
+        subtitleVisibility = .hidden
 
-            if let color = photo.category?.color {
-                markerTintColor = UIColor(hex: color)
-            }
-            if let name = photo.category?.name, let letter = name.first {
-                glyphText = String(letter)
-            }
+        setDetail(by: detailImage)
+
+        if let color = photo.category?.color {
+            markerTintColor = UIColor(hex: color)
+        }
+        if let name = photo.category?.name, let letter = name.first {
+            glyphText = String(letter)
         }
     }
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+
+        clusteringIdentifier = PhotoClusterView.className
         bind()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func bind() {
-        loadImageSubject
+        $detailImage
+            .filter { $0 != nil }
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] image in
-                let photoButton = UIButton(frame: CGRect(origin: CGPoint.zero,
-                                                         size: CGSize(width: 68, height: 48)))
-                photoButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 5)
-                photoButton.setImage(image, for: .normal)
-
-                self?.activityIndicator.stopAnimating()
-                self?.rightCalloutAccessoryView = photoButton
-                self?.isLoadImage = true
+                self?.setDetail(by: image)
             })
             .store(in: cancelBag)
+    }
+
+    private func setDetail(by image: UIImage?) {
+        if let image = image {
+            let button = UIButton(frame: CGRect(origin: CGPoint.zero,
+                                                     size: CGSize(width: 60, height: 42)))
+            button.setImage(image, for: .normal)
+
+            activityIndicator.stopAnimating()
+            rightCalloutAccessoryView = button
+        } else {
+            rightCalloutAccessoryView = activityIndicator
+            activityIndicator.startAnimating()
+        }
     }
 }

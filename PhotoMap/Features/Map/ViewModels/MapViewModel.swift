@@ -98,19 +98,34 @@ extension MapViewModel: MKMapViewDelegate {
         loadUserPhotosSubject.send(mapView.visibleMapRect)
     }
 
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let marker = annotation as? PhotoAnnotation {
+            guard let view = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoMarkerView.className) as? PhotoMarkerView else {
+                return PhotoMarkerView(annotation: marker, reuseIdentifier: PhotoMarkerView.className)
+            }
+            
+            return view
+        } else if let cluster = annotation as? MKClusterAnnotation {
+            guard let view = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoClusterView.className) as? PhotoClusterView else {
+                return PhotoClusterView(annotation: cluster, reuseIdentifier: PhotoClusterView.className)
+            }
+            
+            return view
+        }
+        
+        return nil
+    }
+
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let photoView = view as? PhotoMarkerView,
               let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
 
         guard let url = photoAnnotation.imageUrl else { return }
 
-        if !photoView.isLoadImage {
-            firestoreService.downloadImage(by: url)
-                .sink(receiveCompletion: self.сompletionHandler,
-                      receiveValue: { image in
-                        guard let image = image else { return }
-                        photoView.loadImageSubject.send(image)
-                      })
+        if photoView.detailImage == nil {
+           firestoreService.downloadImage(by: url)
+                .sink(receiveCompletion: сompletionHandler,
+                      receiveValue: { photoView.detailImage = $0 })
                 .store(in: cancelBag)
         }
     }
