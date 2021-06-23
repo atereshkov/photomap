@@ -20,6 +20,7 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     
     private(set) var categoryButtonTapped = PassthroughSubject<UIBarButtonItem, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private(set) var didSelectMarkerSubject = PassthroughSubject<Marker, Never>()
     private(set) var doneButtonPressedWithCategoriesSubject = PassthroughSubject<[Category], Never>()
     
     init(diContainer: DIContainerType) {
@@ -30,6 +31,11 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     private func bind() {
         categoryButtonTapped.sink(receiveValue: { [weak self] _ in
             self?.presentCategoryScreen()
+        })
+        .store(in: cancelBag)
+        
+        didSelectMarkerSubject.sink(receiveValue: { [weak self] marker in
+            self?.presentFullPhotoScreen(for: marker)
         })
         .store(in: cancelBag)
         
@@ -61,6 +67,14 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
         navigationController.present(categoryNavigationVC, animated: true)
+        childCoordinators.append(coordinator)
+    }
+    
+    private func presentFullPhotoScreen(for marker: Marker) {
+        let coordinator = FullPhotoCoordinator(diContainer: diContainer)
+        coordinator.parentCoordinator = self
+        let fullPhotoVC = coordinator.start(with: marker)
+        navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
     

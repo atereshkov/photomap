@@ -24,6 +24,11 @@ internal enum StoryboardScene {
 
     internal static let categoryViewController = SceneType<CategoryViewController>(storyboard: Category.self, identifier: "CategoryViewController")
   }
+  internal enum FullPhoto: StoryboardType {
+    internal static let storyboardName = "FullPhoto"
+
+    internal static let fullPhotoViewController = SceneType<FullPhotoViewController>(storyboard: FullPhoto.self, identifier: "FullPhotoViewController")
+  }
   internal enum Initial: StoryboardType {
     internal static let storyboardName = "Initial"
 

@@ -12,6 +12,7 @@ protocol TimelineViewModelTypeInput {
     var categoryButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
     var searchTextSubject: CurrentValueSubject<String, Never> { get }
     var viewDidLoadSubject: PassthroughSubject<Void, Never> { get }
+    var didSelectRowSubject: PassthroughSubject<IndexPath, Never> { get }
 }
 
 protocol TimelineViewModelTypeOutput {
