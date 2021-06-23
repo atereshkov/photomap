@@ -77,6 +77,8 @@
 "firestore-error.no-rules.message" = "You don't have enough rights. Contact technical support.";
 "firestore-error.image-decoding.message" = "Image processing error. Please, try reload or choose another photo.";
 "firestore-error.not-found.message" = "Not found.";
+"firestore-error.wrong-URL.message" = "There is no such URL at all";
+"firestore-error.wrong-Path.message" = "Can't create a download path for your file";
 
 // MARK: - Categories Screen
 "categories.navigationItem.title" = "Categories";

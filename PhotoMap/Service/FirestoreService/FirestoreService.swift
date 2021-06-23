@@ -16,6 +16,11 @@ final class FirestoreService: FirestoreServiceType {
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
     private let currentUserId = Auth.auth().currentUser?.uid
+    private let fileManagerService: FileManagerServiceType
+    
+    init(fileManagerService: FileManagerServiceType) {
+        self.fileManagerService = fileManagerService
+    }
     
     func getUserMarkers() -> Future<[Marker], FirestoreError> {
         return Future { [weak self] promise in
@@ -93,7 +98,7 @@ final class FirestoreService: FirestoreServiceType {
             guard let imageData = image.pngData() else { return promise(.failure(.imageDecoding)) }
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
 
-            let imageName = [currentUserId, [Date().fullDateString, Path.imageType]
+            let imageName = [currentUserId, [date, Path.imageType]
                                 .joined(separator: Separator.point)].joined(separator: Separator.slash)
 
             guard let photoRef = self?.storage.reference(withPath: Path.userImages).child(imageName) else {
@@ -155,34 +160,29 @@ final class FirestoreService: FirestoreServiceType {
                 }
         }
     }
- 
-    func getCategoryBy(by id: String) -> Future<Category, FirestoreError> {
+    
+    func downloadImage(with url: URL?) -> Future<UIImage?, FirestoreError> {
         Future { [weak self] promise in
             guard self?.currentUserId != nil else { return promise(.failure(.noCurrentUserId)) }
-
-            let categoriesReference = self?.db.collection(Path.categoriesCollection).document(id)
-
-            categoriesReference?.getDocument { document, error in
-                if let error = error { return promise(.failure(FirestoreError(error))) }
-                guard let document = document,
-                      let data = document.data() else { return promise(.failure(.nonMatchingChecksum)) }
-
-                let category = Category(id: document.documentID, dictionary: data)
-                promise(.success(category))
+            guard let url = url else { return promise(.failure(.custom(L10n.FirestoreError.WrongURL.message))) }
+            
+            let fileName = "\(url.absoluteString).\(Path.imageType)"
+            guard let fileURL = self?.fileManagerService.configureFilePath(for: fileName) else {
+                return promise(.failure(.custom(L10n.FirestoreError.WrongPath.message)))
             }
-        }
-    }
-
-    func downloadImage(by url: String) -> Future<UIImage?, FirestoreError> {
-        Future { [weak self] promise in
-            self?.storage
-                .reference(forURL: url)
-                .getData(maxSize: 5120 * 1024) { data, error in
-                    if let error = error { return promise(.failure(FirestoreError(error))) }
-                    guard let data = data else { return promise(.failure(.imageDecoding)) }
-
-                    promise(.success(UIImage(data: data)))
+            
+            if let localImageData = try? Data(contentsOf: fileURL) {
+                return promise(.success(UIImage(data: localImageData)))
+            }
+            
+            let photoReference = Storage.storage().reference(forURL: url.absoluteString)
+            photoReference.write(toFile: fileURL) { url, error in
+                if let error = error {
+                    return promise(.failure(.custom(error.localizedDescription)))
                 }
+                guard let url = url, let imageData = try? Data(contentsOf: url) else { return promise(.failure(.imageDecoding)) }
+                return promise(.success(UIImage(data: imageData)))
+            }
         }
     }
 }

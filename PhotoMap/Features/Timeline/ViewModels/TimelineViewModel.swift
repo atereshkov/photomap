@@ -52,6 +52,12 @@ class TimelineViewModel: TimelineViewModelType {
             .subscribe(selectedCategoriesSubject)
             .store(in: cancelBag)
         
+        didSelectRowSubject.sink(receiveValue: { [weak self] indexPath in
+            guard let marker = self?.getMarker(at: indexPath) else { return }
+            self?.coordinator.didSelectMarkerSubject.send(marker)
+        })
+        .store(in: cancelBag)
+        
         selectedCategoriesSubject
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] categories in
@@ -71,11 +77,16 @@ class TimelineViewModel: TimelineViewModelType {
     let categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
     let searchTextSubject = CurrentValueSubject<String, Never>.init("")
+    let didSelectRowSubject = PassthroughSubject<IndexPath, Never>()
     private let selectedCategoriesSubject = PassthroughSubject<[Category], Never>()
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output
-    let reloadDataSubject = PassthroughSubject<Void, Never>()
+    func createCellViewModel(with marker: Marker) -> TimelineCellViewModel {
+        return TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
+    }
+    
+    var reloadDataSubject = PassthroughSubject<Void, Never>()
     
     var loadingPublisher: AnyPublisher<Bool, Never> {
         return activityIndicator.loading.eraseToAnyPublisher()

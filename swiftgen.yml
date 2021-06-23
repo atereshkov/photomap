@@ -19,7 +19,8 @@ ib:
     'PhotoMap/Features/MapPhoto/MapPhoto.storyboard',
     'PhotoMap/Features/Timeline/Timeline.storyboard',
     'PhotoMap/Features/Category/Category.storyboard',
-    'PhotoMap/Features/Initial/Initial.storyboard'
+    'PhotoMap/Features/Initial/Initial.storyboard',
+    'PhotoMap/Features/FullPhoto/FullPhoto.storyboard'
   ]
   outputs:
     templateName: scenes-swift5
