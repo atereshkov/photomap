@@ -110,7 +110,7 @@ private extension FullPhotoViewController {
         } else {
             let scale = scrollView.maximumZoomScale
             let center = sender.location(in: targetView)
-            let rect = scrollView.zoomRectForScale(scale: scale, center: center, in: markerImageView)
+            let rect = scrollView.zoomRect(for: scale, in: markerImageView, center: center)
             scrollView.zoom(to: rect, animated: true)
         }
     }

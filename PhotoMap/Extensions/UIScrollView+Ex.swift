@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIScrollView {
-    func zoomRectForScale(scale: CGFloat, center: CGPoint, in imageView: UIImageView) -> CGRect {
+    func zoomRect(for scale: CGFloat, in imageView: UIImageView, center: CGPoint) -> CGRect {
         var zoomRect = CGRect.zero
         zoomRect.size.height = imageView.frame.size.height / scale
         zoomRect.size.width  = imageView.frame.size.width / scale
