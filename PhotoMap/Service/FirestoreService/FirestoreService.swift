@@ -98,7 +98,7 @@ final class FirestoreService: FirestoreServiceType {
             guard let imageData = image.pngData() else { return promise(.failure(.imageDecoding)) }
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
 
-            let imageName = [currentUserId, [date, Path.imageType]
+            let imageName = [currentUserId, [name, Path.imageType]
                                 .joined(separator: Separator.point)].joined(separator: Separator.slash)
 
             guard let photoRef = self?.storage.reference(withPath: Path.userImages).child(imageName) else {

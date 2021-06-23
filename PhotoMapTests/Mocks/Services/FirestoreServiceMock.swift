@@ -14,6 +14,7 @@ class FirestoreServiceMock {
     var error: FirestoreError?
     var markers: [Marker]?
     var photos: [Photo]?
+    var image: UIImage?
     var userHasDocuments: Bool?
     var getMarkersCalled = false
     var getMarkersEndWithValues = false
@@ -34,22 +35,11 @@ extension FirestoreServiceMock: FirestoreServiceType {
         }.eraseToAnyPublisher()
     }
 
-    func getCategoryBy(by id: String) -> Future<PhotoMap.Category, FirestoreError> {
-        Future { [weak self] promise in
-            self?.getCategoriesCalled = true
-            if let error = self?.error { return promise(.failure(error)) }
-            guard let categories = self?.categories,
-                  let category = categories.filter({ $0.id == id })[safe: 0] else {
-                return promise(.failure(.nonMatchingChecksum))
-            }
-
-            self?.getCategoriesEndWithValues = true
-            promise(.success(category))
-        }
-    }
-
     func downloadImage(by url: String) -> Future<UIImage?, FirestoreError> {
-        Future { promise in promise(.success(UIImage())) }
+        Future { [weak self] promise in
+            if let error = self?.error { return promise(.failure(error)) }
+
+            promise(.success(self?.image)) }
     }
 
     func getCategories() -> Future<[PhotoMap.Category], FirestoreError> {

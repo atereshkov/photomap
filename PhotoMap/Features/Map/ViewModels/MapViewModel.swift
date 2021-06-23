@@ -118,12 +118,14 @@ extension MapViewModel: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let photoView = view as? PhotoMarkerView,
-              let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
+              let photoAnnotation = view.annotation as? PhotoAnnotation else {
+            return coordinator.showErrorAlert(error: FirestoreError.wrongURL)
+        }
 
         guard let url = photoAnnotation.imageUrl else { return }
 
         if photoView.detailImage == nil {
-           firestoreService.downloadImage(by: url)
+            firestoreService.downloadImage(with: URL(string: url))
                 .sink(receiveCompletion: сompletionHandler,
                       receiveValue: { photoView.detailImage = $0 })
                 .store(in: cancelBag)

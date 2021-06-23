@@ -15,6 +15,8 @@ enum FirestoreError: GeneralErrorType {
     case noRules
     case imageDecoding
     case notFound
+    case wrongURL
+    case wrongPath
     case custom(String)
     
     var title: String {
@@ -35,6 +37,10 @@ enum FirestoreError: GeneralErrorType {
             return L10n.FirestoreError.ImageDecoding.message
         case .notFound:
             return L10n.FirestoreError.NotFound.message
+        case .wrongURL:
+            return L10n.FirestoreError.WrongURL.message
+        case .wrongPath:
+            return L10n.FirestoreError.WrongPath.message
         case .custom(let message):
             return message
         }
