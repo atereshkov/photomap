@@ -29,6 +29,8 @@
 		0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */; };
 		0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C06D32679F9FB006E9724 /* FileManagerService.swift */; };
 		0BBDEB8E265FABCA007D48C0 /* TimelineCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */; };
+		0BCA61BE268322500065B6E4 /* FullPhotoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */; };
+		0BCA61C026832C370065B6E4 /* UIScrollView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCA61BF26832C370065B6E4 /* UIScrollView+Ex.swift */; };
 		0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */; };
 		0BD78B05265F8C17000B4DE6 /* TimelineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
@@ -175,6 +177,8 @@
 		0B9C06D32679F9FB006E9724 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCoordinatorMock.swift; sourceTree = "<group>"; };
 		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPhotoViewModelTests.swift; sourceTree = "<group>"; };
+		0BCA61BF26832C370065B6E4 /* UIScrollView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ex.swift"; sourceTree = "<group>"; };
 		0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
 		0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModelTests.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 				0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */,
 				0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */,
 				0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */,
+				0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -823,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				0B1DC436265E5FDD00BC7B6E /* UISearchBar+Ex.swift */,
+				0BCA61BF26832C370065B6E4 /* UIScrollView+Ex.swift */,
 				0B1DC434265E5FC600BC7B6E /* UITableViewCell+Ex.swift */,
 				12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */,
 				23AE2E7B264D5D7200FE673F /* NSObject+Ex.swift */,
@@ -1234,6 +1240,7 @@
 			files = (
 				333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */,
 				333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */,
+				0BCA61BE268322500065B6E4 /* FullPhotoViewModelTests.swift in Sources */,
 				23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */,
 				0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */,
 				23AE2E88264D63E300FE673F /* MapPhotoViewModelTests.swift in Sources */,
@@ -1311,6 +1318,7 @@
 				333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */,
 				33588306262DD1420057D25F /* SignInViewModel.swift in Sources */,
 				0B0AAAE9265E34FD007B52BA /* ActivityIndicator+Combine.swift in Sources */,
+				0BCA61C026832C370065B6E4 /* UIScrollView+Ex.swift in Sources */,
 				0B4E4DCB26807FF700027A60 /* FullPhotoCoordinator.swift in Sources */,
 				33877CAF2631598200A227F9 /* AuthUserService.swift in Sources */,
 				33334B2326287DB600612573 /* AppCoordinator.swift in Sources */,

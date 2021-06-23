@@ -108,18 +108,10 @@ private extension FullPhotoViewController {
             let origin = CGPoint(x: point.x - size.width / 2, y: point.y - size.height / 2)
             scrollView.zoom(to: CGRect(origin: origin, size: size), animated: true)
         } else {
-            let rect = zoomRectForScale(scale: scrollView.maximumZoomScale, center: sender.location(in: targetView))
+            let scale = scrollView.maximumZoomScale
+            let center = sender.location(in: targetView)
+            let rect = scrollView.zoomRectForScale(scale: scale, center: center, in: markerImageView)
             scrollView.zoom(to: rect, animated: true)
         }
-    }
-    
-    func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
-        var zoomRect = CGRect.zero
-        zoomRect.size.height = markerImageView.frame.size.height / scale
-        zoomRect.size.width  = markerImageView.frame.size.width / scale
-        let newCenter = scrollView.convert(center, from: markerImageView)
-        zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
-        zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
-        return zoomRect
     }
 }
