@@ -113,7 +113,7 @@ final class FirestoreService: FirestoreServiceType {
     }
 
     /// At the function `func getCategories()` used for receive all categories and transform `category id` to `Category` object
-    func getPhotos(by visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
+    func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
         getReceivePhotos(by: visibleRect)
             .flatMap { [unowned self] receivePhotos in
                 self.getCategories()

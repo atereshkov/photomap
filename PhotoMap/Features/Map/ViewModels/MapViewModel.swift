@@ -67,7 +67,7 @@ class MapViewModel: NSObject, MapViewModelType {
         loadUserPhotosSubject
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .flatMap { [unowned self] visibleRect in
-                self.firestoreService.getPhotos(by: visibleRect)
+                self.firestoreService.getPhotos(for: visibleRect)
             }
             .sink(receiveCompletion: сompletionHandler,
                   receiveValue: { [weak self] photos in self?.photos = photos })

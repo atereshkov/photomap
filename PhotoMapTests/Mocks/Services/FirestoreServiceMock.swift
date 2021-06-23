@@ -23,14 +23,11 @@ class FirestoreServiceMock {
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
-    func getPhotos(by visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
+    func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
         Future { [weak self] promise in
-            var receivePhotos: [Photo] = []
-            if let photos = self?.photos {
-                receivePhotos = photos
-            }
-
-            promise(.success(receivePhotos))
+            if let error = self?.error { return promise(.failure(error)) }
+            let photos = self?.photos ?? []
+            promise(.success(photos))
         }.eraseToAnyPublisher()
     }
 
