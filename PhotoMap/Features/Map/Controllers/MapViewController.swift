@@ -78,10 +78,11 @@ class MapViewController: BaseViewController {
         viewModel.$photos
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] photos in
-                    if let annotations = self?.mapView?.annotations {
-                        self?.mapView?.removeAnnotations(annotations)
-                    }
-                    photos.forEach { self?.mapView.addAnnotation(PhotoAnnotation(photo: $0)) }
+                if let annotations = self?.mapView?.annotations {
+                    self?.mapView.removeAnnotations(annotations)
+                }
+                
+                self?.mapView.addAnnotations(photos.map { PhotoAnnotation(photo: $0) })
             })
             .store(in: cancelBag)
     }

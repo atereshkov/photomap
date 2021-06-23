@@ -99,27 +99,30 @@ extension MapViewModel: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let marker = annotation as? PhotoAnnotation {
-            guard let view = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoMarkerView.className) as? PhotoMarkerView else {
-                return PhotoMarkerView(annotation: marker, reuseIdentifier: PhotoMarkerView.className)
+        
+        switch annotation {
+        case is PhotoAnnotation:
+            guard let view = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoMarkerView.className) else {
+                return PhotoMarkerView(annotation: annotation, reuseIdentifier: PhotoMarkerView.className)
             }
             
             return view
-        } else if let cluster = annotation as? MKClusterAnnotation {
-            guard let view = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoClusterView.className) as? PhotoClusterView else {
-                return PhotoClusterView(annotation: cluster, reuseIdentifier: PhotoClusterView.className)
+        case is MKClusterAnnotation:
+            guard let view = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoClusterView.className) else {
+                return PhotoClusterView(annotation: annotation, reuseIdentifier: PhotoClusterView.className)
             }
             
             return view
+        default:
+            return nil
         }
         
-        return nil
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let photoView = view as? PhotoMarkerView,
               let photoAnnotation = view.annotation as? PhotoAnnotation else {
-            return coordinator.showErrorAlert(error: FirestoreError.wrongURL)
+            return
         }
 
         guard let url = photoAnnotation.imageUrl else { return }
@@ -148,7 +151,7 @@ extension MapViewModel: MKMapViewDelegate {
         case .followWithHeading:
             enableDiscoveryMode()
         @unknown default:
-        fatalError()
+            enableDiscoveryMode()
         }
     }
 }

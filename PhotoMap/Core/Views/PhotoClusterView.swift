@@ -10,13 +10,12 @@ import MapKit
 class PhotoClusterView: MKAnnotationView {
     private let rect = CGRect(x: 0, y: 0, width: 40, height: 40)
 
-    override var annotation: MKAnnotation? {
-        didSet {
+    override func prepareForDisplay() {
+        super.prepareForDisplay()
             guard let cluster = annotation as? MKClusterAnnotation else { return }
 
             displayPriority = .defaultHigh
             image = drawCircle(for: cluster.memberAnnotations)
-        }
     }
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {

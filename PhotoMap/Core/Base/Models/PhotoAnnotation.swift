@@ -8,7 +8,7 @@
 import MapKit
 
 class PhotoAnnotation: NSObject, MKAnnotation {
-    private let photo: Photo
+    private(set) var photo: Photo
     private let maxTitleCount: Int = 23
     private let substringCount: Int = 20
 

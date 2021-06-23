@@ -23,6 +23,12 @@ class PhotoMarkerView: MKMarkerAnnotationView {
         return activityIndicator
     }()
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        clusteringIdentifier = PhotoClusterView.className
+    }
+
     override func prepareForDisplay() {
         super.prepareForDisplay()
 
