@@ -44,8 +44,10 @@ struct ReceivePhoto {
     var category: String
     var geopoint: GeoPoint
 
-    init(dictionary: [String: Any], id: String) {
-        self.id = id
+    init(snapshot: QueryDocumentSnapshot) {
+        let dictionary = snapshot.data()
+
+        id = snapshot.documentID
         category = dictionary[Name.category.rawValue] as? String ?? ""
         let timestamp = dictionary[Name.date.rawValue] as? Timestamp ?? Timestamp(date: Date())
         date = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))

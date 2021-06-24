@@ -26,6 +26,8 @@ class MapViewModel: NSObject, MapViewModelType {
 
     // MARK: - Output
     @Published private(set) var photos: [Photo] = []
+    @Published private(set) var visiblePhotos: [Photo] = []
+    @Published private(set) var filteredCategories: [Category] = []
     @Published private(set) var modeButtonTintColor: UIColor = Asset.followModeColor.color
     @Published private(set) var userTrackingMode: MKUserTrackingMode = .follow
 
@@ -43,9 +45,8 @@ class MapViewModel: NSObject, MapViewModelType {
 
     private func transform() {
         categoryButtonSubject
-            .sink { [weak self] _ in
-                self?.enableDiscoveryMode()
-            }
+            .map { [weak self] _ -> Void in return self?.enableDiscoveryMode() ?? () }
+            .subscribe(coordinator.showCategoriesScreenSubject)
             .store(in: cancelBag)
 
         photoButtonSubject
@@ -75,6 +76,23 @@ class MapViewModel: NSObject, MapViewModelType {
 
         tapMapViewGestureSubject
             .sink(receiveValue: { [weak self] _ in self?.enableDiscoveryMode()})
+            .store(in: cancelBag)
+        coordinator.doneButtonPressedWithCategoriesSubject
+            .assign(to: \.filteredCategories, on: self)
+            .store(in: cancelBag)
+
+        $filteredCategories
+            .map { [weak self] categories -> [Photo] in
+                let filteredCategoryIds = categories.map { $0.id }
+
+                return self?.photos.filter { photo in
+                    guard let id = photo.category?.id else { return false }
+                    return filteredCategoryIds.contains(id)
+                } ?? []
+            }
+            .sink(receiveValue: { [weak self] filteredPhotos in
+                self?.photos = filteredPhotos
+            })
             .store(in: cancelBag)
     }
 

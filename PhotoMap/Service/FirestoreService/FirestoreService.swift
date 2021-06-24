@@ -149,12 +149,25 @@ final class FirestoreService: FirestoreServiceType {
                 .whereField(PhotoField.point, isLessThanOrEqualTo: maxPoint)
                 .getDocuments { snapshot, error in
                     if let error = error { return promise(.failure(FirestoreError(error))) }
-                    guard let documents = snapshot?.documents else { return promise(.success([])) }
-                    
-                    var photos = [ReceivePhoto]()
-                    for document in documents {
-                        photos.append(ReceivePhoto(dictionary: document.data(), id: document.documentID))
-                    }
+                    let photos = snapshot?.documents.map { ReceivePhoto(snapshot: $0) } ?? []
+
+                    promise(.success(photos))
+                }
+        }
+    }
+    
+    private func getReceivePhotos() -> Future<[ReceivePhoto], FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
+            let userPhotosReference = self?.db.collection(Path.photosCollection)
+                                                    .document(currentUserId)
+                                                    .collection(Path.userPhotosCollection)
+
+            userPhotosReference?
+                .order(by: PhotoField.date, descending: true)
+                .getDocuments { snapshot, error in
+                    if let error = error { return promise(.failure(FirestoreError(error))) }
+                    let photos = snapshot?.documents.map { ReceivePhoto(snapshot: $0) } ?? []
 
                     promise(.success(photos))
                 }
