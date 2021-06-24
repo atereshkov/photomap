@@ -14,10 +14,12 @@ class AppCoordinator: AppCoordinatorType {
     private(set) var navigationController = UINavigationController()
     private var authListener: AuthListenerType
     private var diContainer: DIContainerType
+    private let window: UIWindow
     
     private var cancelBag = CancelBag()
     
-    init(diContainer: DIContainerType) {
+    init(window: UIWindow, diContainer: DIContainerType) {
+        self.window = window
         self.authListener = diContainer.resolve()
         self.diContainer = diContainer
         
@@ -29,6 +31,7 @@ class AppCoordinator: AppCoordinatorType {
     }
     
     func start() {
+        window.rootViewController = navigationController
         self.showInitial()
     }
     
@@ -62,6 +65,11 @@ class AppCoordinator: AppCoordinatorType {
         let initViewController = initCoordinator.start()
         initViewController.modalPresentationStyle = .overFullScreen
         navigationController.pushViewController(initViewController, animated: true)
+    }
+    
+    func reset() {
+        navigationController = UINavigationController()
+        start()
     }
     
 }

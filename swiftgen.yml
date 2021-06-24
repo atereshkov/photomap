@@ -13,7 +13,7 @@ xcassets:
     output: assets-colors.swift
 ib:
   inputs: [
-    'PhotoMap/Features/More/More.storyboard',
+    'PhotoMap/Features/Profile/Profile.storyboard',
     'PhotoMap/Features/Auth/Authentication.storyboard',
     'PhotoMap/Features/Map/Map.storyboard',
     'PhotoMap/Features/MapPhoto/MapPhoto.storyboard',

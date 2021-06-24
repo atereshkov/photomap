@@ -13,4 +13,5 @@ protocol AppCoordinatorType: Coordinator {
     func showAuth()
     func showInitial()
     func startMainScreen(isUserAuthorized: Bool)
+    func reset()
 }
