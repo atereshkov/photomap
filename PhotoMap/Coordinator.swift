@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get }
@@ -23,6 +24,16 @@ extension Coordinator {
         alert.addAction(cancelAction)
 
         return alert
+    }
+
+    func showErrorAlert(error: GeneralErrorType) {
+        let alert = UIAlertController(title: error.title,
+                                      message: error.message,
+                                      preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: L10n.ok, style: .cancel, handler: nil)
+
+        alert.addAction(cancelAction)
+        navigationController.present(alert, animated: true)
     }
     
     func childDidFinish(_ childCoordinator: Coordinator) {}

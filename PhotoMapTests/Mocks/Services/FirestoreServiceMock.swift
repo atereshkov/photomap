@@ -6,13 +6,15 @@
 //
 
 import Combine
-import UIKit
+import MapKit
 @testable import PhotoMap
 
 class FirestoreServiceMock {
     var userId: String?
     var error: FirestoreError?
     var markers: [Marker]?
+    var photos: [Photo]?
+    var image: UIImage?
     var userHasDocuments: Bool?
     var getMarkersCalled = false
     var getMarkersEndWithValues = false
@@ -25,6 +27,21 @@ class FirestoreServiceMock {
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
+    func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
+        Future { [weak self] promise in
+            if let error = self?.error { return promise(.failure(error)) }
+            let photos = self?.photos ?? []
+            promise(.success(photos))
+        }.eraseToAnyPublisher()
+    }
+
+    func downloadImage(by url: String) -> Future<UIImage?, FirestoreError> {
+        Future { [weak self] promise in
+            if let error = self?.error { return promise(.failure(error)) }
+
+            promise(.success(self?.image)) }
+    }
+
     func getCategories() -> Future<[PhotoMap.Category], FirestoreError> {
         Future { [weak self] promise in
             self?.getCategoriesCalled = true

@@ -5,7 +5,7 @@
 //  Created by Krystsina Kurytsyna on 4/15/21.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     
@@ -53,4 +53,15 @@ extension String {
         return hashtags
     }
     
+    func drawForCluster(in rect: CGRect) {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.black,
+                           NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        let textSize = self.size(withAttributes: attributes)
+        let textRect = CGRect(x: (rect.width / 2) - (textSize.width / 2),
+                              y: (rect.height / 2) - (textSize.height / 2),
+                              width: textSize.width,
+                              height: textSize.height)
+        
+        self.draw(in: textRect, withAttributes: attributes)
+    }
 }

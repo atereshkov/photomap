@@ -8,17 +8,21 @@
 import XCTest
 import Combine
 import CoreLocation
+import MapKit
 @testable import PhotoMap
 
 class MapViewModelTests: XCTestCase {
     var viewModel: MapViewModelType!
     var coordinator: MapCoordinator!
     var diContainer: DIContainerType!
+    var firestoreService: FirestoreServiceMock!
     var cancelBag: CancelBag!
 
     override func setUpWithError() throws {
         cancelBag = CancelBag()
         diContainer = DIContainerMock()
+        let serviceType: FirestoreServiceType = diContainer.resolve()
+        firestoreService = serviceType as? FirestoreServiceMock
         coordinator = MapCoordinator(diContainer: diContainer)
         viewModel = MapViewModel(coordinator: coordinator, diContainer: diContainer)
     }
@@ -28,98 +32,23 @@ class MapViewModelTests: XCTestCase {
         diContainer = nil
         coordinator = nil
         viewModel = nil
-    }
-
-    func testTabTitle_Title_ShouldEqual() {
-        XCTAssertEqual(viewModel.tabTitle, L10n.Main.TabBar.Map.title)
-    }
-
-    func testModeButtonColor_ShouldEqual() {
-        // Arrange
-        XCTAssertEqual(viewModel.modeButtonCollor, Asset.followModeColor.color)
-
-        // Act
-        viewModel.navigationButtonSubject.send(UIControl())
-
-        // Assert
-        XCTAssertEqual(viewModel.modeButtonCollor, Asset.discoverModeColor.color)
-    }
-
-    func testIsShowUserLocation_EnableLocation_ShouldBeTrue() {
-        // Arrange
-        var isEqual = false
-        XCTAssertFalse(viewModel.isShowUserLocation)
-        let locationService: LocationServiceType = diContainer.resolve()
-        guard let mockService = locationService as? LocationServiceMock else {
-            XCTAssertNotNil(nil, "Typecast Error!")
-            return
-        }
-
-        // Act
-        mockService.status
-            .sink { status in
-                isEqual = status == .authorizedWhenInUse
-            }
-            .store(in: cancelBag)
-
-        mockService.enableService()
-
-        // Assert
-        XCTAssertTrue(viewModel.isShowUserLocation)
-        XCTAssertTrue(isEqual)
-    }
-
-    func  testIsShowUserLocation_DisableLocation_ShouldBeFalse() {
-        // Arrange
-        var isEqual = false
-        XCTAssertFalse(viewModel.isShowUserLocation)
-        let locationService: LocationServiceType = diContainer.resolve()
-        guard let mockService = locationService as? LocationServiceMock else {
-            XCTAssertNotNil(nil, "Typecast Error!")
-            return
-        }
-        
-        // Act
-        mockService.status
-            .sink { status in
-                isEqual = status == .denied
-            }
-            .store(in: cancelBag)
-
-        mockService.enableService()
-        mockService.disableService()
-
-        // Assert
-        XCTAssertFalse(viewModel.isShowUserLocation)
-        XCTAssertTrue(isEqual)
-    }
-
-    func testRegion_ShouldBeNotNil() {
-        XCTAssertNotNil(viewModel.region)
-    }
-
-    func testTapOnMap_FolowModeOn_ShouldOnDiscoveryMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        viewModel.enableDiscoveryModeSubject.send(.tap())
-
-        XCTAssertFalse(viewModel.isFollowModeOn)
+        firestoreService = nil
     }
 
     func testTapOnPhotoButton_FolowModeOn_ShouldOnDiscoveryMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.follow)
 
         viewModel.photoButtonSubject.send(CLLocationCoordinate2D())
 
-        XCTAssertFalse(viewModel.isFollowModeOn)
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
     }
 
     func testTapOnCategoryButton_FolowModeOn_ShouldOnDiscoveryMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.follow)
 
         viewModel.categoryButtonSubject.send(UIControl())
 
-        XCTAssertFalse(viewModel.isFollowModeOn)
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
     }
 
     func testTapOnPhotoButton_ShouldShowPhotoAlert() {
@@ -139,24 +68,78 @@ class MapViewModelTests: XCTestCase {
         XCTAssertTrue(isShow)
     }
 
-    func testTapOnNavigationButton_ShouldSwitchMode() {
-        XCTAssertTrue(viewModel.isFollowModeOn)
-
-        viewModel.navigationButtonSubject.send(UIControl())
-        XCTAssertFalse(viewModel.isFollowModeOn)
-        
-        viewModel.navigationButtonSubject.send(UIControl())
-        XCTAssertTrue(viewModel.isFollowModeOn)
-    }
-
     func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
         // Arrange
-        XCTAssertTrue(viewModel.isFollowModeOn)
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.follow)
 
         // Act
         viewModel.categoryButtonSubject.send(UIControl())
 
         // Assert
-        XCTAssertFalse(viewModel.isFollowModeOn)
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
+    }
+
+    func testLoadPhotosForVisibleArea_WithExistingPhotos_ShouldReturnPhotos() {
+        // Arrange
+        guard let viewModel = viewModel as? MapViewModel else {
+            XCTAssertTrue(false)
+            return
+        }
+
+        let expectation = XCTestExpectation()
+        firestoreService.photos = getPhotos()
+
+        // Act
+        viewModel.$photos
+            .dropFirst()
+            .sink { _ in expectation.fulfill() }
+            .store(in: cancelBag)
+
+        viewModel.loadUserPhotosSubject.send(MKMapRect())
+
+        // Assert
+        wait(for: [expectation], timeout: 2)
+        XCTAssertFalse(viewModel.photos.isEmpty)
+    }
+
+    func testLoadPhotosForVisibleArea_WithoutPhotos_ShouldReturnEmptyArray() {
+        // Arrange
+        guard let viewModel = viewModel as? MapViewModel else {
+            XCTAssertTrue(false)
+            return
+        }
+
+        let expectation = XCTestExpectation()
+        firestoreService.photos = nil
+
+        // Act
+        viewModel.$photos
+            .dropFirst()
+            .sink { _ in expectation.fulfill() }
+            .store(in: cancelBag)
+
+        viewModel.loadUserPhotosSubject.send(MKMapRect())
+
+        // Assert
+        wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(viewModel.photos.isEmpty)
+    }
+
+    func testTapMapViewGesture_ShouldAnableDiscoveryMode() {
+        // Arrange
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.follow)
+
+        // Act
+        viewModel.tapMapViewGestureSubject.send(.tap())
+
+        // Assert
+        XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
+    }
+
+    private func getPhotos() -> [Photo] {
+        // swiftlint:disable line_length
+        [Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+         Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))]
+        // swiftlint:enable line_length
     }
 }

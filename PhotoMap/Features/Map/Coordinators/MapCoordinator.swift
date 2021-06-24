@@ -22,6 +22,7 @@ class MapCoordinator: Coordinator {
     private(set) var disableLocationSubject = PassthroughSubject<Void, Never>()
     private(set) var imagePickerSourceSubject = PassthroughSubject<UIImagePickerController.SourceType, Never>()
     private(set) var showImagePickerSubject = PassthroughSubject<UIImagePickerController, Never>()
+    private(set) var errorAlertSubject = PassthroughSubject<FirestoreError, Never>()
 
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -73,6 +74,9 @@ class MapCoordinator: Coordinator {
                 self.childCoordinators.append(imagePickerCoordinator)
                 self.navigationController.present(imagePickerCoordinator.start(from: source), animated: true)
             })
+            .store(in: cancelBag)
+        errorAlertSubject
+            .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
     }
 }

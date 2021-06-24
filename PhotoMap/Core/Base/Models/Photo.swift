@@ -9,8 +9,14 @@ import UIKit
 import CoreLocation
 import FirebaseFirestore
 
+fileprivate enum Name: String {
+    case category, date, description, hashtags, images, point
+}
+
 struct Photo {
+    var id: String = ""
     var image: UIImage
+    var imageUrls: [String] = []
     var date: Date = Date()
     var description: String = ""
     var category: Category?
@@ -30,8 +36,36 @@ struct Photo {
     }
 }
 
-extension Photo {
-    private enum Name: String {
-        case category, date, description, hashtags, images, point
+struct ReceivePhoto {
+    var id: String = ""
+    var images: [String]
+    var date: Date = Date()
+    var description: String = ""
+    var category: String
+    var geopoint: GeoPoint
+
+    init(dictionary: [String: Any], id: String) {
+        self.id = id
+        category = dictionary[Name.category.rawValue] as? String ?? ""
+        let timestamp = dictionary[Name.date.rawValue] as? Timestamp ?? Timestamp(date: Date())
+        date = Date(timeIntervalSince1970: TimeInterval(timestamp.seconds))
+        description = dictionary[Name.description.rawValue] as? String ?? ""
+        images = dictionary[Name.images.rawValue] as? [String] ?? []
+        geopoint = dictionary[Name.point.rawValue] as? GeoPoint ?? GeoPoint(latitude: 0, longitude: 0)
+    }
+
+    func toMapCoordinates() -> CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: geopoint.latitude, longitude: geopoint.longitude)
+    }
+
+    func toPhoto(with category: Category?) -> Photo {
+        var photo = Photo(image: UIImage(), coordinate: toMapCoordinates())
+        photo.id = id
+        photo.category = category
+        photo.date = date
+        photo.description = description
+        photo.imageUrls = images
+
+        return photo
     }
 }

@@ -10,17 +10,15 @@ import Combine
 
 protocol MapViewModelInput {
     var categoryButtonSubject: PassthroughSubject<UIControl, Never> { get }
-    var enableDiscoveryModeSubject: PassthroughSubject<GestureType, Never> { get }
-    var navigationButtonSubject: PassthroughSubject<UIControl, Never> { get }
     var photoButtonSubject: PassthroughSubject<CLLocationCoordinate2D?, Never> { get }
+    var loadUserPhotosSubject: PassthroughSubject<MKMapRect, FirestoreError> { get }
+    var tapMapViewGestureSubject: PassthroughSubject<GestureType, Never> { get }
 }
 
 protocol MapViewModelOutput {
-    var tabTitle: String { get }
-    var isShowUserLocation: Bool { get }
-    var region: MKCoordinateRegion? { get }
-    var modeButtonCollor: UIColor { get }
-    var isFollowModeOn: Bool { get }
+    var photos: [Photo] { get }
+    var modeButtonTintColor: UIColor { get }
+    var userTrackingMode: MKUserTrackingMode { get }
 }
 
 protocol MapViewModelType: MapViewModelInput, MapViewModelOutput {}

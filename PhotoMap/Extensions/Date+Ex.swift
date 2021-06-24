@@ -23,7 +23,12 @@ extension Date {
     
     var shortDate: String {
         let formatter = CachedDateFormatter.with(format: "dd.MM.yy")
-        return formatter.string(from: self).split(separator: "/").joined(separator: "-")
+        return formatter.string(from: self).split(separator: ".").joined(separator: "-")
+    }
+
+    var shortDateWithFullYear: String {
+        let formatter = CachedDateFormatter.with(format: "dd.MM.yyyy")
+        return formatter.string(from: self).split(separator: ".").joined(separator: "-")
     }
 
     var fullDateString: String {

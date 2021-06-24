@@ -15,14 +15,26 @@ class MapViewController: BaseViewController {
     private let cancelBag = CancelBag()
 
     @IBOutlet private weak var mapView: MKMapView!
-    @IBOutlet private weak var navigationButton: UIButton!
     @IBOutlet private weak var photoButton: UIButton!
     @IBOutlet private weak var categoryButton: UIButton!
+    
+    private lazy var userTrackingButton: MKUserTrackingButton = {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.cornerRadius = button.frame.size.height / 2
+        button.frame.size = CGSize(width: 30, height: 30)
+        button.clipsToBounds = true
+        button.layer.backgroundColor = UIColor.clear.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+
+        return button
+    }()
     
     static func newInstanse(viewModel: MapViewModel) -> MapViewController {
         let mapVC = StoryboardScene.Map.mapViewController.instantiate()
         mapVC.viewModel = viewModel
         mapVC.tabBarItem.image = .actions
+        mapVC.tabBarItem.title = L10n.Main.TabBar.Map.title
 
         return mapVC
     }
@@ -31,53 +43,30 @@ class MapViewController: BaseViewController {
         super.viewDidLoad()
 
         setOpacityBackgroundNavigationBar()
+        setupUI()
         bind()
-        bindMapGestures()
     }
 
     private func bind() {
         guard let viewModel = viewModel else { return }
 
-        viewModel.$tabTitle
-            .sink(receiveValue: { [weak self] title in
-                self?.tabBarItem.title = title
-            })
+        viewModel.$modeButtonTintColor
+            .assign(to: \.tintColor, on: userTrackingButton)
             .store(in: cancelBag)
-
-        viewModel.$isShowUserLocation
-            .assign(to: \.showsUserLocation, on: mapView)
+        viewModel.$userTrackingMode
+            .assign(to: \.userTrackingMode, on: mapView)
             .store(in: cancelBag)
-
-        viewModel.$region
-            .sink { [weak self] region in
-                guard let region = region else { return }
-                self?.mapView.setRegion(region, animated: true)
-            }
-            .store(in: cancelBag)
-
-        viewModel.$modeButtonCollor
-            .assign(to: \.tintColor, on: navigationButton)
-            .store(in: cancelBag)
-
         categoryButton.tapPublisher
             .subscribe(viewModel.categoryButtonSubject)
-            .store(in: cancelBag)
-        navigationButton.tapPublisher
-            .subscribe(viewModel.navigationButtonSubject)
             .store(in: cancelBag)
         photoButton.tapPublisher
             .map { _ in nil }
             .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
-    }
 
-    private func bindMapGestures() {
-        guard let viewModel = viewModel else { return }
-
-        mapView.allGestures()
-            .subscribe(viewModel.enableDiscoveryModeSubject)
+        mapView.gesture(.tap())
+            .subscribe(viewModel.tapMapViewGestureSubject)
             .store(in: cancelBag)
-
         mapView.gesture(.longPress())
             .map { [weak self] gestureType in
                 self?.getCoordinate(by: gestureType)
@@ -85,9 +74,20 @@ class MapViewController: BaseViewController {
             .filter { $0 != nil }
             .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
+
+        viewModel.$photos
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] photos in
+                if let annotations = self?.mapView?.annotations {
+                    self?.mapView.removeAnnotations(annotations)
+                }
+                
+                self?.mapView.addAnnotations(photos.map { PhotoAnnotation(photo: $0) })
+            })
+            .store(in: cancelBag)
     }
 
-    private func getCoordinate(by gestureType: GesturePublisher.Output) -> CLLocationCoordinate2D? {
+    private func getCoordinate(by gestureType: GestureType) -> CLLocationCoordinate2D? {
         let gesture = gestureType.get()
         guard gesture.state == .ended else { return nil }
 
@@ -95,5 +95,21 @@ class MapViewController: BaseViewController {
         let coordinate = self.mapView.convert(touchLocation, toCoordinateFrom: self.mapView)
 
         return coordinate
+    }
+
+    private func setupUI() {
+        mapView.showsUserLocation = true
+        
+        mapView.delegate = viewModel
+        mapView.register(PhotoMarkerView.self, forAnnotationViewWithReuseIdentifier: PhotoMarkerView.className)
+        mapView.register(PhotoClusterView.self, forAnnotationViewWithReuseIdentifier: PhotoClusterView.className)
+
+        view.addSubview(userTrackingButton)
+        userTrackingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                constant: 5).isActive = true
+        userTrackingButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                                                     constant: -50).isActive = true
+        userTrackingButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        userTrackingButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
 }

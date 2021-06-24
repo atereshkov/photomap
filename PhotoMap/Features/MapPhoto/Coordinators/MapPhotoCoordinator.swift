@@ -38,21 +38,7 @@ class MapPhotoCoordinator: Coordinator {
             }
             .store(in: cancelBag)
         errorAlertSubject
-            .sink(receiveValue: {[weak self] error in
-            self?.showErrorAlert(error: error)
-        })
-        .store(in: cancelBag)
-    }
-}
-
-extension MapPhotoCoordinator {
-    private func showErrorAlert(error: FirestoreError) {
-        let alert = UIAlertController(title: error.title,
-                                      message: error.message,
-                                      preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: L10n.ok, style: .cancel, handler: nil)
-
-        alert.addAction(cancelAction)
-        self.navigationController.present(alert, animated: true)
+            .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
+            .store(in: cancelBag)
     }
 }

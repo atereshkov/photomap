@@ -20,7 +20,6 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     private var isDisabledCategoryPicker: Bool {
         categories.isEmpty
     }
-    private var сompletionHandler: (Subscribers.Completion<FirestoreError>) -> Void
 
     // MARK: - Input
     private(set) var cancelButtonSubject = PassthroughSubject<UIControl, Never>()
@@ -44,14 +43,6 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         self.diContainer = diContainer
         self.firestoreService = diContainer.resolve()
         self.photoPublisher = photo
-        self.сompletionHandler = { completion in
-            switch completion {
-            case .failure(let error):
-                coordinator.errorAlertSubject.send(error)
-            case .finished:
-                return
-            }
-        }
 
         super.init()
 
@@ -105,6 +96,15 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
                 self?.coordinator.dismissSubject.send(UIControl())
             })
             .store(in: cancelBag)
+    }
+
+    private func сompletionHandler(_ completion: Subscribers.Completion<FirestoreError>) {
+        switch completion {
+        case .failure(let error):
+            coordinator.errorAlertSubject.send(error)
+        case .finished:
+            return
+        }
     }
 }
 

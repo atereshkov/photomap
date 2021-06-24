@@ -35,7 +35,10 @@
 		0BD78B05265F8C17000B4DE6 /* TimelineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
 		126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126CC4192667A9C2008E560D /* SignInViewModelTests.swift */; };
+		1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */; };
+		1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */; };
 		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
+		127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127E647D268219BB0044B6C7 /* PhotoClusterView.swift */; };
 		128B418C265E7DC500697551 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* Photo.swift */; };
 		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
 		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
@@ -183,7 +186,10 @@
 		0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModelTests.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		126CC4192667A9C2008E560D /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
+		1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotation.swift; sourceTree = "<group>"; };
+		1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMarkerView.swift; sourceTree = "<group>"; };
 		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
+		127E647D268219BB0044B6C7 /* PhotoClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoClusterView.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
 		128B418B265E7DC500697551 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		12D96AD92656A2CA0073847E /* StoryboardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsTests.swift; sourceTree = "<group>"; };
@@ -353,6 +359,7 @@
 				0B1DC42C265E5F5F00BC7B6E /* Category.swift */,
 				0B1DC42D265E5F5F00BC7B6E /* Marker.swift */,
 				128B418B265E7DC500697551 /* Photo.swift */,
+				1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -720,6 +727,8 @@
 				23AE2E84264D5EF700FE673F /* CategoryView.xib */,
 				3374D0E5263B1AEE00A03E78 /* ATCTextField.swift */,
 				333B82DA263FFC7500AAD56F /* ErrorTextField.swift */,
+				1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */,
+				127E647D268219BB0044B6C7 /* PhotoClusterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1288,12 +1297,14 @@
 				0B1DC431265E5F7A00BC7B6E /* TimelineViewModelType.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
 				333B8319264BD47A00AAD56F /* AuthCoordinatorType.swift in Sources */,
+				127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
 				333B82EC264137C700AAD56F /* MapViewModelType.swift in Sources */,
 				3358830B262DD14D0057D25F /* SignUpViewModel.swift in Sources */,
 				33334B2826287DF300612573 /* ResponseError.swift in Sources */,
 				338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */,
 				23AE2E81264D5D7200FE673F /* UIColor+Ex.swift in Sources */,
+				1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */,
 				0B1DC439265E5FF400BC7B6E /* IndexCollection+Ex.swift in Sources */,
 				0B4E4DCD2680803600027A60 /* FullPhotoViewModel.swift in Sources */,
 				0B1DC437265E5FDD00BC7B6E /* UISearchBar+Ex.swift in Sources */,
@@ -1356,6 +1367,7 @@
 				333B82EE26417D5100AAD56F /* EmailValidationResult.swift in Sources */,
 				33877CD3263199A500A227F9 /* strings.swift in Sources */,
 				33334A402628324C00612573 /* SceneDelegate.swift in Sources */,
+				1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */,
 				0B4E4DC926807FAA00027A60 /* FullPhotoViewController.swift in Sources */,
 				23AE2E85264D5EF700FE673F /* CategoryView.swift in Sources */,
 				01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */,
