@@ -90,8 +90,17 @@ class MapViewModel: NSObject, MapViewModelType {
                     return filteredCategoryIds.contains(id)
                 } ?? []
             }
-            .sink(receiveValue: { [weak self] filteredPhotos in
-                self?.photos = filteredPhotos
+            .assign(to: \.visiblePhotos, on: self)
+            .store(in: cancelBag)
+
+        $photos
+            .combineLatest($filteredCategories)
+            .sink(receiveValue: { [weak self] photos, categories in
+                if categories.isEmpty {
+                    self?.visiblePhotos = photos
+                } else {
+                    self?.filteredCategories = categories
+                }
             })
             .store(in: cancelBag)
     }
