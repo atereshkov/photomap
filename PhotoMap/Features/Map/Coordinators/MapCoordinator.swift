@@ -9,11 +9,6 @@ import UIKit
 import Combine
 import CoreLocation
 
-protocol ImagePickerProtocol {
-    var imagePickerSourceSubject: PassthroughSubject<UIImagePickerController.SourceType, Never> { get }
-    var showImagePickerSubject: PassthroughSubject<UIImagePickerController, Never> { get }
-}
-
 class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()

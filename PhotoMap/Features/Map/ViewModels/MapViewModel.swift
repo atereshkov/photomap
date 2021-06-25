@@ -71,12 +71,14 @@ class MapViewModel: NSObject, MapViewModelType {
                 self.firestoreService.getPhotos(for: visibleRect)
             }
             .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { [weak self] photos in self?.photos = photos })
+                  receiveValue: { [weak self] photos in
+                    self?.photos = photos })
             .store(in: cancelBag)
 
         tapMapViewGestureSubject
             .sink(receiveValue: { [weak self] _ in self?.enableDiscoveryMode()})
             .store(in: cancelBag)
+
         coordinator.doneButtonPressedWithCategoriesSubject
             .assign(to: \.filteredCategories, on: self)
             .store(in: cancelBag)

@@ -95,4 +95,28 @@ extension FirestoreServiceMock: FirestoreServiceType {
             return promise(.success(image))
         }
     }
+
+    func setPhotos() {
+        // swiftlint:disable line_length
+        photos = [
+            Photo(id: "1", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 1], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "2", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 1], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "3", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 1], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "4", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 2], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "5", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 2], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "6", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 2], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "7", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 0], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "8", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 0], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
+            Photo(id: "9", image: UIImage(), imageUrls: ["url"], date: Date(), description: "", category: categories?[safe: 0], coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        ]
+        // swiftlint:enable line_length
+    }
+
+    func setCategories() {
+        categories = [
+            Category(id: "1", name: "DEFAULT", color: "#368EDF"),
+            Category(id: "2", name: "NATURE", color: "#578E18"),
+            Category(id: "3", name: "FRIENDS", color: "#F4A523")
+        ]
+    }
 }
