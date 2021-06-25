@@ -37,6 +37,7 @@
 		126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126CC4192667A9C2008E560D /* SignInViewModelTests.swift */; };
 		1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */; };
 		1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */; };
+		1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */; };
 		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
 		127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127E647D268219BB0044B6C7 /* PhotoClusterView.swift */; };
 		128B418C265E7DC500697551 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* Photo.swift */; };
@@ -188,6 +189,7 @@
 		126CC4192667A9C2008E560D /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotation.swift; sourceTree = "<group>"; };
 		1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMarkerView.swift; sourceTree = "<group>"; };
+		1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerProtocol.swift; sourceTree = "<group>"; };
 		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		127E647D268219BB0044B6C7 /* PhotoClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoClusterView.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
@@ -555,10 +557,12 @@
 		33334B0126287A3400612573 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */,
 				33334B2226287DB600612573 /* AppCoordinator.swift */,
 				33334B0B26287C6900612573 /* Coordinator.swift */,
 				33334B1526287CCC00612573 /* TabBarCoordinator.swift */,
 				333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */,
+				1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -972,7 +976,6 @@
 			isa = PBXGroup;
 			children = (
 				338BB615262D8FA10001F530 /* MapCoordinator.swift */,
-				127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1360,6 +1363,7 @@
 				23AE2E7F264D5D7200FE673F /* NSObject+Ex.swift in Sources */,
 				33334B35262880F400612573 /* String+Ex.swift in Sources */,
 				23AE2E80264D5D7200FE673F /* UIView+Ex.swift in Sources */,
+				1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */,
 				23AE2E70264D557B00FE673F /* MapPhotoViewModelType.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
 				333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */,

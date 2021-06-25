@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreLocation
 
-class MapCoordinator: Coordinator {
+class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
 
@@ -23,6 +23,8 @@ class MapCoordinator: Coordinator {
     private(set) var imagePickerSourceSubject = PassthroughSubject<UIImagePickerController.SourceType, Never>()
     private(set) var showImagePickerSubject = PassthroughSubject<UIImagePickerController, Never>()
     private(set) var errorAlertSubject = PassthroughSubject<FirestoreError, Never>()
+    private(set) var doneButtonPressedWithCategoriesSubject = PassthroughSubject<[Category], Never>()
+    private(set) var showCategoriesScreenSubject = PassthroughSubject<Void, Never>()
 
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -39,6 +41,11 @@ class MapCoordinator: Coordinator {
     }
 
     private func bind() {
+        showCategoriesScreenSubject
+            .sink { [weak self] _ in
+                self?.showCategoryScreen()
+            }
+            .store(in: cancelBag)
         showPhotoMenuAlertSubject
             .sink { [weak self] coordinate in
                 guard let self = self else { return }
@@ -83,26 +90,6 @@ class MapCoordinator: Coordinator {
 
 // MARK: - MapCoordinator extenion with alerts
 extension MapCoordinator {
-    private func showPhotoMenuAlert() {
-        let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
-                                          style: .default,
-                                          handler: { [weak self] _ in self?.imagePickerSourceSubject.send(.camera)})
-        let chooseFromLibraryAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.chooseFromLibrary,
-                                                    style: .default,
-                                                    handler: { [weak self] _ in
-                                                        self?.imagePickerSourceSubject.send(.photoLibrary)
-                                                    })
-        let cancelAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.cancel,
-                                         style: .cancel,
-                                         handler: nil)
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(doPhotoAction)
-        alert.addAction(chooseFromLibraryAction)
-        alert.addAction(cancelAction)
-
-        navigationController.present(alert, animated: true, completion: nil)
-    }
-
     private func showDisableLocationAlert() {
         let goSettingsAction = UIAlertAction(title: L10n.Main.Map.DisableLocationAlert.Button.Title.settings,
                                              style: .default,
@@ -123,5 +110,40 @@ extension MapCoordinator {
         alert.addAction(cancelAction)
 
         navigationController.present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - MapCoordinator extenion for ImagePickerProtocol
+extension MapCoordinator {
+    private func showPhotoMenuAlert() {
+        let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
+                                          style: .default,
+                                          handler: { [weak self] _ in self?.imagePickerSourceSubject.send(.camera)})
+        let chooseFromLibraryAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.chooseFromLibrary,
+                                                    style: .default,
+                                                    handler: { [weak self] _ in
+                                                        self?.imagePickerSourceSubject.send(.photoLibrary)
+                                                    })
+        let cancelAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.cancel,
+                                         style: .cancel,
+                                         handler: nil)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(doPhotoAction)
+        alert.addAction(chooseFromLibraryAction)
+        alert.addAction(cancelAction)
+
+        navigationController.present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - MapCoordinator extenion for CategoriesProtocol
+extension MapCoordinator {
+    private func showCategoryScreen() {
+        let coordinator = CategoryCoordinator(diContainer: diContainer)
+        coordinator.parentCoordinator = self
+        let categoryNavigationVC = coordinator.start()
+        categoryNavigationVC.modalPresentationStyle = .fullScreen
+        navigationController.present(categoryNavigationVC, animated: true)
+        childCoordinators.append(coordinator)
     }
 }

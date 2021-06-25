@@ -12,7 +12,6 @@ class PhotoAnnotation: NSObject, MKAnnotation {
     private let maxTitleCount: Int = 23
     private let substringCount: Int = 20
 
-    var id: String { photo.id }
     var title: String? {
         var title = photo.description
         if title.count > maxTitleCount {
@@ -21,7 +20,11 @@ class PhotoAnnotation: NSObject, MKAnnotation {
 
         return photo.description == "" ? " " : title
     }
-    var date: Date { photo.date }
+    
+    var subtitle: String? {
+        photo.date.shortDateWithFullYear
+    }
+
     var category: Category? { photo.category }
     var coordinate: CLLocationCoordinate2D { photo.coordinate }
     var imageUrl: String? {
@@ -32,9 +35,5 @@ class PhotoAnnotation: NSObject, MKAnnotation {
         self.photo = photo
 
         super.init()
-    }
-
-    var subtitle: String? {
-        date.shortDateWithFullYear
     }
 }
