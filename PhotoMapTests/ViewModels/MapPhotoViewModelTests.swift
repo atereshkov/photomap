@@ -22,17 +22,8 @@ class MapPhotoViewModelTests: XCTestCase {
         diContainer = DIContainerMock()
         let serviceType: FirestoreServiceType = diContainer.resolve()
         firestoreService = serviceType as? FirestoreServiceMock
-        
-        firestoreService.userId = "id"
-        let categories = [
-            PhotoMap.Category(id: "1", name: "default", color: "blue"),
-            PhotoMap.Category(id: "2", name: "nature", color: "green"),
-            PhotoMap.Category(id: "3", name: "friends", color: "orange")
-        ]
-        firestoreService.categories = categories
-        
         coordinator = MapPhotoCoordinator(diContainer: diContainer)
-        let photo = Photo(image: UIImage(), coordinate: CLLocationCoordinate2D())
+        let photo = PhotoDVO(image: UIImage(), coordinate: CLLocationCoordinate2D())
         viewModel = MapPhotoViewModel(coordinator: coordinator, diContainer: diContainer, photo: photo)
     }
 

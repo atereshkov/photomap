@@ -38,16 +38,10 @@ class CategoryViewModelTests: XCTestCase {
     }
     
     func testIfAuthorizedShouldGetCategoriesFromDatabase() {
-        firestoreService.userId = "id"
-        let categories = [
-            PhotoMap.Category(id: "1", name: "default", color: "blue"),
-            PhotoMap.Category(id: "2", name: "nature", color: "green"),
-            PhotoMap.Category(id: "3", name: "friends", color: "orange")
-        ]
-        firestoreService.categories = categories
+        firestoreService.isEmptyCategories = false
         
         let expectation = XCTestExpectation()
-        let indexPath = IndexPath(row: categories.count - 1, section: 0)
+        let indexPath = IndexPath(row: firestoreService.categories.count - 1, section: 0)
         
         viewModel.reloadDataSubject.sink(receiveValue: { _ in
             expectation.fulfill()
@@ -59,12 +53,11 @@ class CategoryViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(firestoreService.getCategoriesCalled)
         XCTAssertTrue(firestoreService.getCategoriesEndWithValues)
-        XCTAssertEqual(categories.count, viewModel.getNumberOfRows())
-        XCTAssertEqual(viewModel.getCategory(at: indexPath)?.id, categories[at: categories.count - 1]?.id)
+        XCTAssertEqual(firestoreService.categories.count, viewModel.getNumberOfRows())
+        XCTAssertEqual(viewModel.getCategory(at: indexPath)?.id, firestoreService.categories[at: firestoreService.categories.count - 1]?.id)
     }
     
     func testIfErrorOccuredThenCoordinatorShowErrorAlert() {
-        firestoreService.userId = "id"
         firestoreService.error = .custom("error occured")
         
         let expectation = XCTestExpectation()
@@ -84,17 +77,11 @@ class CategoryViewModelTests: XCTestCase {
     }
     
     func testWhenSelectCategoryShouldChangeCategoryIsSelectedState() {
-        firestoreService.userId = "id"
-        let categories = [
-            PhotoMap.Category(id: "1", name: "default", color: "blue"),
-            PhotoMap.Category(id: "2", name: "nature", color: "green"),
-            PhotoMap.Category(id: "3", name: "friends", color: "orange")
-        ]
-        firestoreService.categories = categories
+        firestoreService.isEmptyCategories = false
         
         let expectation = XCTestExpectation()
         let isSelected = false
-        let indexPath = IndexPath(row: categories.count - 1, section: 0)
+        let indexPath = IndexPath(row: firestoreService.categories.count - 1, section: 0)
         
         viewModel.reloadDataSubject.sink(receiveValue: { _ in
             expectation.fulfill()

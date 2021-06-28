@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import CoreLocation
 @testable import PhotoMap
 
 class TimelineCellViewModelTests: XCTestCase {
@@ -18,7 +19,6 @@ class TimelineCellViewModelTests: XCTestCase {
         diContainer = DIContainerMock()
         let firestoreServiceDI: FirestoreServiceType = diContainer.resolve()
         firestoreService = firestoreServiceDI as? FirestoreServiceMock
-        firestoreService.userId = "id"
     }
     
     override func tearDownWithError() throws {
@@ -27,8 +27,7 @@ class TimelineCellViewModelTests: XCTestCase {
     }
     
     func testIfNoPhotoThenShouldDownloadItFromFirebase() {
-        let marker = Marker(category: "DEFAULT", date: Date(), description: "", hashtags: [],
-                                                              images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         firestoreService.downloadImage = UIImage(systemName: "face.smiling")
         let viewModel = TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
         
@@ -41,8 +40,7 @@ class TimelineCellViewModelTests: XCTestCase {
     }
     
     func test_IfImageExists_LoadItFromCacheDocuments() {
-        let marker = Marker(category: "DEFAULT", date: Date(), description: "", hashtags: [],
-                                                              images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         firestoreService.localImage = UIImage(systemName: "face.smiling")
         let viewModel = TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
         
@@ -55,8 +53,7 @@ class TimelineCellViewModelTests: XCTestCase {
     }
     
     func testIfErrorOccurredShouldDisplayDefaultImage() {
-        let marker = Marker(category: "DEFAULT", date: Date(), description: "", hashtags: [],
-                                                              images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         firestoreService.error = FirestoreError.custom("error")
         let viewModel = TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
         
