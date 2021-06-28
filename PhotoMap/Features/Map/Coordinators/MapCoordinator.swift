@@ -18,7 +18,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     private let diContainer: DIContainerType
 
     private(set) var showPhotoMenuAlertSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
-    private(set) var showMapPopupSubject = PassthroughSubject<Photo, Never>()
+    private(set) var showMapPopupSubject = PassthroughSubject<PhotoDVO, Never>()
     private(set) var disableLocationSubject = PassthroughSubject<Void, Never>()
     private(set) var imagePickerSourceSubject = PassthroughSubject<UIImagePickerController.SourceType, Never>()
     private(set) var showImagePickerSubject = PassthroughSubject<UIImagePickerController, Never>()

@@ -16,8 +16,8 @@ protocol MapViewModelInput {
 }
 
 protocol MapViewModelOutput {
-    var photos: [Photo] { get }
-    var visiblePhotos: [Photo] { get }
+    var photos: [PhotoDVO] { get }
+    var visiblePhotos: [PhotoDVO] { get }
     var filteredCategories: [Category] { get }
     var modeButtonTintColor: UIColor { get }
     var userTrackingMode: MKUserTrackingMode { get }

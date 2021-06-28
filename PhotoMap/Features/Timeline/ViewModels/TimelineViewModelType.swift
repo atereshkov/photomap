@@ -19,8 +19,8 @@ protocol TimelineViewModelTypeOutput {
     var numberOfSections: Int { get }
     var loadingPublisher: AnyPublisher<Bool, Never> { get }
     var reloadDataSubject: PassthroughSubject<Void, Never> { get }
-    func createCellViewModel(with: Marker) -> TimelineCellViewModel
-    func getMarker(at indexPath: IndexPath) -> Marker?
+    func createCellViewModel(with: PhotoDVO) -> TimelineCellViewModel
+    func getMarker(at indexPath: IndexPath) -> PhotoDVO?
     func getTitle(for: Int) -> String?
     func getNumberOfRows(in section: Int) -> Int
 }

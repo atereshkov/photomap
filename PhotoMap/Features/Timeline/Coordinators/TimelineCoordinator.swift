@@ -20,7 +20,7 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     
     private(set) var categoryButtonTapped = PassthroughSubject<UIBarButtonItem, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
-    private(set) var didSelectMarkerSubject = PassthroughSubject<Marker, Never>()
+    private(set) var didSelectMarkerSubject = PassthroughSubject<PhotoDVO, Never>()
     private(set) var doneButtonPressedWithCategoriesSubject = PassthroughSubject<[Category], Never>()
     
     init(diContainer: DIContainerType) {
@@ -70,7 +70,7 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
         childCoordinators.append(coordinator)
     }
     
-    private func presentFullPhotoScreen(for marker: Marker) {
+    private func presentFullPhotoScreen(for marker: PhotoDVO) {
         let coordinator = FullPhotoCoordinator(diContainer: diContainer)
         coordinator.parentCoordinator = self
         let fullPhotoVC = coordinator.start(with: marker)

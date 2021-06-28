@@ -20,7 +20,7 @@ protocol MapPhotoViewModelInput {
 protocol MapPhotoViewModelOutput {
     var isHiddenCategoryPicker: Bool { get }
     var categoryPublisher: Category? { get }
-    var photoPublisher: Photo { get }
+    var photoPublisher: PhotoDVO { get }
 }
 
 protocol MapPhotoViewModelType: MapPhotoViewModelInput, MapPhotoViewModelOutput {}
