@@ -12,6 +12,8 @@ class MapPhotoViewController: BaseViewController {
     // MARK: - Variables
     private var viewModel: MapPhotoViewModel?
     private let cancelBag = CancelBag()
+    @Published private var isShowKeyboard = false
+    private var bottomConstraintConstant: CGFloat = 0
 
     // MARK: - Outlets
     @IBOutlet private weak var imageView: UIImageView!
@@ -23,6 +25,7 @@ class MapPhotoViewController: BaseViewController {
     @IBOutlet private weak var categoryPickerView: UIPickerView!
     @IBOutlet private weak var pickerToolBar: UIToolbar!
     @IBOutlet private weak var closeBarButton: UIBarButtonItem!
+    @IBOutlet weak var contentViewBottomConstraint: NSLayoutConstraint!
     
     static func newInstanse(viewModel: MapPhotoViewModel) -> MapPhotoViewController {
         let mapVC = StoryboardScene.MapPhoto.mapPhotoViewController.instantiate()
@@ -39,10 +42,19 @@ class MapPhotoViewController: BaseViewController {
 
         bind()
         bindActions()
+
+        bottomConstraintConstant = contentViewBottomConstraint.constant
     }
 
     private func bind() {
         guard let viewModel = viewModel else { return }
+
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .sink(receiveValue: { [weak self] notification in self?.keybordWillShow(notification) })
+            .store(in: cancelBag)
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .sink(receiveValue: { [weak self] notification in self?.keybordWillHide(notification) })
+            .store(in: cancelBag)
 
         viewModel.$photoPublisher
             .map { $0.image }
@@ -107,6 +119,11 @@ class MapPhotoViewController: BaseViewController {
         cancelButton.tapPublisher
             .subscribe(viewModel.cancelButtonSubject)
             .store(in: cancelBag)
+        // Hide keyboard when tap on view
+        view.gesture(.tap())
+            .filter { [weak self] _ in self?.isShowKeyboard ?? false }
+            .sink(receiveValue: { [weak self] _ in self?.view.endEditing(true) })
+            .store(in: cancelBag)
     }
 
     private func setupUI() {
@@ -118,5 +135,23 @@ class MapPhotoViewController: BaseViewController {
         categoryPickerView.dataSource = viewModel
 
         pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+}
+
+// MARK: - Keyboard notifications
+extension MapPhotoViewController {
+    @objc func keybordWillShow(_ notification: Notification) {
+        guard let userInfo = (notification as NSNotification).userInfo,
+              let keyboardNSValue: NSValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        var keyboardFrame: CGRect = keyboardNSValue.cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        isShowKeyboard = true
+        
+        self.contentViewBottomConstraint.constant = keyboardFrame.size.height
+    }
+    
+    @objc func keybordWillHide(_ notification: Notification) {
+        isShowKeyboard = false
+        self.contentViewBottomConstraint.constant = bottomConstraintConstant
     }
 }
