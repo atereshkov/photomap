@@ -168,7 +168,8 @@ extension MapViewModel: MKMapViewDelegate {
                  annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         guard let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
-        // Open FullPhoto screen
+
+        coordinator.showFullPhotoSubject.send(photoAnnotation.photo)
     }
 
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {

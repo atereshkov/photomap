@@ -25,6 +25,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     private(set) var errorAlertSubject = PassthroughSubject<FirestoreError, Never>()
     private(set) var doneButtonPressedWithCategoriesSubject = PassthroughSubject<[Category], Never>()
     private(set) var showCategoriesScreenSubject = PassthroughSubject<Void, Never>()
+    private(set) var showFullPhotoSubject = PassthroughSubject<PhotoDVO, Never>()
 
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -62,6 +63,11 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
                 let vc = MapPhotoCoordinator(diContainer: self.diContainer).start(with: photo)
                 self.navigationController.present(vc, animated: true)
             }
+            .store(in: cancelBag)
+        showFullPhotoSubject
+            .sink(receiveValue: { [weak self] photo in
+                self?.showFullPhotoScreen(for: photo)
+            })
             .store(in: cancelBag)
         disableLocationSubject
             .sink(receiveValue: { [weak self] _ in
@@ -144,6 +150,14 @@ extension MapCoordinator {
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
         navigationController.present(categoryNavigationVC, animated: true)
+        childCoordinators.append(coordinator)
+    }
+
+    private func showFullPhotoScreen(for photo: PhotoDVO) {
+        let coordinator = FullPhotoCoordinator(diContainer: diContainer)
+        coordinator.parentCoordinator = self
+        let fullPhotoVC = coordinator.start(with: photo)
+        navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
 }
