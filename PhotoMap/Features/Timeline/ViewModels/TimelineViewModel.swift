@@ -61,7 +61,9 @@ class TimelineViewModel: TimelineViewModelType {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] categories in
                 let categoriesTitles = categories.map { String($0.name) }
-                let markers = self?.allMarkers.values.flatMap { $0 }.filter { categoriesTitles.contains($0.category?.name ?? "") }
+                let markers = self?.allMarkers.values
+                    .flatMap { $0 }
+                    .filter { categoriesTitles.contains($0.category?.name ?? "") }
                 let results = self?.configureDataSource(with: markers ?? [])
                 self?.categorizedMarkers = results?.markers ?? [:]
                 self?.headerTitles = results?.titles ?? []
@@ -158,7 +160,7 @@ class TimelineViewModel: TimelineViewModelType {
         var filteredMarkers = [PhotoDVO]()
         
         mainLoop: for marker in markers {
-            for tag in marker.hashTags where tag.lowercased().contains(hashtag.lowercased()) {
+            for tag in marker.hashtags where tag.lowercased().contains(hashtag.lowercased()) {
                 filteredMarkers.append(marker)
                 continue mainLoop
             }

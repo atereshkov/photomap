@@ -30,7 +30,7 @@ final class FirestoreService: FirestoreServiceType {
                         receivePhotos.map { receivePhoto -> PhotoDVO in
                             let category = categories.filter { $0.id == receivePhoto.category }
 
-                            return receivePhoto.toPhoto(with: category[safe: 0])
+                            return receivePhoto.toDVO(with: category[safe: 0])
                         }
                     }
             }.eraseToAnyPublisher()
@@ -56,10 +56,13 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    func addUserPhoto(with photo: PhotoDVO) -> AnyPublisher<Void, FirestoreError> {
-        uploadPhoto(photo.image, with: photo.date.toString)
+    func addUserPhoto(with photo: UploadPhoto) -> AnyPublisher<Void, FirestoreError> {
+        uploadPhoto(photo.imageData, with: photo.imageName)
             .flatMap { [unowned self] url -> Future<Void, FirestoreError> in
-                self.savePhoto(data: photo.toDictionary(urls: [url]))
+                var photoData = photo
+                photoData.updateImageURLs([url])
+
+                return self.savePhoto(data: photoData.dictionary)
             }.eraseToAnyPublisher()
     }
 
@@ -82,9 +85,9 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    private func uploadPhoto(_ image: UIImage?, with name: String) -> Future<URL, FirestoreError> {
+    private func uploadPhoto(_ image: Data?, with name: String) -> Future<URL, FirestoreError> {
         Future { [weak self] promise in
-            guard let imageData = image?.pngData() else { return promise(.failure(.imageDecoding)) }
+            guard let imageData = image else { return promise(.failure(.imageDecoding)) }
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
 
             let imageName = [currentUserId, [name, Path.imageType]
@@ -115,7 +118,7 @@ final class FirestoreService: FirestoreServiceType {
                         receivePhotos.map { receivePhoto -> PhotoDVO in
                             let category = categories.filter { $0.id == receivePhoto.category }
 
-                            return receivePhoto.toPhoto(with: category[safe: 0])
+                            return receivePhoto.toDVO(with: category[safe: 0])
                         }
                     }
             }.eraseToAnyPublisher()

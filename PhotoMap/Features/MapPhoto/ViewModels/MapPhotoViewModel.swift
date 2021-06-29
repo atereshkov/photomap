@@ -89,7 +89,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     private func saveNewPhoto(with description: String) {
         photoPublisher.description = description
 
-        firestoreService.addUserPhoto(with: photoPublisher)
+        firestoreService.addUserPhoto(with: UploadPhoto(from: photoPublisher))
             .trackActivity(activityIndicator)
             .sink(receiveCompletion: сompletionHandler,
                   receiveValue: { [weak self] _ in

@@ -54,7 +54,8 @@ class CategoryViewModelTests: XCTestCase {
         XCTAssertTrue(firestoreService.getCategoriesCalled)
         XCTAssertTrue(firestoreService.getCategoriesEndWithValues)
         XCTAssertEqual(firestoreService.categories.count, viewModel.getNumberOfRows())
-        XCTAssertEqual(viewModel.getCategory(at: indexPath)?.id, firestoreService.categories[at: firestoreService.categories.count - 1]?.id)
+        XCTAssertEqual(viewModel.getCategory(at: indexPath)?.id,
+                       firestoreService.categories[at: firestoreService.categories.count - 1]?.id)
     }
     
     func testIfErrorOccuredThenCoordinatorShowErrorAlert() {

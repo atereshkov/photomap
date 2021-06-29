@@ -33,7 +33,7 @@ struct PhotoDTO {
         CLLocationCoordinate2D(latitude: geopoint.latitude, longitude: geopoint.longitude)
     }
 
-    func toPhoto(with category: Category?) -> PhotoDVO {
+    func toDVO(with category: Category?) -> PhotoDVO {
         var photo = PhotoDVO(image: UIImage(), coordinate: toMapCoordinates())
         photo.id = id
         photo.category = category
