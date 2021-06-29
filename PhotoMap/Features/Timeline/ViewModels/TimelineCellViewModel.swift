@@ -14,7 +14,7 @@ final class TimelineCellViewModel {
     private let cancelBag = CancelBag()
     
     // MARK: - Lifecycle
-    init(firestoreService: FirestoreServiceType, marker: Marker) {
+    init(firestoreService: FirestoreServiceType, marker: PhotoDVO) {
         self.firestoreService = firestoreService
         setupCell(with: marker)
     }
@@ -33,15 +33,15 @@ final class TimelineCellViewModel {
     }
     
     // MARK: - Helpers
-    private func setupCell(with marker: Marker) {
+    private func setupCell(with marker: PhotoDVO) {
         description = marker.description
         date = marker.date.shortDate
-        category = marker.category
+        category = marker.category?.name
         downloadImage(for: marker)
     }
     
-    private func downloadImage(for marker: Marker) {
-        guard let imageLink = marker.images.first else { return }
+    private func downloadImage(for marker: PhotoDVO) {
+        guard let imageLink = marker.imageUrls.first else { return }
         let downloadURL = URL(string: imageLink)
         firestoreService.downloadImage(with: downloadURL)
             .trackActivity(activityIndicator)

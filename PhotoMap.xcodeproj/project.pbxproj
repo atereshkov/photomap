@@ -12,7 +12,7 @@
 		01B351F7263BFAD70053338C /* GestureRecognizer+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B351F6263BFAD70053338C /* GestureRecognizer+Combine.swift */; };
 		0B0AAAE9265E34FD007B52BA /* ActivityIndicator+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AAAE8265E34FD007B52BA /* ActivityIndicator+Combine.swift */; };
 		0B1DC42E265E5F5F00BC7B6E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC42C265E5F5F00BC7B6E /* Category.swift */; };
-		0B1DC42F265E5F5F00BC7B6E /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC42D265E5F5F00BC7B6E /* Marker.swift */; };
+		0B1DC42F265E5F5F00BC7B6E /* PhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC42D265E5F5F00BC7B6E /* PhotoDTO.swift */; };
 		0B1DC431265E5F7A00BC7B6E /* TimelineViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC430265E5F7A00BC7B6E /* TimelineViewModelType.swift */; };
 		0B1DC433265E5F9B00BC7B6E /* MarkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC432265E5F9B00BC7B6E /* MarkerCell.swift */; };
 		0B1DC435265E5FC600BC7B6E /* UITableViewCell+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1DC434265E5FC600BC7B6E /* UITableViewCell+Ex.swift */; };
@@ -34,13 +34,15 @@
 		0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */; };
 		0BD78B05265F8C17000B4DE6 /* TimelineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
+		126B9DE3268B29F800F8FCF8 /* UploadPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126B9DE2268B29F800F8FCF8 /* UploadPhoto.swift */; };
 		126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126CC4192667A9C2008E560D /* SignInViewModelTests.swift */; };
 		1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */; };
 		1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */; };
 		1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */; };
 		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
 		127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127E647D268219BB0044B6C7 /* PhotoClusterView.swift */; };
-		128B418C265E7DC500697551 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* Photo.swift */; };
+		127FB8702689FFDA0012A62E /* PhotoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127FB86F2689FFDA0012A62E /* PhotoNames.swift */; };
+		128B418C265E7DC500697551 /* PhotoDVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* PhotoDVO.swift */; };
 		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
 		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
 		23AE2E6A264D54F200FE673F /* MapPhotoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */; };
@@ -163,7 +165,7 @@
 		073EBC235C1468AD4ADA7BFB /* Pods-PhotoMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoMap.release.xcconfig"; path = "Target Support Files/Pods-PhotoMap/Pods-PhotoMap.release.xcconfig"; sourceTree = "<group>"; };
 		0B0AAAE8265E34FD007B52BA /* ActivityIndicator+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityIndicator+Combine.swift"; sourceTree = "<group>"; };
 		0B1DC42C265E5F5F00BC7B6E /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		0B1DC42D265E5F5F00BC7B6E /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		0B1DC42D265E5F5F00BC7B6E /* PhotoDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDTO.swift; sourceTree = "<group>"; };
 		0B1DC430265E5F7A00BC7B6E /* TimelineViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewModelType.swift; sourceTree = "<group>"; };
 		0B1DC432265E5F9B00BC7B6E /* MarkerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerCell.swift; sourceTree = "<group>"; };
 		0B1DC434265E5FC600BC7B6E /* UITableViewCell+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ex.swift"; sourceTree = "<group>"; };
@@ -186,14 +188,16 @@
 		0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
 		0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModelTests.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
+		126B9DE2268B29F800F8FCF8 /* UploadPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhoto.swift; sourceTree = "<group>"; };
 		126CC4192667A9C2008E560D /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotation.swift; sourceTree = "<group>"; };
 		1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMarkerView.swift; sourceTree = "<group>"; };
 		1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerProtocol.swift; sourceTree = "<group>"; };
 		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		127E647D268219BB0044B6C7 /* PhotoClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoClusterView.swift; sourceTree = "<group>"; };
+		127FB86F2689FFDA0012A62E /* PhotoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoNames.swift; path = ../../../../../../PhotoNames.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
-		128B418B265E7DC500697551 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		128B418B265E7DC500697551 /* PhotoDVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDVO.swift; sourceTree = "<group>"; };
 		12D96AD92656A2CA0073847E /* StoryboardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsTests.swift; sourceTree = "<group>"; };
 		23AE289D265529B500A6E69B /* LocationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceMock.swift; sourceTree = "<group>"; };
 		23AE2E69264D54F200FE673F /* MapPhotoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoCoordinator.swift; path = MapPhoto/Coordinators/MapPhotoCoordinator.swift; sourceTree = "<group>"; };
@@ -359,9 +363,11 @@
 			isa = PBXGroup;
 			children = (
 				0B1DC42C265E5F5F00BC7B6E /* Category.swift */,
-				0B1DC42D265E5F5F00BC7B6E /* Marker.swift */,
-				128B418B265E7DC500697551 /* Photo.swift */,
+				0B1DC42D265E5F5F00BC7B6E /* PhotoDTO.swift */,
+				128B418B265E7DC500697551 /* PhotoDVO.swift */,
 				1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */,
+				127FB86F2689FFDA0012A62E /* PhotoNames.swift */,
+				126B9DE2268B29F800F8FCF8 /* UploadPhoto.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1278,7 +1284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				128B418C265E7DC500697551 /* Photo.swift in Sources */,
+				128B418C265E7DC500697551 /* PhotoDVO.swift in Sources */,
 				335882DB262DCFCE0057D25F /* SignInViewController.swift in Sources */,
 				A8BB1F6E2666BA190042E9CC /* CategoryCoordinator.swift in Sources */,
 				33588301262DD12C0057D25F /* MoreViewModel.swift in Sources */,
@@ -1314,7 +1320,9 @@
 				33334B1626287CCC00612573 /* TabBarCoordinator.swift in Sources */,
 				3387F1072637F16D005DCFA0 /* EmailValidationError.swift in Sources */,
 				3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */,
+				126B9DE3268B29F800F8FCF8 /* UploadPhoto.swift in Sources */,
 				0B1DC433265E5F9B00BC7B6E /* MarkerCell.swift in Sources */,
+				127FB8702689FFDA0012A62E /* PhotoNames.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */,
 				23AE2E79264D567C00FE673F /* Array+Ex.swift in Sources */,
@@ -1325,7 +1333,7 @@
 				23AE2E6C264D552100FE673F /* MapPhotoViewController.swift in Sources */,
 				335882FC262DD0DF0057D25F /* MapViewModel.swift in Sources */,
 				A8BB1F702666BF940042E9CC /* CategoryViewModelType.swift in Sources */,
-				0B1DC42F265E5F5F00BC7B6E /* Marker.swift in Sources */,
+				0B1DC42F265E5F5F00BC7B6E /* PhotoDTO.swift in Sources */,
 				3358831B262DD19E0057D25F /* DIContainer.swift in Sources */,
 				33334B3A2628812A00612573 /* Date+Ex.swift in Sources */,
 				0B1DC435265E5FC600BC7B6E /* UITableViewCell+Ex.swift in Sources */,

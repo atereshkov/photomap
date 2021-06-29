@@ -8,15 +8,14 @@
 import UIKit
 import Combine
 
-class TimelineViewModel: TimelineViewModelType {    
-    
+class TimelineViewModel: TimelineViewModelType {
     // MARK: - Variables
     private let coordinator: TimelineCoordinator
     private let firestoreService: FirestoreServiceType
-    private var allMarkers = [String: [Marker]]()
-    private(set) var categorizedMarkers = [String: [Marker]]()
+    private var allMarkers = [String: [PhotoDVO]]()
+    private(set) var categorizedMarkers = [String: [PhotoDVO]]()
     private(set) var headerTitles = [String]()
-    private var searchingMarkers = [String: [Marker]]()
+    private var searchingMarkers = [String: [PhotoDVO]]()
     private var searchingHeaderTitles = [String]()
     private let cancelBag = CancelBag()
     
@@ -62,7 +61,9 @@ class TimelineViewModel: TimelineViewModelType {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] categories in
                 let categoriesTitles = categories.map { String($0.name) }
-                let markers = self?.allMarkers.values.flatMap { $0 }.filter { categoriesTitles.contains($0.category) }
+                let markers = self?.allMarkers.values
+                    .flatMap { $0 }
+                    .filter { categoriesTitles.contains($0.category?.name ?? "") }
                 let results = self?.configureDataSource(with: markers ?? [])
                 self?.categorizedMarkers = results?.markers ?? [:]
                 self?.headerTitles = results?.titles ?? []
@@ -82,7 +83,7 @@ class TimelineViewModel: TimelineViewModelType {
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Output
-    func createCellViewModel(with marker: Marker) -> TimelineCellViewModel {
+    func createCellViewModel(with marker: PhotoDVO) -> TimelineCellViewModel {
         return TimelineCellViewModel(firestoreService: firestoreService, marker: marker)
     }
     
@@ -100,7 +101,7 @@ class TimelineViewModel: TimelineViewModelType {
         return isSearching ? searchingMarkers.count : categorizedMarkers.count
     }
     
-    func getMarker(at indexPath: IndexPath) -> Marker? {
+    func getMarker(at indexPath: IndexPath) -> PhotoDVO? {
         guard let key = isSearching ? searchingHeaderTitles[at: indexPath.section] : headerTitles[at: indexPath.section] else { return nil }
         guard let markers = isSearching ? searchingMarkers[key] : categorizedMarkers[key] else { return nil }
         return markers[at: indexPath.row]
@@ -138,9 +139,9 @@ class TimelineViewModel: TimelineViewModelType {
             .store(in: cancelBag)
     }
     
-    private func configureDataSource(with markers: [Marker]) -> (markers: [String: [Marker]], titles: [String]) {
+    private func configureDataSource(with markers: [PhotoDVO]) -> (markers: [String: [PhotoDVO]], titles: [String]) {
         guard !markers.isEmpty else { return ([:], []) }
-        var groupedMarkers = [String: [Marker]]()
+        var groupedMarkers = [String: [PhotoDVO]]()
         
         for marker in markers {
             if let marks = groupedMarkers[marker.date.monthAndYear],
@@ -156,7 +157,7 @@ class TimelineViewModel: TimelineViewModelType {
     
     private func searchMarkersWith(hashtag: String) {
         let markers = self.categorizedMarkers.values.flatMap { $0 }
-        var filteredMarkers = [Marker]()
+        var filteredMarkers = [PhotoDVO]()
         
         mainLoop: for marker in markers {
             for tag in marker.hashtags where tag.lowercased().contains(hashtag.lowercased()) {

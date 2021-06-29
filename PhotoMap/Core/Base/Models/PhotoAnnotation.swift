@@ -8,7 +8,7 @@
 import MapKit
 
 class PhotoAnnotation: NSObject, MKAnnotation {
-    private(set) var photo: Photo
+    private(set) var photo: PhotoDVO
     private let maxTitleCount: Int = 23
     private let substringCount: Int = 20
 
@@ -31,7 +31,7 @@ class PhotoAnnotation: NSObject, MKAnnotation {
         photo.imageUrls[safe: 0]
     }
 
-    init(photo: Photo) {
+    init(photo: PhotoDVO) {
         self.photo = photo
 
         super.init()

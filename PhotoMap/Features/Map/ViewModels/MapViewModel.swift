@@ -25,8 +25,8 @@ class MapViewModel: NSObject, MapViewModelType {
     private(set) var tapMapViewGestureSubject = PassthroughSubject<GestureType, Never>()
 
     // MARK: - Output
-    @Published private(set) var photos: [Photo] = []
-    @Published private(set) var visiblePhotos: [Photo] = []
+    @Published private(set) var photos: [PhotoDVO] = []
+    @Published private(set) var visiblePhotos: [PhotoDVO] = []
     @Published private(set) var filteredCategories: [Category] = []
     @Published private(set) var modeButtonTintColor: UIColor = Asset.followModeColor.color
     @Published private(set) var userTrackingMode: MKUserTrackingMode = .follow
@@ -84,7 +84,7 @@ class MapViewModel: NSObject, MapViewModelType {
             .store(in: cancelBag)
 
         $filteredCategories
-            .map { [weak self] categories -> [Photo] in
+            .map { [weak self] categories -> [PhotoDVO] in
                 let filteredCategoryIds = categories.map { $0.id }
 
                 return self?.photos.filter { photo in

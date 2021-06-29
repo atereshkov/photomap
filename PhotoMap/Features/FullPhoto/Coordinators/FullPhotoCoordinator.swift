@@ -29,7 +29,7 @@ class FullPhotoCoordinator: Coordinator {
         .store(in: cancelBag)
     }
     
-    func start(with marker: Marker) -> UIViewController {
+    func start(with marker: PhotoDVO) -> UIViewController {
         let viewModel = FullPhotoViewModel(coordinator: self, diContainer: diContainer, marker: marker)
         let fullPhotoVC = FullPhotoViewController.newInstance(viewModel: viewModel)
         return fullPhotoVC

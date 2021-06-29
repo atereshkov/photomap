@@ -103,8 +103,8 @@ class MapViewModelTests: XCTestCase {
 
         let expectation = XCTestExpectation()
 
-        firestoreService.setCategories()
-        firestoreService.setPhotos()
+        firestoreService.isEmptyPhotos = false
+        firestoreService.isEmptyCategories = false
 
         // Act
         viewModel.$photos
@@ -128,7 +128,7 @@ class MapViewModelTests: XCTestCase {
         }
 
         let expectation = XCTestExpectation()
-        firestoreService.photos = nil
+        firestoreService.isEmptyPhotos = true
 
         // Act
         viewModel.$photos
@@ -174,8 +174,9 @@ class MapViewModelTests: XCTestCase {
 
         let prepareExpectation = XCTestExpectation()
 
-        firestoreService.setCategories()
-        firestoreService.setPhotos()
+        firestoreService.isEmptyPhotos = false
+        firestoreService.isEmptyCategories = false
+        
         viewModel.loadUserPhotosSubject.send(MKMapRect())
 
         viewModel.$photos

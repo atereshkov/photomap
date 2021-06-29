@@ -15,7 +15,7 @@ final class FullPhotoViewModel: FullPhotoViewModelType {
     private let cancelBag = CancelBag()
     
     // MARK: - Lifecycle
-    init(coordinator: FullPhotoCoordinator, diContainer: DIContainerType, marker: Marker) {
+    init(coordinator: FullPhotoCoordinator, diContainer: DIContainerType, marker: PhotoDVO) {
         self.coordinator = coordinator
         self.firestoreService = diContainer.resolve()
         setupView(with: marker)
@@ -45,14 +45,14 @@ final class FullPhotoViewModel: FullPhotoViewModelType {
     @Published var footerAndNavBarHidden = false
     
     // MARK: - Helpers
-    private func setupView(with marker: Marker) {
+    private func setupView(with marker: PhotoDVO) {
         description = marker.description
         date = marker.date.toString
         getImage(for: marker)
     }
     
-    private func getImage(for marker: Marker) {
-        guard let imageLink = marker.images.first else { return }
+    private func getImage(for marker: PhotoDVO) {
+        guard let imageLink = marker.imageUrls.first else { return }
         let imageURL = URL(string: imageLink)
         firestoreService.downloadImage(with: imageURL).sink(receiveCompletion: { [weak self] completion in
             switch completion {
