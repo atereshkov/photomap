@@ -12,7 +12,7 @@ class MapPhotoViewController: BaseViewController {
     // MARK: - Variables
     private var viewModel: MapPhotoViewModel?
     private let cancelBag = CancelBag()
-    @Published private var isShowKeyboard = false
+    private var isShowKeyboard = false
     private var bottomConstraintConstant: CGFloat = 0
 
     // MARK: - Outlets
@@ -140,7 +140,7 @@ class MapPhotoViewController: BaseViewController {
 
 // MARK: - Keyboard notifications
 extension MapPhotoViewController {
-    @objc func keybordWillShow(_ notification: Notification) {
+    private func keybordWillShow(_ notification: Notification) {
         guard let userInfo = (notification as NSNotification).userInfo,
               let keyboardNSValue: NSValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         var keyboardFrame: CGRect = keyboardNSValue.cgRectValue
@@ -150,7 +150,7 @@ extension MapPhotoViewController {
         self.contentViewBottomConstraint.constant = keyboardFrame.size.height
     }
     
-    @objc func keybordWillHide(_ notification: Notification) {
+    private func keybordWillHide(_ notification: Notification) {
         isShowKeyboard = false
         self.contentViewBottomConstraint.constant = bottomConstraintConstant
     }
