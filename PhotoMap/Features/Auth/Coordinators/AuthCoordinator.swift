@@ -33,10 +33,8 @@ class AuthCoordinator: AuthCoordinatorType {
 
         showMapSubject
             .sink(receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-
-                self.navigationController.dismiss(animated: true)
-                self.appCoordinator?.startMainScreen(isUserAuthorized: true)
+                self?.navigationController.dismiss(animated: true)
+                self?.appCoordinator?.startMainScreen(isUserAuthorized: true)
             })
             .store(in: cancelBag)
 
@@ -44,10 +42,7 @@ class AuthCoordinator: AuthCoordinatorType {
             .sink { [weak self] _ in
                 guard let self = self else { return }
 
-                let viewModel = SignUpViewModel(diContainer: self.diContainer,
-                                                coordinator: self, usernameValidator: UsernameValidator(),
-                                                emailValidator: EmailValidator(),
-                                                passwordValidator: PasswordValidator())
+                let viewModel = SignUpViewModel(diContainer: self.diContainer, coordinator: self)
                 let signUpVC = SignUpViewController.newInstanse(viewModel: viewModel)
                 self.navigationController.pushViewController(signUpVC, animated: true)
             }
@@ -56,10 +51,7 @@ class AuthCoordinator: AuthCoordinatorType {
 
     @discardableResult
     func start() -> UIViewController {
-        let viewModel = SignInViewModel(diContainer: diContainer,
-                                        coordinator: self,
-                                        emailValidator: EmailValidator(),
-                                        passwordValidator: PasswordValidator())
+        let viewModel = SignInViewModel(diContainer: diContainer, coordinator: self)
         let signInVC = SignInViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(signInVC, animated: true)
         

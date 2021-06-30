@@ -11,7 +11,7 @@ import UIKit
 
 class ProfileViewModel: ProfileViewModelType {
     // MARK: - Variables
-    private let coordinator: ProfileCoordinator
+    private weak var coordinator: ProfileCoordinator!
     private let firestoreService: FirestoreServiceType
     private let cancelBag = CancelBag()
     

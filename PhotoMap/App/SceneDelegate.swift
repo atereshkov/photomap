@@ -10,7 +10,7 @@ import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    var appCoordinator: AppCoordinatorType?
+    private(set) var appCoordinator: AppCoordinatorType?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,

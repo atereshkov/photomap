@@ -15,8 +15,10 @@ import MapKit
 final class FirestoreService: FirestoreServiceType {
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-    private let currentUserId = Auth.auth().currentUser?.uid
     private let fileManagerService: FileManagerServiceType
+    private var currentUserId: String? {
+        return Auth.auth().currentUser?.uid
+    }
     
     init(fileManagerService: FileManagerServiceType) {
         self.fileManagerService = fileManagerService

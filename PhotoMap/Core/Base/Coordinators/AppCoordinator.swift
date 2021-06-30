@@ -12,7 +12,6 @@ class AppCoordinator: AppCoordinatorType {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
-    private var authListener: AuthListenerType
     private var diContainer: DIContainerType
     private let window: UIWindow
     
@@ -20,14 +19,7 @@ class AppCoordinator: AppCoordinatorType {
     
     init(window: UIWindow, diContainer: DIContainerType) {
         self.window = window
-        self.authListener = diContainer.resolve()
         self.diContainer = diContainer
-        
-        authListener.isUserAuthorized
-            .sink { [weak self] isUserAuth in
-                self?.startMainScreen(isUserAuthorized: isUserAuth)
-            }
-            .store(in: cancelBag)
     }
     
     func start() {
@@ -45,7 +37,7 @@ class AppCoordinator: AppCoordinatorType {
     
     internal func showMap() {
         let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
-        childCoordinators = [tabBarCoordinator]
+        childCoordinators.append(tabBarCoordinator)
         let mainTabBarController = tabBarCoordinator.start()
         mainTabBarController.modalPresentationStyle = .overFullScreen
         navigationController.present(mainTabBarController, animated: true, completion: nil)
@@ -53,7 +45,7 @@ class AppCoordinator: AppCoordinatorType {
     
     internal func showAuth() {
         let authCoordinator = AuthCoordinator(appCoordinator: self, diContainer: diContainer)
-        childCoordinators = [authCoordinator]
+        childCoordinators.append(authCoordinator)
         let authViewController = authCoordinator.start()
         authViewController.modalPresentationStyle = .overFullScreen
         navigationController.present(authViewController, animated: true, completion: nil)
@@ -68,6 +60,7 @@ class AppCoordinator: AppCoordinatorType {
     }
     
     func reset() {
+        childCoordinators.removeAll()
         navigationController = UINavigationController()
         start()
     }

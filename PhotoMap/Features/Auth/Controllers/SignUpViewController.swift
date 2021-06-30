@@ -21,7 +21,6 @@ class SignUpViewController: BaseViewController {
     static func newInstanse(viewModel: SignUpViewModel) -> SignUpViewController {
         let signUpVC = StoryboardScene.Authentication.signUpViewController.instantiate()
         signUpVC.viewModel = viewModel
-        signUpVC.tabBarItem.image = .actions
         
         return signUpVC
     }

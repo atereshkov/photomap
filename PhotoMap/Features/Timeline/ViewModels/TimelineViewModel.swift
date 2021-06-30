@@ -11,7 +11,7 @@ import Combine
 class TimelineViewModel: TimelineViewModelType {    
     
     // MARK: - Variables
-    private let coordinator: TimelineCoordinator
+    private weak var coordinator: TimelineCoordinator!
     private let firestoreService: FirestoreServiceType
     private var allMarkers = [String: [Marker]]()
     private(set) var categorizedMarkers = [String: [Marker]]()

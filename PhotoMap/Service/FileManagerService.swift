@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 protocol FileManagerServiceType {
     func configureFilePath(for fileName: String) -> URL?
     func clearCache()
@@ -38,7 +36,6 @@ final class FileManagerService: FileManagerServiceType {
                 } catch let error {
                     debugPrint("Ooops! Something went wrong: \(error.localizedDescription)")
                 }
-                
             }
         } catch let error {
             print(error.localizedDescription)

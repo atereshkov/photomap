@@ -5,7 +5,6 @@
 //  Created by Krystsina Kurytsyna on 4/19/21.
 //
 
-import FirebaseAuth
 import UIKit
 import Combine
 
@@ -44,10 +43,10 @@ class ProfileCoordinator: Coordinator {
     @discardableResult
     func start() -> UIViewController {
         let viewModel = ProfileViewModel(coordinator: self, diContainer: diContainer)
-        let moreVC = ProfileViewController.newInstanse(viewModel: viewModel)
-        moreVC.tabBarItem.title = L10n.Main.TabBar.Profile.title
-        moreVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
-        navigationController.pushViewController(moreVC, animated: true)
+        let profileVC = ProfileViewController.newInstanse(viewModel: viewModel)
+        profileVC.tabBarItem.title = L10n.Main.TabBar.Profile.title
+        profileVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        navigationController.pushViewController(profileVC, animated: true)
         
         return navigationController
     }
@@ -58,6 +57,7 @@ class ProfileCoordinator: Coordinator {
                                       message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: L10n.Profile.Alert.Logout.Action.cancel, style: .default)
         let logoutAction = UIAlertAction(title: L10n.Logout.Button.Title.logOut, style: .destructive) { [weak self] _ in
+            self?.navigationController.dismiss(animated: true)
             self?.logoutFromAccount()
         }
         alert.addAction(cancelAction)
