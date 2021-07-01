@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,48 +15,48 @@
             <objects>
                 <viewController storyboardIdentifier="MapPhotoViewController" id="Y6W-OH-hqX" customClass="MapPhotoViewController" customModule="PhotoMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SLA-Ct-xvk" userLabel="Content">
-                                <rect key="frame" x="45" y="209" width="510" height="488"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SLA-Ct-xvk" userLabel="Content">
+                                <rect key="frame" x="45" y="264.5" width="324" height="432.5"/>
                                 <subviews>
                                     <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JpX-w1-azf">
-                                        <rect key="frame" x="8" y="8" width="494" height="140"/>
+                                        <rect key="frame" x="8" y="8" width="308" height="140"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="140" id="iBD-td-bBf"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="May 1, 2021 - 3:32 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak3-y6-lKL">
-                                        <rect key="frame" x="12" y="164" width="486" height="20.5"/>
+                                        <rect key="frame" x="12" y="164" width="300" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="discoverModeColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LML-oi-zdS">
-                                        <rect key="frame" x="12" y="192.5" width="498" height="1"/>
+                                        <rect key="frame" x="12" y="192.5" width="312" height="1"/>
                                         <color key="backgroundColor" name="discoverModeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="H8d-BX-cKT"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QE6-HE-SS5" customClass="CategoryView" customModule="PhotoMap" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="197.5" width="490" height="36"/>
+                                        <rect key="frame" x="12" y="197.5" width="304" height="36"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="OBq-N6-qdt"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2u-W0-PY6" userLabel="#2 Separator">
-                                        <rect key="frame" x="12" y="237.5" width="498" height="1"/>
+                                        <rect key="frame" x="12" y="237.5" width="312" height="1"/>
                                         <color key="backgroundColor" name="discoverModeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="LhT-Gc-BPs"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="SMn-SS-cwr">
-                                        <rect key="frame" x="186" y="386.5" width="138" height="30"/>
+                                        <rect key="frame" x="93" y="386.5" width="138" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIf-W9-su0">
                                                 <rect key="frame" x="0.0" y="0.0" width="59" height="30"/>
@@ -71,7 +73,7 @@
                                         </subviews>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Prr-nr-WRg">
-                                        <rect key="frame" x="12" y="250.5" width="486" height="120"/>
+                                        <rect key="frame" x="12" y="250.5" width="300" height="120"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="Qje-F1-veK"/>
@@ -124,7 +126,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <pickerView autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1DK-MH-Xxf">
-                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -137,7 +139,7 @@
                                 </userDefinedRuntimeAttributes>
                             </pickerView>
                             <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ni-0V-scr">
-                                <rect key="frame" x="0.0" y="456" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="718" width="414" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="done" id="Vah-as-5hh">
                                         <color key="tintColor" name="defaultColor"/>
@@ -153,6 +155,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="SLA-Ct-xvk" secondAttribute="bottom" constant="165" id="7XS-eY-DkI"/>
                             <constraint firstItem="SLA-Ct-xvk" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="BOc-8z-KSr"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="SLA-Ct-xvk" secondAttribute="trailing" constant="45" id="CKa-wF-9Ek"/>
                             <constraint firstItem="1DK-MH-Xxf" firstAttribute="top" secondItem="5ni-0V-scr" secondAttribute="bottom" id="Fwp-oB-mRJ"/>
@@ -171,6 +174,7 @@
                         <outlet property="categoryPickerView" destination="1DK-MH-Xxf" id="g3Q-sQ-can"/>
                         <outlet property="categoryView" destination="QE6-HE-SS5" id="Jes-3g-flo"/>
                         <outlet property="closeBarButton" destination="Vah-as-5hh" id="fVK-dz-iXR"/>
+                        <outlet property="contentViewBottomConstraint" destination="7XS-eY-DkI" id="Kfi-Vf-Zy2"/>
                         <outlet property="dateLabel" destination="Ak3-y6-lKL" id="SE5-Iq-Gny"/>
                         <outlet property="descriptionTextView" destination="Prr-nr-WRg" id="UCf-Ub-WLU"/>
                         <outlet property="doneButton" destination="IJj-eQ-tb8" id="umf-E0-Qqg"/>
