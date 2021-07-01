@@ -37,6 +37,7 @@
 		0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */; };
 		0BD78B05265F8C17000B4DE6 /* TimelineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */; };
 		0BE9FB9F265E1A3B00B6CC1F /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */; };
+		0BF01D0E268DB22C005B0EB8 /* ProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF01D0D268DB22C005B0EB8 /* ProfileViewModelTests.swift */; };
 		126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126CC4192667A9C2008E560D /* SignInViewModelTests.swift */; };
 		1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */; };
 		1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */; };
@@ -191,6 +192,7 @@
 		0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
 		0BD78B04265F8C17000B4DE6 /* TimelineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModelTests.swift; sourceTree = "<group>"; };
 		0BE9FB9E265E1A3B00B6CC1F /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
+		0BF01D0D268DB22C005B0EB8 /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
 		126CC4192667A9C2008E560D /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotation.swift; sourceTree = "<group>"; };
 		1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMarkerView.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */,
 				0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */,
 				0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */,
+				0BF01D0D268DB22C005B0EB8 /* ProfileViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1268,6 +1271,7 @@
 				CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */,
 				0B6A6FD7266E17870021E692 /* CategoryViewModelTests.swift in Sources */,
 				0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */,
+				0BF01D0E268DB22C005B0EB8 /* ProfileViewModelTests.swift in Sources */,
 				333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */,
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
 				333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */,

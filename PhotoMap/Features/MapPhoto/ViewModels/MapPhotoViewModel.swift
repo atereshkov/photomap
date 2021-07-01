@@ -11,7 +11,7 @@ import Combine
 class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
-    private let coordinator: MapPhotoCoordinator
+    private weak var coordinator: MapPhotoCoordinator!
     private let diContainer: DIContainerType
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()

@@ -45,7 +45,7 @@ class SignInViewModel: SignInViewModelType {
     private func transform() {
         $email
             .flatMap { [unowned self] email in
-                self.validationService.emailValidator.isEmailValid(email)
+                self.validationService.validateEmail(email)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -54,7 +54,7 @@ class SignInViewModel: SignInViewModelType {
         
         $password
             .flatMap { [unowned self] password in
-                self.validationService.passwordValidator.isPasswordValid(password)
+                self.validationService.validatePassword(password)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)

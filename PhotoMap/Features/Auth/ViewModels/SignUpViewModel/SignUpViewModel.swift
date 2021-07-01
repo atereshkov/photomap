@@ -13,7 +13,7 @@ class SignUpViewModel: SignUpViewModelType {
     private(set) var coordinator: AuthCoordinator
     
     private let cancelBag = CancelBag()
-    private var authUserService: AuthUserServiceType
+    private let authUserService: AuthUserServiceType
     
     private let validationService: ValidationServiceType
     private let activityIndicator = ActivityIndicator()
@@ -46,7 +46,7 @@ class SignUpViewModel: SignUpViewModelType {
     private func transform() {
         $username
             .flatMap { [unowned self] username in
-                self.validationService.usernameValidator.isUsernameValid(username)
+                self.validationService.validateUsername(username)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -55,7 +55,7 @@ class SignUpViewModel: SignUpViewModelType {
         
         $email
             .flatMap { [unowned self] email in
-                self.validationService.emailValidator.isEmailValid(email)
+                self.validationService.validateEmail(email)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -64,7 +64,7 @@ class SignUpViewModel: SignUpViewModelType {
         
         $password
             .flatMap { [unowned self] password in
-                self.validationService.passwordValidator.isPasswordValid(password)
+                self.validationService.validatePassword(password)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)

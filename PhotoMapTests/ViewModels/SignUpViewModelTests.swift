@@ -14,26 +14,19 @@ class SignUpViewModelTests: XCTestCase {
     var diContainer: DIContainerType!
     var authService: AuthUserServiceMock!
     var authCoordinator: AuthCoordinator!
-    var usernameValidator: UsernameValidator!
-    var emailValidator: EmailValidator!
-    var passwordValidator: PasswordValidator!
+    var validationService: ValidationServiceType!
     var cancelBag: CancelBag!
     
     override func setUpWithError() throws {
-        usernameValidator = UsernameValidator()
-        emailValidator = EmailValidator()
-        passwordValidator = PasswordValidator()
         diContainer = DIContainerMock()
         
         let authServiceDI: AuthUserServiceType = diContainer.resolve()
+        validationService = diContainer.resolve()
         authService = authServiceDI as? AuthUserServiceMock
         
-        authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(diContainer: diContainer),
+        authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(window: UIWindow(), diContainer: diContainer),
                                           diContainer: diContainer)
-        viewModel = SignUpViewModel(diContainer: diContainer,
-                                    coordinator: authCoordinator, usernameValidator: usernameValidator,
-                                    emailValidator: emailValidator,
-                                    passwordValidator: passwordValidator)
+        viewModel = SignUpViewModel(diContainer: diContainer, coordinator: authCoordinator)
         cancelBag = CancelBag()
     }
 
@@ -41,9 +34,7 @@ class SignUpViewModelTests: XCTestCase {
         viewModel = nil
         diContainer = nil
         authCoordinator = nil
-        usernameValidator = nil
-        emailValidator = nil
-        passwordValidator = nil
+        validationService = nil
         cancelBag = nil
     }
 

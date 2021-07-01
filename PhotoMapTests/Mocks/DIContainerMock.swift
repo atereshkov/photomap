@@ -37,6 +37,16 @@ class DIContainerMock: DIContainerType {
             .register(FirestoreServiceType.self) { _ -> FirestoreServiceType in
                 FirestoreServiceMock()
             }.inObjectScope(.container)
+        
+        container.register(ValidationServiceType.self) { _ -> ValidationServiceType in
+            return ValidationService(emailValidator: EmailValidator(),
+                                         passwordValidator: PasswordValidator(),
+                                         usernameValidator: UsernameValidator())
+        }.inObjectScope(.container)
+        
+        container.register(FileManagerServiceType.self) { _ -> FileManagerServiceType in
+            return FileManagerService(fileManager: FileManager.default)
+        }.inObjectScope(.container)
     }
     
     func resolve<T>() -> T {

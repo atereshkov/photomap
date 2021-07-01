@@ -11,7 +11,7 @@ import UIKit
 class CategoryViewModel: CategoryViewModelType {
     
     // MARK: - Variables
-    private let coordinator: CategoryCoordinator
+    private weak var coordinator: CategoryCoordinator!
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()
     private let cancelBag = CancelBag()
@@ -25,9 +25,9 @@ class CategoryViewModel: CategoryViewModelType {
     
     private func transform() {
         doneButtonSubject.sink(receiveValue: { [weak self] _ in
-            self?.coordinator.doneButtonSubject.send()
             guard let categories = self?.categoriesSubject.value else { return }
             self?.coordinator.categoriesSubject.send(categories.filter { $0.isSelected })
+            self?.coordinator.doneButtonSubject.send()
         })
         .store(in: cancelBag)
         

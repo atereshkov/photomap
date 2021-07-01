@@ -47,41 +47,33 @@ class MapCoordinator: Coordinator {
                 self.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
+        
         showMapPopupSubject
             .sink { [weak self] photo in
-                guard let self = self else { return }
-
-                self.childCoordinators.removeAll()
-                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start(with: photo)
-                self.navigationController.present(vc, animated: true)
+                self?.showPopupView(with: photo)
             }
             .store(in: cancelBag)
+        
         disableLocationSubject
             .sink(receiveValue: { [weak self] _ in
                 self?.showDisableLocationAlert()
             })
             .store(in: cancelBag)
+        
         imagePickerSourceSubject
             .sink(receiveValue: { [weak self] source in
-                guard let self = self,
-                      let coordinate = self.coordinate else { return }
-
-                let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
-                imagePickerCoordinator.selectedPhotoSubject
-                    .subscribe(self.showMapPopupSubject)
-                    .store(in: self.cancelBag)
-
-                self.childCoordinators.append(imagePickerCoordinator)
-                self.navigationController.present(imagePickerCoordinator.start(from: source), animated: true)
+                guard let coordinate = self?.coordinate else { return }
+                self?.showImagePicker(coordinate: coordinate, from: source)
             })
             .store(in: cancelBag)
+        
         errorAlertSubject
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
     }
 }
 
-// MARK: - MapCoordinator extenion with alerts
+// MARK: - MapCoordinator extension with alerts
 extension MapCoordinator {
     private func showPhotoMenuAlert() {
         let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
@@ -123,5 +115,30 @@ extension MapCoordinator {
         alert.addAction(cancelAction)
 
         navigationController.present(alert, animated: true, completion: nil)
+    }
+    
+    private func showPopupView(with photo: Photo) {
+        let mapPhotoCoordinator = MapPhotoCoordinator(diContainer: diContainer)
+        mapPhotoCoordinator.parentCoordinator = self
+        let mapPhotoVC = mapPhotoCoordinator.start(with: photo)
+        navigationController.present(mapPhotoVC, animated: true)
+        childCoordinators.append(mapPhotoCoordinator)
+    }
+    
+    private func showImagePicker(coordinate: CLLocationCoordinate2D, from source: UIImagePickerController.SourceType) {
+        let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
+        imagePickerCoordinator.parentCoordinator = self
+        
+        imagePickerCoordinator.selectedPhotoSubject
+            .subscribe(showMapPopupSubject)
+            .store(in: cancelBag)
+        
+        let imagePickerController = imagePickerCoordinator.start(from: source)
+        navigationController.present(imagePickerController, animated: true)
+        childCoordinators.append(imagePickerCoordinator)
+    }
+    
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
     }
 }
