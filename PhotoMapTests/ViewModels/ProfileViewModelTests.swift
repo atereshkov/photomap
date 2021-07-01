@@ -34,7 +34,7 @@ class ProfileViewModelTests: XCTestCase {
         cancelBag = nil
     }
     
-    func testOne() {
+    func test_GetCorrectUserCredentials() {
         let currentUser = User(name: "tester", email: "tester@gmail.com")
         firestoreService.currentUser = currentUser
         
@@ -52,7 +52,7 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(currentUser.name, viewModel.username)
     }
     
-    func testTwo() {
+    func test_IfErrorOccurred_CoordinatorShowsErrorAlert() {
         guard let viewModel = viewModel as? ProfileViewModel else { return }
         firestoreService.error = .custom("error")
         
@@ -71,7 +71,7 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertTrue(showErrorAlertCalled)
     }
     
-    func testThree() {
+    func test_ifGetUser_IndicatorShouldSpin() {
         let currentUser = User(name: "tester", email: "tester@gmail.com")
         firestoreService.currentUser = currentUser
         
@@ -95,7 +95,7 @@ class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(expectedValues, results)
     }
     
-    func testFour() {
+    func test_LogoutPressed_CoordinatorShowsAlert() {
         let currentUser = User(name: "tester", email: "tester@gmail.com")
         firestoreService.currentUser = currentUser
         
