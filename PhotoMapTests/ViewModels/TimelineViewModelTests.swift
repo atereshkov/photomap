@@ -45,9 +45,8 @@ class TimelineViewModelTests: XCTestCase {
     }
     
     func testIfGettingMarksThenIndicatorShouldAppear() {
-        firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        firestoreService.markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
+        firestoreService.isEmptyPhotos = false
         
         let expectation = XCTestExpectation()
         let expectedValues = [false, true, false]
@@ -73,13 +72,12 @@ class TimelineViewModelTests: XCTestCase {
         viewModel.viewDidLoadSubject.send()
         XCTAssertEqual(viewModel.numberOfSections, 0)
         XCTAssertTrue(firestoreService.getMarkersCalled)
-        XCTAssertFalse(firestoreService.getMarkersEndWithValues)
+        XCTAssertTrue(firestoreService.getMarkersEndWithValues)
     }
     
     func testIfAuthorizedThenGetMarksShouldBeCalledWithValues() {
-        firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        firestoreService.markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
+        firestoreService.isEmptyPhotos = false
         
         let expectation = XCTestExpectation()
         
@@ -97,13 +95,10 @@ class TimelineViewModelTests: XCTestCase {
     }
     
     func testIfGetValuesThenShouldGetTitlesForValues() {
-        firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        let markers = [
-            Marker(category: "Nature", date: Date(), description: "nature",
-                   hashtags: ["#nature"], images: ["url"], location: nil)
-        ]
-        firestoreService.markers = markers
+        firestoreService.isEmptyPhotos = false
+        let photos = firestoreService.photos
+        let section = 0
         
         let expectation = XCTestExpectation()
         
@@ -114,17 +109,13 @@ class TimelineViewModelTests: XCTestCase {
         
         viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
-        XCTAssertEqual(viewModel.getTitle(for: markers.count - 1), markers[markers.count - 1].date.monthAndYear)
+        XCTAssertEqual(viewModel.getTitle(for: section), photos.first?.date.monthAndYear)
     }
     
     func testIfGetValuesThenShouldGetChosenMarker() {
-        firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        let markers = [
-            Marker(category: "Nature", date: Date(), description: "nature",
-                   hashtags: ["#nature"], images: ["url"], location: nil)
-        ]
-        firestoreService.markers = markers
+        firestoreService.isEmptyPhotos = false
+        let markers = firestoreService.photos
         
         let expectation = XCTestExpectation()
         
@@ -138,16 +129,13 @@ class TimelineViewModelTests: XCTestCase {
         let indexPath = IndexPath(row: markers.count - 1, section: 0)
         XCTAssertEqual(viewModel.getMarker(at: indexPath)?.description, markers[at: indexPath.row]?.description)
         XCTAssertEqual(viewModel.getMarker(at: indexPath)?.date, markers[at: indexPath.row]?.date)
-        XCTAssertEqual(viewModel.getMarker(at: indexPath)?.hashtags, markers[at: indexPath.row]?.hashtags)
     }
     
     func testIfGetValuesShouldReturnNumberOfRows() {
-        firestoreService.userId = "id"
         firestoreService.userHasDocuments = true
-        let markers = [Marker(category: "Nature", date: Date(), images: ["url"], location: nil)]
-        firestoreService.markers = markers
+        firestoreService.isEmptyPhotos = false
         
-        let expectedNumberOfRows = markers.count
+        let expectedNumberOfRows = firestoreService.photos.count
         let expectation = XCTestExpectation()
         
         viewModel.reloadDataSubject.sink(receiveValue: { _ in
@@ -158,32 +146,24 @@ class TimelineViewModelTests: XCTestCase {
         viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         
-        XCTAssertEqual(viewModel.getNumberOfRows(in: markers.count - 1), expectedNumberOfRows)
+        XCTAssertEqual(viewModel.getNumberOfRows(in: 0), expectedNumberOfRows)
     }
     
     func testWhenGettingCategoriesShouldFilterMarkersCorrectly() {
         guard let viewModel = viewModel as? TimelineViewModel else { return }
-        
-        firestoreService.userId = "id"
+ 
         firestoreService.userHasDocuments = true
-        let markers = [
-            Marker(category: "NATURE", date: Date(), images: ["url"], location: nil),
-            Marker(category: "NATURE", date: Date(), images: ["url"], location: nil),
-            Marker(category: "DEFAULT", date: Date(), images: ["url"], location: nil),
-            Marker(category: "FRIENDS", date: Date(), images: ["url"], location: nil),
-            Marker(category: "FRIENDS", date: Date(), images: ["url"], location: nil),
-            Marker(category: "FRIENDS", date: Date(), images: ["url"], location: nil)
-        ]
-        firestoreService.markers = markers
+        firestoreService.isEmptyCategories = false
+        firestoreService.isEmptyPhotos = false
         
         let categories = [
-            PhotoMap.Category(id: "1", name: "DEFAULT", color: "blue"),
-            PhotoMap.Category(id: "2", name: "NATURE", color: "green")
+            firestoreService.categories[0],
+            firestoreService.categories[1]
         ]
         
         // Arrange
-        let expectedNumberOfMarkers = markers.filter { $0.category ==  "DEFAULT" || $0.category == "NATURE" }.count
-        let expectedNumberOfTitles = Set(markers.map { $0.date.monthAndYear }).count
+        let expectedNumberOfMarkers = 6
+        let expectedNumberOfTitles = 1
         let expectation = XCTestExpectation()
         var count = 0
         

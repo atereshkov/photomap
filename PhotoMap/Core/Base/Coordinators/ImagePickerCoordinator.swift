@@ -16,7 +16,7 @@ class ImagePickerCoordinator: NSObject, Coordinator {
     weak var parentCoordinator: Coordinator?
     
     private var coordinate: CLLocationCoordinate2D
-    private(set) var selectedPhotoSubject = PassthroughSubject<Photo, Never>()
+    private(set) var selectedPhotoSubject = PassthroughSubject<PhotoDVO, Never>()
 
     private lazy var picker: UIImagePickerController = {
         let picker = UIImagePickerController()
@@ -52,6 +52,6 @@ extension ImagePickerCoordinator: UIImagePickerControllerDelegate, UINavigationC
         
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
 
-        selectedPhotoSubject.send(Photo(image: image, coordinate: coordinate))
+        selectedPhotoSubject.send(PhotoDVO(image: image, coordinate: coordinate))
     }
 }

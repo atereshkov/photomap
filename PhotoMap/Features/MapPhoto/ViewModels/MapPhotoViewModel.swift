@@ -32,13 +32,13 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Output
     @Published private(set) var isHiddenCategoryPicker: Bool = true
     @Published private(set) var categoryPublisher: Category?
-    @Published private(set) var photoPublisher: Photo
+    @Published private(set) var photoPublisher: PhotoDVO
     var loadingPublisher: AnyPublisher<Bool, Never> {
         activityIndicator.loading
     }
 
     // MARK: - Initialize
-    init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType, photo: Photo) {
+    init(coordinator: MapPhotoCoordinator, diContainer: DIContainerType, photo: PhotoDVO) {
         self.coordinator = coordinator
         self.diContainer = diContainer
         self.firestoreService = diContainer.resolve()
@@ -89,7 +89,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     private func saveNewPhoto(with description: String) {
         photoPublisher.description = description
 
-        firestoreService.addUserPhoto(with: photoPublisher)
+        firestoreService.addUserPhoto(with: UploadPhoto(from: photoPublisher))
             .trackActivity(activityIndicator)
             .sink(receiveCompletion: сompletionHandler,
                   receiveValue: { [weak self] _ in

@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import CoreLocation
 @testable import PhotoMap
 
 class FullPhotoViewModelTests: XCTestCase {
@@ -20,7 +21,6 @@ class FullPhotoViewModelTests: XCTestCase {
         coordinator = FullPhotoCoordinator(diContainer: diContainer)
         let firestoreServiceDI: FirestoreServiceType = diContainer.resolve()
         firestoreService = firestoreServiceDI as? FirestoreServiceMock
-        firestoreService.userId = "id"
         cancelBag = CancelBag()
     }
     
@@ -32,8 +32,7 @@ class FullPhotoViewModelTests: XCTestCase {
     }
     
     func test_IfErrorOccurred_DisplayDefaultImage() {
-        let marker = Marker(category: "default", date: Date(), description: "description",
-                                             hashtags: [], images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         firestoreService.error = .custom("error")
         
         let viewModel = FullPhotoViewModel(coordinator: coordinator, diContainer: diContainer, marker: marker)
@@ -45,8 +44,7 @@ class FullPhotoViewModelTests: XCTestCase {
     }
     
     func test_IfImageExists_GetItFromCacheDocuments() {
-        let marker = Marker(category: "default", date: Date(), description: "description",
-                                             hashtags: [], images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         let localImage = UIImage(systemName: "scribble")
         firestoreService.localImage = localImage
         
@@ -59,8 +57,7 @@ class FullPhotoViewModelTests: XCTestCase {
     }
     
     func test_WhenTap_HideNavbarAndFooterView() {
-        let marker = Marker(category: "default", date: Date(), description: "description",
-                                             hashtags: [], images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         let localImage = UIImage(systemName: "scribble")
         firestoreService.localImage = localImage
         
@@ -81,8 +78,7 @@ class FullPhotoViewModelTests: XCTestCase {
     }
     
     func test_WhenScreenDisappear_CoordinatorCallDisappearMethod() {
-        let marker = Marker(category: "default", date: Date(), description: "description",
-                                             hashtags: [], images: ["url"], location: nil)
+        let marker = firestoreService.photos[0]
         let localImage = UIImage(systemName: "scribble")
         firestoreService.localImage = localImage
         

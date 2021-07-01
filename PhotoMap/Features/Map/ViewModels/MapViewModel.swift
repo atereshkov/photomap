@@ -25,7 +25,9 @@ class MapViewModel: NSObject, MapViewModelType {
     private(set) var tapMapViewGestureSubject = PassthroughSubject<GestureType, Never>()
 
     // MARK: - Output
-    @Published private(set) var photos: [Photo] = []
+    @Published private(set) var photos: [PhotoDVO] = []
+    @Published private(set) var visiblePhotos: [PhotoDVO] = []
+    @Published private(set) var filteredCategories: [Category] = []
     @Published private(set) var modeButtonTintColor: UIColor = Asset.followModeColor.color
     @Published private(set) var userTrackingMode: MKUserTrackingMode = .follow
 
@@ -43,9 +45,8 @@ class MapViewModel: NSObject, MapViewModelType {
 
     private func transform() {
         categoryButtonSubject
-            .sink { [weak self] _ in
-                self?.enableDiscoveryMode()
-            }
+            .map { [weak self] _ -> Void in return self?.enableDiscoveryMode() ?? () }
+            .subscribe(coordinator.showCategoriesScreenSubject)
             .store(in: cancelBag)
 
         photoButtonSubject
@@ -70,11 +71,39 @@ class MapViewModel: NSObject, MapViewModelType {
                 self.firestoreService.getPhotos(for: visibleRect)
             }
             .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { [weak self] photos in self?.photos = photos })
+                  receiveValue: { [weak self] photos in
+                    self?.photos = photos })
             .store(in: cancelBag)
 
         tapMapViewGestureSubject
             .sink(receiveValue: { [weak self] _ in self?.enableDiscoveryMode()})
+            .store(in: cancelBag)
+
+        coordinator.doneButtonPressedWithCategoriesSubject
+            .assign(to: \.filteredCategories, on: self)
+            .store(in: cancelBag)
+
+        $filteredCategories
+            .map { [weak self] categories -> [PhotoDVO] in
+                let filteredCategoryIds = categories.map { $0.id }
+
+                return self?.photos.filter { photo in
+                    guard let id = photo.category?.id else { return false }
+                    return filteredCategoryIds.contains(id)
+                } ?? []
+            }
+            .assign(to: \.visiblePhotos, on: self)
+            .store(in: cancelBag)
+
+        $photos
+            .combineLatest($filteredCategories)
+            .sink(receiveValue: { [weak self] photos, categories in
+                if categories.isEmpty {
+                    self?.visiblePhotos = photos
+                } else {
+                    self?.filteredCategories = categories
+                }
+            })
             .store(in: cancelBag)
     }
 
@@ -139,7 +168,8 @@ extension MapViewModel: MKMapViewDelegate {
                  annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         guard let photoAnnotation = view.annotation as? PhotoAnnotation else { return }
-        // Open FullPhoto screen
+
+        coordinator.showFullPhotoSubject.send(photoAnnotation.photo)
     }
 
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {

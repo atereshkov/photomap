@@ -26,6 +26,7 @@ class TimelineViewController: BaseViewController {
         setupView()
         bind()
         viewModel?.viewDidLoadSubject.send()
+        tableView.keyboardDismissMode = .onDrag
     }
     
     // MARK: - Helpers
@@ -99,5 +100,15 @@ extension TimelineViewController: UITableViewDelegate {
 extension TimelineViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel?.searchTextSubject.send(searchText)
+
+        if searchText.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                searchBar.endEditing(true)
+            }
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }

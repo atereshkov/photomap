@@ -68,7 +68,7 @@ class MapViewModelTests: XCTestCase {
         XCTAssertTrue(isShow)
     }
 
-    func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
+    func testCategoryButtonPublisher_WhenTapped_ShouldEnableDiscoveryMode() {
         // Arrange
         XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.follow)
 
@@ -77,6 +77,21 @@ class MapViewModelTests: XCTestCase {
 
         // Assert
         XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
+    }
+    
+    func testCategoryButtonPublisher_WhenTapped_ShouldShowCategoryFilter() {
+        // Arrange
+        var isOpen = false
+
+        // Act
+        coordinator.showCategoriesScreenSubject
+            .sink(receiveValue: { _ in isOpen = true })
+            .store(in: cancelBag)
+
+        viewModel.categoryButtonSubject.send(UIControl())
+
+        // Assert
+        XCTAssertTrue(isOpen)
     }
 
     func testLoadPhotosForVisibleArea_WithExistingPhotos_ShouldReturnPhotos() {
@@ -87,7 +102,9 @@ class MapViewModelTests: XCTestCase {
         }
 
         let expectation = XCTestExpectation()
-        firestoreService.photos = getPhotos()
+
+        firestoreService.isEmptyPhotos = false
+        firestoreService.isEmptyCategories = false
 
         // Act
         viewModel.$photos
@@ -99,6 +116,7 @@ class MapViewModelTests: XCTestCase {
 
         // Assert
         wait(for: [expectation], timeout: 2)
+
         XCTAssertFalse(viewModel.photos.isEmpty)
     }
 
@@ -110,7 +128,7 @@ class MapViewModelTests: XCTestCase {
         }
 
         let expectation = XCTestExpectation()
-        firestoreService.photos = nil
+        firestoreService.isEmptyPhotos = true
 
         // Act
         viewModel.$photos
@@ -136,10 +154,59 @@ class MapViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.userTrackingMode, MKUserTrackingMode.none)
     }
 
-    private func getPhotos() -> [Photo] {
-        // swiftlint:disable line_length
-        [Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)),
-         Photo(id: "1", image: UIImage(), imageUrls: [], date: Date(), description: "", category: nil, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))]
-        // swiftlint:enable line_length
+    func testFilteredCategories_WithCategories_ShouldBeNotEmpty() {
+        // Arrange
+        XCTAssertTrue(viewModel.filteredCategories.isEmpty)
+
+        // Act
+        coordinator.doneButtonPressedWithCategoriesSubject.send([Category(id: "", name: "", color: "")])
+
+        // Assert
+        XCTAssertFalse(viewModel.filteredCategories.isEmpty)
     }
+
+    func testVisiblePhotos_WithNotEmptyFilteredCategories_ShouldNotBeEqualPhotos() {
+        // Prepare: Loading photos
+        guard let viewModel = viewModel as? MapViewModel else {
+            XCTAssertTrue(false)
+            return
+        }
+
+        let prepareExpectation = XCTestExpectation()
+
+        firestoreService.isEmptyPhotos = false
+        firestoreService.isEmptyCategories = false
+        
+        viewModel.loadUserPhotosSubject.send(MKMapRect())
+
+        viewModel.$photos
+            .dropFirst()
+            .sink { _ in prepareExpectation.fulfill() }
+            .store(in: cancelBag)
+        
+        wait(for: [prepareExpectation], timeout: 2)
+
+        XCTAssertTrue(viewModel.filteredCategories.isEmpty)
+        XCTAssertEqual(viewModel.photos.count, viewModel.visiblePhotos.count)
+
+        // Arrange
+        let expectation = XCTestExpectation()
+        
+        // Act
+        viewModel.$visiblePhotos
+            .dropFirst(2)
+            .sink(receiveValue: { _ in
+                expectation.fulfill()
+            })
+            .store(in: cancelBag)
+
+        coordinator.doneButtonPressedWithCategoriesSubject.send([Category(id: "1", name: "DEFAULT", color: "#368EDF")])
+
+        // Assert
+        wait(for: [expectation], timeout: 0.2)
+
+        XCTAssertFalse(viewModel.filteredCategories.isEmpty)
+        XCTAssertNotEqual(viewModel.photos.count, viewModel.visiblePhotos.count)
+    }
+
 }

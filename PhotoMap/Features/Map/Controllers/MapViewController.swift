@@ -75,7 +75,7 @@ class MapViewController: BaseViewController {
             .subscribe(viewModel.photoButtonSubject)
             .store(in: cancelBag)
 
-        viewModel.$photos
+        viewModel.$visiblePhotos
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] photos in
                 if let annotations = self?.mapView?.annotations {

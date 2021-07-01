@@ -24,29 +24,18 @@ final class FirestoreService: FirestoreServiceType {
         self.fileManagerService = fileManagerService
     }
     
-    func getUserMarkers() -> Future<[Marker], FirestoreError> {
-        return Future { [weak self] promise in
-            guard let currentUserId = self?.currentUserId else {
-                promise(.failure(.noCurrentUserId))
-                return
-            }
-            let userPhotosReference = self?.db.collection([Path.photosCollection,
-                                                           currentUserId,
-                                                           Path.userPhotosCollection]
-                                                            .joined(separator: Separator.slash))
-            userPhotosReference?.order(by: PhotoField.date, descending: true).getDocuments { snapshot, error in
-                if let error = error {
-                    promise(.failure(FirestoreError(error)))
-                } else {
-                    guard let documents = snapshot?.documents else {
-                        promise(.success([]))
-                        return
+    func getUserMarkers() -> AnyPublisher<[PhotoDVO], FirestoreError> {
+        getReceivePhotos()
+            .flatMap { [unowned self] receivePhotos in
+                self.getCategories()
+                    .map { categories -> [PhotoDVO] in
+                        receivePhotos.map { receivePhoto -> PhotoDVO in
+                            let category = categories.filter { $0.id == receivePhoto.category }
+
+                            return receivePhoto.toDVO(with: category[safe: 0])
+                        }
                     }
-                    let markers = documents.map { Marker(dictionary: $0.data()) }
-                    promise(.success(markers))
-                }
-            }
-        }
+            }.eraseToAnyPublisher()
     }
 
     func getCategories() -> Future<[Category], FirestoreError> {
@@ -69,10 +58,13 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    func addUserPhoto(with photo: Photo) -> AnyPublisher<Void, FirestoreError> {
-        uploadPhoto(photo.image, with: photo.date.toString)
+    func addUserPhoto(with photo: UploadPhoto) -> AnyPublisher<Void, FirestoreError> {
+        uploadPhoto(photo.imageData, with: photo.imageName)
             .flatMap { [unowned self] url -> Future<Void, FirestoreError> in
-                self.savePhoto(data: photo.toDictionary(urls: [url]))
+                var photoData = photo
+                photoData.updateImageURLs([url])
+
+                return self.savePhoto(data: photoData.dictionary)
             }.eraseToAnyPublisher()
     }
 
@@ -95,9 +87,9 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
 
-    private func uploadPhoto(_ image: UIImage, with name: String) -> Future<URL, FirestoreError> {
+    private func uploadPhoto(_ image: Data?, with name: String) -> Future<URL, FirestoreError> {
         Future { [weak self] promise in
-            guard let imageData = image.pngData() else { return promise(.failure(.imageDecoding)) }
+            guard let imageData = image else { return promise(.failure(.imageDecoding)) }
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
 
             let imageName = [currentUserId, [name, Path.imageType]
@@ -120,21 +112,21 @@ final class FirestoreService: FirestoreServiceType {
     }
 
     /// At the function `func getCategories()` used for receive all categories and transform `category id` to `Category` object
-    func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[Photo], FirestoreError> {
+    func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[PhotoDVO], FirestoreError> {
         getReceivePhotos(by: visibleRect)
             .flatMap { [unowned self] receivePhotos in
                 self.getCategories()
-                    .map { categories -> [Photo] in
-                        receivePhotos.map { receivePhoto -> Photo in
+                    .map { categories -> [PhotoDVO] in
+                        receivePhotos.map { receivePhoto -> PhotoDVO in
                             let category = categories.filter { $0.id == receivePhoto.category }
 
-                            return receivePhoto.toPhoto(with: category[safe: 0])
+                            return receivePhoto.toDVO(with: category[safe: 0])
                         }
                     }
             }.eraseToAnyPublisher()
     }
 
-    private func getReceivePhotos(by visibleRect: MKMapRect) -> Future<[ReceivePhoto], FirestoreError> {
+    private func getReceivePhotos(by visibleRect: MKMapRect) -> Future<[PhotoDTO], FirestoreError> {
         Future { [weak self] promise in
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
             let userPhotosReference = self?.db.collection(Path.photosCollection)
@@ -151,12 +143,25 @@ final class FirestoreService: FirestoreServiceType {
                 .whereField(PhotoField.point, isLessThanOrEqualTo: maxPoint)
                 .getDocuments { snapshot, error in
                     if let error = error { return promise(.failure(FirestoreError(error))) }
-                    guard let documents = snapshot?.documents else { return promise(.success([])) }
-                    
-                    var photos = [ReceivePhoto]()
-                    for document in documents {
-                        photos.append(ReceivePhoto(dictionary: document.data(), id: document.documentID))
-                    }
+                    let photos = snapshot?.documents.map { PhotoDTO(snapshot: $0) } ?? []
+
+                    promise(.success(photos))
+                }
+        }
+    }
+    
+    private func getReceivePhotos() -> Future<[PhotoDTO], FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
+            let userPhotosReference = self?.db.collection(Path.photosCollection)
+                                                    .document(currentUserId)
+                                                    .collection(Path.userPhotosCollection)
+
+            userPhotosReference?
+                .order(by: PhotoField.date, descending: true)
+                .getDocuments { snapshot, error in
+                    if let error = error { return promise(.failure(FirestoreError(error))) }
+                    let photos = snapshot?.documents.map { PhotoDTO(snapshot: $0) } ?? []
 
                     promise(.success(photos))
                 }
@@ -182,7 +187,9 @@ final class FirestoreService: FirestoreServiceType {
                 if let error = error {
                     return promise(.failure(.custom(error.localizedDescription)))
                 }
-                guard let url = url, let imageData = try? Data(contentsOf: url) else { return promise(.failure(.imageDecoding)) }
+                guard let url = url, let imageData = try? Data(contentsOf: url) else {
+                    return promise(.failure(.imageDecoding))
+                }
                 return promise(.success(UIImage(data: imageData)))
             }
         }
