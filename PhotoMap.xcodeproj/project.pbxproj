@@ -28,6 +28,7 @@
 		0B4E4DCD2680803600027A60 /* FullPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E4DCC2680803600027A60 /* FullPhotoViewModel.swift */; };
 		0B4E4DCF2680808400027A60 /* FullPhotoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E4DCE2680808400027A60 /* FullPhotoViewModelType.swift */; };
 		0B6A6FD7266E17870021E692 /* CategoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */; };
+		0B6BB360268E040100E5D1F0 /* PhotoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6BB35F268E040100E5D1F0 /* PhotoNames.swift */; };
 		0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */; };
 		0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C06D32679F9FB006E9724 /* FileManagerService.swift */; };
 		0BB93FED268C473700731AB4 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB93FEC268C473700731AB4 /* ValidationService.swift */; };
@@ -46,7 +47,6 @@
 		1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */; };
 		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
 		127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127E647D268219BB0044B6C7 /* PhotoClusterView.swift */; };
-		127FB8702689FFDA0012A62E /* PhotoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127FB86F2689FFDA0012A62E /* PhotoNames.swift */; };
 		128B418C265E7DC500697551 /* PhotoDVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* PhotoDVO.swift */; };
 		12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D96AD92656A2CA0073847E /* StoryboardsTests.swift */; };
 		23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AE289D265529B500A6E69B /* LocationServiceMock.swift */; };
@@ -186,6 +186,7 @@
 		0B4E4DCC2680803600027A60 /* FullPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPhotoViewModel.swift; sourceTree = "<group>"; };
 		0B4E4DCE2680808400027A60 /* FullPhotoViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPhotoViewModelType.swift; sourceTree = "<group>"; };
 		0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelTests.swift; sourceTree = "<group>"; };
+		0B6BB35F268E040100E5D1F0 /* PhotoNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoNames.swift; sourceTree = "<group>"; };
 		0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellViewModelTests.swift; sourceTree = "<group>"; };
 		0B9C06D32679F9FB006E9724 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		0BB93FEC268C473700731AB4 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 		1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerProtocol.swift; sourceTree = "<group>"; };
 		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		127E647D268219BB0044B6C7 /* PhotoClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoClusterView.swift; sourceTree = "<group>"; };
-		127FB86F2689FFDA0012A62E /* PhotoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoNames.swift; path = ../../../../../../PhotoNames.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
 		128B418B265E7DC500697551 /* PhotoDVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDVO.swift; sourceTree = "<group>"; };
 		12D96AD92656A2CA0073847E /* StoryboardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardsTests.swift; sourceTree = "<group>"; };
@@ -373,12 +373,12 @@
 		0B1DC42B265E5F5F00BC7B6E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B6BB35F268E040100E5D1F0 /* PhotoNames.swift */,
 				0B1DC42C265E5F5F00BC7B6E /* Category.swift */,
 				0B1DC42D265E5F5F00BC7B6E /* PhotoDTO.swift */,
 				128B418B265E7DC500697551 /* PhotoDVO.swift */,
 				1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */,
 				0B4781502684B59A00B475DB /* User.swift */,
-				127FB86F2689FFDA0012A62E /* PhotoNames.swift */,
 				126B9DE2268B29F800F8FCF8 /* UploadPhoto.swift */,
 			);
 			path = Models;
@@ -1341,6 +1341,7 @@
 				0B4781512684B59A00B475DB /* User.swift in Sources */,
 				23AE2E81264D5D7200FE673F /* UIColor+Ex.swift in Sources */,
 				1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */,
+				0B6BB360268E040100E5D1F0 /* PhotoNames.swift in Sources */,
 				0B1DC439265E5FF400BC7B6E /* IndexCollection+Ex.swift in Sources */,
 				0B4E4DCD2680803600027A60 /* FullPhotoViewModel.swift in Sources */,
 				0B1DC437265E5FDD00BC7B6E /* UISearchBar+Ex.swift in Sources */,
@@ -1349,7 +1350,6 @@
 				3384B79B26394CAB006E05BD /* SignInViewModelType.swift in Sources */,
 				126B9DE3268B29F800F8FCF8 /* UploadPhoto.swift in Sources */,
 				0B1DC433265E5F9B00BC7B6E /* MarkerCell.swift in Sources */,
-				127FB8702689FFDA0012A62E /* PhotoNames.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */,
 				23AE2E79264D567C00FE673F /* Array+Ex.swift in Sources */,
