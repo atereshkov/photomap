@@ -77,7 +77,7 @@ extension FirestoreServiceMock: FirestoreServiceType {
         }
     }
 
-    func addUserPhoto(with photo: PhotoDVO) -> AnyPublisher<Void, FirestoreError> {
+    func addUserPhoto(with photo: UploadPhoto) -> AnyPublisher<Void, FirestoreError> {
         Future { [weak self] promise in
             if let error = self?.error { return promise(.failure(FirestoreError(error))) }
 

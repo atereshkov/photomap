@@ -21,4 +21,4 @@ protocol FullPhotoViewModelTypeOutput {
     var footerAndNavBarHidden: Bool { get }
 }
 
-protocol FullPhotoViewModelType: FullPhotoViewModelTypeInput, FullPhotoViewModelTypeOutput {}
+protocol FullPhotoViewModelType: AnyObject, FullPhotoViewModelTypeInput, FullPhotoViewModelTypeOutput {}

@@ -10,7 +10,7 @@ import UIKit
 
 final class FullPhotoViewModel: FullPhotoViewModelType {
     // MARK: - Variables
-    private let coordinator: FullPhotoCoordinator
+    private weak var coordinator: FullPhotoCoordinator!
     private let firestoreService: FirestoreServiceType
     private let cancelBag = CancelBag()
     

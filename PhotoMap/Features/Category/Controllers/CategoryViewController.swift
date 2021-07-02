@@ -10,7 +10,7 @@ import UIKit
 class CategoryViewController: BaseViewController {
     
     // MARK: - Variables
-    private var viewModel: CategoryViewModelType?
+    private weak var viewModel: CategoryViewModelType?
     private var cancelBag = CancelBag()
     
     // MARK: - @IBOutlets

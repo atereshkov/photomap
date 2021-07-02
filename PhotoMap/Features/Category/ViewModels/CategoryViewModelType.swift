@@ -22,4 +22,4 @@ protocol CategoryViewModelTypeOutput {
     func getCategory(at: IndexPath) -> Category?
 }
 
-protocol CategoryViewModelType: CategoryViewModelTypeInput, CategoryViewModelTypeOutput {}
+protocol CategoryViewModelType: AnyObject, CategoryViewModelTypeInput, CategoryViewModelTypeOutput {}

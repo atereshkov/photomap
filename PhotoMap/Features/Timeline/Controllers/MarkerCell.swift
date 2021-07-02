@@ -46,4 +46,10 @@ final class MarkerCell: UITableViewCell {
         })
         .store(in: cancelBag)
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        viewModel = nil
+    }
 }

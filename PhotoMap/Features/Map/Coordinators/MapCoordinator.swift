@@ -160,4 +160,9 @@ extension MapCoordinator {
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
+
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinator.navigationController.dismiss(animated: true, completion: nil)
+        childCoordinators.removeLast()
+    }
 }

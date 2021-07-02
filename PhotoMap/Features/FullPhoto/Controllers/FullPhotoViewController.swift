@@ -10,7 +10,7 @@ import UIKit
 
 class FullPhotoViewController: BaseViewController {
     // MARK: - Variables
-    var viewModel: FullPhotoViewModelType?
+    private var viewModel: FullPhotoViewModelType?
     private let cancelBag = CancelBag()
     
     // MARK: - @IBOutlet
