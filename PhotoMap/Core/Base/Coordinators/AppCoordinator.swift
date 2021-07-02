@@ -59,7 +59,7 @@ class AppCoordinator: AppCoordinatorType {
         navigationController.pushViewController(initViewController, animated: true)
     }
     
-    func reset() {
+    func logout() {
         childCoordinators.removeAll()
         navigationController = UINavigationController()
         start()

@@ -25,7 +25,7 @@ class AppCoordinatorMock: AppCoordinatorType {
     var showAuthCalled = false
     var showInitialCalled = false
     var startMainScreenCalled = false
-    var resetCalled = false
+    var logoutCalled = false
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -49,8 +49,8 @@ class AppCoordinatorMock: AppCoordinatorType {
         showInitialCalled = true
     }
     
-    func reset() {
-        resetCalled = true
+    func logout() {
+        logoutCalled = true
     }
     
     func startMainScreen(isUserAuthorized: Bool) {

@@ -70,10 +70,12 @@ class ProfileCoordinator: Coordinator {
         guard let sceneDelegate = scene.delegate as? SceneDelegate else { return }
         guard let window = sceneDelegate.window else { return }
         guard let appCoordinator = sceneDelegate.appCoordinator else { return }
-        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-            self.authService.logOut()
-            self.fileManager.clearCache()
-            appCoordinator.reset()
-        })
+        // swiftlint:disable line_length
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: nil) { [weak self] _ in
+        // swiftlint:enable line_length
+            self?.authService.logOut()
+            self?.fileManager.clearCache()
+            appCoordinator.logout()
+        }
     }
 }
