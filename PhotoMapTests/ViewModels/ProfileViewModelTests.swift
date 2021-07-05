@@ -102,7 +102,7 @@ class ProfileViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         var logoutButtonTapped = false
         
-        coordinator.logoutButtonSubject.sink(receiveValue: { _ in
+        coordinator.showLogoutAlertSubject.sink(receiveValue: { _ in
             logoutButtonTapped = true
             expectation.fulfill()
         })

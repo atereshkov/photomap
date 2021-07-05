@@ -13,23 +13,34 @@ class ProfileViewModel: ProfileViewModelType {
     // MARK: - Variables
     private weak var coordinator: ProfileCoordinator!
     private let firestoreService: FirestoreServiceType
+    private let authService: AuthUserServiceType
+    private let filemanagerService: FileManagerServiceType
+    private let activityIndicator = ActivityIndicator()
     private let cancelBag = CancelBag()
     
     // MARK: - Lifecycle
     init(coordinator: ProfileCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator
         self.firestoreService = diContainer.resolve()
+        self.authService = diContainer.resolve()
+        self.filemanagerService = diContainer.resolve()
         transform()
     }
     
     private func transform() {
         logoutButtonSubject.sink(receiveValue: { [weak self] _ in
             guard let email = self?.email else { return }
-            self?.coordinator.logoutButtonSubject.send(email)
+            self?.coordinator.showLogoutAlertSubject.send(email)
         }).store(in: cancelBag)
         
         viewDidLoadSubject.sink(receiveValue: { [weak self] in
             self?.getUserCredentials()
+        })
+        .store(in: cancelBag)
+        
+        coordinator.didTapLogoutSubject.sink(receiveValue: { [weak self] in
+            self?.filemanagerService.clearCache()
+            self?.authService.logOut()
         })
         .store(in: cancelBag)
         
@@ -39,7 +50,6 @@ class ProfileViewModel: ProfileViewModelType {
     }
     
     // MARK: - Inputs
-    private let activityIndicator = ActivityIndicator()
     let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
     let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     let logoutButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()

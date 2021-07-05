@@ -17,8 +17,9 @@ class ProfileCoordinator: Coordinator {
     private let diContainer: DIContainerType
     private let cancelBag = CancelBag()
     
-    private(set) var logoutButtonSubject = PassthroughSubject<String, Never>()
+    private(set) var showLogoutAlertSubject = PassthroughSubject<String, Never>()
     private(set) var showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private(set) var didTapLogoutSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Lifecycle
     init(diContainer: DIContainerType) {
@@ -29,7 +30,7 @@ class ProfileCoordinator: Coordinator {
     }
     
     private func bind() {
-        logoutButtonSubject.sink(receiveValue: { [weak self] email in
+        showLogoutAlertSubject.sink(receiveValue: { [weak self] email in
             self?.showLogoutAlert(with: email)
         })
         .store(in: cancelBag)
@@ -57,7 +58,6 @@ class ProfileCoordinator: Coordinator {
                                       message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: L10n.Profile.Alert.Logout.Action.cancel, style: .default)
         let logoutAction = UIAlertAction(title: L10n.Logout.Button.Title.logOut, style: .destructive) { [weak self] _ in
-            self?.navigationController.dismiss(animated: true)
             self?.logoutFromAccount()
         }
         alert.addAction(cancelAction)
@@ -70,11 +70,9 @@ class ProfileCoordinator: Coordinator {
         guard let sceneDelegate = scene.delegate as? SceneDelegate else { return }
         guard let window = sceneDelegate.window else { return }
         guard let appCoordinator = sceneDelegate.appCoordinator else { return }
-        // swiftlint:disable line_length
-        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: nil) { [weak self] _ in
-        // swiftlint:enable line_length
-            self?.authService.logOut()
-            self?.fileManager.clearCache()
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft) { [weak self] in
+            self?.didTapLogoutSubject.send()
+            self?.navigationController.dismiss(animated: true)
             appCoordinator.logout()
         }
     }
