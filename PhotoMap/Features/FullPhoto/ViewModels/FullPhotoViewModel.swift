@@ -29,14 +29,13 @@ final class FullPhotoViewModel: FullPhotoViewModelType {
         .store(in: cancelBag)
         
         viewDidDisappearSubject
-            .subscribe(coordinator.viewDidDisappearSubject)
+            .subscribe(coordinator.dismissSubject)
             .store(in: cancelBag)
     }
     
     // MARK: - Inputs
     let viewDidDisappearSubject = PassthroughSubject<Void, Never>()
     let imageTappedSubject = PassthroughSubject<GestureType, Never>()
-    let imageDoubleTappedSubject = PassthroughSubject<GestureType, Never>()
     
     // MARK: - Outputs
     @Published var image: UIImage?
@@ -65,5 +64,9 @@ final class FullPhotoViewModel: FullPhotoViewModelType {
             self?.image = image
         })
         .store(in: cancelBag)
+    }
+
+    deinit {
+        cancelBag.cancel()
     }
 }

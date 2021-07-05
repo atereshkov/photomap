@@ -57,4 +57,9 @@ final class TimelineCellViewModel {
             })
             .store(in: cancelBag)
     }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }

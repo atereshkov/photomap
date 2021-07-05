@@ -87,7 +87,7 @@ class FullPhotoViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         var disappearCalled = false
         
-        coordinator.viewDidDisappearSubject.sink(receiveValue: { _ in
+        coordinator.dismissSubject.sink(receiveValue: { _ in
             disappearCalled = true
             expectation.fulfill()
         })

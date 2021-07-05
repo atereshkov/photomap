@@ -41,6 +41,8 @@
 		1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */; };
 		1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */; };
 		1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */; };
+		127A384F2693323D001EF1A3 /* ChildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127A384E2693323D001EF1A3 /* ChildCoordinator.swift */; };
+		127A38512693413A001EF1A3 /* CategoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127A38502693413A001EF1A3 /* CategoriesProtocol.swift */; };
 		127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */; };
 		127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127E647D268219BB0044B6C7 /* PhotoClusterView.swift */; };
 		128B418C265E7DC500697551 /* PhotoDVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B418B265E7DC500697551 /* PhotoDVO.swift */; };
@@ -196,6 +198,8 @@
 		1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotation.swift; sourceTree = "<group>"; };
 		1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMarkerView.swift; sourceTree = "<group>"; };
 		1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerProtocol.swift; sourceTree = "<group>"; };
+		127A384E2693323D001EF1A3 /* ChildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCoordinator.swift; sourceTree = "<group>"; };
+		127A38502693413A001EF1A3 /* CategoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesProtocol.swift; sourceTree = "<group>"; };
 		127B0C38265FB9CC00309973 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		127E647D268219BB0044B6C7 /* PhotoClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoClusterView.swift; sourceTree = "<group>"; };
 		12818BA7265D3F8000308178 /* IndexCollection+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexCollection+Ex.swift"; sourceTree = "<group>"; };
@@ -580,6 +584,7 @@
 				33334B1526287CCC00612573 /* TabBarCoordinator.swift */,
 				333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */,
 				1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */,
+				127A384E2693323D001EF1A3 /* ChildCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1039,6 +1044,7 @@
 			isa = PBXGroup;
 			children = (
 				A8BB1F6D2666BA190042E9CC /* CategoryCoordinator.swift */,
+				127A38502693413A001EF1A3 /* CategoriesProtocol.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1309,6 +1315,7 @@
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
 				1241BAF8268DF343000271A0 /* PhotoNames.swift in Sources */,
 				3387F0FD2637F10B005DCFA0 /* EmailValidator.swift in Sources */,
+				127A384F2693323D001EF1A3 /* ChildCoordinator.swift in Sources */,
 				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				23AE2E71264D557B00FE673F /* MapPhotoViewModel.swift in Sources */,
@@ -1337,6 +1344,7 @@
 				0B1DC433265E5F9B00BC7B6E /* MarkerCell.swift in Sources */,
 				335882F2262DD0BF0057D25F /* CategoryViewController.swift in Sources */,
 				0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */,
+				127A38512693413A001EF1A3 /* CategoriesProtocol.swift in Sources */,
 				23AE2E79264D567C00FE673F /* Array+Ex.swift in Sources */,
 				0B4E4DCF2680808400027A60 /* FullPhotoViewModelType.swift in Sources */,
 				333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */,

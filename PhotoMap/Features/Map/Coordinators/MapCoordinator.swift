@@ -10,6 +10,7 @@ import Combine
 import CoreLocation
 
 class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
+    // MARK: - Variables
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
 
@@ -17,6 +18,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     private var coordinate: CLLocationCoordinate2D?
     private let diContainer: DIContainerType
 
+    // MARK: - Subjects
     private(set) var showPhotoMenuAlertSubject = PassthroughSubject<CLLocationCoordinate2D?, Never>()
     private(set) var showMapPopupSubject = PassthroughSubject<PhotoDVO, Never>()
     private(set) var disableLocationSubject = PassthroughSubject<Void, Never>()
@@ -27,6 +29,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     private(set) var showCategoriesScreenSubject = PassthroughSubject<Void, Never>()
     private(set) var showFullPhotoSubject = PassthroughSubject<PhotoDVO, Never>()
 
+    // MARK: - Init & setup
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
         bind()
@@ -47,6 +50,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
                 self?.showCategoryScreen()
             }
             .store(in: cancelBag)
+
         showPhotoMenuAlertSubject
             .sink { [weak self] coordinate in
                 guard let self = self else { return }
@@ -55,6 +59,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
                 self.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
+
         showMapPopupSubject
             .sink { [weak self] photo in
                 guard let self = self else { return }
@@ -64,16 +69,19 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
                 self.navigationController.present(vc, animated: true)
             }
             .store(in: cancelBag)
+
         showFullPhotoSubject
             .sink(receiveValue: { [weak self] photo in
                 self?.showFullPhotoScreen(for: photo)
             })
             .store(in: cancelBag)
+
         disableLocationSubject
             .sink(receiveValue: { [weak self] _ in
                 self?.showDisableLocationAlert()
             })
             .store(in: cancelBag)
+
         imagePickerSourceSubject
             .sink(receiveValue: { [weak self] source in
                 guard let self = self,
@@ -88,9 +96,15 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
                 self.navigationController.present(imagePickerCoordinator.start(from: source), animated: true)
             })
             .store(in: cancelBag)
+
         errorAlertSubject
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
 
@@ -146,7 +160,15 @@ extension MapCoordinator {
 extension MapCoordinator {
     private func showCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
+        
+        coordinator.categoriesSubject
+            .subscribe(doneButtonPressedWithCategoriesSubject)
+            .store(in: cancelBag)
+
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] _ in self?.childDidFinish() })
+            .store(in: cancelBag)
+
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
         navigationController.present(categoryNavigationVC, animated: true)
@@ -155,14 +177,22 @@ extension MapCoordinator {
 
     private func showFullPhotoScreen(for photo: PhotoDVO) {
         let coordinator = FullPhotoCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
+
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] _ in
+                self?.childDidFinish()
+            })
+            .store(in: cancelBag)
+
         let fullPhotoVC = coordinator.start(with: photo)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
 
-    func childDidFinish(_ childCoordinator: Coordinator) {
-        childCoordinator.navigationController.dismiss(animated: true, completion: nil)
-        childCoordinators.removeLast()
+    func childDidFinish() {
+        if childCoordinators.last is ChildCoordinator {
+            childCoordinators.removeLast()
+        }
+
     }
 }

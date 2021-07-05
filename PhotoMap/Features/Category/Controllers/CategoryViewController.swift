@@ -10,7 +10,7 @@ import UIKit
 class CategoryViewController: BaseViewController {
     
     // MARK: - Variables
-    private weak var viewModel: CategoryViewModelType?
+    private var viewModel: CategoryViewModelType?
     private var cancelBag = CancelBag()
     
     // MARK: - @IBOutlets
@@ -21,9 +21,9 @@ class CategoryViewController: BaseViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupViews()
         bind()
-        viewModel?.viewDidLoadSubject.send()
     }
     
     private func bind() {
@@ -58,6 +58,11 @@ class CategoryViewController: BaseViewController {
     private func setupViews() {
         tableView.tableFooterView = UIView()
         navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
 

@@ -119,6 +119,11 @@ class MapViewModel: NSObject, MapViewModelType {
             return
         }
     }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }
 
 extension MapViewModel: MKMapViewDelegate {

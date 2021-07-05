@@ -8,25 +8,16 @@
 import Combine
 import UIKit
 
-class FullPhotoCoordinator: Coordinator {
+class FullPhotoCoordinator: ChildCoordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
     private let diContainer: DIContainerType
     private let cancelBag = CancelBag()
     
-    weak var parentCoordinator: Coordinator?
-    private(set) var viewDidDisappearSubject = PassthroughSubject<Void, Never>()
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
-        transform()
-    }
-    
-    private func transform() {
-        viewDidDisappearSubject.sink(receiveValue: { [weak self] in
-            self?.fullPhotoDisappear()
-        })
-        .store(in: cancelBag)
     }
     
     func start(with marker: PhotoDVO) -> UIViewController {
@@ -35,7 +26,8 @@ class FullPhotoCoordinator: Coordinator {
         return fullPhotoVC
     }
     
-    private func fullPhotoDisappear() {
-        parentCoordinator?.childDidFinish(self)
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

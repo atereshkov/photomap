@@ -60,7 +60,7 @@ struct GesturePublisher: Publisher {
 class GestureSubscription<S: Subscriber>: Subscription where S.Input == GestureType, S.Failure == Never {
     private var subscriber: S?
     private var gestureType: GestureType
-    private var view: UIView
+    private weak var view: UIView?
     
     init(subscriber: S, view: UIView, gestureType: GestureType) {
         self.subscriber = subscriber
@@ -72,7 +72,7 @@ class GestureSubscription<S: Subscriber>: Subscription where S.Input == GestureT
     private func configureGesture(_ gestureType: GestureType) {
         let gesture = gestureType.get()
         gesture.addTarget(self, action: #selector(handler))
-        view.addGestureRecognizer(gesture)
+        view?.addGestureRecognizer(gesture)
     }
     
     func request(_ demand: Subscribers.Demand) { }

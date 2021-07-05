@@ -8,10 +8,6 @@
 import UIKit
 import Combine
 
-protocol CategoriesProtocol {
-    var doneButtonPressedWithCategoriesSubject: PassthroughSubject<[Category], Never> { get }
-}
-
 class TimelineCoordinator: Coordinator, CategoriesProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
@@ -63,7 +59,15 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     
     private func presentCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
+        
+        coordinator.categoriesSubject
+            .subscribe(doneButtonPressedWithCategoriesSubject)
+            .store(in: cancelBag)
+
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] _ in self?.childDidFinish() })
+            .store(in: cancelBag)
+        
         let categoryNavigationVC = coordinator.start()
         categoryNavigationVC.modalPresentationStyle = .fullScreen
         navigationController.present(categoryNavigationVC, animated: true)
@@ -72,13 +76,24 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     
     private func presentFullPhotoScreen(for marker: PhotoDVO) {
         let coordinator = FullPhotoCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
+
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] _ in self?.childDidFinish() })
+            .store(in: cancelBag)
+
         let fullPhotoVC = coordinator.start(with: marker)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
-    
-    func childDidFinish(_ childCoordinator: Coordinator) {
-        childCoordinators.removeAll(where: { $0 === childCoordinator })
+
+    func childDidFinish() {
+        if childCoordinators.last is ChildCoordinator {
+            childCoordinators.removeLast()
+        }
+    }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

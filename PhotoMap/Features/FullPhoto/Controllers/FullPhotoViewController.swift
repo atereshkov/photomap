@@ -53,11 +53,11 @@ class FullPhotoViewController: BaseViewController {
             .assign(to: \.text, on: dateLabel)
             .store(in: cancelBag)
         
-        if let navigationBar = navigationController?.navigationBar {
-            viewModel.$footerAndNavBarHidden
-                .assign(to: \.isHidden, on: navigationBar)
-                .store(in: cancelBag)
-        }
+        viewModel.$footerAndNavBarHidden
+            .sink(receiveValue: { [weak self] isHidden in
+                self?.navigationController?.navigationBar.isHidden = isHidden
+            })
+            .store(in: cancelBag)
         
         viewModel.$footerAndNavBarHidden
             .assign(to: \.isHidden, on: footerView)
@@ -65,16 +65,22 @@ class FullPhotoViewController: BaseViewController {
         
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: nil)
         doubleTapGesture.numberOfTapsRequired = 2
-        markerImageView.gesture(.tap(doubleTapGesture)).sink(receiveValue: { [weak self] gestureType in
-            let gesture = gestureType.get()
-            self?.handleDoubleTap(gesture)
-        }).store(in: cancelBag)
+        markerImageView.gesture(.tap(doubleTapGesture))
+            .sink(receiveValue: { [weak self] gestureType in
+                self?.handleDoubleTap(gestureType.get())
+            })
+            .store(in: cancelBag)
         
         let singleTap = UITapGestureRecognizer(target: self, action: nil)
         singleTap.require(toFail: doubleTapGesture)
         markerImageView.gesture(.tap(singleTap))
             .subscribe(viewModel.imageTappedSubject)
             .store(in: cancelBag)
+    }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
 

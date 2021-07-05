@@ -24,30 +24,6 @@ class CategoryViewModel: CategoryViewModelType {
     }
     
     private func transform() {
-        doneButtonSubject.sink(receiveValue: { [weak self] _ in
-            self?.coordinator.doneButtonSubject.send()
-            guard let categories = self?.categoriesSubject.value else { return }
-            self?.coordinator.categoriesSubject.send(categories.filter { $0.isSelected })
-        })
-        .store(in: cancelBag)
-        
-        showErrorAlertSubject
-            .subscribe(coordinator.showErrorAlertSubject)
-            .store(in: cancelBag)
-        
-        viewDidLoadSubject.sink(receiveValue: { [weak self] in
-            self?.getCategories()
-        })
-        .store(in: cancelBag)
-    }
-    
-    // MARK: - Input
-    let doneButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
-    let showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
-    let viewDidLoadSubject = PassthroughSubject<Void, Never>()
-    private let activityIndicator = ActivityIndicator()
-    
-    private func getCategories() {
         firestoreService.getCategories()
             .receive(on: DispatchQueue.main)
             .trackActivity(activityIndicator)
@@ -60,11 +36,29 @@ class CategoryViewModel: CategoryViewModelType {
                 }
             }, receiveValue: { [weak self] categories in
                 self?.categories = categories
-                self?.categoriesSubject.send(categories)
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
+
+        doneButtonSubject
+            .map { [weak self] _ -> [Category] in self?.categories.filter { $0.isSelected } ?? [] }
+            .subscribe(coordinator.categoriesSubject)
+            .store(in: cancelBag)
+
+        doneButtonSubject
+            .map { _ in () }
+            .subscribe(coordinator.dismissSubject)
+            .store(in: cancelBag)
+        
+        showErrorAlertSubject
+            .subscribe(coordinator.showErrorAlertSubject)
+            .store(in: cancelBag)
     }
+    
+    // MARK: - Input
+    let doneButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
+    let showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private let activityIndicator = ActivityIndicator()
     
     func didSelectRow(at indexPath: IndexPath) {
         guard var category = categories[at: indexPath.row] else { return }
@@ -72,14 +66,12 @@ class CategoryViewModel: CategoryViewModelType {
         category.isSelected = !category.isSelected
         categories.insert(category, at: indexPath.row)
         doneButtonIsEnabled.send(!categories.filter { $0.isSelected }.isEmpty)
-        categoriesSubject.send(categories)
         reloadDataSubject.send()
     }
     
     // MARK: - Output
     let doneButtonIsEnabled = CurrentValueSubject<Bool, Never>(true)
     let reloadDataSubject = PassthroughSubject<Void, Never>()
-    let categoriesSubject = CurrentValueSubject<[Category], Never>([])
     
     var loadingPublisher: AnyPublisher<Bool, Never> {
         return activityIndicator.loading.eraseToAnyPublisher()
@@ -91,5 +83,10 @@ class CategoryViewModel: CategoryViewModelType {
     
     func getCategory(at indexPath: IndexPath) -> Category? {
         return categories[at: indexPath.row]
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

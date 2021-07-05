@@ -51,5 +51,11 @@ final class MarkerCell: UITableViewCell {
         super.prepareForReuse()
 
         viewModel = nil
+        cancelBag.cancel()
+    }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
