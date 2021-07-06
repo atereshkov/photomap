@@ -10,6 +10,7 @@ import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    private(set) var appCoordinator: AppCoordinatorType?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -19,13 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FirebaseApp.configure()
         
         let diContainer = DIContainer()
-        let appCoordinator = AppCoordinator(diContainer: diContainer)
-        
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = appCoordinator.navigationController
+        appCoordinator = AppCoordinator(window: window, diContainer: diContainer)
+        
         self.window = window
         window.makeKeyAndVisible()
       
-        appCoordinator.start()
+        appCoordinator?.start()
     }
 }

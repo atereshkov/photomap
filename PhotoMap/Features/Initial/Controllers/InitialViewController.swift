@@ -22,15 +22,6 @@ class InitialViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         activityIndicator.startAnimating()
-        
         self.viewModel?.viewDidLoad()
-        self.viewModel?.viewWillDisappear()
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        self.viewModel?.viewWillDisappear()
-    }
-
 }

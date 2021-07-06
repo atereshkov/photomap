@@ -42,6 +42,12 @@ class DIContainer: DIContainerType {
             }
             return FirestoreService(fileManagerService: fileManagerService)
         }.inObjectScope(.container)
+        
+        container.register(ValidationServiceType.self) { _ -> ValidationServiceType in
+            return ValidationService(emailValidator: EmailValidator(),
+                                     passwordValidator: PasswordValidator(),
+                                     usernameValidator: UsernameValidator())
+        }.inObjectScope(.container)
     }
     
     func resolve<T>() -> T {

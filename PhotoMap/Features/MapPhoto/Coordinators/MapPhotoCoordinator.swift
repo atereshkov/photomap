@@ -12,6 +12,8 @@ class MapPhotoCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
 
+    weak var parentCoordinator: Coordinator?
+    
     private var cancelBag = CancelBag()
     private let diContainer: DIContainerType
     private(set) var dismissSubject = PassthroughSubject<UIControl, Never>()
@@ -24,7 +26,7 @@ class MapPhotoCoordinator: Coordinator {
     }
 
     func start(with photo: PhotoDVO) -> UINavigationController {
-        let viewModel = MapPhotoViewModel(coordinator: self, diContainer: DIContainer(), photo: photo)
+        let viewModel = MapPhotoViewModel(coordinator: self, diContainer: diContainer, photo: photo)
         let vc = MapPhotoViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
 
@@ -34,11 +36,17 @@ class MapPhotoCoordinator: Coordinator {
     private func bind() {
         dismissSubject
             .sink { [weak self] _ in
-                self?.navigationController.dismiss(animated: true)
+                self?.dismissScreen()
             }
             .store(in: cancelBag)
+        
         errorAlertSubject
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
+    }
+    
+    private func dismissScreen() {
+        navigationController.dismiss(animated: true)
+        parentCoordinator?.childDidFinish(self)
     }
 }

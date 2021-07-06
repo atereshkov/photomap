@@ -41,7 +41,6 @@ class TimelineViewController: BaseViewController {
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = categoryBarButton
-        view.insertSubview(activityIndicator, aboveSubview: tableView)
     }
     
     private func bind() {

@@ -15,9 +15,7 @@ class SignUpViewModel: SignUpViewModelType {
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
     
-    private let usernameValidator: UsernameValidator
-    private let emailValidator: EmailValidator
-    private let passwordValidator: PasswordValidator
+    private let validationService: ValidationServiceType
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
@@ -37,15 +35,10 @@ class SignUpViewModel: SignUpViewModelType {
     }
 
     init(diContainer: DIContainerType,
-         coordinator: AuthCoordinator,
-         usernameValidator: UsernameValidator,
-         emailValidator: EmailValidator,
-         passwordValidator: PasswordValidator) {
+         coordinator: AuthCoordinator) {
         self.authUserService = diContainer.resolve()
         self.coordinator = coordinator
-        self.usernameValidator = usernameValidator
-        self.emailValidator = emailValidator
-        self.passwordValidator = passwordValidator
+        self.validationService = diContainer.resolve()
         
         transform()
     }
@@ -53,7 +46,7 @@ class SignUpViewModel: SignUpViewModelType {
     private func transform() {
         $username
             .flatMap { [unowned self] username in
-                self.usernameValidator.isUsernameValid(username)
+                self.validationService.validateUsername(username)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -62,7 +55,7 @@ class SignUpViewModel: SignUpViewModelType {
         
         $email
             .flatMap { [unowned self] email in
-                self.emailValidator.isEmailValid(email)
+                self.validationService.validateEmail(email)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -71,7 +64,7 @@ class SignUpViewModel: SignUpViewModelType {
         
         $password
             .flatMap { [unowned self] password in
-                self.passwordValidator.isPasswordValid(password)
+                self.validationService.validatePassword(password)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -105,13 +98,11 @@ extension SignUpViewModel {
             .receive(on: DispatchQueue.main)
             .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
-                guard let self = self else { return }
-
                 switch completion {
                 case .failure(let error):
-                    self.coordinator.showErrorAlertSubject.send(ResponseError(error))
+                    self?.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self.coordinator.showMapSubject.send()
+                    self?.coordinator.showMapSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)

@@ -22,6 +22,7 @@ class FirestoreServiceMock {
     var localImage: UIImage?
     var downloadImage: UIImage?
     var downloadImageEndWithImage = false
+    var currentUser: User?
     var isEmptyPhotos = false
     var isEmptyCategories = false
 
@@ -115,6 +116,15 @@ extension FirestoreServiceMock: FirestoreServiceType {
             guard let image = self?.downloadImage else { return promise(.failure(.custom("no image provided"))) }
             self?.downloadImageEndWithImage = true
             return promise(.success(image))
+        }
+    }
+    
+    func getCurrentUser() -> Future<User, FirestoreError> {
+        Future { [weak self] promise in
+            guard self?.userId != nil else { return promise(.failure(.noCurrentUserId)) }
+            if let error = self?.error { return promise(.failure(error)) }
+            guard let currentUser = self?.currentUser else { return promise(.failure(.custom("no current user"))) }
+            return promise(.success(currentUser))
         }
     }
 }

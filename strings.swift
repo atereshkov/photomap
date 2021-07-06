@@ -118,7 +118,7 @@ internal enum L10n {
   internal enum Logout {
     internal enum Button {
       internal enum Title {
-        /// Logout
+        /// Log out
         internal static let logOut = L10n.tr("Localizable", "logout.button.title.log-out")
       }
     }
@@ -184,9 +184,9 @@ internal enum L10n {
         /// Map
         internal static let title = L10n.tr("Localizable", "main.tab-bar.map.title")
       }
-      internal enum More {
-        /// More
-        internal static let title = L10n.tr("Localizable", "main.tab-bar.more.title")
+      internal enum Profile {
+        /// Profile
+        internal static let title = L10n.tr("Localizable", "main.tab-bar.profile.title")
       }
       internal enum Timeline {
         /// Timeline
@@ -205,6 +205,18 @@ internal enum L10n {
   }
 
   internal enum Profile {
+    internal enum Alert {
+      internal enum Logout {
+        /// Log out from %@?
+        internal static func title(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "profile.alert.logout.title", String(describing: p1))
+        }
+        internal enum Action {
+          /// Cancel
+          internal static let cancel = L10n.tr("Localizable", "profile.alert.logout.action.cancel")
+        }
+      }
+    }
     internal enum LogoutAlert {
       internal enum Button {
         /// Conform logout

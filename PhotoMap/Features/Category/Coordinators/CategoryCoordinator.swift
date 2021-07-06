@@ -50,8 +50,8 @@ class CategoryCoordinator: Coordinator {
     }
     
     private func doneButtonPressed() {
-        parentCoordinator?.childDidFinish(self)
         navigationController.dismiss(animated: true)
+        parentCoordinator?.childDidFinish(self)
     }
     
     private func showErrorAlert(error: GeneralErrorType) {

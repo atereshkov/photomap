@@ -19,11 +19,7 @@ class InitialViewModel: InitialViewModelType {
     }
     
     func viewDidLoad() {
-        self.coordinator.changeMainScreen(authListener.checkUserAuthStatus())
-    }
-    
-    func viewWillDisappear() {
-        authListener.startListening()
+        coordinator.changeMainScreen(authListener.isAuthorized())
     }
     
 }
