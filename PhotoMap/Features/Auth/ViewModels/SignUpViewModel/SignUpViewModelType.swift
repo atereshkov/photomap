@@ -13,6 +13,7 @@ protocol SignUpViewModelInput {
     var email: String { get set }
     var password: String { get set }
 
+    var viewDidDisappearSubject: PassthroughSubject<Void, Never> { get }
     var signUpButtonSubject: PassthroughSubject<UIControl, Never> { get }
 }
 

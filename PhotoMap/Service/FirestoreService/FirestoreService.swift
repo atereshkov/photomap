@@ -195,6 +195,20 @@ final class FirestoreService: FirestoreServiceType {
         }
     }
     
+    func saveUserIntoDatabase(_ user: User) -> AnyPublisher<Void, FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
+            
+            self?.db.collection(Path.usersCollection).document(currentUserId).setData(user.representation) { error in
+                if let error = error {
+                    return promise(.failure(.custom(error.localizedDescription)))
+                } else {
+                    return promise(.success(()))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
     func getCurrentUser() -> Future<User, FirestoreError> {
         Future { [weak self] promise in
             guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }

@@ -9,7 +9,7 @@ import Combine
 
 class InitialViewModel: InitialViewModelType {
     
-    private(set) var coordinator: InitialCoordinator
+    private(set) weak var coordinator: InitialCoordinator!
     private var authListener: AuthListenerType
     private var cancelBag = CancelBag()
     
