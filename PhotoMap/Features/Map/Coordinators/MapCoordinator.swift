@@ -46,60 +46,41 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
 
     private func bind() {
         showCategoriesScreenSubject
-            .sink { [weak self] _ in
-                self?.showCategoryScreen()
-            }
+            .sink { [weak self] in self?.showCategoryScreen() }
             .store(in: cancelBag)
 
         showPhotoMenuAlertSubject
             .sink { [weak self] coordinate in
-                guard let self = self else { return }
-
-                self.coordinate = coordinate
-                self.showPhotoMenuAlert()
+                self?.coordinate = coordinate
+                self?.showPhotoMenuAlert()
             }
             .store(in: cancelBag)
 
         showMapPopupSubject
-            .sink { [weak self] photo in
-                guard let self = self else { return }
-
-                self.childCoordinators.removeAll()
-                let vc = MapPhotoCoordinator(diContainer: self.diContainer).start(with: photo)
-                self.navigationController.present(vc, animated: true)
-            }
+            .sink { [weak self] photo in self?.showPhotoMapScreen(photo) }
             .store(in: cancelBag)
 
         showFullPhotoSubject
-            .sink(receiveValue: { [weak self] photo in
-                self?.showFullPhotoScreen(for: photo)
-            })
+            .sink { [weak self] photo in self?.showFullPhotoScreen(for: photo) }
             .store(in: cancelBag)
 
         disableLocationSubject
-            .sink(receiveValue: { [weak self] _ in
-                self?.showDisableLocationAlert()
-            })
+            .sink { [weak self] in self?.showDisableLocationAlert() }
             .store(in: cancelBag)
 
         imagePickerSourceSubject
-            .sink(receiveValue: { [weak self] source in
-                guard let self = self,
-                      let coordinate = self.coordinate else { return }
-
-                let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
-                imagePickerCoordinator.selectedPhotoSubject
-                    .subscribe(self.showMapPopupSubject)
-                    .store(in: self.cancelBag)
-
-                self.childCoordinators.append(imagePickerCoordinator)
-                self.navigationController.present(imagePickerCoordinator.start(from: source), animated: true)
-            })
+            .sink { [weak self] source in self?.showImagePicker(from: source) }
             .store(in: cancelBag)
 
         errorAlertSubject
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
+    }
+    
+    func childDidFinish() {
+        if childCoordinators.last is ChildCoordinator {
+            childCoordinators.removeLast()
+        }
     }
     
     // MARK: - deinit
@@ -133,7 +114,7 @@ extension MapCoordinator {
     }
 }
 
-// MARK: - MapCoordinator extenion for ImagePickerProtocol
+// MARK: - MapCoordinator extension for ImagePickerProtocol
 extension MapCoordinator {
     private func showPhotoMenuAlert() {
         let doPhotoAction = UIAlertAction(title: L10n.Main.PhotoAlert.Button.Title.takePicture,
@@ -154,9 +135,37 @@ extension MapCoordinator {
 
         navigationController.present(alert, animated: true, completion: nil)
     }
+
+    private func showImagePicker(from source: UIImagePickerController.SourceType) {
+        guard let coordinate = self.coordinate else { return }
+        
+        let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
+        imagePickerCoordinator.selectedPhotoSubject
+            .sink(receiveValue: { [weak self] photo in self?.showMapPopupSubject.send(photo)})
+            .store(in: cancelBag)
+
+        childCoordinators.append(imagePickerCoordinator)
+        navigationController.present(imagePickerCoordinator.start(from: source), animated: true)
+    }
 }
 
-// MARK: - MapCoordinator extenion for CategoriesProtocol
+// MARK: - MapCoordinator extension for PhotoMap Screen
+extension MapCoordinator {
+    private func showPhotoMapScreen(_ photo: PhotoDVO) {
+        // - remove imagePickerCoordinator
+        childDidFinish()
+
+        let mapPhotoCoordinator = MapPhotoCoordinator(diContainer: diContainer)
+        mapPhotoCoordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+           
+        childCoordinators.append(mapPhotoCoordinator)
+        navigationController.present(mapPhotoCoordinator.start(with: photo), animated: true)
+    }
+}
+
+// MARK: - MapCoordinator extension for CategoriesProtocol
 extension MapCoordinator {
     private func showCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
@@ -187,12 +196,5 @@ extension MapCoordinator {
         let fullPhotoVC = coordinator.start(with: photo)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
-    }
-
-    func childDidFinish() {
-        if childCoordinators.last is ChildCoordinator {
-            childCoordinators.removeLast()
-        }
-
     }
 }

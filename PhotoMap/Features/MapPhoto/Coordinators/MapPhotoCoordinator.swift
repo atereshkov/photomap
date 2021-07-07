@@ -8,13 +8,14 @@
 import UIKit
 import Combine
 
-class MapPhotoCoordinator: Coordinator {
+class MapPhotoCoordinator: ChildCoordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
 
     private var cancelBag = CancelBag()
     private let diContainer: DIContainerType
-    private(set) var dismissSubject = PassthroughSubject<UIControl, Never>()
+    private(set) var finishedSubject = PassthroughSubject<Void, Never>()
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
     private(set) var errorAlertSubject = PassthroughSubject<FirestoreError, Never>()
 
     init(diContainer: DIContainerType) {
@@ -24,7 +25,7 @@ class MapPhotoCoordinator: Coordinator {
     }
 
     func start(with photo: PhotoDVO) -> UINavigationController {
-        let viewModel = MapPhotoViewModel(coordinator: self, diContainer: DIContainer(), photo: photo)
+        let viewModel = MapPhotoViewModel(coordinator: self, diContainer: diContainer, photo: photo)
         let vc = MapPhotoViewController.newInstanse(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
 
@@ -32,13 +33,20 @@ class MapPhotoCoordinator: Coordinator {
     }
 
     private func bind() {
-        dismissSubject
-            .sink { [weak self] _ in
+        finishedSubject
+            .map { [weak self] _ in
                 self?.navigationController.dismiss(animated: true)
             }
+            .subscribe(dismissSubject)
             .store(in: cancelBag)
+
         errorAlertSubject
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

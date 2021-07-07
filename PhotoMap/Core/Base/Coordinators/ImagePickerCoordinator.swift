@@ -9,12 +9,13 @@ import UIKit
 import Combine
 import CoreLocation
 
-class ImagePickerCoordinator: NSObject, Coordinator {
+class ImagePickerCoordinator: NSObject, ChildCoordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     
     private var coordinate: CLLocationCoordinate2D
     private(set) var selectedPhotoSubject = PassthroughSubject<PhotoDVO, Never>()
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
 
     private lazy var picker: UIImagePickerController = {
         let picker = UIImagePickerController()

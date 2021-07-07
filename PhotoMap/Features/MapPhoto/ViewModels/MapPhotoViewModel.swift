@@ -10,12 +10,14 @@ import Combine
 
 class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Variables
-    private let cancelBag = CancelBag()
-    private let coordinator: MapPhotoCoordinator
+    private var cancelBag = Set<AnyCancellable>() // CancelBag()
+    private weak var coordinator: MapPhotoCoordinator!
+
     private let diContainer: DIContainerType
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()
     private let activityIndicator = ActivityIndicator()
+
     // MARK: - Computed Variables
     private var isDisabledCategoryPicker: Bool {
         categories.isEmpty
@@ -51,38 +53,40 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
 
     private func transform() {
         cancelButtonSubject
-            .subscribe(coordinator.dismissSubject)
-            .store(in: cancelBag)
+            .map { _ in () }
+            .subscribe(coordinator.finishedSubject)
+            .store(in: &cancelBag)
 
         $categoryPublisher
             .sink { [weak self] category in self?.photoPublisher.category = category }
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         doneButtonSubject
             .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] description in
                 self?.saveNewPhoto(with: description)
             }
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         firestoreService.getCategories()
-            .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { [weak self] categories in
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.сompletionHandler(completion)
+            }, receiveValue: { [weak self] categories in
                 self?.categories = categories
                 self?.categoryPublisher = categories[safe: 0]
                 self?.loadCategoriesSubject.send()
             })
-            .store(in: self.cancelBag)
+            .store(in: &cancelBag)
 
         categoryViewSubject
             .map { [unowned self] _ in self.isDisabledCategoryPicker }
             .assign(to: \.isHiddenCategoryPicker, on: self)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         closeBarButtonSubject
             .map { _ in true }
             .assign(to: \.isHiddenCategoryPicker, on: self)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
     }
 
     // MARK: - Utils
@@ -91,11 +95,12 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
 
         firestoreService.addUserPhoto(with: UploadPhoto(from: photoPublisher))
             .trackActivity(activityIndicator)
-            .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { [weak self] _ in
-                self?.coordinator.dismissSubject.send(UIControl())
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.сompletionHandler(completion)
+            }, receiveValue: { [weak self] _ in
+                self?.coordinator.finishedSubject.send()
             })
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
     }
 
     private func сompletionHandler(_ completion: Subscribers.Completion<FirestoreError>) {
@@ -105,6 +110,10 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         case .finished:
             return
         }
+    }
+    
+    func deinitCancelBag() {
+        cancelBag.forEach { $0.cancel() }
     }
 }
 

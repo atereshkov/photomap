@@ -56,4 +56,9 @@ class CategoryView: UIView {
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.startAnimating()
     }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }

@@ -11,7 +11,7 @@ import Combine
 class MapPhotoViewController: BaseViewController {
     // MARK: - Variables
     private var viewModel: MapPhotoViewModel?
-    private let cancelBag = CancelBag()
+    private var cancelBag = Set<AnyCancellable>() // CancelBag()
     private var isShowKeyboard = false
     private var bottomConstraintConstant: CGFloat = 0
 
@@ -51,44 +51,51 @@ class MapPhotoViewController: BaseViewController {
 
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
             .sink(receiveValue: { [weak self] notification in self?.keybordWillShow(notification) })
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
             .sink(receiveValue: { [weak self] notification in self?.keybordWillHide(notification) })
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         viewModel.$photoPublisher
             .map { $0.image }
             .assign(to: \.image, on: imageView)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.$photoPublisher
             .map { $0.date.toString }
             .assign(to: \.text, on: dateLabel)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.$photoPublisher
             .map { $0.description }
             .assign(to: \.text, on: descriptionTextView)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: categoryPickerView)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.$isHiddenCategoryPicker
             .assign(to: \.isHidden, on: pickerToolBar)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.$categoryPublisher
             .filter { $0 != nil }
             .subscribe(categoryView.categorySubject)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.loadCategoriesSubject
             .sink { [weak self] _ in
                 self?.categoryPickerView.reloadAllComponents()
             }
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         viewModel.loadingPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isLoading in
                 isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
             })
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
     }
 
     private func bindActions() {
@@ -96,34 +103,36 @@ class MapPhotoViewController: BaseViewController {
 
         categoryView.gesture(.tap())
             .subscribe(viewModel.categoryViewSubject)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         closeBarButton.publisher
             .subscribe(viewModel.closeBarButtonSubject)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         viewModel.$categoryPublisher
             .map { $0 != nil }
             .assign(to: \.isEnabled, on: doneButton)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         viewModel.loadingPublisher
             .map { !$0 }
             .assign(to: \.isEnabled, on: doneButton)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
 
         doneButton.tapPublisher
             .map { [weak self] _ in self?.descriptionTextView.text ?? "" }
             .subscribe(viewModel.doneButtonSubject)
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
+        
         cancelButton.tapPublisher
             .subscribe(viewModel.cancelButtonSubject)
-            .store(in: cancelBag)
-        // Hide keyboard when tap on view
+            .store(in: &cancelBag)
+        
+        // Hide keyboard when tap anywhere on view
         view.gesture(.tap())
             .filter { [weak self] _ in self?.isShowKeyboard ?? false }
             .sink(receiveValue: { [weak self] _ in self?.view.endEditing(true) })
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
     }
 
     private func setupUI() {
@@ -135,6 +144,12 @@ class MapPhotoViewController: BaseViewController {
         categoryPickerView.dataSource = viewModel
 
         pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.forEach { $0.cancel() }
+        viewModel?.deinitCancelBag()
     }
 }
 
