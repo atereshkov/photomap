@@ -14,5 +14,6 @@ protocol FirestoreServiceType {
     func addUserPhoto(with photo: UploadPhoto) -> AnyPublisher<Void, FirestoreError>
     func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[PhotoDVO], FirestoreError>
     func downloadImage(with: URL?) -> Future<UIImage?, FirestoreError>
+    func saveUserIntoDatabase(_ user: User) -> AnyPublisher<Void, FirestoreError>
     func getCurrentUser() -> Future<User, FirestoreError>
 }

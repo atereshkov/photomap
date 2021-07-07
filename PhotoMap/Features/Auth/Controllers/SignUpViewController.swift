@@ -15,7 +15,7 @@ class SignUpViewController: BaseViewController {
     
     @IBOutlet weak var signUpButton: UIButton!
     
-    private var viewModel: SignUpViewModel?
+    private var viewModel: SignUpViewModelType?
     private let cancelBag = CancelBag()
     
     static func newInstanse(viewModel: SignUpViewModel) -> SignUpViewController {
@@ -27,9 +27,17 @@ class SignUpViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setOpacityBackgroundNavigationBar()
         bind()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel?.viewDidDisappearSubject.send()
+    }
+    
+    deinit {
+        cancelBag.cancel()
     }
 }
 
@@ -38,7 +46,7 @@ class SignUpViewController: BaseViewController {
 extension SignUpViewController {
 
     private func bind() {
-        guard let viewModel = viewModel else { return }
+        guard let viewModel = viewModel as? SignUpViewModel else { return }
         
         usernameTextField.textPublisher
             .assign(to: \.username, on: viewModel)

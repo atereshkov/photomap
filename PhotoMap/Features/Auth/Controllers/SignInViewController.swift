@@ -15,7 +15,7 @@ class SignInViewController: BaseViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
-    private var viewModel: SignInViewModel?
+    private var viewModel: SignInViewModelType?
     private let cancelBag = CancelBag()
     
     static func newInstanse(viewModel: SignInViewModel) -> SignInViewController {
@@ -27,18 +27,20 @@ class SignInViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setOpacityBackgroundNavigationBar()
         bind()
     }
-
+    
+    deinit {
+        cancelBag.cancel()
+    }
 }
 
 // MARK: ViewModel Bind
 extension SignInViewController {
     
     private func bind() {
-        guard let viewModel = viewModel else { return }
+        guard let viewModel = viewModel as? SignInViewModel else { return }
         
         emailTextField.textPublisher
             .assign(to: \.email, on: viewModel)

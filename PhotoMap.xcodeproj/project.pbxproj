@@ -29,6 +29,8 @@
 		0B4E4DCF2680808400027A60 /* FullPhotoViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E4DCE2680808400027A60 /* FullPhotoViewModelType.swift */; };
 		0B6A6FD7266E17870021E692 /* CategoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */; };
 		0B6BB360268E040100E5D1F0 /* PhotoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6BB35F268E040100E5D1F0 /* PhotoNames.swift */; };
+		0B6CDD212694946000B9D30E /* SignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6CDD202694946000B9D30E /* SignInCoordinator.swift */; };
+		0B6CDD232694947000B9D30E /* SignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6CDD222694947000B9D30E /* SignUpCoordinator.swift */; };
 		0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */; };
 		0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C06D32679F9FB006E9724 /* FileManagerService.swift */; };
 		0BB93FED268C473700731AB4 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB93FEC268C473700731AB4 /* ValidationService.swift */; };
@@ -96,7 +98,6 @@
 		333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83102643EBA000AAD56F /* InitialViewModelType.swift */; };
 		333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */; };
 		333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83162649913B00AAD56F /* AppCoordinatorMock.swift */; };
-		333B8319264BD47A00AAD56F /* AuthCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B8318264BD47A00AAD56F /* AuthCoordinatorType.swift */; };
 		333B831B264BD4F400AAD56F /* AppCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* ProfileCoordinator.swift */; };
@@ -133,7 +134,6 @@
 		3387F1012637F119005DCFA0 /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3387F1002637F119005DCFA0 /* PasswordValidator.swift */; };
 		3387F1072637F16D005DCFA0 /* EmailValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3387F1062637F16D005DCFA0 /* EmailValidationError.swift */; };
 		3387F10D2637F182005DCFA0 /* PasswordValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3387F10C2637F182005DCFA0 /* PasswordValidationError.swift */; };
-		338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB5FC262D8C020001F530 /* AuthCoordinator.swift */; };
 		338BB611262D8EAE0001F530 /* Reachability+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB610262D8EAE0001F530 /* Reachability+Ex.swift */; };
 		338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB615262D8FA10001F530 /* MapCoordinator.swift */; };
 		338BB61B262D8FB20001F530 /* TimelineCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */; };
@@ -187,6 +187,8 @@
 		0B4E4DCE2680808400027A60 /* FullPhotoViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPhotoViewModelType.swift; sourceTree = "<group>"; };
 		0B6A6FD6266E17870021E692 /* CategoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelTests.swift; sourceTree = "<group>"; };
 		0B6BB35F268E040100E5D1F0 /* PhotoNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoNames.swift; sourceTree = "<group>"; };
+		0B6CDD202694946000B9D30E /* SignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCoordinator.swift; sourceTree = "<group>"; };
+		0B6CDD222694947000B9D30E /* SignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinator.swift; sourceTree = "<group>"; };
 		0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellViewModelTests.swift; sourceTree = "<group>"; };
 		0B9C06D32679F9FB006E9724 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		0BB93FEC268C473700731AB4 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
@@ -260,7 +262,6 @@
 		333B83102643EBA000AAD56F /* InitialViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModelType.swift; sourceTree = "<group>"; };
 		333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorMock.swift; sourceTree = "<group>"; };
 		333B83162649913B00AAD56F /* AppCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorMock.swift; sourceTree = "<group>"; };
-		333B8318264BD47A00AAD56F /* AuthCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorType.swift; sourceTree = "<group>"; };
 		333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorType.swift; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -298,7 +299,6 @@
 		3387F1002637F119005DCFA0 /* PasswordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
 		3387F1062637F16D005DCFA0 /* EmailValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidationError.swift; sourceTree = "<group>"; };
 		3387F10C2637F182005DCFA0 /* PasswordValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidationError.swift; sourceTree = "<group>"; };
-		338BB5FC262D8C020001F530 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCoordinator.swift; sourceTree = "<group>"; };
@@ -924,8 +924,8 @@
 		338BB5F8262D8BAF0001F530 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				338BB5FC262D8C020001F530 /* AuthCoordinator.swift */,
-				333B8318264BD47A00AAD56F /* AuthCoordinatorType.swift */,
+				0B6CDD202694946000B9D30E /* SignInCoordinator.swift */,
+				0B6CDD222694947000B9D30E /* SignUpCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1321,6 +1321,7 @@
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
 				3387F0FD2637F10B005DCFA0 /* EmailValidator.swift in Sources */,
+				0B6CDD232694947000B9D30E /* SignUpCoordinator.swift in Sources */,
 				33810EBA26331B6900BFC67C /* CancelBag.swift in Sources */,
 				33334B0C26287C6900612573 /* Coordinator.swift in Sources */,
 				23AE2E71264D557B00FE673F /* MapPhotoViewModel.swift in Sources */,
@@ -1330,7 +1331,6 @@
 				23AE2E6A264D54F200FE673F /* MapPhotoCoordinator.swift in Sources */,
 				0B1DC431265E5F7A00BC7B6E /* TimelineViewModelType.swift in Sources */,
 				33334B1B26287D0000612573 /* GeneralErrorType.swift in Sources */,
-				333B8319264BD47A00AAD56F /* AuthCoordinatorType.swift in Sources */,
 				127E647E268219BB0044B6C7 /* PhotoClusterView.swift in Sources */,
 				335882E3262DCFDD0057D25F /* SignUpViewController.swift in Sources */,
 				0BB93FED268C473700731AB4 /* ValidationService.swift in Sources */,
@@ -1339,6 +1339,7 @@
 				33334B2826287DF300612573 /* ResponseError.swift in Sources */,
 				338364B2263018F0001EF61E /* ReachabilityService.swift in Sources */,
 				0B4781512684B59A00B475DB /* User.swift in Sources */,
+				0B6CDD212694946000B9D30E /* SignInCoordinator.swift in Sources */,
 				23AE2E81264D5D7200FE673F /* UIColor+Ex.swift in Sources */,
 				1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */,
 				0B6BB360268E040100E5D1F0 /* PhotoNames.swift in Sources */,
@@ -1378,7 +1379,6 @@
 				3387F10D2637F182005DCFA0 /* PasswordValidationError.swift in Sources */,
 				3387F1012637F119005DCFA0 /* PasswordValidator.swift in Sources */,
 				338364BC26302FD5001EF61E /* CachedDateFormatter.swift in Sources */,
-				338BB5FD262D8C020001F530 /* AuthCoordinator.swift in Sources */,
 				3374D0E6263B1AEE00A03E78 /* ATCTextField.swift in Sources */,
 				335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */,
 				127B0C39265FB9CC00309973 /* ImagePickerCoordinator.swift in Sources */,

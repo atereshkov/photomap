@@ -40,15 +40,16 @@ class AppCoordinator: AppCoordinatorType {
         childCoordinators.append(tabBarCoordinator)
         let mainTabBarController = tabBarCoordinator.start()
         mainTabBarController.modalPresentationStyle = .overFullScreen
-        navigationController.present(mainTabBarController, animated: true, completion: nil)
+        navigationController.present(mainTabBarController, animated: true)
     }
     
     internal func showAuth() {
-        let authCoordinator = AuthCoordinator(appCoordinator: self, diContainer: diContainer)
-        childCoordinators.append(authCoordinator)
-        let authViewController = authCoordinator.start()
-        authViewController.modalPresentationStyle = .overFullScreen
-        navigationController.present(authViewController, animated: true, completion: nil)
+        let signInCoordinator = SignInCoordinator(diContainer: diContainer)
+        signInCoordinator.parentCoordinator = self
+        let signInVC = signInCoordinator.start()
+        signInVC.modalPresentationStyle = .overFullScreen
+        navigationController.present(signInVC, animated: true)
+        childCoordinators.append(signInCoordinator)
     }
     
     internal func showInitial() {
@@ -63,6 +64,10 @@ class AppCoordinator: AppCoordinatorType {
         childCoordinators.removeAll()
         navigationController = UINavigationController()
         start()
+    }
+    
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
     }
     
 }
