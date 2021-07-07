@@ -13,8 +13,7 @@ class SignInViewModelTests: XCTestCase {
     
     var viewModel: SignInViewModel!
     var diContainer: DIContainerType!
-    var emailValidator: EmailValidator!
-    var passwordValidator: PasswordValidator!
+    var validationService: ValidationServiceType!
     var cancelBag: CancelBag!
 
     var authService: AuthUserServiceMock!
@@ -22,28 +21,24 @@ class SignInViewModelTests: XCTestCase {
     var authCoordinator: AuthCoordinator!
     
     override func setUpWithError() throws {
-        emailValidator = EmailValidator()
-        passwordValidator = PasswordValidator()
-
         diContainer = DIContainerMock()
 
         let authServiceDI: AuthUserServiceType = diContainer.resolve()
         let authListenerDI: AuthListenerType = diContainer.resolve()
+        validationService = diContainer.resolve()
         authService = authServiceDI as? AuthUserServiceMock
         authListener = authListenerDI as? AuthListenerMock
 
-        let appCoordinator = AppCoordinator(diContainer: diContainer)
+        let appCoordinator = AppCoordinator(window: UIWindow(), diContainer: diContainer)
         authCoordinator = AuthCoordinator(appCoordinator: appCoordinator, diContainer: diContainer)
 
         viewModel = SignInViewModel(diContainer: diContainer,
-                                    coordinator: authCoordinator,
-                                    emailValidator: emailValidator,
-                                    passwordValidator: passwordValidator)
+                                    coordinator: authCoordinator)
         cancelBag = CancelBag()
     }
 
     override func tearDownWithError() throws {
-        emailValidator = nil
+        validationService = nil
         viewModel = nil
         authCoordinator = nil
         cancelBag = nil

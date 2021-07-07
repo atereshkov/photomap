@@ -8,7 +8,7 @@
 
 // Mark: - Main Tab Bar
 
-"main.tab-bar.more.title" = "More";
+"main.tab-bar.profile.title" = "Profile";
 "main.tab-bar.map.title" = "Map";
 "main.tab-bar.timeline.title" = "Timeline";
 
@@ -21,7 +21,7 @@
 
 "login.button.title.sign-in" = "Sign In";
 "login.button.title.sign-up" = "Sign Up";
-"logout.button.title.log-out" = "Logout";
+"logout.button.title.log-out" = "Log out";
 "main.photo-alert.button.title.cancel" = "Cancel";
 "main.photo-alert.button.title.takePicture" = "Take a Picture";
 "main.photo-alert.button.title.chooseFromLibrary" = "Choose From Library";
@@ -83,3 +83,7 @@
 // MARK: - Categories Screen
 "categories.navigationItem.title" = "Categories";
 "categories.navigationItem.rightButtonItem.done" = "Done";
+
+// MARK: - Profile Screen
+"profile.alert.logout.title" = "Log out from %@?";
+"profile.alert.logout.action.cancel" = "Cancel";

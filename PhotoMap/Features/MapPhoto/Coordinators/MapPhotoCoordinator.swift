@@ -12,6 +12,8 @@ class MapPhotoCoordinator: ChildCoordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
 
+    weak var parentCoordinator: Coordinator?
+    
     private var cancelBag = CancelBag()
     private let diContainer: DIContainerType
     private(set) var finishedSubject = PassthroughSubject<Void, Never>()
@@ -48,5 +50,4 @@ class MapPhotoCoordinator: ChildCoordinator {
     // MARK: - deinit
     deinit {
         cancelBag.cancel()
-    }
 }

@@ -13,6 +13,8 @@ class ImagePickerCoordinator: NSObject, ChildCoordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     
+    weak var parentCoordinator: Coordinator?
+    
     private var coordinate: CLLocationCoordinate2D
     private(set) var selectedPhotoSubject = PassthroughSubject<PhotoDVO, Never>()
     private(set) var dismissSubject = PassthroughSubject<Void, Never>()
@@ -40,12 +42,15 @@ class ImagePickerCoordinator: NSObject, ChildCoordinator {
 extension ImagePickerCoordinator: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+        parentCoordinator?.childDidFinish(self)
     }
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
-
+        
+        parentCoordinator?.childDidFinish(self)
+        
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
 
         selectedPhotoSubject.send(PhotoDVO(image: image, coordinate: coordinate))

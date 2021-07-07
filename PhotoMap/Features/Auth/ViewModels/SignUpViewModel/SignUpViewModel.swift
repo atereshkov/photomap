@@ -10,14 +10,12 @@ import Combine
 
 class SignUpViewModel: SignUpViewModelType {
    
-    private(set) var coordinator: AuthCoordinator
+    private(set) weak var coordinator: SignUpCoordinator!
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
-    
-    private let usernameValidator: UsernameValidator
-    private let emailValidator: EmailValidator
-    private let passwordValidator: PasswordValidator
+    private let firestoreService: FirestoreServiceType
+    private let validationService: ValidationServiceType
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
@@ -25,7 +23,9 @@ class SignUpViewModel: SignUpViewModelType {
     @Published var password = ""
     @Published var username = ""
     
+    private(set) var viewDidDisappearSubject = PassthroughSubject<Void, Never>()
     private(set) var signUpButtonSubject = PassthroughSubject<UIControl, Never>()
+    private let registerUserSubject = PassthroughSubject<Void, Never>()
     
     // MARK: Output
     @Published var usernameError: String?
@@ -36,16 +36,11 @@ class SignUpViewModel: SignUpViewModelType {
         activityIndicator.loading
     }
 
-    init(diContainer: DIContainerType,
-         coordinator: AuthCoordinator,
-         usernameValidator: UsernameValidator,
-         emailValidator: EmailValidator,
-         passwordValidator: PasswordValidator) {
+    init(diContainer: DIContainerType, coordinator: SignUpCoordinator) {
         self.authUserService = diContainer.resolve()
+        self.firestoreService = diContainer.resolve()
         self.coordinator = coordinator
-        self.usernameValidator = usernameValidator
-        self.emailValidator = emailValidator
-        self.passwordValidator = passwordValidator
+        self.validationService = diContainer.resolve()
         
         transform()
     }
@@ -53,7 +48,7 @@ class SignUpViewModel: SignUpViewModelType {
     private func transform() {
         $username
             .flatMap { [unowned self] username in
-                self.usernameValidator.isUsernameValid(username)
+                self.validationService.validateUsername(username)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -62,7 +57,7 @@ class SignUpViewModel: SignUpViewModelType {
         
         $email
             .flatMap { [unowned self] email in
-                self.emailValidator.isEmailValid(email)
+                self.validationService.validateEmail(email)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -71,7 +66,7 @@ class SignUpViewModel: SignUpViewModelType {
         
         $password
             .flatMap { [unowned self] password in
-                self.passwordValidator.isPasswordValid(password)
+                self.validationService.validatePassword(password)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -93,8 +88,22 @@ class SignUpViewModel: SignUpViewModelType {
             .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in self?.signUpButtonTapped() }
             .store(in: cancelBag)
+        
+        registerUserSubject.sink(receiveValue: { [weak self] in
+            guard let username = self?.username, let email = self?.email else { return }
+            let user = User(name: username, email: email)
+            self?.registerUser(user)
+        })
+        .store(in: cancelBag)
+        
+        viewDidDisappearSubject
+            .subscribe(coordinator.viewDidDisappearSubject)
+            .store(in: cancelBag)
     }
     
+    deinit {
+        cancelBag.cancel()
+    }
 }
 
 extension SignUpViewModel {
@@ -105,15 +114,32 @@ extension SignUpViewModel {
             .receive(on: DispatchQueue.main)
             .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
-                guard let self = self else { return }
-
                 switch completion {
                 case .failure(let error):
-                    self.coordinator.showErrorAlertSubject.send(ResponseError(error))
+                    self?.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self.coordinator.showMapSubject.send()
+                    break
                 }
-            }, receiveValue: { _ in })
+            }, receiveValue: { [weak self] in
+                self?.registerUserSubject.send()
+            })
+            .store(in: cancelBag)
+    }
+    
+    private func registerUser(_ user: User) {
+        firestoreService.saveUserIntoDatabase(user)
+            .receive(on: DispatchQueue.main)
+            .trackActivity(activityIndicator)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    self?.coordinator.showErrorAlertSubject.send(error)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self ] in
+                self?.coordinator.showMapSubject.send()
+            })
             .store(in: cancelBag)
     }
 }

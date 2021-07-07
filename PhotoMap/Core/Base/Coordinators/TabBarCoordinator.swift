@@ -37,13 +37,13 @@ class TabBarCoordinator: Coordinator {
         timelineCoordinator.start()
         childCoordinators.append(timelineCoordinator)
 
-        let moreCoordinator = MoreCoordinator()
-        moreCoordinator.start()
-        childCoordinators.append(moreCoordinator)
+        let profileCoordinator = ProfileCoordinator(diContainer: diContainer)
+        profileCoordinator.start()
+        childCoordinators.append(profileCoordinator)
 
         tabBarController.viewControllers = [mapCoordinator.navigationController,
                                             timelineCoordinator.navigationController,
-                                            moreCoordinator.navigationController]
+                                            profileCoordinator.navigationController]
         self.tabBarController = tabBarController
         checkNetworkConnection()
 

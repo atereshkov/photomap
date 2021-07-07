@@ -9,7 +9,7 @@ import Combine
 
 class InitialViewModel: InitialViewModelType {
     
-    private(set) var coordinator: InitialCoordinator
+    private(set) weak var coordinator: InitialCoordinator!
     private var authListener: AuthListenerType
     private var cancelBag = CancelBag()
     
@@ -19,11 +19,7 @@ class InitialViewModel: InitialViewModelType {
     }
     
     func viewDidLoad() {
-        self.coordinator.changeMainScreen(authListener.checkUserAuthStatus())
-    }
-    
-    func viewWillDisappear() {
-        authListener.startListening()
+        coordinator.changeMainScreen(authListener.isAuthorized())
     }
     
 }

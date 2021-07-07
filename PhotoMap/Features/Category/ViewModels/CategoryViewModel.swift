@@ -11,7 +11,7 @@ import UIKit
 class CategoryViewModel: CategoryViewModelType {
     
     // MARK: - Variables
-    private let coordinator: CategoryCoordinator
+    private weak var coordinator: CategoryCoordinator!
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()
     private let cancelBag = CancelBag()

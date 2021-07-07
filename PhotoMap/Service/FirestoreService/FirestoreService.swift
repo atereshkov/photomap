@@ -15,8 +15,10 @@ import MapKit
 final class FirestoreService: FirestoreServiceType {
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-    private let currentUserId = Auth.auth().currentUser?.uid
     private let fileManagerService: FileManagerServiceType
+    private var currentUserId: String? {
+        return Auth.auth().currentUser?.uid
+    }
     
     init(fileManagerService: FileManagerServiceType) {
         self.fileManagerService = fileManagerService
@@ -192,6 +194,34 @@ final class FirestoreService: FirestoreServiceType {
             }
         }
     }
+    
+    func saveUserIntoDatabase(_ user: User) -> AnyPublisher<Void, FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
+            
+            self?.db.collection(Path.usersCollection).document(currentUserId).setData(user.representation) { error in
+                if let error = error {
+                    return promise(.failure(.custom(error.localizedDescription)))
+                } else {
+                    return promise(.success(()))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func getCurrentUser() -> Future<User, FirestoreError> {
+        Future { [weak self] promise in
+            guard let currentUserId = self?.currentUserId else { return promise(.failure(.noCurrentUserId)) }
+            let userReference = self?.db.document("\(Path.usersCollection)/\(currentUserId)")
+            
+            userReference?.getDocument { snapshot, error in
+                if let error = error { return promise(.failure(.custom(error.localizedDescription))) }
+                guard let snapshotData = snapshot?.data() else { return promise(.failure(.notFound)) }
+                let user = User(snapshotData: snapshotData)
+                return promise(.success(user))
+            }
+        }
+    }
 }
 
 extension FirestoreService {
@@ -199,6 +229,7 @@ extension FirestoreService {
         static let categoriesCollection = "categories"
         static let photosCollection = "photos"
         static let userPhotosCollection = "user_photos"
+        static let usersCollection = "users"
         static let userImages = "Photo"
         static let imageType = "png"
     }

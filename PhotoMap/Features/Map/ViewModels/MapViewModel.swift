@@ -13,7 +13,7 @@ import MapKit
 class MapViewModel: NSObject, MapViewModelType {
     // MARK: - Variables
     private let cancelBag = CancelBag()
-    private let coordinator: MapCoordinator
+    private weak var coordinator: MapCoordinator!
     private let diContainer: DIContainerType
     private let locationService: LocationServiceType
     private let firestoreService: FirestoreServiceType

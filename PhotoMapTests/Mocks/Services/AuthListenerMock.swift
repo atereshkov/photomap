@@ -17,7 +17,7 @@ class AuthListenerMock: AuthListenerType {
         print("start listening")
     }
     
-    func checkUserAuthStatus() -> Bool {
+    func isAuthorized() -> Bool {
         return false
     }
     

@@ -89,7 +89,7 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
     }
 }
 
-// MARK: - MapCoordinator extenion with alerts
+// MARK: - MapCoordinator extension with alerts
 extension MapCoordinator {
     private func showDisableLocationAlert() {
         let goSettingsAction = UIAlertAction(title: L10n.Main.Map.DisableLocationAlert.Button.Title.settings,
@@ -196,5 +196,30 @@ extension MapCoordinator {
         let fullPhotoVC = coordinator.start(with: photo)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
+    }
+    
+    private func showPopupView(with photo: PhotoDVO) {
+        let mapPhotoCoordinator = MapPhotoCoordinator(diContainer: diContainer)
+        mapPhotoCoordinator.parentCoordinator = self
+        let mapPhotoVC = mapPhotoCoordinator.start(with: photo)
+        navigationController.present(mapPhotoVC, animated: true)
+        childCoordinators.append(mapPhotoCoordinator)
+    }
+    
+    private func showImagePicker(coordinate: CLLocationCoordinate2D, from source: UIImagePickerController.SourceType) {
+        let imagePickerCoordinator = ImagePickerCoordinator(coordinate: coordinate)
+        imagePickerCoordinator.parentCoordinator = self
+        
+        imagePickerCoordinator.selectedPhotoSubject
+            .subscribe(showMapPopupSubject)
+            .store(in: cancelBag)
+        
+        let imagePickerController = imagePickerCoordinator.start(from: source)
+        navigationController.present(imagePickerController, animated: true)
+        childCoordinators.append(imagePickerCoordinator)
+    }
+    
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
     }
 }

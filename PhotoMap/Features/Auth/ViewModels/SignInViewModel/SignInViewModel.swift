@@ -10,13 +10,12 @@ import Combine
 
 class SignInViewModel: SignInViewModelType {
 
-    private(set) var coordinator: AuthCoordinatorType
+    private(set) weak var coordinator: SignInCoordinator!
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
     
-    private let emailValidator: EmailValidator
-    private let passwordValidator: PasswordValidator
+    private let validationService: ValidationServiceType
     private let activityIndicator = ActivityIndicator()
     
     // MARK: - Input
@@ -34,14 +33,10 @@ class SignInViewModel: SignInViewModelType {
         activityIndicator.loading
     }
     
-    init(diContainer: DIContainerType,
-         coordinator: AuthCoordinatorType,
-         emailValidator: EmailValidator,
-         passwordValidator: PasswordValidator) {
+    init(diContainer: DIContainerType, coordinator: SignInCoordinator) {
         self.authUserService = diContainer.resolve()
         self.coordinator = coordinator
-        self.emailValidator = emailValidator
-        self.passwordValidator = passwordValidator
+        self.validationService = diContainer.resolve()
         
         transform()
     }
@@ -49,7 +44,7 @@ class SignInViewModel: SignInViewModelType {
     private func transform() {
         $email
             .flatMap { [unowned self] email in
-                self.emailValidator.isEmailValid(email)
+                self.validationService.validateEmail(email)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -58,7 +53,7 @@ class SignInViewModel: SignInViewModelType {
         
         $password
             .flatMap { [unowned self] password in
-                self.passwordValidator.isPasswordValid(password)
+                self.validationService.validatePassword(password)
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
@@ -72,7 +67,6 @@ class SignInViewModel: SignInViewModelType {
         
         signUpButtonSubject
             .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
-            .map { _ in () }
             .subscribe(coordinator.showSignUpSubject)
             .store(in: cancelBag)
         
@@ -82,6 +76,9 @@ class SignInViewModel: SignInViewModelType {
             .store(in: cancelBag)
     }
     
+    deinit {
+        cancelBag.cancel()
+    }
 }
 
 extension SignInViewModel {
@@ -92,13 +89,11 @@ extension SignInViewModel {
             .receive(on: DispatchQueue.main)
             .trackActivity(activityIndicator)
             .sink(receiveCompletion: { [weak self] completion in
-                guard let self = self else { return }
-
                 switch completion {
                 case .failure(let error):
-                    self.coordinator.showErrorAlertSubject.send(ResponseError(error))
+                    self?.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self.coordinator.showMapSubject.send()
+                    self?.coordinator.showMapSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)

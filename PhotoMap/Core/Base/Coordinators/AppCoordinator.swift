@@ -12,23 +12,18 @@ class AppCoordinator: AppCoordinatorType {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
-    private var authListener: AuthListenerType
     private var diContainer: DIContainerType
+    private let window: UIWindow
     
     private var cancelBag = CancelBag()
     
-    init(diContainer: DIContainerType) {
-        self.authListener = diContainer.resolve()
+    init(window: UIWindow, diContainer: DIContainerType) {
+        self.window = window
         self.diContainer = diContainer
-        
-        authListener.isUserAuthorized
-            .sink { [weak self] isUserAuth in
-                self?.startMainScreen(isUserAuthorized: isUserAuth)
-            }
-            .store(in: cancelBag)
     }
     
     func start() {
+        window.rootViewController = navigationController
         self.showInitial()
     }
     
@@ -42,18 +37,19 @@ class AppCoordinator: AppCoordinatorType {
     
     internal func showMap() {
         let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
-        childCoordinators = [tabBarCoordinator]
+        childCoordinators.append(tabBarCoordinator)
         let mainTabBarController = tabBarCoordinator.start()
         mainTabBarController.modalPresentationStyle = .overFullScreen
-        navigationController.present(mainTabBarController, animated: true, completion: nil)
+        navigationController.present(mainTabBarController, animated: true)
     }
     
     internal func showAuth() {
-        let authCoordinator = AuthCoordinator(appCoordinator: self, diContainer: diContainer)
-        childCoordinators = [authCoordinator]
-        let authViewController = authCoordinator.start()
-        authViewController.modalPresentationStyle = .overFullScreen
-        navigationController.present(authViewController, animated: true, completion: nil)
+        let signInCoordinator = SignInCoordinator(diContainer: diContainer)
+        signInCoordinator.parentCoordinator = self
+        let signInVC = signInCoordinator.start()
+        signInVC.modalPresentationStyle = .overFullScreen
+        navigationController.present(signInVC, animated: true)
+        childCoordinators.append(signInCoordinator)
     }
     
     internal func showInitial() {
@@ -62,6 +58,16 @@ class AppCoordinator: AppCoordinatorType {
         let initViewController = initCoordinator.start()
         initViewController.modalPresentationStyle = .overFullScreen
         navigationController.pushViewController(initViewController, animated: true)
+    }
+    
+    func logout() {
+        childCoordinators.removeAll()
+        navigationController = UINavigationController()
+        start()
+    }
+    
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
     }
     
 }
