@@ -86,6 +86,22 @@ class MapCoordinator: Coordinator, CategoriesProtocol, ImagePickerProtocol {
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
             .store(in: cancelBag)
     }
+
+    // MARK: - Dismiss child coordinators
+    func childDidFinish(_ childCoordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === childCoordinator })
+    }
+
+    private func childDidFinish() {
+        if childCoordinators.last != nil {
+            childCoordinators.removeLast()
+        }
+    }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }
 
 // MARK: - MapCoordinator extension with alerts
@@ -148,9 +164,12 @@ extension MapCoordinator {
     }
 
     private func showFullPhotoScreen(for photo: PhotoDVO) {
-        let coordinator = FullPhotoCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
-        let fullPhotoVC = coordinator.start(with: photo)
+        let coordinator = FullPhotoCoordinator()
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+        
+        let fullPhotoVC = coordinator.start(with: photo, diContainer: diContainer)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
@@ -174,9 +193,5 @@ extension MapCoordinator {
         let imagePickerController = imagePickerCoordinator.start(from: source)
         navigationController.present(imagePickerController, animated: true)
         childCoordinators.append(imagePickerCoordinator)
-    }
-    
-    func childDidFinish(_ childCoordinator: Coordinator) {
-        childCoordinators.removeAll(where: { $0 === childCoordinator })
     }
 }

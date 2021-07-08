@@ -71,14 +71,29 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     }
     
     private func presentFullPhotoScreen(for marker: PhotoDVO) {
-        let coordinator = FullPhotoCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
-        let fullPhotoVC = coordinator.start(with: marker)
+        let coordinator = FullPhotoCoordinator()
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+  
+        let fullPhotoVC = coordinator.start(with: marker, diContainer: diContainer)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
     
+    // MARK: - Dismiss child coordinators
     func childDidFinish(_ childCoordinator: Coordinator) {
         childCoordinators.removeAll(where: { $0 === childCoordinator })
+    }
+
+    private func childDidFinish() {
+        if childCoordinators.last != nil {
+            childCoordinators.removeLast()
+        }
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

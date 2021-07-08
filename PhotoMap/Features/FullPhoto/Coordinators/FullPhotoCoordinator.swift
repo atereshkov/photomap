@@ -11,31 +11,20 @@ import UIKit
 class FullPhotoCoordinator: Coordinator {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
-    private let diContainer: DIContainerType
-    private let cancelBag = CancelBag()
     
-    weak var parentCoordinator: Coordinator?
-    private(set) var viewDidDisappearSubject = PassthroughSubject<Void, Never>()
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
+
+    init() {}
     
-    init(diContainer: DIContainerType) {
-        self.diContainer = diContainer
-        transform()
-    }
-    
-    private func transform() {
-        viewDidDisappearSubject.sink(receiveValue: { [weak self] in
-            self?.fullPhotoDisappear()
-        })
-        .store(in: cancelBag)
-    }
-    
-    func start(with marker: PhotoDVO) -> UIViewController {
-        let viewModel = FullPhotoViewModel(coordinator: self, diContainer: diContainer, marker: marker)
+    func start(with photo: PhotoDVO, diContainer: DIContainerType) -> UIViewController {
+        let viewModel = FullPhotoViewModel(coordinator: self, diContainer: diContainer, marker: photo)
         let fullPhotoVC = FullPhotoViewController.newInstance(viewModel: viewModel)
+
         return fullPhotoVC
     }
     
-    private func fullPhotoDisappear() {
-        parentCoordinator?.childDidFinish(self)
+    // MARK: - deinit
+    deinit {
+        print(" - deinit - FullPhotoCoordinator")
     }
 }
