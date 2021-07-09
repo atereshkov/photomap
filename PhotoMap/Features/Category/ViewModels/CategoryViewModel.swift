@@ -9,9 +9,8 @@ import Combine
 import UIKit
 
 class CategoryViewModel: CategoryViewModelType {
-    
     // MARK: - Variables
-    private weak var coordinator: CategoryCoordinator!
+    private let coordinator: CategoryCoordinator
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()
     private let cancelBag = CancelBag()
@@ -40,17 +39,14 @@ class CategoryViewModel: CategoryViewModelType {
                 self?.reloadDataSubject.send()
             })
             .store(in: cancelBag)
-        
-        let donePublisher = doneButtonSubject
-            .map { _ in ()}
-            .share()
 
-        donePublisher
+        doneButtonSubject
             .map { [weak self] _ -> [Category] in self?.categories.filter { $0.isSelected } ?? [] }
             .subscribe(coordinator.categoriesSubject)
             .store(in: cancelBag)
 
-        donePublisher
+        doneButtonSubject
+            .map { _ in ()}
             .subscribe(coordinator.prepareForDismissSubject)
             .store(in: cancelBag)
         

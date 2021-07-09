@@ -22,9 +22,4 @@ class FullPhotoCoordinator: Coordinator {
 
         return fullPhotoVC
     }
-    
-    // MARK: - deinit
-    deinit {
-        print(" - deinit - FullPhotoCoordinator")
-    }
 }

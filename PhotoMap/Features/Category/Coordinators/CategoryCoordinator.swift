@@ -27,13 +27,15 @@ class CategoryCoordinator: Coordinator {
     
     private func bind() {
         prepareForDismissSubject
-            .map { [weak self] _ in
+            .map { [weak self] in
+                self?.navigationController.viewControllers.removeAll()
                 self?.navigationController.dismiss(animated: true)
-                return
             }
             .subscribe(dismissSubject)
             .store(in: cancelBag)
-        
+
+        navigationController.viewControllers.removeAll()
+
         showErrorAlertSubject.sink(receiveValue: { [weak self] error in
             self?.showErrorAlert(error: error)
         })

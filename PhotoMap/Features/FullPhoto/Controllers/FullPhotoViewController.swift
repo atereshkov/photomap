@@ -53,11 +53,11 @@ class FullPhotoViewController: BaseViewController {
             .assign(to: \.text, on: dateLabel)
             .store(in: cancelBag)
         
-        if let navigationBar = navigationController?.navigationBar {
-            viewModel.$footerAndNavBarHidden
-                .assign(to: \.isHidden, on: navigationBar)
-                .store(in: cancelBag)
-        }
+        viewModel.$footerAndNavBarHidden
+            .sink(receiveValue: { [weak self] isHidden in
+                self?.navigationController?.navigationBar.isHidden = isHidden
+            })
+            .store(in: cancelBag)
         
         viewModel.$footerAndNavBarHidden
             .assign(to: \.isHidden, on: footerView)
