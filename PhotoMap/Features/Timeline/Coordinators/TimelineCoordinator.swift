@@ -8,10 +8,6 @@
 import UIKit
 import Combine
 
-protocol CategoriesProtocol {
-    var doneButtonPressedWithCategoriesSubject: PassthroughSubject<[Category], Never> { get }
-}
-
 class TimelineCoordinator: Coordinator, CategoriesProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
@@ -63,10 +59,15 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     
     private func presentCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
-        let categoryNavigationVC = coordinator.start()
-        categoryNavigationVC.modalPresentationStyle = .fullScreen
-        navigationController.present(categoryNavigationVC, animated: true)
+        coordinator.categoriesSubject
+            .subscribe(doneButtonPressedWithCategoriesSubject)
+            .store(in: cancelBag)
+        
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+
+        navigationController.present(coordinator.start(), animated: true)
         childCoordinators.append(coordinator)
     }
     
