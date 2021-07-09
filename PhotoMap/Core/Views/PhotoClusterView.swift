@@ -9,6 +9,12 @@ import MapKit
 
 class PhotoClusterView: MKAnnotationView {
     private let rect = CGRect(x: 0, y: 0, width: 40, height: 40)
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        image = nil
+    }
 
     override func prepareForDisplay() {
         super.prepareForDisplay()

@@ -60,4 +60,9 @@ class ErrorTextField: ATCTextField {
         self.errorMessageLabel.text = error
         self.errorMessageLabel.isHidden = isHidden
     }
+
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }

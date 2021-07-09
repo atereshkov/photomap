@@ -25,14 +25,20 @@ class PhotoMarkerView: MKMarkerAnnotationView {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-
+        
         clusteringIdentifier = PhotoClusterView.className
+        detailImage = nil
+        markerTintColor = nil
+        glyphText = nil
+        cancelBag.cancel()
     }
 
     override func prepareForDisplay() {
         super.prepareForDisplay()
 
         guard let photo = annotation as? PhotoAnnotation else { return }
+
+        bind()
 
         canShowCallout = true
         displayPriority = .defaultHigh
@@ -54,7 +60,6 @@ class PhotoMarkerView: MKMarkerAnnotationView {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
 
         clusteringIdentifier = PhotoClusterView.className
-        bind()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,5 +88,10 @@ class PhotoMarkerView: MKMarkerAnnotationView {
             rightCalloutAccessoryView = activityIndicator
             activityIndicator.startAnimating()
         }
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
