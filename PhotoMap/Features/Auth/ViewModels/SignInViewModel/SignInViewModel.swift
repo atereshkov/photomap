@@ -48,8 +48,7 @@ class SignInViewModel: SignInViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.emailError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$emailError)
         
         $password
             .flatMap { [unowned self] password in
@@ -57,13 +56,11 @@ class SignInViewModel: SignInViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.passwordError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$passwordError)
         
         Publishers.CombineLatest($emailError, $passwordError)
             .map { $0 == nil && $1 == nil }
-            .assign(to: \.isAuthEnabled, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$isAuthEnabled)
         
         signUpButtonSubject
             .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)

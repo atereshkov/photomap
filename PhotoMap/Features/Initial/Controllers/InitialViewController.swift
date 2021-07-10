@@ -9,7 +9,7 @@ import UIKit
 
 class InitialViewController: BaseViewController {
     
-    private var viewModel: InitialViewModel?
+    private var viewModel: InitialViewModelType?
    
     static func newInstanse(viewModel: InitialViewModel) -> InitialViewController {
         let initialVC = StoryboardScene.Initial.initialViewController.instantiate()

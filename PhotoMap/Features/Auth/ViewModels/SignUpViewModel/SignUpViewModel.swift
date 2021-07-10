@@ -52,8 +52,7 @@ class SignUpViewModel: SignUpViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.usernameError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$usernameError)
         
         $email
             .flatMap { [unowned self] email in
@@ -61,8 +60,7 @@ class SignUpViewModel: SignUpViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.emailError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$emailError)
         
         $password
             .flatMap { [unowned self] password in
@@ -70,8 +68,7 @@ class SignUpViewModel: SignUpViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.passwordError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$passwordError)
         
         Publishers.CombineLatest3($emailError, $passwordError, $usernameError)
             .map { email, password, name -> Bool in
@@ -81,8 +78,7 @@ class SignUpViewModel: SignUpViewModelType {
                     return false
                 }
             }
-            .assign(to: \.isRegistrationEnabled, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$isRegistrationEnabled)
         
         signUpButtonSubject
             .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
