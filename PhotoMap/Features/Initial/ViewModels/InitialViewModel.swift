@@ -8,7 +8,7 @@
 class InitialViewModel: InitialViewModelType {
     
     private(set) weak var coordinator: InitialCoordinator!
-    private var authListener: AuthListenerType
+    private let authListener: AuthListenerType
     
     init(coordinator: InitialCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator

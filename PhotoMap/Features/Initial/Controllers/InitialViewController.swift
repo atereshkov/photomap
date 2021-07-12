@@ -22,6 +22,6 @@ class InitialViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         activityIndicator.startAnimating()
-        self.viewModel?.viewDidLoad()
+        viewModel?.viewDidLoad()
     }
 }

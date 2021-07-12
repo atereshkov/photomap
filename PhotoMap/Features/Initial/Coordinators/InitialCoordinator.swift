@@ -28,7 +28,7 @@ class InitialCoordinator: Coordinator {
     }
     
     func changeMainScreen(_ isUserAuth: Bool) {
-        self.appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
+        appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
     }
     
 }

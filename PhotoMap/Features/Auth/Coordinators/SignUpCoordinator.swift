@@ -16,9 +16,9 @@ class SignUpCoordinator: Coordinator {
     private let cancelBag = CancelBag()
     private weak var view: UIViewController?
     
-    weak var parentCoordinator: (SignInCoordinator & Coordinator)?
-    
     private(set) var showMapSubject = PassthroughSubject<Void, Never>()
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
+    private(set) var backToLoginScreenSubject = PassthroughSubject<Void, Never>()
     private(set) var viewDidDisappearSubject = PassthroughSubject<Void, Never>()
     private(set) var showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
     
@@ -55,13 +55,12 @@ class SignUpCoordinator: Coordinator {
     
     private func presentMapScreen() {
         navigationController.dismiss(animated: true)
-        parentCoordinator?.childDidFinish(self)
-        parentCoordinator?.presentMapScreen()
+        dismissSubject.send()
     }
     
     private func viewDidDisappear() {
         navigationController.dismiss(animated: true)
-        parentCoordinator?.childDidFinish(self)
+        backToLoginScreenSubject.send()
     }
     
     private func showError(error: GeneralErrorType) {
