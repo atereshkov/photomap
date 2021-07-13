@@ -59,6 +59,7 @@ class CategoryView: UIView {
 
     // MARK: - deinit
     deinit {
+        print(" - deinit - CategoryView")
         cancelBag.cancel()
     }
 }

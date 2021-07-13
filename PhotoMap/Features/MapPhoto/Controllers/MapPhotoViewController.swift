@@ -57,36 +57,38 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
 
         viewModel.$photoPublisher
-            .map { $0.image }
-            .assign(to: \.image, on: imageView)
+            .sink(receiveValue: { [weak self] photo in
+                self?.imageView.image = photo.image
+                self?.dateLabel.text = photo.date.toString
+                self?.descriptionTextView.text = photo.description
+            })
             .store(in: cancelBag)
-        viewModel.$photoPublisher
-            .map { $0.date.toString }
-            .assign(to: \.text, on: dateLabel)
-            .store(in: cancelBag)
-        viewModel.$photoPublisher
-            .map { $0.description }
-            .assign(to: \.text, on: descriptionTextView)
-            .store(in: cancelBag)
+
         viewModel.$isHiddenCategoryPicker
-            .assign(to: \.isHidden, on: categoryPickerView)
+            .sink(receiveValue: { [weak self] isHidden in
+                self?.categoryPickerView.isHidden = isHidden
+                self?.pickerToolBar.isHidden = isHidden
+            })
             .store(in: cancelBag)
-        viewModel.$isHiddenCategoryPicker
-            .assign(to: \.isHidden, on: pickerToolBar)
-            .store(in: cancelBag)
+
         viewModel.$categoryPublisher
             .filter { $0 != nil }
             .subscribe(categoryView.categorySubject)
             .store(in: cancelBag)
+
         viewModel.loadCategoriesSubject
-            .sink { [weak self] _ in
-                self?.categoryPickerView.reloadAllComponents()
-            }
+            .sink { [weak self] _ in self?.categoryPickerView.reloadAllComponents() }
             .store(in: cancelBag)
+
         viewModel.loadingPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isLoading in
-                isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
+                self?.view.isUserInteractionEnabled = !isLoading
+                if isLoading {
+                    self?.activityIndicator.startAnimating()
+                } else {
+                    self?.activityIndicator.stopAnimating()
+                }
             })
             .store(in: cancelBag)
     }
@@ -99,26 +101,33 @@ class MapPhotoViewController: BaseViewController {
             .store(in: cancelBag)
 
         closeBarButton.publisher
+            .map { _ in true }
             .subscribe(viewModel.closeBarButtonSubject)
             .store(in: cancelBag)
 
         viewModel.$categoryPublisher
             .map { $0 != nil }
-            .assign(to: \.isEnabled, on: doneButton)
+            .sink(receiveValue: { [weak self] isEnable in
+                self?.doneButton.isEnabled = isEnable
+            })
             .store(in: cancelBag)
 
         viewModel.loadingPublisher
             .map { !$0 }
-            .assign(to: \.isEnabled, on: doneButton)
+            .sink(receiveValue: { [weak self] isEnable in
+                self?.doneButton.isEnabled = isEnable
+            })
             .store(in: cancelBag)
 
         doneButton.tapPublisher
             .map { [weak self] _ in self?.descriptionTextView.text ?? "" }
             .subscribe(viewModel.doneButtonSubject)
             .store(in: cancelBag)
+        
         cancelButton.tapPublisher
             .subscribe(viewModel.cancelButtonSubject)
             .store(in: cancelBag)
+        
         // Hide keyboard when tap on view
         view.gesture(.tap())
             .filter { [weak self] _ in self?.isShowKeyboard ?? false }
@@ -135,6 +144,17 @@ class MapPhotoViewController: BaseViewController {
         categoryPickerView.dataSource = viewModel
 
         pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    // MARK: - deinit
+    deinit {
+        print(" - deinit - MapPhotoViewController")
+
+        categoryPickerView.delegate = nil
+        categoryPickerView.dataSource = nil
+        viewModel = nil
+//        categoryView = nil
+        cancelBag.cancel()
     }
 }
 

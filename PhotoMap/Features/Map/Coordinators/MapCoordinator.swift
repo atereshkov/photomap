@@ -200,7 +200,10 @@ extension MapCoordinator {
 extension MapCoordinator {
     private func showPhotoMapView(with photo: PhotoDVO) {
         let mapPhotoCoordinator = MapPhotoCoordinator(diContainer: diContainer)
-        mapPhotoCoordinator.parentCoordinator = self
+        mapPhotoCoordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+
         let mapPhotoVC = mapPhotoCoordinator.start(with: photo)
         navigationController.present(mapPhotoVC, animated: true)
         childCoordinators.append(mapPhotoCoordinator)

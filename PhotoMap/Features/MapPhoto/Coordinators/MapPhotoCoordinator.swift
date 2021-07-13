@@ -11,12 +11,12 @@ import Combine
 class MapPhotoCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
-
-    weak var parentCoordinator: Coordinator?
     
     private var cancelBag = CancelBag()
     private let diContainer: DIContainerType
-    private(set) var dismissSubject = PassthroughSubject<UIControl, Never>()
+
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
+    private(set) var prepareForDismissSubject = PassthroughSubject<Void, Never>()
     private(set) var errorAlertSubject = PassthroughSubject<FirestoreError, Never>()
 
     init(diContainer: DIContainerType) {
@@ -34,10 +34,9 @@ class MapPhotoCoordinator: Coordinator {
     }
 
     private func bind() {
-        dismissSubject
-            .sink { [weak self] _ in
-                self?.dismissScreen()
-            }
+        prepareForDismissSubject
+            .map { [weak self] in self?.dismissScreen() }
+            .subscribe(dismissSubject)
             .store(in: cancelBag)
         
         errorAlertSubject
@@ -46,7 +45,14 @@ class MapPhotoCoordinator: Coordinator {
     }
     
     private func dismissScreen() {
+        navigationController.viewControllers.removeAll()
         navigationController.dismiss(animated: true)
-        parentCoordinator?.childDidFinish(self)
+        print(navigationController.viewControllers)
+    }
+
+    // MARK: - deinit
+    deinit {
+        print(" - deinit - MapPhotoCoordinator")
+        cancelBag.cancel()
     }
 }
