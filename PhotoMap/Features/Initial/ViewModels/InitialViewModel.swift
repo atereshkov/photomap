@@ -5,13 +5,10 @@
 //  Created by Krystsina Kurytsyna on 4.05.21.
 //
 
-import Combine
-
 class InitialViewModel: InitialViewModelType {
     
     private(set) weak var coordinator: InitialCoordinator!
-    private var authListener: AuthListenerType
-    private var cancelBag = CancelBag()
+    private let authListener: AuthListenerType
     
     init(coordinator: InitialCoordinator, diContainer: DIContainerType) {
         self.coordinator = coordinator

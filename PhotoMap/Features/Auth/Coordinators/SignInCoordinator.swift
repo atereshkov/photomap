@@ -58,7 +58,18 @@ class SignInCoordinator: Coordinator {
     /// - Shows Registration screen
     private func presentSignUpScreen() {
         let signUpCoordinator = SignUpCoordinator(diContainer: diContainer)
-        signUpCoordinator.parentCoordinator = self
+        
+        signUpCoordinator.dismissSubject.sink(receiveValue: { [weak self] in
+            self?.childDidFinish(signUpCoordinator)
+            self?.presentMapScreen()
+        })
+        .store(in: cancelBag)
+
+        signUpCoordinator.backToLoginScreenSubject.sink(receiveValue: { [weak self] in
+            self?.childDidFinish(signUpCoordinator)
+        })
+        .store(in: cancelBag)
+
         let signUpVC = signUpCoordinator.start()
         navigationController.pushViewController(signUpVC, animated: true)
         childCoordinators.append(signUpCoordinator)

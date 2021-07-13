@@ -11,7 +11,7 @@ class InitialCoordinator: Coordinator {
     
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
-    private let appCoordinator: AppCoordinator
+    private weak var appCoordinator: AppCoordinator!
     private let diContainer: DIContainerType
  
     init(appCoordinator: AppCoordinator, diContainer: DIContainerType) {
@@ -28,7 +28,7 @@ class InitialCoordinator: Coordinator {
     }
     
     func changeMainScreen(_ isUserAuth: Bool) {
-        self.appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
+        appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
     }
     
 }

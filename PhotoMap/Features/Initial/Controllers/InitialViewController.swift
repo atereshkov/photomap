@@ -9,7 +9,7 @@ import UIKit
 
 class InitialViewController: BaseViewController {
     
-    private var viewModel: InitialViewModel?
+    private var viewModel: InitialViewModelType?
    
     static func newInstanse(viewModel: InitialViewModel) -> InitialViewController {
         let initialVC = StoryboardScene.Initial.initialViewController.instantiate()
@@ -22,6 +22,6 @@ class InitialViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         activityIndicator.startAnimating()
-        self.viewModel?.viewDidLoad()
+        viewModel?.viewDidLoad()
     }
 }
