@@ -78,4 +78,9 @@ class ProfileViewModel: ProfileViewModelType {
             })
             .store(in: cancelBag)
     }
+    
+    // MARK: - Deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }

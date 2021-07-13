@@ -76,4 +76,9 @@ class ProfileCoordinator: Coordinator {
             appCoordinator.logout()
         }
     }
+    
+    // MARK: - Deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }

@@ -33,7 +33,7 @@ class CategoryViewController: BaseViewController {
         })
         .store(in: cancelBag)
         
-        doneButton.publisher
+        doneButton.publisher()
             .subscribe(viewModel.doneButtonSubject)
             .store(in: cancelBag)
         

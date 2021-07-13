@@ -67,11 +67,10 @@ class MapViewModel: NSObject, MapViewModelType {
 
         loadUserPhotosSubject
             .debounce(for: 0.5, scheduler: RunLoop.main)
-            .flatMap { [unowned self] visibleRect in
-                self.firestoreService.getPhotos(for: visibleRect)
-            }
-            .sink(receiveCompletion: сompletionHandler,
-                  receiveValue: { [weak self] photos in
+            .flatMap { [unowned self] visibleRect in self.firestoreService.getPhotos(for: visibleRect) }
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.сompletionHandler(completion)
+            }, receiveValue: { [weak self] photos in
                     self?.photos = photos })
             .store(in: cancelBag)
 
@@ -80,8 +79,7 @@ class MapViewModel: NSObject, MapViewModelType {
             .store(in: cancelBag)
 
         coordinator.doneButtonPressedWithCategoriesSubject
-            .assign(to: \.filteredCategories, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$filteredCategories)
 
         $filteredCategories
             .map { [weak self] categories -> [PhotoDVO] in
@@ -92,8 +90,7 @@ class MapViewModel: NSObject, MapViewModelType {
                     return filteredCategoryIds.contains(id)
                 } ?? []
             }
-            .assign(to: \.visiblePhotos, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$visiblePhotos)
 
         $photos
             .combineLatest($filteredCategories)
@@ -111,13 +108,18 @@ class MapViewModel: NSObject, MapViewModelType {
         userTrackingMode = .none
     }
 
-    private func сompletionHandler(completion: Subscribers.Completion<FirestoreError>) {
+    private func сompletionHandler(_ completion: Subscribers.Completion<FirestoreError>) {
         switch completion {
         case .failure(let error):
             coordinator.errorAlertSubject.send(error)
         case .finished:
             return
         }
+    }
+
+    // MARK: - Deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
 
@@ -158,8 +160,9 @@ extension MapViewModel: MKMapViewDelegate {
 
         if photoView.detailImage == nil {
             firestoreService.downloadImage(with: URL(string: url))
-                .sink(receiveCompletion: сompletionHandler,
-                      receiveValue: { photoView.detailImage = $0 })
+                .sink(receiveCompletion: { [weak self] completion in
+                    self?.сompletionHandler(completion)
+                }, receiveValue: { photoView.detailImage = $0 })
                 .store(in: cancelBag)
         }
     }
