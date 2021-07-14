@@ -15,7 +15,7 @@ class AppCoordinator: AppCoordinatorType {
     private var diContainer: DIContainerType
     private let window: UIWindow
     
-    private var cancelBag = CancelBag()
+    private var subscriptions = Set<AnyCancellable>()
     
     init(window: UIWindow, diContainer: DIContainerType) {
         self.window = window
@@ -44,11 +44,12 @@ class AppCoordinator: AppCoordinatorType {
     }
     
     internal func showAuth() {
-        let signInCoordinator = SignInCoordinator(diContainer: diContainer)
-        signInCoordinator.parentCoordinator = self
-        let signInVC = signInCoordinator.start()
-        signInVC.modalPresentationStyle = .overFullScreen
-        navigationController.present(signInVC, animated: true)
+        let signInCoordinator = AuthCoordinator(diContainer: diContainer)
+        signInCoordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.logout() })
+            .store(in: &subscriptions)
+
+        navigationController.present(signInCoordinator.start(), animated: true)
         childCoordinators.append(signInCoordinator)
     }
     

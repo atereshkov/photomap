@@ -33,9 +33,11 @@ class SignUpViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+  
         viewModel?.viewDidDisappearSubject.send()
     }
     
+    // MARK: - Deinit
     deinit {
         cancelBag.cancel()
     }

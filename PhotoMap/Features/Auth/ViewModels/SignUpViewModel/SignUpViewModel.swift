@@ -10,7 +10,7 @@ import Combine
 
 class SignUpViewModel: SignUpViewModelType {
    
-    private(set) weak var coordinator: SignUpCoordinator!
+    private(set) var coordinator: AuthCoordinator
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
@@ -36,7 +36,7 @@ class SignUpViewModel: SignUpViewModelType {
         activityIndicator.loading
     }
 
-    init(diContainer: DIContainerType, coordinator: SignUpCoordinator) {
+    init(diContainer: DIContainerType, coordinator: AuthCoordinator) {
         self.authUserService = diContainer.resolve()
         self.firestoreService = diContainer.resolve()
         self.coordinator = coordinator
@@ -93,10 +93,11 @@ class SignUpViewModel: SignUpViewModelType {
         .store(in: cancelBag)
         
         viewDidDisappearSubject
-            .subscribe(coordinator.viewDidDisappearSubject)
+            .subscribe(coordinator.dismissSignUpSubject)
             .store(in: cancelBag)
     }
     
+    // MARK: - Deinit
     deinit {
         cancelBag.cancel()
     }
@@ -129,12 +130,12 @@ extension SignUpViewModel {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    self?.coordinator.showErrorAlertSubject.send(error)
+                    self?.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
                     break
                 }
             }, receiveValue: { [weak self ] in
-                self?.coordinator.showMapSubject.send()
+                self?.coordinator.successfulAuthorizationSubject.send()
             })
             .store(in: cancelBag)
     }

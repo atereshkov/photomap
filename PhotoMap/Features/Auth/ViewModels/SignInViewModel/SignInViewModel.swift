@@ -10,7 +10,7 @@ import Combine
 
 class SignInViewModel: SignInViewModelType {
 
-    private(set) weak var coordinator: SignInCoordinator!
+    private(set) weak var coordinator: AuthCoordinator!
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
@@ -33,7 +33,7 @@ class SignInViewModel: SignInViewModelType {
         activityIndicator.loading
     }
     
-    init(diContainer: DIContainerType, coordinator: SignInCoordinator) {
+    init(diContainer: DIContainerType, coordinator: AuthCoordinator) {
         self.authUserService = diContainer.resolve()
         self.coordinator = coordinator
         self.validationService = diContainer.resolve()
@@ -90,7 +90,7 @@ extension SignInViewModel {
                 case .failure(let error):
                     self?.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self?.coordinator.showMapSubject.send()
+                    self?.coordinator.successfulAuthorizationSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)
