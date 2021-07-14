@@ -8,9 +8,6 @@ target 'PhotoMap' do
   # Pods for PhotoMap
 
   pod 'Firebase/Auth',   '~> 7.10.0'
-  pod 'Firebase/Crashlytics',   '~> 7.10.0'
-  pod 'Firebase/Analytics',   '~> 7.10.0'
-  pod 'Firebase/Messaging',   '~> 7.10.0'
   pod 'Firebase/Firestore',   '~> 7.10.0'
   pod 'Firebase/Storage',   '~> 7.10.0'
   pod 'ReachabilitySwift',   '~> 5.0.0'
