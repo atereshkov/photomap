@@ -44,6 +44,7 @@
 		126B9DE6268B375000F8FCF8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126B9DE5268B375000F8FCF8 /* Images.xcassets */; };
 		126BC1AF26985C71007EE0CD /* CategoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126BC1AE26985C71007EE0CD /* CategoriesProtocol.swift */; };
 		126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126CC4192667A9C2008E560D /* SignInViewModelTests.swift */; };
+		126DA55C26A05715009ACB9E /* CategoryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126DA55B26A05715009ACB9E /* CategoryTextField.swift */; };
 		1272CA62267267ED00F0A224 /* PhotoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */; };
 		1272CA6426726D4900F0A224 /* PhotoMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */; };
 		1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */; };
@@ -203,6 +204,7 @@
 		126B9DE5268B375000F8FCF8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		126BC1AE26985C71007EE0CD /* CategoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesProtocol.swift; sourceTree = "<group>"; };
 		126CC4192667A9C2008E560D /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
+		126DA55B26A05715009ACB9E /* CategoryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTextField.swift; sourceTree = "<group>"; };
 		1272CA61267267ED00F0A224 /* PhotoAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotation.swift; sourceTree = "<group>"; };
 		1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMarkerView.swift; sourceTree = "<group>"; };
 		1277E3A72685F06E00F5156A /* ImagePickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerProtocol.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				333B82DA263FFC7500AAD56F /* ErrorTextField.swift */,
 				1272CA6326726D4900F0A224 /* PhotoMarkerView.swift */,
 				127E647D268219BB0044B6C7 /* PhotoClusterView.swift */,
+				126DA55B26A05715009ACB9E /* CategoryTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1317,6 +1320,7 @@
 				333B82F226417DDB00AAD56F /* UsernameValidationResult.swift in Sources */,
 				3374D0EC263B1BFF00A03E78 /* UIControl+Ex.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
+				126DA55C26A05715009ACB9E /* CategoryTextField.swift in Sources */,
 				333B82EA26412E7900AAD56F /* InitialViewModel.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,

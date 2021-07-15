@@ -8,20 +8,19 @@
 import UIKit
 
 class InitialViewController: BaseViewController {
-    
-    private var viewModel: InitialViewModelType?
    
-    static func newInstanse(viewModel: InitialViewModel) -> InitialViewController {
+    static func newInstanse() -> InitialViewController {
         let initialVC = StoryboardScene.Initial.initialViewController.instantiate()
-        initialVC.viewModel = viewModel
+        initialVC.modalPresentationStyle = .overFullScreen
         
         return initialVC
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .white
+        setOpacityBackgroundNavigationBar()
         activityIndicator.startAnimating()
-        viewModel?.viewDidLoad()
     }
 }

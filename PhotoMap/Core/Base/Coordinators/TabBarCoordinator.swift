@@ -17,6 +17,8 @@ class TabBarCoordinator: Coordinator {
     
     private var subscriptions = Set<AnyCancellable>()
     private let diContainer: DIContainerType
+
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
     
     init(diContainer: DIContainerType) {
         self.diContainer = diContainer
@@ -26,6 +28,7 @@ class TabBarCoordinator: Coordinator {
     @discardableResult
     func start() -> UIViewController {
         let tabBarController = UITabBarController()
+        tabBarController.modalPresentationStyle = .overFullScreen
         tabBarController.tabBar.barTintColor = Asset.tabBarBarTintColor.color
         tabBarController.tabBar.tintColor = Asset.tabBarTintColor.color
 
@@ -38,6 +41,11 @@ class TabBarCoordinator: Coordinator {
         childCoordinators.append(timelineCoordinator)
 
         let profileCoordinator = ProfileCoordinator(diContainer: diContainer)
+        profileCoordinator.dismissSubject
+            .map { [weak self] in self?.prepareForDismiss() }
+            .subscribe(dismissSubject)
+            .store(in: &subscriptions)
+
         profileCoordinator.start()
         childCoordinators.append(profileCoordinator)
 
@@ -48,6 +56,12 @@ class TabBarCoordinator: Coordinator {
         checkNetworkConnection()
 
         return tabBarController
+    }
+
+    private func prepareForDismiss() {
+        childCoordinators.removeAll()
+        tabBarController?.viewControllers?.removeAll()
+        tabBarController?.dismiss(animated: true)
     }
 
     func checkNetworkConnection() {
@@ -70,5 +84,4 @@ class TabBarCoordinator: Coordinator {
             childVC.dismiss(animated: true, completion: nil)
         }
     }
-    
 }

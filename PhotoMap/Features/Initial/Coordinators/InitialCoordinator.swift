@@ -19,16 +19,17 @@ class InitialCoordinator: Coordinator {
         self.diContainer = diContainer
     }
     
-    @discardableResult
-    func start() -> UIViewController {
-        let viewModel = InitialViewModel(coordinator: self, diContainer: diContainer)
-        let initialVC = InitialViewController.newInstanse(viewModel: viewModel)
-        
-        return initialVC
-    }
+//    @discardableResult
+//    func start() -> UIViewController {
+//        let viewModel = InitialViewModel(coordinator: self, diContainer: diContainer)
+//        let initialVC = InitialViewController.newInstanse(viewModel: viewModel)
+//        
+//        
+//        return initialVC
+//    }
     
     func changeMainScreen(_ isUserAuth: Bool) {
-        appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
+//        appCoordinator.startMainScreen(isUserAuthorized: isUserAuth)
     }
     
 }

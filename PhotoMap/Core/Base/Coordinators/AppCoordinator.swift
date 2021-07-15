@@ -12,6 +12,7 @@ class AppCoordinator: AppCoordinatorType {
     
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
+    private let authListener: AuthListenerType
     private var diContainer: DIContainerType
     private let window: UIWindow
     
@@ -20,55 +21,50 @@ class AppCoordinator: AppCoordinatorType {
     init(window: UIWindow, diContainer: DIContainerType) {
         self.window = window
         self.diContainer = diContainer
+        self.authListener = diContainer.resolve()
     }
     
     func start() {
+        navigationController.view.backgroundColor = .darkGray
+        let initialVC = InitialViewController.newInstanse()
+        navigationController.pushViewController(initialVC, animated: true)
+        
         window.rootViewController = navigationController
-        self.showInitial()
+        changeApplicationState()
     }
-    
-    func startMainScreen(isUserAuthorized: Bool) {
-        if isUserAuthorized {
+
+    private func changeApplicationState() {
+        if authListener.isAuthorized() {
             self.showMap()
         } else {
             self.showAuth()
         }
     }
     
-    internal func showMap() {
+    private func showMap() {
         let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
-        childCoordinators.append(tabBarCoordinator)
-        let mainTabBarController = tabBarCoordinator.start()
-        mainTabBarController.modalPresentationStyle = .overFullScreen
-        navigationController.present(mainTabBarController, animated: true)
-    }
-    
-    internal func showAuth() {
-        let signInCoordinator = AuthCoordinator(diContainer: diContainer)
-        signInCoordinator.dismissSubject
-            .sink(receiveValue: { [weak self] in self?.logout() })
+        tabBarCoordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.prepareForSwitchAppStatus() })
             .store(in: &subscriptions)
 
-        navigationController.present(signInCoordinator.start(), animated: true)
+        childCoordinators.append(tabBarCoordinator)
+        navigationController.present(tabBarCoordinator.start(), animated: true)
+    }
+    
+    private func showAuth() {
+        let signInCoordinator = AuthCoordinator(diContainer: diContainer)
+        signInCoordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.prepareForSwitchAppStatus() })
+            .store(in: &subscriptions)
+
         childCoordinators.append(signInCoordinator)
+        navigationController.present(signInCoordinator.start(), animated: true)
     }
     
-    internal func showInitial() {
-        let initCoordinator = InitialCoordinator(appCoordinator: self, diContainer: diContainer)
-        childCoordinators = [initCoordinator]
-        let initViewController = initCoordinator.start()
-        initViewController.modalPresentationStyle = .overFullScreen
-        navigationController.pushViewController(initViewController, animated: true)
+    private func prepareForSwitchAppStatus() {
+        if !(childCoordinators.last is InitialCoordinator) {
+            childCoordinators.removeLast()
+        }
+        changeApplicationState()
     }
-    
-    func logout() {
-        childCoordinators.removeAll()
-        navigationController = UINavigationController()
-        start()
-    }
-    
-    func childDidFinish(_ childCoordinator: Coordinator) {
-        childCoordinators.removeAll(where: { $0 === childCoordinator })
-    }
-    
 }
