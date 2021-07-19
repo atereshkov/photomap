@@ -67,16 +67,9 @@ class ProfileCoordinator: Coordinator {
     }
     
     private func logoutFromAccount() {
-//        guard let scene = UIApplication.shared.connectedScenes.first else { return }
-//        guard let sceneDelegate = scene.delegate as? SceneDelegate else { return }
-//        guard let window = sceneDelegate.window else { return }
-//        guard let appCoordinator = sceneDelegate.appCoordinator else { return }
-        UIView.transition(with: navigationController.view, duration: 0.5, options: .transitionFlipFromLeft) { [weak self] in
-            self?.didTapLogoutSubject.send()
-            self?.navigationController.dismiss(animated: true)
-            self?.dismissSubject.send()
-            // appCoordinator.logout()
-        }
+        didTapLogoutSubject.send()
+        navigationController.dismiss(animated: true)
+        dismissSubject.send()
     }
     
     // MARK: - Deinit

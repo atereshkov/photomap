@@ -10,7 +10,7 @@ import Combine
 
 class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     // MARK: - Variables
-    private let cancelBag = CancelBag()
+    private var cancellables = Set<AnyCancellable>()
     private let coordinator: MapPhotoCoordinator
     private let diContainer: DIContainerType
     private let firestoreService: FirestoreServiceType
@@ -53,18 +53,17 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
         cancelButtonSubject
             .map { _ in }
             .subscribe(coordinator.prepareForDismissSubject)
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         $categoryPublisher
             .sink { [weak self] category in self?.photoPublisher.category = category }
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         doneButtonSubject
-//            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] description in
                 self?.saveNewPhoto(with: description)
             }
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         firestoreService.getCategories()
             .sink(receiveCompletion: сompletionHandler,
@@ -73,15 +72,15 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
                 self?.categoryPublisher = categories[safe: 0]
                 self?.loadCategoriesSubject.send()
             })
-            .store(in: self.cancelBag)
+            .store(in: &cancellables)
 
         categoryViewSubject
             .sink { [weak self] _ in self?.isHiddenCategoryPicker = !(self?.isHiddenCategoryPicker ?? false) }
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         closeBarButtonSubject
             .sink(receiveValue: { [weak self] isHidden in self?.isHiddenCategoryPicker = isHidden })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
     }
 
     // MARK: - Utils
@@ -94,7 +93,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
                   receiveValue: { [weak self] _ in
                 self?.coordinator.prepareForDismissSubject.send()
             })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
     }
 
     private func сompletionHandler(_ completion: Subscribers.Completion<FirestoreError>) {
@@ -108,8 +107,7 @@ class MapPhotoViewModel: NSObject, MapPhotoViewModelType {
     
     // MARK: - deinit
     deinit {
-        print(" - deinit - MapPhotoViewModel")
-        cancelBag.cancel()
+        cancellables.forEach { $0.cancel() }
     }
 }
 

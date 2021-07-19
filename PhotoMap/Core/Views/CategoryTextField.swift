@@ -6,50 +6,79 @@
 //
 
 import UIKit
-import Combine
 
 @IBDesignable
 class CategoryTextField: UITextField {
-    private var imageView = UIImageView(image: UIImage(named: "circle.fill"))
-    private lazy var loadingIndicator: UIActivityIndicatorView = {
-        let loadingIndicator = UIActivityIndicatorView()
-        loadingIndicator.style = .medium
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.startAnimating()
 
-        return UIActivityIndicatorView()
-    }()
+    var textFieldBorderStyle: UITextField.BorderStyle = .none
     
-    private var cancellables = Set<AnyCancellable>()
-    private(set) var categorySubject = PassthroughSubject<Category?, Never>()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        bind()
-        leftView = loadingIndicator
+    // Provides left padding for image
+    override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+        var textRect = super.leftViewRect(forBounds: bounds)
+        textRect.origin.x += padding
+        return textRect
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    // Provides right padding for image
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        var textRect = super.rightViewRect(forBounds: bounds)
+        textRect.origin.x -= padding
+        return textRect
+    }
+    
+    @IBInspectable var fieldImage: UIImage? = nil {
+        didSet {
+            updateView()
+        }
+    }
+    
+    @IBInspectable var padding: CGFloat = 0
+    @IBInspectable var color: UIColor = UIColor.gray {
+        didSet {
+            updateView()
+        }
+    }
+    @IBInspectable var bottomColor: UIColor = UIColor.clear {
+        didSet {
+            if bottomColor == UIColor.clear {
+                self.borderStyle = .roundedRect
+            } else {
+                self.borderStyle = .bezel
+            }
+            self.setNeedsDisplay()
+        }
+    }
+    
+    func updateView() {
         
-        bind()
-        leftView = loadingIndicator
+        if let image = fieldImage {
+            leftViewMode = .always
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+            imageView.image = image
+            imageView.tintColor = color
+            leftView = imageView
+        } else {
+            leftViewMode = .never
+            leftView = nil
+        }
     }
-    
-    private func set(_ category: Category) {
-        loadingIndicator.stopAnimating()
-        imageView.tintColor = UIColor(hex: category.color)
-        leftView = imageView
+
+    func set(_ category: Category) {
+        if let color = UIColor(hex: category.color) {
+            self.color = color
+        }
         text = category.name
     }
-
-    private func bind() {
-        categorySubject
-            .sink(receiveValue: { [weak self] category in
-                    guard let category = category else { return }
-                    self?.set(category)
-            })
-            .store(in: &cancellables)
+    
+    override func draw(_ rect: CGRect) {
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: self.bounds.origin.x, y: self.bounds.height
+                                - 0.5))
+        path.addLine(to: CGPoint(x: self.bounds.size.width, y: self.bounds.height
+                                    - 0.5))
+        path.lineWidth = 0.5
+        self.bottomColor.setStroke()
+        path.stroke()
     }
 }

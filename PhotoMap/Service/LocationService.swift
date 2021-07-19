@@ -46,11 +46,7 @@ class LocationService: NSObject, LocationServiceType {
         bind()
         locationManager.startUpdatingLocation()
 
-        if #available(iOS 14.0, *) {
-            self.status.send(self.locationManager.authorizationStatus)
-        } else {
-            self.status.send(CLLocationManager.authorizationStatus())
-        }
+        self.status.send(self.locationManager.authorizationStatus)
     }
 
     private func bind() {

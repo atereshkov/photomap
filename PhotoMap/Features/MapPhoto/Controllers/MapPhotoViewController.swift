@@ -11,20 +11,39 @@ import Combine
 class MapPhotoViewController: BaseViewController {
     // MARK: - Variables
     private var viewModel: MapPhotoViewModel?
-    private let cancelBag = CancelBag()
-    private var isShowKeyboard = false
+    private var cancellables = Set<AnyCancellable>()
+
     private var bottomConstraintConstant: CGFloat = 0
+
+    private lazy var categoryPickerView: UIPickerView = {
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 250))
+        
+        return pickerView
+    }()
+    private lazy var closeBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.title = L10n.Main.MapPhoto.Button.Title.close
+        barButton.style = .done
+
+        return barButton
+    }()
+    private lazy var pickerToolBar: UIToolbar = {
+        let toolBar = UIToolbar()
+        toolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
+        toolBar.setItems([closeBarButton], animated: true)
+
+        return toolBar
+    }()
 
     // MARK: - Outlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var categoryView: CategoryView!
+    @IBOutlet private weak var categoryTextField: CategoryTextField!
     @IBOutlet private weak var descriptionTextView: UITextView!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var doneButton: UIButton!
-    @IBOutlet private weak var categoryPickerView: UIPickerView!
-    @IBOutlet private weak var pickerToolBar: UIToolbar!
-    @IBOutlet private weak var closeBarButton: UIBarButtonItem!
     @IBOutlet weak var contentViewBottomConstraint: NSLayoutConstraint!
     
     static func newInstanse(viewModel: MapPhotoViewModel) -> MapPhotoViewController {
@@ -51,10 +70,10 @@ class MapPhotoViewController: BaseViewController {
 
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
             .sink(receiveValue: { [weak self] notification in self?.keybordWillShow(notification) })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
             .sink(receiveValue: { [weak self] notification in self?.keybordWillHide(notification) })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         viewModel.$photoPublisher
             .sink(receiveValue: { [weak self] photo in
@@ -62,23 +81,19 @@ class MapPhotoViewController: BaseViewController {
                 self?.dateLabel.text = photo.date.toString
                 self?.descriptionTextView.text = photo.description
             })
-            .store(in: cancelBag)
-
-        viewModel.$isHiddenCategoryPicker
-            .sink(receiveValue: { [weak self] isHidden in
-                self?.categoryPickerView.isHidden = isHidden
-                self?.pickerToolBar.isHidden = isHidden
-            })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         viewModel.$categoryPublisher
             .filter { $0 != nil }
-            .subscribe(categoryView.categorySubject)
-            .store(in: cancelBag)
+            .sink(receiveValue: { [weak self] category in
+                guard let category = category else { return }
+                self?.categoryTextField.set(category)
+            })
+            .store(in: &cancellables)
 
         viewModel.loadCategoriesSubject
             .sink { [weak self] _ in self?.categoryPickerView.reloadAllComponents() }
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         viewModel.loadingPublisher
             .receive(on: RunLoop.main)
@@ -90,71 +105,61 @@ class MapPhotoViewController: BaseViewController {
                     self?.activityIndicator.stopAnimating()
                 }
             })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
     }
 
     private func bindActions() {
         guard let viewModel = viewModel else { return }
-
-        categoryView.gesture(.tap())
-            .subscribe(viewModel.categoryViewSubject)
-            .store(in: cancelBag)
-
-        closeBarButton.publisher
-            .map { _ in true }
-            .subscribe(viewModel.closeBarButtonSubject)
-            .store(in: cancelBag)
 
         viewModel.$categoryPublisher
             .map { $0 != nil }
             .sink(receiveValue: { [weak self] isEnable in
                 self?.doneButton.isEnabled = isEnable
             })
-            .store(in: cancelBag)
-
-        viewModel.loadingPublisher
-            .map { !$0 }
-            .sink(receiveValue: { [weak self] isEnable in
-                self?.doneButton.isEnabled = isEnable
-            })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
 
         doneButton.tapPublisher
             .map { [weak self] _ in self?.descriptionTextView.text ?? "" }
-            .subscribe(viewModel.doneButtonSubject)
-            .store(in: cancelBag)
+            .sink(receiveValue: { [weak self] text in
+                    self?.view.endEditing(true)
+                    viewModel.doneButtonSubject.send(text) })
+//            .subscribe(viewModel.doneButtonSubject)
+            .store(in: &cancellables)
         
         cancelButton.tapPublisher
-            .subscribe(viewModel.cancelButtonSubject)
-            .store(in: cancelBag)
+            .sink(receiveValue: { control in viewModel.cancelButtonSubject.send(control) })
+//            .subscribe(viewModel.cancelButtonSubject)
+            .store(in: &cancellables)
         
         // Hide keyboard when tap on view
-        view.gesture(.tap())
-            .filter { [weak self] _ in self?.isShowKeyboard ?? false }
+        closeBarButton.publisher()
             .sink(receiveValue: { [weak self] _ in self?.view.endEditing(true) })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
+        
+        view.gesture(.tap())
+            .sink(receiveValue: { [weak self] _ in self?.view.endEditing(true) })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
         doneButton.setTitle(L10n.Main.MapPhoto.Button.Title.done, for: .application)
         cancelButton.setTitle(L10n.Main.MapPhoto.Button.Title.cancel, for: .application)
-        closeBarButton.title = L10n.Main.MapPhoto.Button.Title.close
+        
+        categoryTextField.inputView = categoryPickerView
+        categoryTextField.inputAccessoryView = pickerToolBar
 
         categoryPickerView.delegate = viewModel
         categoryPickerView.dataSource = viewModel
-
-        pickerToolBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
     // MARK: - deinit
     deinit {
-        print(" - deinit - MapPhotoViewController")
-
         categoryPickerView.delegate = nil
         categoryPickerView.dataSource = nil
         viewModel = nil
-//        categoryView = nil
-        cancelBag.cancel()
+        categoryTextField = nil
+
+        cancellables.forEach { $0.cancel() }
     }
 }
 
@@ -165,13 +170,11 @@ extension MapPhotoViewController {
               let keyboardNSValue: NSValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         var keyboardFrame: CGRect = keyboardNSValue.cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        isShowKeyboard = true
         
         self.contentViewBottomConstraint.constant = keyboardFrame.size.height
     }
     
     private func keybordWillHide(_ notification: Notification) {
-        isShowKeyboard = false
         self.contentViewBottomConstraint.constant = bottomConstraintConstant
     }
 }

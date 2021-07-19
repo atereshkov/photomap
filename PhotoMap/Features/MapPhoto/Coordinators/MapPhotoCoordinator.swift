@@ -12,7 +12,7 @@ class MapPhotoCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController = UINavigationController()
     
-    private var cancelBag = CancelBag()
+    private var cancellables = Set<AnyCancellable>()
     private let diContainer: DIContainerType
 
     private(set) var dismissSubject = PassthroughSubject<Void, Never>()
@@ -37,22 +37,15 @@ class MapPhotoCoordinator: Coordinator {
         prepareForDismissSubject
             .map { [weak self] in self?.dismissScreen() }
             .subscribe(dismissSubject)
-            .store(in: cancelBag)
+            .store(in: &cancellables)
         
         errorAlertSubject
             .sink(receiveValue: { [weak self] error in self?.showErrorAlert(error: error) })
-            .store(in: cancelBag)
+            .store(in: &cancellables)
     }
     
     private func dismissScreen() {
         navigationController.viewControllers.removeAll()
         navigationController.dismiss(animated: true)
-        print(navigationController.viewControllers)
-    }
-
-    // MARK: - deinit
-    deinit {
-        print(" - deinit - MapPhotoCoordinator")
-        cancelBag.cancel()
     }
 }
