@@ -33,7 +33,6 @@
 		0B70B4E7267A41A100DDCCFA /* TimelineCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */; };
 		0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C06D32679F9FB006E9724 /* FileManagerService.swift */; };
 		0BB93FED268C473700731AB4 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB93FEC268C473700731AB4 /* ValidationService.swift */; };
-		0BBDEB8E265FABCA007D48C0 /* TimelineCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */; };
 		0BCA61BE268322500065B6E4 /* FullPhotoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */; };
 		0BCA61C026832C370065B6E4 /* UIScrollView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCA61BF26832C370065B6E4 /* UIScrollView+Ex.swift */; };
 		0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */; };
@@ -95,8 +94,6 @@
 		333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */; };
 		333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */; };
 		333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83102643EBA000AAD56F /* InitialViewModelType.swift */; };
-		333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */; };
-		333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83162649913B00AAD56F /* AppCoordinatorMock.swift */; };
 		333B831B264BD4F400AAD56F /* AppCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* ProfileCoordinator.swift */; };
@@ -191,7 +188,6 @@
 		0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellViewModelTests.swift; sourceTree = "<group>"; };
 		0B9C06D32679F9FB006E9724 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		0BB93FEC268C473700731AB4 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
-		0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCoordinatorMock.swift; sourceTree = "<group>"; };
 		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPhotoViewModelTests.swift; sourceTree = "<group>"; };
 		0BCA61BF26832C370065B6E4 /* UIScrollView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ex.swift"; sourceTree = "<group>"; };
@@ -259,8 +255,6 @@
 		333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidatorTests.swift; sourceTree = "<group>"; };
 		333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
 		333B83102643EBA000AAD56F /* InitialViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModelType.swift; sourceTree = "<group>"; };
-		333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorMock.swift; sourceTree = "<group>"; };
-		333B83162649913B00AAD56F /* AppCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorMock.swift; sourceTree = "<group>"; };
 		333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorType.swift; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -443,16 +437,6 @@
 				0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		23AE289C2655112200A6E69B /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				333B8314264957EA00AAD56F /* AuthCoordinatorMock.swift */,
-				333B83162649913B00AAD56F /* AppCoordinatorMock.swift */,
-				0BBDEB8D265FABCA007D48C0 /* TimelineCoordinatorMock.swift */,
-			);
-			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		23AE2E65264D546E00FE673F /* PhotoMap */ = {
@@ -700,7 +684,6 @@
 		333B83002642D8D100AAD56F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				23AE289C2655112200A6E69B /* Coordinators */,
 				23AE289B265510F700A6E69B /* Services */,
 				CBE3230826493D240065F2CC /* DIContainerMock.swift */,
 			);
@@ -1276,13 +1259,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				333B8315264957EA00AAD56F /* AuthCoordinatorMock.swift in Sources */,
 				333B83022642D8E900AAD56F /* AuthUserServiceMock.swift in Sources */,
 				0BCA61BE268322500065B6E4 /* FullPhotoViewModelTests.swift in Sources */,
 				23AE289E265529B500A6E69B /* LocationServiceMock.swift in Sources */,
 				0BD78B03265F8989000B4DE6 /* FirestoreServiceMock.swift in Sources */,
 				23AE2E88264D63E300FE673F /* MapPhotoViewModelTests.swift in Sources */,
-				0BBDEB8E265FABCA007D48C0 /* TimelineCoordinatorMock.swift in Sources */,
 				333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */,
 				126CC41A2667A9C2008E560D /* SignInViewModelTests.swift in Sources */,
 				CBE3230926493D240065F2CC /* DIContainerMock.swift in Sources */,
@@ -1291,7 +1272,6 @@
 				0BF01D0E268DB22C005B0EB8 /* ProfileViewModelTests.swift in Sources */,
 				333B83052642DED100AAD56F /* EmailValidatorTests.swift in Sources */,
 				333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */,
-				333B83172649913B00AAD56F /* AppCoordinatorMock.swift in Sources */,
 				333B82FB264199BD00AAD56F /* CancelBag.swift in Sources */,
 				12D96ADA2656A2CA0073847E /* StoryboardsTests.swift in Sources */,
 				0BD78B05265F8C17000B4DE6 /* TimelineViewModelTests.swift in Sources */,
@@ -1449,9 +1429,10 @@
 			baseConfigurationReference = 8793ECDBB83D3EFC03B074AF /* Pods-PhotoMapTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PhotoMapTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1470,9 +1451,10 @@
 			baseConfigurationReference = E8D8159CAE61A1B93255FECB /* Pods-PhotoMapTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PhotoMapTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -58,7 +58,6 @@ class CategoryViewModel: CategoryViewModelType {
     // MARK: - Input
     let doneButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     let showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
-    let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private let activityIndicator = ActivityIndicator()
     
     func didSelectRow(at indexPath: IndexPath) {

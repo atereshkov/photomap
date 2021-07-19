@@ -14,12 +14,8 @@ class MapPhotoViewController: BaseViewController {
     private var cancellables = Set<AnyCancellable>()
 
     private var bottomConstraintConstant: CGFloat = 0
+    private var categoryPickerView = UIPickerView()
 
-    private lazy var categoryPickerView: UIPickerView = {
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 250))
-        
-        return pickerView
-    }()
     private lazy var closeBarButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = L10n.Main.MapPhoto.Button.Title.close

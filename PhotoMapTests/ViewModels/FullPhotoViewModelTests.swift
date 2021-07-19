@@ -18,7 +18,7 @@ class FullPhotoViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         diContainer = DIContainerMock()
-        coordinator = FullPhotoCoordinator(diContainer: diContainer)
+        coordinator = FullPhotoCoordinator()
         let firestoreServiceDI: FirestoreServiceType = diContainer.resolve()
         firestoreService = firestoreServiceDI as? FirestoreServiceMock
         cancelBag = CancelBag()
@@ -87,7 +87,7 @@ class FullPhotoViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         var disappearCalled = false
         
-        coordinator.viewDidDisappearSubject.sink(receiveValue: { _ in
+        coordinator.dismissSubject.sink(receiveValue: { _ in
             disappearCalled = true
             expectation.fulfill()
         })

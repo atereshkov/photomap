@@ -23,7 +23,7 @@ class TimelineViewModelTests: XCTestCase {
         let firestoreServiceDI: FirestoreServiceType = diContainer.resolve()
         firestoreService = firestoreServiceDI as? FirestoreServiceMock
         
-        coordinator = TimelineCoordinatorMock(diContainer: diContainer)
+        coordinator = TimelineCoordinator(diContainer: diContainer)
         viewModel = TimelineViewModel(coordinator: coordinator, diContainer: diContainer)
         
         cancelBag = CancelBag()

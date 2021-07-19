@@ -68,7 +68,7 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isHiddenCategoryPicker)
 
         // Act        
-        viewModel.closeBarButtonSubject.send(UIBarButtonItem())
+        viewModel.closeBarButtonSubject.send((true))
 
         // Assert
         XCTAssertTrue(viewModel.isHiddenCategoryPicker)
@@ -126,7 +126,7 @@ class MapPhotoViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isHiddenCategoryPicker)
 
         // Act
-        viewModel.closeBarButtonSubject.send(UIBarButtonItem())
+        viewModel.closeBarButtonSubject.send(true)
 
         // Assert
         XCTAssertTrue(viewModel.isHiddenCategoryPicker)

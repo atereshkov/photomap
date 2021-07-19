@@ -21,6 +21,7 @@ class CategoryViewController: BaseViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupViews()
         bind()
     }

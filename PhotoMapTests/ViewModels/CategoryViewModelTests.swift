@@ -48,33 +48,12 @@ class CategoryViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        XCTAssertFalse(firestoreService.getCategoriesCalled)
-        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertTrue(firestoreService.getCategoriesCalled)
         XCTAssertTrue(firestoreService.getCategoriesEndWithValues)
         XCTAssertEqual(firestoreService.categories.count, viewModel.getNumberOfRows())
         XCTAssertEqual(viewModel.getCategory(at: indexPath)?.id,
                        firestoreService.categories[at: firestoreService.categories.count - 1]?.id)
-    }
-    
-    func testIfErrorOccuredThenCoordinatorShowErrorAlert() {
-        firestoreService.error = .custom("error occured")
-        
-        let expectation = XCTestExpectation()
-        var showAlertCalled = false
-        
-        coordinator.showErrorAlertSubject.sink(receiveValue: { _ in
-            showAlertCalled = true
-            expectation.fulfill()
-        })
-        .store(in: cancelBag)
-        
-        XCTAssertFalse(firestoreService.getCategoriesCalled)
-        viewModel.viewDidLoadSubject.send()
-        wait(for: [expectation], timeout: 2)
-        XCTAssertTrue(firestoreService.getCategoriesCalled)
-        XCTAssertTrue(showAlertCalled)
     }
     
     func testWhenSelectCategoryShouldChangeCategoryIsSelectedState() {
@@ -88,8 +67,7 @@ class CategoryViewModelTests: XCTestCase {
             expectation.fulfill()
         })
         .store(in: cancelBag)
-        
-        viewModel.viewDidLoadSubject.send()
+
         wait(for: [expectation], timeout: 2)
         
         viewModel.didSelectRow(at: indexPath)
@@ -100,7 +78,7 @@ class CategoryViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         var doneButtonPressed = false
         
-        coordinator.doneButtonSubject.sink(receiveValue: { _ in
+        coordinator.prepareForDismissSubject.sink(receiveValue: { _ in
             doneButtonPressed = true
             expectation.fulfill()
         })
@@ -114,7 +92,7 @@ class CategoryViewModelTests: XCTestCase {
     
     func testWhenGettingCategoriesIndicatorShouldSpinning() {
         let expectation = XCTestExpectation()
-        let expectedValues = [false, true, false]
+        let expectedValues = [true, false]
         var results = [Bool]()
         var count = 0
         
@@ -127,7 +105,6 @@ class CategoryViewModelTests: XCTestCase {
         })
         .store(in: cancelBag)
         
-        viewModel.viewDidLoadSubject.send()
         wait(for: [expectation], timeout: 2)
         XCTAssertEqual(expectedValues, results)
     }
