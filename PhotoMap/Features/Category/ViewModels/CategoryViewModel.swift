@@ -14,6 +14,7 @@ class CategoryViewModel: CategoryViewModelType {
     private let firestoreService: FirestoreServiceType
     private var categories = [Category]()
     private let cancelBag = CancelBag()
+    private let activityIndicator = ActivityIndicator()
     
     // MARK: - Lifecycle
     init(coordinator: CategoryCoordinator, diContainer: DIContainerType) {
@@ -58,7 +59,6 @@ class CategoryViewModel: CategoryViewModelType {
     // MARK: - Input
     let doneButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
     let showErrorAlertSubject = PassthroughSubject<GeneralErrorType, Never>()
-    private let activityIndicator = ActivityIndicator()
     
     func didSelectRow(at indexPath: IndexPath) {
         guard var category = categories[at: indexPath.row] else { return }

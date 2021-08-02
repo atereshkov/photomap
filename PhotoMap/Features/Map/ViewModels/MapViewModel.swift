@@ -45,8 +45,10 @@ class MapViewModel: NSObject, MapViewModelType {
 
     private func transform() {
         categoryButtonSubject
-            .map { [weak self] _ -> Void in return self?.enableDiscoveryMode() ?? () }
-            .subscribe(coordinator.showCategoriesScreenSubject)
+            .sink(receiveValue: { [weak self] _ in
+                self?.enableDiscoveryMode()
+                self?.coordinator.showCategoriesScreenSubject.send()
+            })
             .store(in: cancelBag)
 
         photoButtonSubject

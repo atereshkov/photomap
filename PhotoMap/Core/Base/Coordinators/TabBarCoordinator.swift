@@ -42,7 +42,7 @@ class TabBarCoordinator: Coordinator {
 
         let profileCoordinator = ProfileCoordinator(diContainer: diContainer)
         profileCoordinator.dismissSubject
-            .map { [weak self] in self?.prepareForDismiss() }
+            .map { [weak self] in self?.dismiss() }
             .subscribe(dismissSubject)
             .store(in: &subscriptions)
 
@@ -58,7 +58,7 @@ class TabBarCoordinator: Coordinator {
         return tabBarController
     }
 
-    private func prepareForDismiss() {
+    private func dismiss() {
         childCoordinators.removeAll()
         tabBarController?.viewControllers?.removeAll()
         tabBarController?.dismiss(animated: true)

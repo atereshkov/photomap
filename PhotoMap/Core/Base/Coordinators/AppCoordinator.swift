@@ -16,7 +16,9 @@ class AppCoordinator: AppCoordinatorType {
     private var diContainer: DIContainerType
     private let window: UIWindow
     
-    private var subscriptions = Set<AnyCancellable>()
+//    private var subscriptions = Set<AnyCancellable>()
+    private var tabBarCoordinatorSubscription: AnyCancellable?
+    private var authCoordinatorSubscription: AnyCancellable?
     
     init(window: UIWindow, diContainer: DIContainerType) {
         self.window = window
@@ -35,17 +37,22 @@ class AppCoordinator: AppCoordinatorType {
 
     private func changeApplicationState() {
         if authListener.isAuthorized() {
-            self.showMap()
+            authCoordinatorSubscription?.cancel()
+            authCoordinatorSubscription = nil
+
+            showMap()
         } else {
-            self.showAuth()
+            tabBarCoordinatorSubscription?.cancel()
+            tabBarCoordinatorSubscription = nil
+
+            showAuth()
         }
     }
     
     private func showMap() {
         let tabBarCoordinator = TabBarCoordinator(diContainer: diContainer)
-        tabBarCoordinator.dismissSubject
+        tabBarCoordinatorSubscription = tabBarCoordinator.dismissSubject
             .sink(receiveValue: { [weak self] in self?.prepareForSwitchAppStatus() })
-            .store(in: &subscriptions)
 
         childCoordinators.append(tabBarCoordinator)
         navigationController.present(tabBarCoordinator.start(), animated: true)
@@ -53,18 +60,15 @@ class AppCoordinator: AppCoordinatorType {
     
     private func showAuth() {
         let signInCoordinator = AuthCoordinator(diContainer: diContainer)
-        signInCoordinator.dismissSubject
+        authCoordinatorSubscription = signInCoordinator.dismissSubject
             .sink(receiveValue: { [weak self] in self?.prepareForSwitchAppStatus() })
-            .store(in: &subscriptions)
 
         childCoordinators.append(signInCoordinator)
         navigationController.present(signInCoordinator.start(), animated: true)
     }
     
     private func prepareForSwitchAppStatus() {
-        if !(childCoordinators.last is InitialCoordinator) {
-            childCoordinators.removeLast()
-        }
+        childCoordinators = []
         changeApplicationState()
     }
 }

@@ -10,7 +10,7 @@ import Combine
 
 class SignInViewModel: SignInViewModelType {
 
-    private(set) weak var coordinator: AuthCoordinator!
+    private(set) var coordinator: AuthCoordinator
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
@@ -63,12 +63,10 @@ class SignInViewModel: SignInViewModelType {
             .assign(to: &$isAuthEnabled)
         
         signUpButtonSubject
-            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .subscribe(coordinator.showSignUpSubject)
             .store(in: cancelBag)
         
         signInButtonSubject
-            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in self?.signInButtonTapped() }
             .store(in: cancelBag)
     }

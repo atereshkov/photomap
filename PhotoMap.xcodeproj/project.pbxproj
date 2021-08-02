@@ -80,9 +80,7 @@
 		33334B592628829D00612573 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33334B582628829D00612573 /* BaseViewController.swift */; };
 		333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82DA263FFC7500AAD56F /* ErrorTextField.swift */; };
 		333B82DF2640053800AAD56F /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82DE2640053800AAD56F /* InitialViewController.swift */; };
-		333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82E2264019B100AAD56F /* InitialCoordinator.swift */; };
 		333B82E7264019DB00AAD56F /* Initial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 333B82E6264019DB00AAD56F /* Initial.storyboard */; };
-		333B82EA26412E7900AAD56F /* InitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82E926412E7900AAD56F /* InitialViewModel.swift */; };
 		333B82EC264137C700AAD56F /* MapViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82EB264137C700AAD56F /* MapViewModelType.swift */; };
 		333B82EE26417D5100AAD56F /* EmailValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82ED26417D5100AAD56F /* EmailValidationResult.swift */; };
 		333B82F026417DAC00AAD56F /* PasswordValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B82EF26417DAC00AAD56F /* PasswordValidationResult.swift */; };
@@ -93,7 +91,6 @@
 		333B83072642DEE400AAD56F /* PasswordValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */; };
 		333B83092642DF0000AAD56F /* UsernameValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */; };
 		333B830F2643E89200AAD56F /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */; };
-		333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B83102643EBA000AAD56F /* InitialViewModelType.swift */; };
 		333B831B264BD4F400AAD56F /* AppCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */; };
 		335881B5262DA2FE0057D25F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881B4262DA2FE0057D25F /* MapViewController.swift */; };
 		335881C3262DA5990057D25F /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335881C2262DA5990057D25F /* ProfileCoordinator.swift */; };
@@ -188,7 +185,6 @@
 		0B70B4E6267A41A100DDCCFA /* TimelineCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellViewModelTests.swift; sourceTree = "<group>"; };
 		0B9C06D32679F9FB006E9724 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		0BB93FEC268C473700731AB4 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
-		0BC39C5C265BA8FF00B67967 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		0BCA61BD268322500065B6E4 /* FullPhotoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPhotoViewModelTests.swift; sourceTree = "<group>"; };
 		0BCA61BF26832C370065B6E4 /* UIScrollView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ex.swift"; sourceTree = "<group>"; };
 		0BD78B02265F8989000B4DE6 /* FirestoreServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceMock.swift; sourceTree = "<group>"; };
@@ -214,7 +210,6 @@
 		23AE2E6E264D557A00FE673F /* MapPhotoViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewModelType.swift; path = MapPhoto/ViewModels/MapPhotoViewModelType.swift; sourceTree = "<group>"; };
 		23AE2E6F264D557A00FE673F /* MapPhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPhotoViewModel.swift; path = MapPhoto/ViewModels/MapPhotoViewModel.swift; sourceTree = "<group>"; };
 		23AE2E72264D558C00FE673F /* MapPhoto.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MapPhoto.storyboard; path = MapPhoto/MapPhoto.storyboard; sourceTree = "<group>"; };
-		23AE2E76264D563100FE673F /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Models/Category.swift; sourceTree = "<group>"; };
 		23AE2E78264D567C00FE673F /* Array+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Ex.swift"; sourceTree = "<group>"; };
 		23AE2E7A264D5D7200FE673F /* UIBarButtonItem+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Ex.swift"; sourceTree = "<group>"; };
 		23AE2E7B264D5D7200FE673F /* NSObject+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Ex.swift"; sourceTree = "<group>"; };
@@ -242,9 +237,7 @@
 		33334B582628829D00612573 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		333B82DA263FFC7500AAD56F /* ErrorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		333B82DE2640053800AAD56F /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
-		333B82E2264019B100AAD56F /* InitialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinator.swift; sourceTree = "<group>"; };
 		333B82E6264019DB00AAD56F /* Initial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Initial.storyboard; sourceTree = "<group>"; };
-		333B82E926412E7900AAD56F /* InitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModel.swift; sourceTree = "<group>"; };
 		333B82EB264137C700AAD56F /* MapViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelType.swift; sourceTree = "<group>"; };
 		333B82ED26417D5100AAD56F /* EmailValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidationResult.swift; sourceTree = "<group>"; };
 		333B82EF26417DAC00AAD56F /* PasswordValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidationResult.swift; sourceTree = "<group>"; };
@@ -254,7 +247,6 @@
 		333B83062642DEE400AAD56F /* PasswordValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatorTests.swift; sourceTree = "<group>"; };
 		333B83082642DF0000AAD56F /* UsernameValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidatorTests.swift; sourceTree = "<group>"; };
 		333B830E2643E89200AAD56F /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
-		333B83102643EBA000AAD56F /* InitialViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewModelType.swift; sourceTree = "<group>"; };
 		333B831A264BD4F400AAD56F /* AppCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorType.swift; sourceTree = "<group>"; };
 		335881B4262DA2FE0057D25F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		335881C2262DA5990057D25F /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -283,7 +275,6 @@
 		3383662326307272001EF61E /* AuthListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListener.swift; sourceTree = "<group>"; };
 		3384B79426394C9C006E05BD /* SignUpViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelType.swift; sourceTree = "<group>"; };
 		3384B79A26394CAB006E05BD /* SignInViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelType.swift; sourceTree = "<group>"; };
-		33877C8F2631543900A227F9 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		33877CAE2631598200A227F9 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
 		33877CBE2631915C00A227F9 /* storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboards.swift; sourceTree = SOURCE_ROOT; };
 		33877CC22631916100A227F9 /* assets-colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "assets-colors.swift"; sourceTree = SOURCE_ROOT; };
@@ -295,9 +286,6 @@
 		338BB610262D8EAE0001F530 /* Reachability+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reachability+Ex.swift"; sourceTree = "<group>"; };
 		338BB615262D8FA10001F530 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		338BB61A262D8FB20001F530 /* TimelineCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCoordinator.swift; sourceTree = "<group>"; };
-		338F8E29262F1A3200267889 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		338F8E2D262F1A6500267889 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
-		338F8E31262F1C9300267889 /* AuthServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceType.swift; sourceTree = "<group>"; };
 		338F8E37262F234C00267889 /* UITextField+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ex.swift"; sourceTree = "<group>"; };
 		33AC447B263C3B9E007B2444 /* UsernameValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidator.swift; sourceTree = "<group>"; };
 		33AC447D263C3BDC007B2444 /* UsernameValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameValidationError.swift; sourceTree = "<group>"; };
@@ -439,7 +427,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		23AE2E65264D546E00FE673F /* PhotoMap */ = {
+		23AE2E65264D546E00FE673F /* MapPhoto */ = {
 			isa = PBXGroup;
 			children = (
 				23AE2E72264D558C00FE673F /* MapPhoto.storyboard */,
@@ -447,7 +435,7 @@
 				23AE2E68264D54AD00FE673F /* Coordinators */,
 				23AE2E67264D549A00FE673F /* Controllers */,
 			);
-			name = PhotoMap;
+			name = MapPhoto;
 			sourceTree = "<group>";
 		};
 		23AE2E67264D549A00FE673F /* Controllers */ = {
@@ -482,7 +470,6 @@
 				01776AB0263996FF0058EDA7 /* PhotoMapTests */,
 				33334A3B2628324C00612573 /* Products */,
 				70054510067212F6756B982F /* Pods */,
-				337A7EC5263704D90071F6ED /* Recovered References */,
 				4FAC253CEE62297B71ABC1F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -544,7 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				0B4E4DC226807F1B00027A60 /* FullPhoto */,
-				23AE2E65264D546E00FE673F /* PhotoMap */,
+				23AE2E65264D546E00FE673F /* MapPhoto */,
 				333B82DC264004F500AAD56F /* Initial */,
 				33334B0A26287C3000612573 /* Profile */,
 				33334B0926287C1800612573 /* Auth */,
@@ -648,37 +635,10 @@
 		333B82DC264004F500AAD56F /* Initial */ = {
 			isa = PBXGroup;
 			children = (
-				333B82E826412E6300AAD56F /* ViewModels */,
-				333B82E02640053D00AAD56F /* Coordinators */,
-				333B82DD2640052000AAD56F /* Controllers */,
+				333B82DE2640053800AAD56F /* InitialViewController.swift */,
 				333B82E6264019DB00AAD56F /* Initial.storyboard */,
 			);
 			path = Initial;
-			sourceTree = "<group>";
-		};
-		333B82DD2640052000AAD56F /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				333B82DE2640053800AAD56F /* InitialViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		333B82E02640053D00AAD56F /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				333B82E2264019B100AAD56F /* InitialCoordinator.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		333B82E826412E6300AAD56F /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				333B82E926412E7900AAD56F /* InitialViewModel.swift */,
-				333B83102643EBA000AAD56F /* InitialViewModelType.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		333B83002642D8D100AAD56F /* Mocks */ = {
@@ -743,19 +703,6 @@
 				126DA55B26A05715009ACB9E /* CategoryTextField.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		337A7EC5263704D90071F6ED /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				338F8E2D262F1A6500267889 /* CancelBag.swift */,
-				338F8E29262F1A3200267889 /* AuthService.swift */,
-				338F8E31262F1C9300267889 /* AuthServiceType.swift */,
-				33877C8F2631543900A227F9 /* Authentication.storyboard */,
-				23AE2E76264D563100FE673F /* Category.swift */,
-				0BC39C5C265BA8FF00B67967 /* Marker.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		338364B0263018D0001EF61E /* Service */ = {
@@ -1294,7 +1241,6 @@
 				3374D0EC263B1BFF00A03E78 /* UIControl+Ex.swift in Sources */,
 				33334B592628829D00612573 /* BaseViewController.swift in Sources */,
 				126DA55C26A05715009ACB9E /* CategoryTextField.swift in Sources */,
-				333B82EA26412E7900AAD56F /* InitialViewModel.swift in Sources */,
 				338BB616262D8FA10001F530 /* MapCoordinator.swift in Sources */,
 				33877CBF2631915C00A227F9 /* storyboards.swift in Sources */,
 				3387F0FD2637F10B005DCFA0 /* EmailValidator.swift in Sources */,
@@ -1332,7 +1278,6 @@
 				0B9C06D42679F9FB006E9724 /* FileManagerService.swift in Sources */,
 				23AE2E79264D567C00FE673F /* Array+Ex.swift in Sources */,
 				0B4E4DCF2680808400027A60 /* FullPhotoViewModelType.swift in Sources */,
-				333B83112643EBA000AAD56F /* InitialViewModelType.swift in Sources */,
 				333B82DB263FFC7500AAD56F /* ErrorTextField.swift in Sources */,
 				338F8E38262F234C00267889 /* UITextField+Ex.swift in Sources */,
 				23AE2E6C264D552100FE673F /* MapPhotoViewController.swift in Sources */,
@@ -1378,7 +1323,6 @@
 				1277E3A82685F06E00F5156A /* ImagePickerProtocol.swift in Sources */,
 				23AE2E70264D557B00FE673F /* MapPhotoViewModelType.swift in Sources */,
 				33334A3E2628324C00612573 /* AppDelegate.swift in Sources */,
-				333B82E3264019B100AAD56F /* InitialCoordinator.swift in Sources */,
 				335882F7262DD0D20057D25F /* CategoryViewModel.swift in Sources */,
 				333B82EE26417D5100AAD56F /* EmailValidationResult.swift in Sources */,
 				33877CD3263199A500A227F9 /* strings.swift in Sources */,

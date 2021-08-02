@@ -9,8 +9,7 @@ import UIKit
 import Combine
 
 // MARK: - UIBarButtonItem
-final class UIBarButtonItemSubscription<SubscriberType: Subscriber>: Subscription
-where SubscriberType.Input == UIBarButtonItem {
+final class UIBarButtonItemSubscription<SubscriberType: Subscriber>: Subscription where SubscriberType.Input == UIBarButtonItem {
     private var subscriber: SubscriberType?
     private let control: UIBarButtonItem
     

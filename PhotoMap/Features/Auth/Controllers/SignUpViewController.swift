@@ -86,6 +86,7 @@ extension SignUpViewController {
         viewModel.loadingPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isLoading in
+                self?.view.isUserInteractionEnabled = !isLoading
                 isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
             })
             .store(in: cancelBag)

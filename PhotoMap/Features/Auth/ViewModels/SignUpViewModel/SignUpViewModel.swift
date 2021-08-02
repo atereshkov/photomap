@@ -81,7 +81,6 @@ class SignUpViewModel: SignUpViewModelType {
             .assign(to: &$isRegistrationEnabled)
         
         signUpButtonSubject
-            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in self?.signUpButtonTapped() }
             .store(in: cancelBag)
         
