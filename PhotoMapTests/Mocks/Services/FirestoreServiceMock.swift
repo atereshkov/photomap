@@ -49,6 +49,10 @@ class FirestoreServiceMock {
 }
 
 extension FirestoreServiceMock: FirestoreServiceType {
+    func saveUserIntoDatabase(_ user: User) -> AnyPublisher<Void, FirestoreError> {
+        Future { promise in promise(.success(())) }.eraseToAnyPublisher()
+    }
+    
     func getPhotos(for visibleRect: MKMapRect) -> AnyPublisher<[PhotoDVO], FirestoreError> {
         Future { [weak self] promise in
             if let error = self?.error { return promise(.failure(error)) }
@@ -78,7 +82,7 @@ extension FirestoreServiceMock: FirestoreServiceType {
         }
     }
 
-    func addUserPhoto(with photo: PhotoDVO) -> AnyPublisher<Void, FirestoreError> {
+    func addUserPhoto(with photo: UploadPhoto) -> AnyPublisher<Void, FirestoreError> {
         Future { [weak self] promise in
             if let error = self?.error { return promise(.failure(FirestoreError(error))) }
 
@@ -121,7 +125,6 @@ extension FirestoreServiceMock: FirestoreServiceType {
     
     func getCurrentUser() -> Future<User, FirestoreError> {
         Future { [weak self] promise in
-            guard self?.userId != nil else { return promise(.failure(.noCurrentUserId)) }
             if let error = self?.error { return promise(.failure(error)) }
             guard let currentUser = self?.currentUser else { return promise(.failure(.custom("no current user"))) }
             return promise(.success(currentUser))

@@ -9,9 +9,4 @@ import Foundation
 
 protocol AppCoordinatorType: Coordinator {
     func start()
-    func showMap()
-    func showAuth()
-    func showInitial()
-    func startMainScreen(isUserAuthorized: Bool)
-    func logout()
 }

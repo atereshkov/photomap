@@ -9,83 +9,56 @@ import UIKit
 import Combine
 
 // MARK: - UIBarButtonItem
-public extension UIBarButtonItem {
-    final class Subscription<SubscriberType: Subscriber,
-                             Input: UIBarButtonItem>: Combine.Subscription where SubscriberType.Input == Input {
-        private var subscriber: SubscriberType?
-        private let input: Input
-
-        public init(subscriber: SubscriberType, input: Input) {
-            self.subscriber = subscriber
-            self.input = input
-            input.target = self
-            input.action = #selector(eventHandler)
-        }
-
-        public func request(_ demand: Subscribers.Demand) {}
-
-        public func cancel() {
-            subscriber = nil
-        }
-
-        @objc private func eventHandler() {
-            _ = subscriber?.receive(input)
-        }
+final class UIBarButtonItemSubscription<SubscriberType: Subscriber>: Subscription where SubscriberType.Input == UIBarButtonItem {
+    private var subscriber: SubscriberType?
+    private let control: UIBarButtonItem
+    
+    var currentDemand: Subscribers.Demand = .none
+    
+    init(subscriber: SubscriberType, control: UIBarButtonItem) {
+        self.subscriber = subscriber
+        self.control = control
+        control.target = self
+        control.action = #selector(eventHandler)
     }
-
-    struct Publisher<Output: UIBarButtonItem>: Combine.Publisher {
-        public typealias Output = Output
-        public typealias Failure = Never
-
-        let output: Output
-
-        public init(output: Output) {
-            self.output = output
-        }
-
-        public func receive<S>(subscriber: S) where S: Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
-            let subscription = Subscription(subscriber: subscriber, input: output)
-            subscriber.receive(subscription: subscription)
+    
+    func request(_ demand: Subscribers.Demand) {
+        currentDemand += demand
+    }
+    
+    func cancel() {
+        subscriber = nil
+        control.action = nil
+        control.target = nil
+    }
+    
+    @objc private func eventHandler() {
+        if currentDemand > 0 {
+            currentDemand += subscriber?.receive(control) ?? .none
+            currentDemand -= 1
         }
     }
 }
 
-extension UIBarButtonItem: CombineCompatible {
-    public convenience init(image: UIImage?,
-                            style: UIBarButtonItem.Style,
-                            cancellables: inout Set<AnyCancellable>,
-                            action: @escaping () -> Void) {
-        self.init(image: image, style: style, target: nil, action: nil)
-        self.publisher.sink { _ in action() }.store(in: &cancellables)
+struct UIBarButtonItemPublisher: Publisher {
+    typealias Output = UIBarButtonItem
+    typealias Failure = Never
+    
+    let control: UIBarButtonItem
+    
+    init(control: UIBarButtonItem) {
+        self.control = control
     }
-
-    public convenience init(image: UIImage?,
-                            landscapeImagePhone: UIImage?,
-                            style: UIBarButtonItem.Style,
-                            cancellables: inout Set<AnyCancellable>,
-                            action: @escaping () -> Void) {
-        self.init(image: image, landscapeImagePhone: landscapeImagePhone, style: style, target: nil, action: nil)
-        self.publisher.sink { _ in action() }.store(in: &cancellables)
-    }
-
-    public convenience init(title: String?,
-                            style: UIBarButtonItem.Style,
-                            cancellables: inout Set<AnyCancellable>,
-                            action: @escaping () -> Void) {
-        self.init(title: title, style: style, target: nil, action: nil)
-        self.publisher.sink { _ in action() }.store(in: &cancellables)
-    }
-
-    public convenience init(barButtonSystemItem systemItem: UIBarButtonItem.SystemItem,
-                            cancellables: inout Set<AnyCancellable>,
-                            action: @escaping () -> Void) {
-        self.init(barButtonSystemItem: systemItem, target: nil, action: nil)
-        self.publisher.sink { _ in action() }.store(in: &cancellables)
+    
+    func receive<S>(subscriber: S) where S: Subscriber, S.Failure == UIBarButtonItemPublisher.Failure,
+                                         S.Input == UIBarButtonItemPublisher.Output {
+        let subscription = UIBarButtonItemSubscription(subscriber: subscriber, control: control)
+        subscriber.receive(subscription: subscription)
     }
 }
 
-extension CombineCompatible where Self: UIBarButtonItem {
-    var publisher: UIBarButtonItem.Publisher<UIBarButtonItem> {
-        .init(output: self)
+extension UIBarButtonItem {
+    func publisher() -> UIBarButtonItemPublisher {
+        return UIBarButtonItemPublisher(control: self)
     }
 }

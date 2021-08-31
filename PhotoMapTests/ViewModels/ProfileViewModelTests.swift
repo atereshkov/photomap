@@ -21,7 +21,6 @@ class ProfileViewModelTests: XCTestCase {
         coordinator = ProfileCoordinator(diContainer: diContainer)
         let firestoreServiceDI: FirestoreServiceType = diContainer.resolve()
         firestoreService = firestoreServiceDI as? FirestoreServiceMock
-        firestoreService.userId = "id"
         viewModel = ProfileViewModel(coordinator: coordinator, diContainer: diContainer)
         cancelBag = CancelBag()
     }

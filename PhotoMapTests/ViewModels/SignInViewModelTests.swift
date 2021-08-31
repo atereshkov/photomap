@@ -28,9 +28,8 @@ class SignInViewModelTests: XCTestCase {
         validationService = diContainer.resolve()
         authService = authServiceDI as? AuthUserServiceMock
         authListener = authListenerDI as? AuthListenerMock
-
-        let appCoordinator = AppCoordinator(window: UIWindow(), diContainer: diContainer)
-        authCoordinator = AuthCoordinator(appCoordinator: appCoordinator, diContainer: diContainer)
+        
+        authCoordinator = AuthCoordinator(diContainer: diContainer)
 
         viewModel = SignInViewModel(diContainer: diContainer,
                                     coordinator: authCoordinator)
@@ -146,7 +145,7 @@ class SignInViewModelTests: XCTestCase {
         XCTAssertFalse(authService.signInCalled)
         
         // Act
-        authCoordinator.showMapSubject
+        authCoordinator.successfulAuthorizationSubject
             .sink { _ in
                 showMapCalled = true
                 expectation.fulfill()

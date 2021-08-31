@@ -112,4 +112,9 @@ class MapViewController: BaseViewController {
         userTrackingButton.widthAnchor.constraint(equalToConstant: 35).isActive = true
         userTrackingButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
+    }
 }

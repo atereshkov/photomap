@@ -10,7 +10,7 @@ import Combine
 
 class SignInViewModel: SignInViewModelType {
 
-    private(set) weak var coordinator: SignInCoordinator!
+    private(set) var coordinator: AuthCoordinator
     
     private let cancelBag = CancelBag()
     private let authUserService: AuthUserServiceType
@@ -33,7 +33,7 @@ class SignInViewModel: SignInViewModelType {
         activityIndicator.loading
     }
     
-    init(diContainer: DIContainerType, coordinator: SignInCoordinator) {
+    init(diContainer: DIContainerType, coordinator: AuthCoordinator) {
         self.authUserService = diContainer.resolve()
         self.coordinator = coordinator
         self.validationService = diContainer.resolve()
@@ -48,8 +48,7 @@ class SignInViewModel: SignInViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.emailError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$emailError)
         
         $password
             .flatMap { [unowned self] password in
@@ -57,21 +56,17 @@ class SignInViewModel: SignInViewModelType {
             }
             .map { $0.localized }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.passwordError, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$passwordError)
         
         Publishers.CombineLatest($emailError, $passwordError)
             .map { $0 == nil && $1 == nil }
-            .assign(to: \.isAuthEnabled, on: self)
-            .store(in: cancelBag)
+            .assign(to: &$isAuthEnabled)
         
         signUpButtonSubject
-            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .subscribe(coordinator.showSignUpSubject)
             .store(in: cancelBag)
         
         signInButtonSubject
-            .throttle(for: .milliseconds(20), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in self?.signInButtonTapped() }
             .store(in: cancelBag)
     }
@@ -93,7 +88,7 @@ extension SignInViewModel {
                 case .failure(let error):
                     self?.coordinator.showErrorAlertSubject.send(ResponseError(error))
                 case .finished:
-                    self?.coordinator.showMapSubject.send()
+                    self?.coordinator.successfulAuthorizationSubject.send()
                 }
             }, receiveValue: { _ in })
             .store(in: cancelBag)

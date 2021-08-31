@@ -35,7 +35,7 @@ class ProfileViewController: BaseViewController {
     private func bind() {
         guard let viewModel = viewModel as? ProfileViewModel else { return }
         
-        logoutButton.publisher
+        logoutButton.publisher()
             .subscribe(viewModel.logoutButtonSubject)
             .store(in: cancelBag)
         
@@ -64,5 +64,10 @@ class ProfileViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = L10n.Main.TabBar.Profile.title
         navigationItem.rightBarButtonItem = logoutButton
+    }
+    
+    // MARK: - Deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

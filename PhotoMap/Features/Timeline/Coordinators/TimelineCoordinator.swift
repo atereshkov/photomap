@@ -8,10 +8,6 @@
 import UIKit
 import Combine
 
-protocol CategoriesProtocol {
-    var doneButtonPressedWithCategoriesSubject: PassthroughSubject<[Category], Never> { get }
-}
-
 class TimelineCoordinator: Coordinator, CategoriesProtocol {
     private(set) var childCoordinators = [Coordinator]()
     private(set) var navigationController = UINavigationController()
@@ -63,22 +59,42 @@ class TimelineCoordinator: Coordinator, CategoriesProtocol {
     
     private func presentCategoryScreen() {
         let coordinator = CategoryCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
-        let categoryNavigationVC = coordinator.start()
-        categoryNavigationVC.modalPresentationStyle = .fullScreen
-        navigationController.present(categoryNavigationVC, animated: true)
+        coordinator.categoriesSubject
+            .subscribe(doneButtonPressedWithCategoriesSubject)
+            .store(in: cancelBag)
+        
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+
+        navigationController.present(coordinator.start(), animated: true)
         childCoordinators.append(coordinator)
     }
     
     private func presentFullPhotoScreen(for marker: PhotoDVO) {
-        let coordinator = FullPhotoCoordinator(diContainer: diContainer)
-        coordinator.parentCoordinator = self
-        let fullPhotoVC = coordinator.start(with: marker)
+        let coordinator = FullPhotoCoordinator()
+        coordinator.dismissSubject
+            .sink(receiveValue: { [weak self] in self?.childDidFinish() })
+            .store(in: cancelBag)
+  
+        let fullPhotoVC = coordinator.start(with: marker, diContainer: diContainer)
         navigationController.pushViewController(fullPhotoVC, animated: true)
         childCoordinators.append(coordinator)
     }
     
+    // MARK: - Dismiss child coordinators
     func childDidFinish(_ childCoordinator: Coordinator) {
         childCoordinators.removeAll(where: { $0 === childCoordinator })
+    }
+
+    private func childDidFinish() {
+        if childCoordinators.last != nil {
+            childCoordinators.removeLast()
+        }
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

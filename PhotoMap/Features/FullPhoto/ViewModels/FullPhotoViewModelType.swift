@@ -11,7 +11,6 @@ import UIKit
 protocol FullPhotoViewModelTypeInput {
     var viewDidDisappearSubject: PassthroughSubject<Void, Never> { get }
     var imageTappedSubject: PassthroughSubject<GestureType, Never> { get }
-    var imageDoubleTappedSubject: PassthroughSubject<GestureType, Never> { get }
 }
 
 protocol FullPhotoViewModelTypeOutput {

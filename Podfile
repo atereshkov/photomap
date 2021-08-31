@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '13.0'
+platform :ios, '14.1'
 
 target 'PhotoMap' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -8,9 +8,6 @@ target 'PhotoMap' do
   # Pods for PhotoMap
 
   pod 'Firebase/Auth',   '~> 7.10.0'
-  pod 'Firebase/Crashlytics',   '~> 7.10.0'
-  pod 'Firebase/Analytics',   '~> 7.10.0'
-  pod 'Firebase/Messaging',   '~> 7.10.0'
   pod 'Firebase/Firestore',   '~> 7.10.0'
   pod 'Firebase/Storage',   '~> 7.10.0'
   pod 'ReachabilitySwift',   '~> 5.0.0'

@@ -74,13 +74,13 @@ class TimelineViewModel: TimelineViewModelType {
     }
     
     // MARK: - Input
-    let viewDidLoadSubject = PassthroughSubject<Void, Never>()
-    let categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
-    let showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
-    let searchTextSubject = CurrentValueSubject<String, Never>.init("")
-    let didSelectRowSubject = PassthroughSubject<IndexPath, Never>()
-    private let selectedCategoriesSubject = PassthroughSubject<[Category], Never>()
-    private let activityIndicator = ActivityIndicator()
+    private(set) var viewDidLoadSubject = PassthroughSubject<Void, Never>()
+    private(set) var categoryButtonSubject = PassthroughSubject<UIBarButtonItem, Never>()
+    private(set) var showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
+    private(set) var searchTextSubject = CurrentValueSubject<String, Never>.init("")
+    private(set) var didSelectRowSubject = PassthroughSubject<IndexPath, Never>()
+    private(set) var selectedCategoriesSubject = PassthroughSubject<[Category], Never>()
+    private(set) var activityIndicator = ActivityIndicator()
     
     // MARK: - Output
     func createCellViewModel(with marker: PhotoDVO) -> TimelineCellViewModel {

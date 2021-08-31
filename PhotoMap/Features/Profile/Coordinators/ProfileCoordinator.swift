@@ -20,6 +20,7 @@ class ProfileCoordinator: Coordinator {
     private(set) var showLogoutAlertSubject = PassthroughSubject<String, Never>()
     private(set) var showErrorSubject = PassthroughSubject<GeneralErrorType, Never>()
     private(set) var didTapLogoutSubject = PassthroughSubject<Void, Never>()
+    private(set) var dismissSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Lifecycle
     init(diContainer: DIContainerType) {
@@ -66,14 +67,13 @@ class ProfileCoordinator: Coordinator {
     }
     
     private func logoutFromAccount() {
-        guard let scene = UIApplication.shared.connectedScenes.first else { return }
-        guard let sceneDelegate = scene.delegate as? SceneDelegate else { return }
-        guard let window = sceneDelegate.window else { return }
-        guard let appCoordinator = sceneDelegate.appCoordinator else { return }
-        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft) { [weak self] in
-            self?.didTapLogoutSubject.send()
-            self?.navigationController.dismiss(animated: true)
-            appCoordinator.logout()
-        }
+        didTapLogoutSubject.send()
+        navigationController.dismiss(animated: true)
+        dismissSubject.send()
+    }
+    
+    // MARK: - Deinit
+    deinit {
+        cancelBag.cancel()
     }
 }

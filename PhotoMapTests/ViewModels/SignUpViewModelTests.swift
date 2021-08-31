@@ -24,8 +24,7 @@ class SignUpViewModelTests: XCTestCase {
         validationService = diContainer.resolve()
         authService = authServiceDI as? AuthUserServiceMock
         
-        authCoordinator = AuthCoordinator(appCoordinator: AppCoordinator(window: UIWindow(), diContainer: diContainer),
-                                          diContainer: diContainer)
+        authCoordinator = AuthCoordinator(diContainer: diContainer)
         viewModel = SignUpViewModel(diContainer: diContainer, coordinator: authCoordinator)
         cancelBag = CancelBag()
     }
@@ -162,7 +161,7 @@ class SignUpViewModelTests: XCTestCase {
         viewModel.password = "valid!"
         
         // Act
-        authCoordinator.showMapSubject
+        authCoordinator.successfulAuthorizationSubject
             .sink { _ in
                 showMapCalled = true
                 expectation.fulfill()

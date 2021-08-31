@@ -56,7 +56,7 @@ class TimelineViewController: BaseViewController {
         })
         .store(in: cancelBag)
         
-        categoryBarButton.publisher
+        categoryBarButton.publisher()
             .subscribe(viewModel.categoryButtonSubject)
             .store(in: cancelBag)
     }

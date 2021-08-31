@@ -10,7 +10,6 @@ import UIKit
 
 protocol CategoryViewModelTypeInput {
     var doneButtonSubject: PassthroughSubject<UIBarButtonItem, Never> { get }
-    var viewDidLoadSubject: PassthroughSubject<Void, Never> { get }
     func didSelectRow(at: IndexPath)
 }
 

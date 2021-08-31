@@ -33,9 +33,11 @@ class SignUpViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+  
         viewModel?.viewDidDisappearSubject.send()
     }
     
+    // MARK: - Deinit
     deinit {
         cancelBag.cancel()
     }
@@ -84,6 +86,7 @@ extension SignUpViewController {
         viewModel.loadingPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isLoading in
+                self?.view.isUserInteractionEnabled = !isLoading
                 isLoading ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating()
             })
             .store(in: cancelBag)

@@ -21,9 +21,9 @@ class CategoryViewController: BaseViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupViews()
         bind()
-        viewModel?.viewDidLoadSubject.send()
     }
     
     private func bind() {
@@ -34,7 +34,7 @@ class CategoryViewController: BaseViewController {
         })
         .store(in: cancelBag)
         
-        doneButton.publisher
+        doneButton.publisher()
             .subscribe(viewModel.doneButtonSubject)
             .store(in: cancelBag)
         
@@ -52,12 +52,19 @@ class CategoryViewController: BaseViewController {
     static func newInstance(viewModel: CategoryViewModelType) -> CategoryViewController {
         let categoryVC = StoryboardScene.Category.categoryViewController.instantiate()
         categoryVC.viewModel = viewModel
+        categoryVC.title = L10n.Categories.NavigationItem.title
+
         return categoryVC
     }
     
     private func setupViews() {
         tableView.tableFooterView = UIView()
         navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    // MARK: - deinit
+    deinit {
+        cancelBag.cancel()
     }
 }
 
